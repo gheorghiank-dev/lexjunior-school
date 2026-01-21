@@ -765,7 +765,7 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
     verifyTestId: null,
     feedbackTestId: null,
     showResultSummary: false,
-    renderBody: ({ exercises, answers, feedback, lastResult, roomState, onChange, onVerify, nextTo }) => (
+    renderBody: ({ exercises, answers, feedback, dictionaryNode, lastResult, roomState, onChange, onVerify, nextTo }) => (
       <>
         <section className="card">
           <h1 className="card-title">Camera 6 – Adverbe de frecvență: ce este adevărat pentru tine?</h1>
@@ -775,6 +775,8 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
             verificare, apasă pe 🔊 ca să asculți propoziția completă.
           </p>
         </section>
+
+        {dictionaryNode}
 
         <section className="card">
           <h2 className="card-title">Alege adverbul de frecvență potrivit</h2>
@@ -836,7 +838,7 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
           </div>
         </section>
       ) : null,
-    renderBody: ({ exercises, answers, feedback, lastResult, onChange, onVerify }) => (
+    renderBody: ({ exercises, answers, feedback, dictionaryNode, lastResult, onChange, onVerify }) => (
       <>
         <section className="card">
           <h1 className="card-title">Camera 7 – Traduceri cu rune: expresii de timp și adverbe de frecvență</h1>
@@ -847,6 +849,8 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
             scorul oficial.
           </p>
         </section>
+
+        {dictionaryNode}
 
         <section className="card">
           <p className="exercise-lead">Completează traducerile.</p>

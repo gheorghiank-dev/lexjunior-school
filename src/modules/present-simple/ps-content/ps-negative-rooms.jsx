@@ -507,12 +507,14 @@ export const PS_NEGATIVE_ROOMS = [
     dictionaryItems: NEG_ROOM_7_GLOSSARY_ITEMS,
     // Custom body to preserve the exact legacy nesting:
     // section-complete card appears inside the main card (between actions and result summary).
-    renderBody: ({ exercises, answers, feedback, roomState, lastResult, onChange, onVerify }) => (
+    renderBody: ({ exercises, answers, feedback, dictionaryNode, roomState, lastResult, onChange, onVerify }) => (
       <section className="card">
         <h2 className="card-title">Exercițiu – traducere în Present Simple negativ</h2>
         <p className="card-description">
           Tradu propozițiile din română în engleză, folosind corect <strong>Present Simple – Negative</strong>.
         </p>
+
+        {dictionaryNode}
 
         <TextareaExerciseList exercises={exercises} answers={answers} feedback={feedback} onChange={onChange} rows={1} stacked showIndex />
 

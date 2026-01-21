@@ -62,6 +62,20 @@ function PsRoomTemplateV1Render({
   const computedNextTo =
     nextTo === null ? null : nextTo ?? psRoomPath(sectionId, roomNumber + 1);
 
+  // MiniDictionary should appear right after the task (intro) and before questions.
+  // For custom bodies (renderBody), we expose it via templateCtx so the room can place it
+  // in the exact same spot.
+  const dictionaryNode =
+    showDictionaryCard && Array.isArray(dictionaryItems) && dictionaryItems.length > 0 ? (
+      <PsMiniDictionaryCard
+        description={
+          dictionaryDescription ??
+          "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea."
+        }
+        items={dictionaryItems}
+      />
+    ) : null;
+
   function handleVerifyClick() {
     if (typeof onVerify === "function") {
       onVerify();
@@ -94,6 +108,7 @@ function PsRoomTemplateV1Render({
     onChange,
     onVerify: handleVerifyClick,
     nextTo: computedNextTo,
+    dictionaryNode,
   };
 
   return (
@@ -114,57 +129,51 @@ function PsRoomTemplateV1Render({
       {typeof renderBody === "function" ? (
         renderBody(templateCtx)
       ) : (
-        <section className="card">
-          {cardIntro}
+        <>
+          {cardIntro ? <section className="card">{cardIntro}</section> : null}
 
-          {ExerciseListComponent ? (
-            <ExerciseListComponent
-              exercises={exercises}
-              answers={answers}
-              feedback={feedback}
-              onChange={onChange}
-              {...(exerciseListProps ?? {})}
+          {dictionaryNode}
+
+          <section className="card">
+            {ExerciseListComponent ? (
+              <ExerciseListComponent
+                exercises={exercises}
+                answers={answers}
+                feedback={feedback}
+                onChange={onChange}
+                {...(exerciseListProps ?? {})}
+              />
+            ) : null}
+
+            {afterExercises ?? null}
+
+            <PsExerciseActions
+              onVerify={handleVerifyClick}
+              nextTo={computedNextTo}
+              passed={roomState?.passed}
+              verifyLabel={verifyLabel ?? "Verifică răspunsurile"}
+              verifyTestId={verifyTestId}
             />
-          ) : null}
 
-          {afterExercises ?? null}
-
-          <PsExerciseActions
-            onVerify={handleVerifyClick}
-            nextTo={computedNextTo}
-            passed={roomState?.passed}
-            verifyLabel={verifyLabel ?? "Verifică răspunsurile"}
-            verifyTestId={verifyTestId}
-          />
-
-          {showResultSummary ? (
-            <PsResultSummary
-              lastResult={lastResult}
-              errorText={
-                errorText ??
-                "Mai ai câteva răspunsuri de corectat – verifică ce este marcat cu roșu."
-              }
-              successText={
-                successText ??
-                "Bravo! Ai completat corect toate exercițiile din această cameră!"
-              }
-              testId={feedbackTestId}
-            />
-          ) : null}
-        </section>
+            {showResultSummary ? (
+              <PsResultSummary
+                lastResult={lastResult}
+                errorText={
+                  errorText ??
+                  "Mai ai câteva răspunsuri de corectat – verifică ce este marcat cu roșu."
+                }
+                successText={
+                  successText ??
+                  "Bravo! Ai completat corect toate exercițiile din această cameră!"
+                }
+                testId={feedbackTestId}
+              />
+            ) : null}
+          </section>
+        </>
       )}
 
       {typeof afterBody === "function" ? afterBody(templateCtx) : afterBody ?? null}
-
-      {showDictionaryCard && Array.isArray(dictionaryItems) && dictionaryItems.length > 0 ? (
-        <PsMiniDictionaryCard
-          description={
-            dictionaryDescription ??
-            "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea."
-          }
-          items={dictionaryItems}
-        />
-      ) : null}
     </PsRoomPageShell>
   );
 }

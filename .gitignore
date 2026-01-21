@@ -2,4 +2,26 @@ node_modules/
 dist/
 playwright-report/
 test-results/
+
+# Env / secrets
 .env
+.env.*
+*.env
+*.env.*
+.envrc
+.envrc.*
+*.local
+
+# Common secret/key files (defense-in-depth)
+**/*secret*
+**/*apikey*
+**/*api-key*
+**/*openai*
+*.pem
+*.p12
+*.pfx
+*.key
+
+# OS / tooling
+.DS_Store
+Thumbs.db
