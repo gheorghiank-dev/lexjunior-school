@@ -1,0 +1,300 @@
+/* css/map.css – hartă vizuală pentru Present Simple */
+
+.map-wrapper {
+  padding-bottom: 3rem;
+}
+
+.map-header {
+  padding-bottom: 0.5rem;
+}
+
+.map-info {
+  margin-top: 1rem;
+}
+
+.map-main {
+  padding-top: 0.75rem;
+}
+
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(190px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .map-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .map-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.map-path {
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.map-path-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.map-path-body p {
+  margin: 0;
+}
+
+.map-path-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* wrapper for right-side meta (keys, etc.) */
+.map-path-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.map-path-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.map-path-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.map-pill {
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.06);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.map-pill--ok {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.map-pill--warn {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.map-theory {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+}
+
+.map-theory-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.map-theory-desc {
+  font-size: 0.9rem;
+  color: rgba(17, 24, 39, 0.85);
+  line-height: 1.35;
+}
+
+.map-path-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.map-path-body p {
+  margin: 0;
+}
+
+.map-theory-actions {
+  margin-bottom: 8px;
+}
+
+.map-rooms {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.map-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.map-node:focus {
+  outline: 2px solid rgba(99, 102, 241, 0.35);
+  outline-offset: 2px;
+}
+
+/* Present Simple – recolor map nodes into the yellow→orange family (keep statuses, remove lilac focus) */
+.app-shell.present-simple-theme .map-node {
+  border-color: rgba(245, 158, 11, 0.18);
+  background: rgba(255, 247, 214, 0.45);
+}
+
+.app-shell.present-simple-theme .map-node:focus {
+  outline-color: rgba(245, 158, 11, 0.35);
+}
+
+.map-node:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+}
+
+.map-node--locked {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.map-node--available {
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+}
+
+.map-node--done {
+  border-color: rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.app-shell.present-simple-theme .map-node--available {
+  box-shadow: 0 10px 18px rgba(245, 158, 11, 0.12);
+}
+
+.app-shell.present-simple-theme .map-node--done {
+  border-color: rgba(245, 158, 11, 0.28);
+  background: rgba(245, 158, 11, 0.10);
+}
+
+.map-node-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.map-node-title {
+  font-weight: 700;
+}
+
+.map-node-sub {
+  font-size: 0.82rem;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.map-node-icon {
+  font-size: 1.05rem;
+  min-width: 1.6rem;
+  text-align: right;
+}
+
+.map-final {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.map-final-card {
+  width: 100%;
+  max-width: 820px;
+  border-radius: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  user-select: none;
+}
+
+.map-final-card--locked {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.map-final-card--done {
+  border-color: rgba(34, 197, 94, 0.28);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.map-final-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.map-final-sub {
+  margin-top: 6px;
+  color: rgba(17, 24, 39, 0.85);
+}
+
+.map-final-meta {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+
+/* Rules list inside map info box */
+.map-rules-list {
+  margin: 0.5rem 0 0 1.1rem;
+  padding: 0;
+}
+.map-rules-list li {
+  margin: 0.35rem 0;
+  line-height: 1.35;
+}
+
+/* Discreet Overview link (Map -> Overview). */
+.map-overview-row {
+  margin-top: 0.35rem;
+}
+
+.map-overview-link {
+  display: inline-block;
+  font-size: 0.92rem;
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+.map-overview-link:hover {
+  opacity: 1;
+}

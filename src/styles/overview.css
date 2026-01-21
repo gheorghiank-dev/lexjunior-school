@@ -1,0 +1,53 @@
+/* Scoped styles for tense overviews (recap + forms tables).
+   IMPORTANT: kept separate from gameplay/map styles. */
+
+.overview-shell {
+  max-width: 980px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.overview-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+}
+
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.overview-table th,
+.overview-table td {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.55rem 0.6rem;
+  vertical-align: middle;
+}
+
+.overview-table th {
+  background: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+}
+
+.overview-table .ov-center {
+  text-align: center;
+}
+
+.overview-table .ov-em {
+  font-weight: 800;
+}
+
+.overview-table .ov-red {
+  color: #c5162e;
+}
+
+.overview-note {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
