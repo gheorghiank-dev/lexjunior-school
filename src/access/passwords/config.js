@@ -1,51 +1,49 @@
-import { ENV } from "../../environment.js";
-import { tenseModules } from "../../modules/tenses/registry.js";
+// src/access/passwords/config.js
 
-function readString(key, fallback = "") {
-  const v = import.meta && import.meta.env ? import.meta.env[key] : undefined;
-  if (typeof v === "string") return v;
-  return fallback;
+// Normalizare booleeni din env: "true", "1", "yes", "on" => true
+function envBool(value) {
+  if (value == null) return false;
+  const v = String(value).trim().toLowerCase();
+  return v === "true" || v === "1" || v === "yes" || v === "on";
 }
 
 export function isGlobalPasswordGateEnabled() {
-  return Boolean(ENV.ENABLE_PASSWORDS_GLOBAL);
+  return envBool(import.meta.env.VITE_ENABLE_PASSWORDS_GLOBAL);
 }
 
 export function isTensePasswordGateEnabled() {
-  return Boolean(ENV.ENABLE_PASSWORDS_BY_TENSE);
+  return envBool(import.meta.env.VITE_ENABLE_PASSWORDS_BY_TENSE);
 }
 
 export function getGlobalPassword() {
-  // Empty password means no lock even if the gate is enabled.
-  return String(ENV.PASSWORD_GLOBAL || "").trim();
+  const p = import.meta.env.VITE_PASSWORD_GLOBAL;
+  return typeof p === "string" && p.trim() ? p.trim() : "";
 }
 
-export function deriveTensePasswordEnvKey(tenseId) {
-  const id = String(tenseId || "").trim();
-  if (!id) return "";
-  return `VITE_PASSWORD_${id.toUpperCase().replace(/-/g, "_")}`;
-}
-
-export function getTenseModuleById(tenseId) {
-  const id = String(tenseId || "").trim();
-  return tenseModules.find((m) => m && m.id === id) || null;
-}
-
-export function getTensePasswordEnvKey(tenseId) {
-  const mod = getTenseModuleById(tenseId);
-  if (mod && typeof mod.passwordEnvKey === "string" && mod.passwordEnvKey.trim()) {
-    return mod.passwordEnvKey.trim();
-  }
-  return deriveTensePasswordEnvKey(tenseId);
-}
+// Map fix: tenseId -> env var
+// (Păstrăm simplu, fără importuri din modules, ca să rămână izolată zona de access.)
+const TENSE_ENV_KEYS = {
+  "present-simple": "VITE_PASSWORD_PRESENT_SIMPLE",
+  "present-continuous": "VITE_PASSWORD_PRESENT_CONTINUOUS",
+  "past-simple": "VITE_PASSWORD_PAST_SIMPLE",
+  "future-simple": "VITE_PASSWORD_FUTURE_SIMPLE",
+};
 
 export function getTensePassword(tenseId) {
-  const key = getTensePasswordEnvKey(tenseId);
+  const key = TENSE_ENV_KEYS[String(tenseId || "")] || "";
   if (!key) return "";
-  return readString(key, "").trim();
+  const p = import.meta.env[key];
+  return typeof p === "string" && p.trim() ? p.trim() : "";
 }
 
+// Label pentru UI (opțional)
+const TENSE_LABELS = {
+  "present-simple": "Present Simple",
+  "present-continuous": "Present Continuous",
+  "past-simple": "Past Simple",
+  "future-simple": "Future Simple",
+};
+
 export function getTenseLabel(tenseId) {
-  const mod = getTenseModuleById(tenseId);
-  return mod && typeof mod.label === "string" ? mod.label : "";
+  return TENSE_LABELS[String(tenseId || "")] || "";
 }
