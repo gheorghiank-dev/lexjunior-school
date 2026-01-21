@@ -1,6 +1,5 @@
-node_modules
-dist
+node_modules/
+dist/
+playwright-report/
+test-results/
 .env
-.env.*
-playwright-report
-test-results
