@@ -498,6 +498,16 @@ export const PS_NEGATIVE_ROOMS = [
     roomNumber: 7,
     exercises: NEG_ROOM_7_EXERCISES,
     lexHints: negativeLexHints.room7,
+    ExerciseListComponent: TextareaExerciseList,
+    exerciseListProps: { rows: 1, stacked: true, showIndex: true },
+    cardIntro: (
+      <>
+        <h2 className="card-title">Exercițiu – traducere în Present Simple negativ</h2>
+        <p className="card-description">
+          Tradu propozițiile din română în engleză, folosind corect <strong>Present Simple – Negative</strong>.
+        </p>
+      </>
+    ),
     // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
     verifyTestId: null,
     feedbackTestId: null,
@@ -505,6 +515,8 @@ export const PS_NEGATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți cuvintele și expresiile, apoi verifică cum le folosești în propozițiile tale la negativ.",
     dictionaryItems: NEG_ROOM_7_GLOSSARY_ITEMS,
+    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
     // Custom body to preserve the exact legacy nesting:
     // section-complete card appears inside the main card (between actions and result summary).
     renderBody: ({ exercises, answers, feedback, dictionaryNode, roomState, lastResult, onChange, onVerify }) => (

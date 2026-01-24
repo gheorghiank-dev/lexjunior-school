@@ -614,7 +614,7 @@ const TIME_EXPRESSIONS_ROOM_7_GLOSSARY = [
   { tts: "every Friday", word: "every Friday", meaning: "în fiecare vineri" },
 ];
 
-const PS_TIME_EXPRESSIONS_ROOMS = [
+export const PS_TIME_EXPRESSIONS_ROOMS = [
   {
     sectionId: SECTION_ID,
     sectionLabel: "Time Expressions",
@@ -760,6 +760,16 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
     lexHints: timeExpressionsLexHints.room6,
     ExerciseListComponent: FrequencyAdverbExerciseList,
     exerciseListProps: { showIndex: true },
+    cardIntro: (
+      <>
+        <h2 className="card-title">Camera 6 – Adverbe de frecvență: ce este adevărat pentru tine?</h2>
+        <p className="card-description">
+          Completează propozițiile alegând un adverb de frecvență care se potrivește cu viața ta de zi cu zi. {" "}
+          <strong>Toate variantele sunt corecte gramatical</strong>, important este să fie adevărate pentru tine. După
+          verificare, apasă pe 🔊 ca să asculți propoziția completă.
+        </p>
+      </>
+    ),
     verifyTransform: timeExpressionsRoom6VerifyTransform,
     // Room 6 previously had no ps-check/ps-feedback testIDs; keep output identical.
     verifyTestId: null,
@@ -809,6 +819,8 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
     dictionaryDescription:
       "Ascultă adverbele de frecvență și gândește-te la exemple din viața ta pentru fiecare.",
     dictionaryItems: TIME_EXPRESSIONS_ROOM_6_GLOSSARY,
+    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce este marcat cu roșu.",
+    successText: "Bravo! Ai completat corect toate exercițiile din această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -816,6 +828,19 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
     roomNumber: 7,
     exercises: TIME_EXPRESSIONS_ROOM_7_EXERCISES,
     lexHints: timeExpressionsLexHints.room7,
+    ExerciseListComponent: RuneTranslationExerciseList,
+    exerciseListProps: { showIndex: true },
+    cardIntro: (
+      <>
+        <h2 className="card-title">Camera 7 – Traduceri cu rune: expresii de timp și adverbe de frecvență</h2>
+        <p className="card-description">
+          Tradu propozițiile în engleză, folosind <strong>Present Simple</strong> și {" "}
+          <strong>expresii de timp / adverbe de frecvență</strong>. Folosește rune magice pentru a primi un indiciu, a
+          scrie răspunsul sau a verifica propoziția, apoi apasă <strong>Verifică răspunsurile</strong> pentru a obține
+          scorul oficial.
+        </p>
+      </>
+    ),
     // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
     verifyTestId: null,
     feedbackTestId: null,
@@ -868,6 +893,8 @@ const PS_TIME_EXPRESSIONS_ROOMS = [
         </section>
       </>
     ),
+    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
+    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
 ];
 
