@@ -21,18 +21,31 @@ export default function PresentSimpleOverviewPage() {
         <div className="card">
           <div className="card-title">Afirmativ</div>
           <p className="card-description">
-            În forma afirmativă, verbul este la forma de bază. La persoana a
-            III-a singular (he/she/it) adăugăm <em>-s</em> sau <em>-es</em>.
+            În Present Simple, la afirmativ, ordinea cuvintelor este întotdeauna{" "}
+            <strong>Subiect + Verb</strong>. Pentru{" "}
+            <strong>he / she / it</strong>, verbul primește de obicei{" "}
+            <strong>-s</strong> sau <strong>-es</strong>.
           </p>
-          <ul class="ps-mini-list">
-            <li>
-              <strong>Formă:</strong> S + verb (he/she/it: verb + <em>s</em> /{" "}
-              <em>es</em>)
-            </li>
-            <li>
-              <strong>Exemplu:</strong> She <em>plays</em> tennis on Mondays.
-            </li>
-          </ul>
+
+          <div className="ps-structure-box">
+            <h3 className="ps-structure-title">Structură generală</h3>
+
+            <p className="ps-text">
+              <span className="rule-highlight">
+                Subject + Verb (forma de bază)
+              </span>
+            </p>
+
+            <p className="ps-text">
+              <span className="rule-highlight">
+                Subject + Verb +{" "}
+                <span className="rule-highlight-emphasis">-s / -es</span>
+              </span>{" "}
+              <span className="ps-structure-note">
+                (pentru <strong>he / she / it</strong>)
+              </span>
+            </p>
+          </div>
         </div>
 
         <div className="card">
