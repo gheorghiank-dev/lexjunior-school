@@ -20,13 +20,9 @@ export function PsMiniDictionaryCard({ description, items }) {
   return (
     <section className="card">
       <h2 className="card-title">Mini-dicționar</h2>
-      {description && (
-        <p className="card-description">
-          {description}
-        </p>
-      )}
+      {description && <p className="card-description">{description}</p>}
       <details>
-        <summary>Deschide lista de verbe</summary>
+        <summary>Deschide dicționarul</summary>
         <ul className="glossary-list">
           {items.map((item, index) => (
             <li key={index} className="glossary-item">

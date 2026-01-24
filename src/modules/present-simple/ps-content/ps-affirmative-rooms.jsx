@@ -25,23 +25,83 @@ const SECTION_ID = "affirmative";
 const AFF_ROOM_1_EXERCISES = [
   { id: 1, prompt: "I join → he ", correct: "joins", tts: "I join, he joins." },
   { id: 2, prompt: "I like → he ", correct: "likes", tts: "I like, he likes." },
-  { id: 3, prompt: "I kiss → he ", correct: "kisses", tts: "I kiss, he kisses." },
+  {
+    id: 3,
+    prompt: "I kiss → he ",
+    correct: "kisses",
+    tts: "I kiss, he kisses.",
+  },
   { id: 4, prompt: "I fly → he ", correct: "flies", tts: "I fly, he flies." },
-  { id: 5, prompt: "I watch → he ", correct: "watches", tts: "I watch, he watches." },
-  { id: 6, prompt: "I enjoy → he ", correct: "enjoys", tts: "I enjoy, he enjoys." },
+  {
+    id: 5,
+    prompt: "I watch → he ",
+    correct: "watches",
+    tts: "I watch, he watches.",
+  },
+  {
+    id: 6,
+    prompt: "I enjoy → he ",
+    correct: "enjoys",
+    tts: "I enjoy, he enjoys.",
+  },
   { id: 7, prompt: "I talk → he ", correct: "talks", tts: "I talk, he talks." },
   { id: 8, prompt: "I go → he ", correct: "goes", tts: "I go, he goes." },
-  { id: 9, prompt: "I wash → he ", correct: "washes", tts: "I wash, he washes." },
-  { id: 10, prompt: "I dance → he ", correct: "dances", tts: "I dance, he dances." },
-  { id: 11, prompt: "I paint → he ", correct: "paints", tts: "I paint, he paints." },
-  { id: 12, prompt: "I teach → he ", correct: "teaches", tts: "I teach, he teaches." },
-  { id: 13, prompt: "I study → he ", correct: "studies", tts: "I study, he studies." },
+  {
+    id: 9,
+    prompt: "I wash → he ",
+    correct: "washes",
+    tts: "I wash, he washes.",
+  },
+  {
+    id: 10,
+    prompt: "I dance → he ",
+    correct: "dances",
+    tts: "I dance, he dances.",
+  },
+  {
+    id: 11,
+    prompt: "I paint → he ",
+    correct: "paints",
+    tts: "I paint, he paints.",
+  },
+  {
+    id: 12,
+    prompt: "I teach → he ",
+    correct: "teaches",
+    tts: "I teach, he teaches.",
+  },
+  {
+    id: 13,
+    prompt: "I study → he ",
+    correct: "studies",
+    tts: "I study, he studies.",
+  },
   { id: 14, prompt: "I try → he ", correct: "tries", tts: "I try, he tries." },
-  { id: 15, prompt: "I watch → she ", correct: "watches", tts: "I watch, she watches." },
-  { id: 16, prompt: "I clean → she ", correct: "cleans", tts: "I clean, she cleans." },
+  {
+    id: 15,
+    prompt: "I watch → she ",
+    correct: "watches",
+    tts: "I watch, she watches.",
+  },
+  {
+    id: 16,
+    prompt: "I clean → she ",
+    correct: "cleans",
+    tts: "I clean, she cleans.",
+  },
   { id: 17, prompt: "I do → she ", correct: "does", tts: "I do, she does." },
-  { id: 18, prompt: "I fix → she ", correct: "fixes", tts: "I fix, she fixes." },
-  { id: 19, prompt: "I wish → she ", correct: "wishes", tts: "I wish, she wishes." },
+  {
+    id: 18,
+    prompt: "I fix → she ",
+    correct: "fixes",
+    tts: "I fix, she fixes.",
+  },
+  {
+    id: 19,
+    prompt: "I wish → she ",
+    correct: "wishes",
+    tts: "I wish, she wishes.",
+  },
   { id: 20, prompt: "I go → she ", correct: "goes", tts: "I go, she goes." },
 ];
 
@@ -68,16 +128,70 @@ const AFF_ROOM_1_GLOSSARY_ITEMS = [
 
 // -------------------- Room 2 --------------------
 const AFF_ROOM_2_EXERCISES = [
-  { id: 1, prompt: "I like apples. → She ", correct: "likes apples", tts: "She likes apples." },
-  { id: 2, prompt: "I go to school by bus. → He ", correct: "goes to school by bus", tts: "He goes to school by bus." },
-  { id: 3, prompt: "I watch TV in the evening. → She ", correct: "watches TV in the evening", tts: "She watches TV in the evening." },
-  { id: 4, prompt: "I play football on Sundays. → He ", correct: "plays football on Sundays", tts: "He plays football on Sundays." },
-  { id: 5, prompt: "I study English every day. → She ", correct: "studies English every day", tts: "She studies English every day." },
-  { id: 6, prompt: "I do my homework in the afternoon. → He ", correct: "does his homework in the afternoon", tts: "He does his homework in the afternoon." },
-  { id: 7, prompt: "I wash the dishes after dinner. → She ", correct: "washes the dishes after dinner", tts: "She washes the dishes after dinner." },
-  { id: 8, prompt: "I fix my bike at the weekend. → He ", correct: "fixes his bike at the weekend", tts: "He fixes his bike at the weekend." },
-  { id: 9, prompt: "I clean my room on Fridays. → She ", correct: "cleans her room on Fridays", tts: "She cleans her room on Fridays." },
-  { id: 10, prompt: "I paint pictures in my free time. → He ", correct: "paints pictures in his free time", tts: "He paints pictures in his free time." },
+  {
+    id: 1,
+    template: "1) I like apples. → She [gap] apples.",
+    correct: "likes",
+    tts: "She likes apples.",
+  },
+  {
+    id: 2,
+    template: "2) I go to school by bus. → He [gap] to school by bus.",
+    correct: "goes",
+    tts: "He goes to school by bus.",
+  },
+  {
+    id: 3,
+    template: "3) I watch TV in the evening. → She [gap] TV in the evening.",
+    correct: "watches",
+    tts: "She watches TV in the evening.",
+  },
+  {
+    id: 4,
+    template: "4) I play football on Sundays. → He [gap] football on Sundays.",
+    correct: "plays",
+    tts: "He plays football on Sundays.",
+  },
+  {
+    id: 5,
+    template: "5) I study English every day. → She [gap] English every day.",
+    correct: "studies",
+    tts: "She studies English every day.",
+  },
+  {
+    id: 6,
+    template:
+      "6) I do my homework in the afternoon. → He [gap] his homework in the afternoon.",
+    correct: "does",
+    tts: "He does his homework in the afternoon.",
+  },
+  {
+    id: 7,
+    template:
+      "7) I wash the dishes after dinner. → She [gap] the dishes after dinner.",
+    correct: "washes",
+    tts: "She washes the dishes after dinner.",
+  },
+  {
+    id: 8,
+    template:
+      "8) I fix my bike at the weekend. → He [gap] his bike at the weekend.",
+    correct: "fixes",
+    tts: "He fixes his bike at the weekend.",
+  },
+  {
+    id: 9,
+    template: "9) I clean my room on Fridays. → She [gap] her room on Fridays.",
+    correct: "cleans",
+    tts: "She cleans her room on Fridays.",
+  },
+  {
+    id: 10,
+    template:
+      "10) I paint pictures in my free time. → He [gap] pictures in his free time.",
+    correct: "paints",
+    tts: "He paints pictures in his free time.",
+  },
 ];
 
 const AFF_ROOM_2_GLOSSARY_ITEMS = [
@@ -95,16 +209,69 @@ const AFF_ROOM_2_GLOSSARY_ITEMS = [
 
 // -------------------- Room 3 --------------------
 const AFF_ROOM_3_EXERCISES = [
-  { id: 1, template: "1) I fix machines. → He [gap] machines.", correct: "fixes", tts: "He fixes machines." },
-  { id: 2, template: "2) They build houses. → My father [gap] houses.", correct: "builds", tts: "My father builds houses." },
-  { id: 3, template: "3) We catch the bus at 7. → She [gap] the bus at 7.", correct: "catches", tts: "She catches the bus at 7." },
-  { id: 4, template: "4) They wash the car on Sundays. → He [gap] the car on Sundays.", correct: "washes", tts: "He washes the car on Sundays." },
-  { id: 5, template: "5) We go to the park after school. → She [gap] to the park after school.", correct: "goes", tts: "She goes to the park after school." },
-  { id: 6, template: "6) They watch cartoons in the evening. → He [gap] cartoons.", correct: "watches", tts: "He watches cartoons." },
-  { id: 7, template: "7) We study English on Monday. → She [gap] English on Monday.", correct: "studies", tts: "She studies English on Monday." },
-  { id: 8, template: "8) They play tennis at the weekend. → He [gap] tennis.", correct: "plays", tts: "He plays tennis." },
-  { id: 9, template: "9) We do our homework in the afternoon. → She [gap] her homework in the afternoon.", correct: "does", tts: "She does her homework in the afternoon." },
-  { id: 10, template: "10) They clean the classroom on Fridays. → He [gap] the classroom on Fridays.", correct: "cleans", tts: "He cleans the classroom on Fridays." },
+  {
+    id: 1,
+    template: "1) I fix machines. → He [gap] machines.",
+    correct: "fixes",
+    tts: "He fixes machines.",
+  },
+  {
+    id: 2,
+    template: "2) They build houses. → My father [gap] houses.",
+    correct: "builds",
+    tts: "My father builds houses.",
+  },
+  {
+    id: 3,
+    template: "3) We catch the bus at 7. → She [gap] the bus at 7.",
+    correct: "catches",
+    tts: "She catches the bus at 7.",
+  },
+  {
+    id: 4,
+    template: "4) They wash the car on Sundays. → He [gap] the car on Sundays.",
+    correct: "washes",
+    tts: "He washes the car on Sundays.",
+  },
+  {
+    id: 5,
+    template:
+      "5) We go to the park after school. → She [gap] to the park after school.",
+    correct: "goes",
+    tts: "She goes to the park after school.",
+  },
+  {
+    id: 6,
+    template: "6) They watch cartoons in the evening. → He [gap] cartoons.",
+    correct: "watches",
+    tts: "He watches cartoons.",
+  },
+  {
+    id: 7,
+    template: "7) We study English on Monday. → She [gap] English on Monday.",
+    correct: "studies",
+    tts: "She studies English on Monday.",
+  },
+  {
+    id: 8,
+    template: "8) They play tennis at the weekend. → He [gap] tennis.",
+    correct: "plays",
+    tts: "He plays tennis.",
+  },
+  {
+    id: 9,
+    template:
+      "9) We do our homework in the afternoon. → She [gap] her homework in the afternoon.",
+    correct: "does",
+    tts: "She does her homework in the afternoon.",
+  },
+  {
+    id: 10,
+    template:
+      "10) They clean the classroom on Fridays. → He [gap] the classroom on Fridays.",
+    correct: "cleans",
+    tts: "He cleans the classroom on Fridays.",
+  },
 ];
 
 const AFF_ROOM_3_GLOSSARY_ITEMS = [
@@ -227,7 +394,11 @@ const AFF_ROOM_4_EXERCISES = [
 const AFF_ROOM_4_GLOSSARY_ITEMS = [
   { tts: "know", word: "know", meaning: "a ști" },
   { tts: "the answer", word: "the answer", meaning: "răspunsul" },
-  { tts: "keep promises", word: "keep promises", meaning: "a-și ține promisiunile" },
+  {
+    tts: "keep promises",
+    word: "keep promises",
+    meaning: "a-și ține promisiunile",
+  },
   { tts: "drive a taxi", word: "drive a taxi", meaning: "a conduce un taxi" },
   { tts: "restaurant", word: "restaurant", meaning: "restaurant" },
   { tts: "make cakes", word: "make cakes", meaning: "a face prăjituri" },
@@ -244,31 +415,113 @@ const AFF_ROOM_4_GLOSSARY_ITEMS = [
 
 // -------------------- Room 5 --------------------
 const AFF_ROOM_5_EXERCISES = [
-  { id: 1, template: "He write emails every morning. → He [gap] emails every morning.", correct: "writes", tts: "He writes emails every morning." },
-  { id: 2, template: "My sister help me with homework. → My sister [gap] me with homework.", correct: "helps", tts: "My sister helps me with homework." },
-  { id: 3, template: "The plane fly above the clouds. → The plane [gap] above the clouds.", correct: "flies", tts: "The plane flies above the clouds." },
-  { id: 4, template: "Peter catch the ball easily. → Peter [gap] the ball easily.", correct: "catches", tts: "Peter catches the ball easily." },
-  { id: 5, template: "The dog eat very fast. → The dog [gap] very fast.", correct: "eats", tts: "The dog eats very fast." },
-  { id: 6, template: "She open the window every night. → She [gap] the window every night.", correct: "opens", tts: "She opens the window every night." },
-  { id: 7, template: "Tom fix cars at the garage. → Tom [gap] cars at the garage.", correct: "fixes", tts: "Tom fixes cars at the garage." },
-  { id: 8, template: "The man carry heavy boxes. → The man [gap] heavy boxes.", correct: "carries", tts: "The man carries heavy boxes." },
-  { id: 9, template: "The teacher teach three subjects. → The teacher [gap] three subjects.", correct: "teaches", tts: "The teacher teaches three subjects." },
-  { id: 10, template: "Mary go to piano lessons. → Mary [gap] to piano lessons.", correct: "goes", tts: "Mary goes to piano lessons." },
+  {
+    id: 1,
+    template: "He write emails every morning. → He [gap] emails every morning.",
+    correct: "writes",
+    tts: "He writes emails every morning.",
+  },
+  {
+    id: 2,
+    template:
+      "My sister help me with homework. → My sister [gap] me with homework.",
+    correct: "helps",
+    tts: "My sister helps me with homework.",
+  },
+  {
+    id: 3,
+    template:
+      "The plane fly above the clouds. → The plane [gap] above the clouds.",
+    correct: "flies",
+    tts: "The plane flies above the clouds.",
+  },
+  {
+    id: 4,
+    template: "Peter catch the ball easily. → Peter [gap] the ball easily.",
+    correct: "catches",
+    tts: "Peter catches the ball easily.",
+  },
+  {
+    id: 5,
+    template: "The dog eat very fast. → The dog [gap] very fast.",
+    correct: "eats",
+    tts: "The dog eats very fast.",
+  },
+  {
+    id: 6,
+    template:
+      "She open the window every night. → She [gap] the window every night.",
+    correct: "opens",
+    tts: "She opens the window every night.",
+  },
+  {
+    id: 7,
+    template: "Tom fix cars at the garage. → Tom [gap] cars at the garage.",
+    correct: "fixes",
+    tts: "Tom fixes cars at the garage.",
+  },
+  {
+    id: 8,
+    template: "The man carry heavy boxes. → The man [gap] heavy boxes.",
+    correct: "carries",
+    tts: "The man carries heavy boxes.",
+  },
+  {
+    id: 9,
+    template:
+      "The teacher teach three subjects. → The teacher [gap] three subjects.",
+    correct: "teaches",
+    tts: "The teacher teaches three subjects.",
+  },
+  {
+    id: 10,
+    template: "Mary go to piano lessons. → Mary [gap] to piano lessons.",
+    correct: "goes",
+    tts: "Mary goes to piano lessons.",
+  },
 ];
 
 const AFF_ROOM_5_GLOSSARY_ITEMS = [
   { tts: "write emails", word: "write emails", meaning: "a scrie emailuri" },
-  { tts: "every morning", word: "every morning", meaning: "în fiecare dimineață" },
+  {
+    tts: "every morning",
+    word: "every morning",
+    meaning: "în fiecare dimineață",
+  },
   { tts: "help", word: "help", meaning: "a ajuta" },
   { tts: "homework", word: "homework", meaning: "teme" },
-  { tts: "fly above the clouds", word: "fly above the clouds", meaning: "a zbura deasupra norilor" },
+  {
+    tts: "fly above the clouds",
+    word: "fly above the clouds",
+    meaning: "a zbura deasupra norilor",
+  },
   { tts: "catch the ball", word: "catch the ball", meaning: "a prinde mingea" },
-  { tts: "eat very fast", word: "eat very fast", meaning: "a mânca foarte repede" },
-  { tts: "open the window", word: "open the window", meaning: "a deschide fereastra" },
+  {
+    tts: "eat very fast",
+    word: "eat very fast",
+    meaning: "a mânca foarte repede",
+  },
+  {
+    tts: "open the window",
+    word: "open the window",
+    meaning: "a deschide fereastra",
+  },
   { tts: "fix cars", word: "fix cars", meaning: "a repara mașini" },
-  { tts: "carry heavy boxes", word: "carry heavy boxes", meaning: "a căra cutii grele" },
-  { tts: "teach three subjects", word: "teach three subjects", meaning: "a preda trei materii" },
-  { tts: "go to piano lessons", word: "go to piano lessons", meaning: "a merge la lecții de pian" },
+  {
+    tts: "carry heavy boxes",
+    word: "carry heavy boxes",
+    meaning: "a căra cutii grele",
+  },
+  {
+    tts: "teach three subjects",
+    word: "teach three subjects",
+    meaning: "a preda trei materii",
+  },
+  {
+    tts: "go to piano lessons",
+    word: "go to piano lessons",
+    meaning: "a merge la lecții de pian",
+  },
 ];
 
 // -------------------- Room 6 --------------------
@@ -336,35 +589,117 @@ const AFF_ROOM_6_EXERCISES = [
 ];
 
 const AFF_ROOM_6_GLOSSARY_ITEMS = [
-  { tts: "play the guitar", word: "play the guitar", meaning: "a cânta la chitară" },
-  { tts: "every weekend", word: "every weekend", meaning: "în fiecare weekend" },
+  {
+    tts: "play the guitar",
+    word: "play the guitar",
+    meaning: "a cânta la chitară",
+  },
+  {
+    tts: "every weekend",
+    word: "every weekend",
+    meaning: "în fiecare weekend",
+  },
   { tts: "wash the car", word: "wash the car", meaning: "a spăla mașina" },
   { tts: "on Sundays", word: "on Sundays", meaning: "duminica" },
-  { tts: "read the newspaper", word: "read the newspaper", meaning: "a citi ziarul" },
-  { tts: "every morning", word: "every morning", meaning: "în fiecare dimineață" },
-  { tts: "walk to school", word: "walk to school", meaning: "a merge pe jos la școală" },
+  {
+    tts: "read the newspaper",
+    word: "read the newspaper",
+    meaning: "a citi ziarul",
+  },
+  {
+    tts: "every morning",
+    word: "every morning",
+    meaning: "în fiecare dimineață",
+  },
+  {
+    tts: "walk to school",
+    word: "walk to school",
+    meaning: "a merge pe jos la școală",
+  },
   { tts: "every day", word: "every day", meaning: "în fiecare zi" },
   { tts: "cook dinner", word: "cook dinner", meaning: "a găti cina" },
   { tts: "every evening", word: "every evening", meaning: "în fiecare seară" },
-  { tts: "write new songs", word: "write new songs", meaning: "a scrie cântece noi" },
+  {
+    tts: "write new songs",
+    word: "write new songs",
+    meaning: "a scrie cântece noi",
+  },
   { tts: "paint the house", word: "paint the house", meaning: "a vopsi casa" },
-  { tts: "take amazing photos", word: "take amazing photos", meaning: "a face poze uimitoare" },
+  {
+    tts: "take amazing photos",
+    word: "take amazing photos",
+    meaning: "a face poze uimitoare",
+  },
   { tts: "drop the toys", word: "drop the toys", meaning: "a scăpa jucăriile" },
-  { tts: "open at 10 o'clock", word: "open at 10 o'clock", meaning: "a se deschide la ora 10" },
+  {
+    tts: "open at 10 o'clock",
+    word: "open at 10 o'clock",
+    meaning: "a se deschide la ora 10",
+  },
 ];
 
 // -------------------- Room 7 --------------------
 const AFF_ROOM_7_EXERCISES = [
-  { id: 1, prompt: "El repara telefoane.", correct: "he repairs phones", tts: "He repairs phones." },
-  { id: 2, prompt: "Ea conduce o masina rosie.", correct: "she drives a red car", tts: "She drives a red car." },
-  { id: 3, prompt: "Fratele meu gaseste solutii rapid.", correct: "my brother finds solutions quickly", tts: "My brother finds solutions quickly." },
-  { id: 4, prompt: "Bunica mea face prajituri delicioase.", correct: "my grandmother makes delicious cakes", tts: "My grandmother makes delicious cakes." },
-  { id: 5, prompt: "Tom deschide magazinul la ora 9.", correct: "tom opens the shop at 9 o'clock", tts: "Tom opens the shop at 9 o'clock." },
-  { id: 6, prompt: "Cainele se joaca cu jucariile.", correct: "the dog plays with the toys", tts: "The dog plays with the toys." },
-  { id: 7, prompt: "Ei construiesc case moderne.", correct: "they build modern houses", tts: "They build modern houses." },
-  { id: 8, prompt: "El aduce florile in fiecare zi.", correct: "he brings the flowers every day", tts: "He brings the flowers every day." },
-  { id: 9, prompt: "Sora mea canta foarte frumos.", correct: "my sister sings very beautifully", tts: "My sister sings very beautifully." },
-  { id: 10, prompt: "Copilul deseneaza pe hartie.", correct: "the child draws on the paper", tts: "The child draws on the paper." },
+  {
+    id: 1,
+    prompt: "El repara telefoane.",
+    correct: "he repairs phones",
+    tts: "He repairs phones.",
+  },
+  {
+    id: 2,
+    prompt: "Ea conduce o masina rosie.",
+    correct: "she drives a red car",
+    tts: "She drives a red car.",
+  },
+  {
+    id: 3,
+    prompt: "Fratele meu gaseste solutii rapid.",
+    correct: "my brother finds solutions quickly",
+    tts: "My brother finds solutions quickly.",
+  },
+  {
+    id: 4,
+    prompt: "Bunica mea face prajituri delicioase.",
+    correct: "my grandmother makes delicious cakes",
+    tts: "My grandmother makes delicious cakes.",
+  },
+  {
+    id: 5,
+    prompt: "Tom deschide magazinul la ora 9.",
+    correct: "tom opens the shop at 9 o'clock",
+    tts: "Tom opens the shop at 9 o'clock.",
+  },
+  {
+    id: 6,
+    prompt: "Cainele se joaca cu jucariile.",
+    correct: "the dog plays with the toys",
+    tts: "The dog plays with the toys.",
+  },
+  {
+    id: 7,
+    prompt: "Ei construiesc case moderne.",
+    correct: "they build modern houses",
+    tts: "They build modern houses.",
+  },
+  {
+    id: 8,
+    prompt: "El aduce florile in fiecare zi.",
+    correct: "he brings the flowers every day",
+    tts: "He brings the flowers every day.",
+  },
+  {
+    id: 9,
+    prompt: "Sora mea canta foarte frumos.",
+    correct: "my sister sings very beautifully",
+    tts: "My sister sings very beautifully.",
+  },
+  {
+    id: 10,
+    prompt: "Copilul deseneaza pe hartie.",
+    correct: "the child draws on the paper",
+    tts: "The child draws on the paper.",
+  },
 ];
 
 const AFF_ROOM_7_GLOSSARY_ITEMS = [
@@ -376,7 +711,11 @@ const AFF_ROOM_7_GLOSSARY_ITEMS = [
   { tts: "solutions", word: "solutions", meaning: "solutii" },
   { tts: "quickly", word: "quickly", meaning: "rapid" },
   { tts: "make", word: "make", meaning: "a face" },
-  { tts: "delicious cakes", word: "delicious cakes", meaning: "prajituri delicioase" },
+  {
+    tts: "delicious cakes",
+    word: "delicious cakes",
+    meaning: "prajituri delicioase",
+  },
   { tts: "open", word: "open", meaning: "a deschide" },
   { tts: "the shop", word: "the shop", meaning: "magazinul" },
   { tts: "at nine o'clock", word: "at nine o'clock", meaning: "la ora 9" },
@@ -386,7 +725,11 @@ const AFF_ROOM_7_GLOSSARY_ITEMS = [
   { tts: "the flowers", word: "the flowers", meaning: "florile" },
   { tts: "every day", word: "every day", meaning: "in fiecare zi" },
   { tts: "sing", word: "sing", meaning: "a canta" },
-  { tts: "very beautifully", word: "very beautifully", meaning: "foarte frumos" },
+  {
+    tts: "very beautifully",
+    word: "very beautifully",
+    meaning: "foarte frumos",
+  },
   { tts: "play", word: "play", meaning: "a se juca" },
   { tts: "the toys", word: "the toys", meaning: "jucariile" },
   { tts: "draw", word: "draw", meaning: "a desena" },
@@ -406,20 +749,30 @@ export const PS_AFFIRMATIVE_ROOMS = [
     exercises: AFF_ROOM_1_EXERCISES,
     lexHints: affirmativeLexHints.room1,
     ExerciseListComponent: TextInputExerciseList,
-    exerciseListProps: { testIdPrefix: "ps-aff-room1", withListenOnCorrect: true },
+    exerciseListProps: {
+      testIdPrefix: "ps-aff-room1",
+      withListenOnCorrect: true,
+    },
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – forme de he / she / it</h2>
+        <h2 className="card-title">
+          Exercițiu – forma verbului pentru persoana a III-a singular (he / she
+          / it)
+        </h2>
         <p className="card-description">
-          Completează forma de persoana a III-a singular (<strong>he / she / it</strong>) pentru verbele de mai jos,
-          la <strong>Present Simple</strong>. Verbele urmează regulile clasice: <strong>-s</strong>, <strong>-es</strong>,
-          <strong>-ies</strong>.
+          Completează forma de persoana a III-a singular (
+          <strong>he / she / it</strong>) pentru verbele de mai jos, la{" "}
+          <strong>Present Simple</strong>. Verbele urmează regulile clasice:{" "}
+          <strong>-s</strong>, <strong>-es</strong>,<strong>-ies</strong>.
         </p>
       </>
     ),
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
-    dictionaryDescription: "Apasă pe butonul cu 🔊 ca să auzi pronunția verbului, apoi citește traducerea.",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    dictionaryDescription:
+      "Apasă pe butonul cu 🔊 ca să auzi pronunția verbului, apoi citește traducerea.",
     dictionaryItems: AFF_ROOM_1_GLOSSARY_ITEMS,
   },
   {
@@ -432,18 +785,24 @@ export const PS_AFFIRMATIVE_ROOMS = [
     exerciseListProps: { withListenOnCorrect: true },
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – transformă propozițiile pentru he / she</h2>
+        <h2 className="card-title">
+          Exercițiu – transformă propozițiile pentru he / she
+        </h2>
         <p className="card-description">
-          Ai propoziția de bază cu <strong>I</strong>. Rescrie propoziția pentru <strong>he / she</strong>, având grijă să
-          pui <strong>forma corectă a verbului</strong> la Present Simple și să păstrezi restul ideii.
+          Ai propoziția de bază cu <strong>I</strong>. Rescrie propoziția pentru{" "}
+          <strong>he / she</strong>, având grijă să pui{" "}
+          <strong>forma corectă a verbului</strong> la Present Simple și să
+          păstrezi restul ideii.
         </p>
       </>
     ),
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_2_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -457,11 +816,15 @@ export const PS_AFFIRMATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – completează doar verbul în [gap]</h2>
+        <h2 className="card-title">
+          Exercițiu – completează doar verbul în [gap]
+        </h2>
         <p className="card-description">
-          Ai propoziția de bază cu <strong>we / they</strong>, apoi propoziția transformată pentru <strong>he / she</strong>,
-          cu un <strong>[gap]</strong> în locul verbului. Subiectul și restul propoziției sunt deja scrise. Tu completezi
-          doar <strong>forma corectă a verbului</strong> la Present Simple.
+          Ai propoziția de bază cu <strong>we / they</strong>, apoi propoziția
+          transformată pentru <strong>he / she</strong>, cu un{" "}
+          <strong>[gap]</strong> în locul verbului. Subiectul și restul
+          propoziției sunt deja scrise. Tu completezi doar{" "}
+          <strong>forma corectă a verbului</strong> la Present Simple.
         </p>
       </>
     ),
@@ -469,8 +832,10 @@ export const PS_AFFIRMATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să auzi verbul, apoi uită-te cum îl folosești în propozițiile cu he / she.",
     dictionaryItems: AFF_ROOM_3_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -484,10 +849,13 @@ export const PS_AFFIRMATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – alege forma corectă a verbului</h2>
+        <h2 className="card-title">
+          Exercițiu – alege forma corectă a verbului
+        </h2>
         <p className="card-description">
-          Bifează varianta corectă astfel încât propoziția să fie la <strong>Present Simple afirmativ</strong>. Uită-te
-          bine la subiect (She, They, My uncle...) și la regulile de <strong>-s / -es</strong>.
+          Bifează varianta corectă astfel încât propoziția să fie la{" "}
+          <strong>Present Simple afirmativ</strong>. Uită-te bine la subiect
+          (She, They, My uncle...) și la regulile de <strong>-s / -es</strong>.
         </p>
       </>
     ),
@@ -496,8 +864,10 @@ export const PS_AFFIRMATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_4_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -511,10 +881,13 @@ export const PS_AFFIRMATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – corectează verbul pentru he / she / it</h2>
+        <h2 className="card-title">
+          Exercițiu – corectează verbul pentru he / she / it
+        </h2>
         <p className="card-description">
-          În prima parte vezi propoziția cu verbul greșit, iar în a doua parte rescrii propoziția corectă, completând
-          doar forma corectă a verbului în spațiul liber.
+          În prima parte vezi propoziția cu verbul greșit, iar în a doua parte
+          rescrii propoziția corectă, completând doar forma corectă a verbului
+          în spațiul liber.
         </p>
       </>
     ),
@@ -523,8 +896,10 @@ export const PS_AFFIRMATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_5_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -539,10 +914,13 @@ export const PS_AFFIRMATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – construiește propoziții corecte</h2>
+        <h2 className="card-title">
+          Exercițiu – construiește propoziții corecte
+        </h2>
         <p className="card-description">
-          Ai cuvintele amestecate între paranteze. Scrie în căsuța de dedesubt propoziția corectă, la Present Simple
-          afirmativ, cu ordinea corectă a cuvintelor.
+          Ai cuvintele amestecate între paranteze. Scrie în căsuța de dedesubt
+          propoziția corectă, la Present Simple afirmativ, cu ordinea corectă a
+          cuvintelor.
         </p>
       </>
     ),
@@ -551,8 +929,10 @@ export const PS_AFFIRMATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_6_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -569,10 +949,13 @@ export const PS_AFFIRMATIVE_ROOMS = [
     verifyLabel: "Verifică răspunsurile",
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – traduce propozițiile în engleză</h2>
+        <h2 className="card-title">
+          Exercițiu – traduce propozițiile în engleză
+        </h2>
         <p className="card-description">
-          Scrie propoziția în engleză pentru fiecare enunț în limba română. Folosește Present Simple afirmativ și ai
-          grijă la forma verbului pentru he / she / it.
+          Scrie propoziția în engleză pentru fiecare enunț în limba română.
+          Folosește Present Simple afirmativ și ai grijă la forma verbului
+          pentru he / she / it.
         </p>
       </>
     ),
@@ -580,11 +963,13 @@ export const PS_AFFIRMATIVE_ROOMS = [
       roomState.passed ? (
         <section className="card section-complete-card">
           <h2 className="card-title">
-            Bravo! Ai terminat toate camerele din secțiunea Afirmativ – Present Simple. 🎉
+            Bravo! Ai terminat toate camerele din secțiunea Afirmativ – Present
+            Simple. 🎉
           </h2>
           <p className="card-description">
-            Ai parcurs toată ruta pentru propozițiile afirmative. Mergi la hartă ca să vezi progresul cheilor și cât de
-            aproape ești de camera finală.
+            Ai parcurs toată ruta pentru propozițiile afirmative. Mergi la hartă
+            ca să vezi progresul cheilor și cât de aproape ești de camera
+            finală.
           </p>
           <div className="buttons">
             <Link to={psMapPath()} className="btn btn-outline">
@@ -596,8 +981,10 @@ export const PS_AFFIRMATIVE_ROOMS = [
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_7_GLOSSARY_ITEMS,
-    errorText: "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
 ];
 

@@ -1,0 +1,12 @@
+# Ignoră tool-urile interne
+
+build-zip-for-ai.js
+clean-exports.js
+.zipignore
+
+# Ignoră foldere care nu trebuie trimise la build
+
+exports/
+test-results/
+coverage/
+.vscode/

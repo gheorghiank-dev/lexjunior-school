@@ -1,0 +1,24 @@
+# ❌ NU include aceste foldere / fișiere în ZIP pentru AI
+node_modules/
+dist/
+test-results/
+coverage/
+.vscode/
+.git/
+.netlify/
+.DS_Store
+Thumbs.db
+*.log
+
+# ✔ OK de inclus în ZIP
+src/
+public/
+tests/
+index.html
+vite.config.js
+netlify.toml
+playwright.config.js
+package.json
+package-lock.json
+README.md
+ARCHITECTURE.md
