@@ -31,7 +31,9 @@ export default function PsRoomRoute({ sectionId }) {
     if (idx < 0 || idx >= 7) {
       return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
     }
-    return <PsAffirmativeRoomFromRegistry roomNumber={n} />;
+    return (
+      <PsAffirmativeRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />
+    );
   }
 
   // Uses is now rendered from content registry (Sprint 16)
@@ -39,7 +41,7 @@ export default function PsRoomRoute({ sectionId }) {
     if (idx < 0 || idx >= 7) {
       return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
     }
-    return <PsUsesRoomFromRegistry roomNumber={n} />;
+    return <PsUsesRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />;
   }
 
   // Negative is now rendered from content registry (Sprint G6)
@@ -47,7 +49,9 @@ export default function PsRoomRoute({ sectionId }) {
     if (idx < 0 || idx >= 7) {
       return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
     }
-    return <PsNegativeRoomFromRegistry roomNumber={n} />;
+    return (
+      <PsNegativeRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />
+    );
   }
 
   // Interrogative is now rendered from content registry (Sprint G7)
@@ -55,7 +59,12 @@ export default function PsRoomRoute({ sectionId }) {
     if (idx < 0 || idx >= 7) {
       return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
     }
-    return <PsInterrogativeRoomFromRegistry roomNumber={n} />;
+    return (
+      <PsInterrogativeRoomFromRegistry
+        key={`${sectionId}-${n}`}
+        roomNumber={n}
+      />
+    );
   }
 
   // Time Expressions is now rendered from content registry (Sprint G8)
@@ -63,7 +72,12 @@ export default function PsRoomRoute({ sectionId }) {
     if (idx < 0 || idx >= 7) {
       return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
     }
-    return <PsTimeExpressionsRoomFromRegistry roomNumber={n} />;
+    return (
+      <PsTimeExpressionsRoomFromRegistry
+        key={`${sectionId}-${n}`}
+        roomNumber={n}
+      />
+    );
   }
 
   if (!pages || idx < 0 || idx >= pages.rooms.length) {
