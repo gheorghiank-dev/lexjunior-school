@@ -71,5 +71,5 @@ export default function PsRoomRoute({ sectionId }) {
   }
 
   const RoomComponent = pages.rooms[idx];
-  return <RoomComponent />;
+  return <RoomComponent key={`${sectionId}-${n}`} />;
 }
