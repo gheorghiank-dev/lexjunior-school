@@ -646,18 +646,39 @@ async function main() {
     if (!looksLikeRoomsFile(text)) continue;
 
     const rel = path.relative(PROJECT_ROOT, filePath);
+    const relPosix = rel.split(path.sep).join("/");
     if (ONLY_PATTERN) {
       const re = new RegExp(ONLY_PATTERN);
-      if (!re.test(rel)) continue;
+      if (!re.test(relPosix)) continue;
     }
 
     const names = extractRoomsConstNames(text);
     if (names.length === 0) continue;
-    candidates.push({ filePath, rel, text, names });
+    candidates.push({ filePath, rel: relPosix, text, names });
   }
 
   if (candidates.length === 0) {
-    console.log("No *_ROOMS registries found in src/. Nothing to validate.");
+    const msg = "No *_ROOMS registries found in src/. Nothing to validate.";
+    if (WANT_JSON) {
+      console.log(
+        JSON.stringify(
+          {
+            status: "ERROR",
+            strict: STRICT,
+            projectRoot: PROJECT_ROOT,
+            validatedAt: new Date().toISOString(),
+            files: [],
+            issues: [makeIssue("ERROR", msg, "registry-scan")],
+          },
+          null,
+          2
+        )
+      );
+      process.exitCode = 2;
+      return;
+    }
+    console.error(msg);
+    process.exitCode = 2;
     return;
   }
 

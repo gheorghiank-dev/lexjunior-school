@@ -15,7 +15,11 @@
     "backup-project": "node backup-project.js",
     "restore-backup": "node restore-backup.js",
     "lex": "node lex-cli.js",
-    "validate-content": "node scripts/validate-content.js"
+    "validate-content": "node scripts/validate-content.js",
+    "validate-room-content": "node scripts/validate-room-content.mjs --only present-simple/ps-content",
+    "lex-debug": "node scripts/lex-debugger.js",
+    "lex-predeploy": "node scripts/predeploy-check.js",
+    "prepare": "husky"
   },
   "dependencies": {
     "pdf-lib": "^1.17.1",
@@ -27,6 +31,7 @@
     "@playwright/test": "^1.57.0",
     "@vitejs/plugin-react": "^4.0.0",
     "archiver": "^7.0.1",
+    "husky": "^8.0.3",
     "inquirer": "^8.2.7",
     "unzipper": "^0.12.3",
     "vite": "^6.0.0"

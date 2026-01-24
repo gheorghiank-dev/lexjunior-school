@@ -44,6 +44,8 @@ Hello, Anca! Choose your action:
             name: "5️⃣  Validate Present Simple rooms",
             value: "validate_rooms",
           },
+          { name: "6️⃣  Debug a room (lex debugger)", value: "debug_room" },
+          { name: "7️⃣  Run pre-deploy check", value: "predeploy_check" },
           { name: "❌ Exit CLI", value: "exit" },
         ],
       },
@@ -80,7 +82,62 @@ Hello, Anca! Choose your action:
             console.error("\n❌ Validator reported errors.\n");
           }
 
+          showMenu();
+
           break;
+
+        case "debug_room": {
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "section",
+                message: "Pick a Present Simple section:",
+                choices: [
+                  { name: "affirmative", value: "affirmative" },
+                  { name: "negative", value: "negative" },
+                  { name: "interrogative", value: "interrogative" },
+                  { name: "uses", value: "uses" },
+                  { name: "time-expressions", value: "time-expressions" },
+                ],
+              },
+              {
+                type: "input",
+                name: "roomNumber",
+                message: "Room number:",
+                validate(input) {
+                  const n = Number(input);
+                  if (!Number.isFinite(n) || n <= 0) return "Enter a valid room number.";
+                  return true;
+                },
+              },
+            ])
+            .then(({ section, roomNumber }) => {
+              const { execSync } = require("child_process");
+              console.log(`\n🧪 Debugging: ${section} / room ${roomNumber}\n`);
+              try {
+                execSync(`node scripts/lex-debugger.js ${section} ${roomNumber}`, {
+                  stdio: "inherit",
+                });
+              } catch {
+                // lex-debugger handles its own printing
+              }
+              showMenu();
+            });
+          break;
+        }
+
+        case "predeploy_check": {
+          const { execSync } = require("child_process");
+          console.log("\n🧰 Running pre-deploy check...\n");
+          try {
+            execSync("node scripts/predeploy-check.js", { stdio: "inherit" });
+          } catch {
+            // predeploy-check handles its own printing
+          }
+          showMenu();
+          break;
+        }
 
         case "exit":
           console.log("\nBye, Anca! 👋\n");
