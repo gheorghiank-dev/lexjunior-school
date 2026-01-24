@@ -39,10 +39,7 @@ export default function PsInterrogativeTheoryPage() {
     <PsTheoryPageShell>
       <header className="page-header">
         <p className="page-backlink-row">
-          <Link
-            to={PS_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
+          <Link to={PS_BASE_PATH} className="btn btn-soft ps-back-link">
             ← Înapoi la modulul Present Simple
           </Link>
         </p>
@@ -68,23 +65,39 @@ export default function PsInterrogativeTheoryPage() {
         </p>
 
         <div className="ps-structure-box">
-          <h3 className="ps-structure-title">Structură generală</h3>
+          <h3 className="ps-structure-title">
+            Structură generală (Yes/No Questions)
+          </h3>
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <strong>
-                Do / Does + subiect + verb (forma de bază) + restul propoziției
-                ?
-              </strong>
+              <span className="rule-highlight-emphasis">Do</span> + subiect +
+              verb (forma de bază) + restul propoziției ?
             </span>
           </p>
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <strong>
-                Wh-word + Do / Does + subiect + verb (forma de bază) + restul
-                propoziției ?
-              </strong>
+              <span className="rule-highlight-emphasis">Does</span> + subiect +
+              verb (forma de bază) + restul propoziției ?
+            </span>
+            <span className="ps-structure-note">
+              (pentru <strong>he / she / it</strong>)
+            </span>
+          </p>
+        </div>
+
+        <div className="ps-structure-box">
+          <h3 className="ps-structure-title">
+            Structură generală (Wh-word Questions)
+          </h3>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">
+                Wh-word + do / does
+              </span>{" "}
+              + subiect + verb (forma de bază) + restul propoziției ?
             </span>{" "}
             <span className="ps-structure-note">
               (Where, When, What, Why, How often... )
