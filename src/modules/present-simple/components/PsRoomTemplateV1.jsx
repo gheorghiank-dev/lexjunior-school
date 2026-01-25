@@ -130,11 +130,24 @@ function PsRoomTemplateV1Render({
         renderBody(templateCtx)
       ) : (
         <>
-          {cardIntro ? <section className="card">{cardIntro}</section> : null}
-
           {dictionaryNode}
 
           <section className="card">
+            {cardIntro ? (
+              <div
+                className="ps-task-box"
+                style={{
+                  marginBottom: "1.25rem",
+                  padding: "1rem 1.1rem",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  borderRadius: "16px",
+                  background: "rgba(255,255,255,0.65)",
+                }}
+              >
+                {cardIntro}
+              </div>
+            ) : null}
+
             {ExerciseListComponent ? (
               <ExerciseListComponent
                 exercises={exercises}

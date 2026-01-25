@@ -12,18 +12,24 @@ if (!fs.existsSync(exportDir)) {
   fs.mkdirSync(exportDir);
 }
 
-// Timestamped filename
+// Timestamped filename (same style as full backup: YYYY-MM-DD_HH-MM-SS)
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+
 function getTimestamp() {
   const now = new Date();
-  return now
-    .toISOString()
-    .replace(/[:.]/g, "-")
-    .replace("T", "_")
-    .replace("Z", "");
+  const yyyy = now.getFullYear();
+  const mm = pad2(now.getMonth() + 1);
+  const dd = pad2(now.getDate());
+  const hh = pad2(now.getHours());
+  const mi = pad2(now.getMinutes());
+  const ss = pad2(now.getSeconds());
+  return `${yyyy}-${mm}-${dd}_${hh}-${mi}-${ss}`;
 }
 
 const timestamp = getTimestamp();
-const outputName = `${exportDir}/lex-project-for-ai_${timestamp}.zip`;
+const outputName = path.join(exportDir, `lex-project-for-ai_${timestamp}.zip`);
 const output = fs.createWriteStream(outputName);
 const archive = archiver("zip", { zlib: { level: 9 } });
 
@@ -52,7 +58,7 @@ const ALWAYS_EXCLUDE = [
   "pnpm-lock.yaml",
 ];
 
-// Helper pentru excludere
+// Helper pentru excludere (păstrat pentru viitoare extinderi)
 function shouldExclude(name) {
   return ALWAYS_EXCLUDE.some((bad) => name.startsWith(bad));
 }

@@ -754,15 +754,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – forma verbului pentru persoana a III-a singular (he / she
-          / it)
+          Completează spațiile libere cu forma corectă a verbul la persoana a
+          III-a singular
         </h2>
-        <p className="card-description">
-          Completează forma de persoana a III-a singular (
-          <strong>he / she / it</strong>) pentru verbele de mai jos, la{" "}
-          <strong>Present Simple</strong>. Verbele urmează regulile clasice:{" "}
-          <strong>-s</strong>, <strong>-es</strong>,<strong>-ies</strong>.
-        </p>
       </>
     ),
     errorText:
@@ -793,12 +787,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     },
     cardIntro: (
       <>
-        <h2 className="card-title">Camera 2 – Present Simple Afirmativ</h2>
-        <p className="card-description">
-          Completează spațiile libere cu forma corectă a verbului din paranteză,
-          la <strong>Present Simple afirmativ</strong>. Scrie doar forma
-          verbului.
-        </p>
+        <h2 className="card-title">
+          Completează spațiile libere cu forma corectă a verbului din paranteză
+        </h2>
       </>
     ),
     dictionaryDescription:
@@ -822,15 +813,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – completează doar verbul în [gap]
+          Completează spațiile libere cu forma corectă a verbului din propoziția
+          dată.
         </h2>
-        <p className="card-description">
-          Ai propoziția de bază cu <strong>we / they</strong>, apoi propoziția
-          transformată pentru <strong>he / she</strong>, cu un{" "}
-          <strong>[gap]</strong> în locul verbului. Subiectul și restul
-          propoziției sunt deja scrise. Tu completezi doar{" "}
-          <strong>forma corectă a verbului</strong> la Present Simple.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 4),
@@ -854,14 +839,7 @@ export const PS_AFFIRMATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">
-          Exercițiu – alege forma corectă a verbului
-        </h2>
-        <p className="card-description">
-          Bifează varianta corectă astfel încât propoziția să fie la{" "}
-          <strong>Present Simple afirmativ</strong>. Uită-te bine la subiect
-          (She, They, My uncle...) și la regulile de <strong>-s / -es</strong>.
-        </p>
+        <h2 className="card-title">Bifează varianta corectă a verbului</h2>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 5),
@@ -887,13 +865,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – corectează verbul pentru he / she / it
+          Corectează propozițiile completând spațiul liber cu forma corectă a
+          verbului din propoziția dată
         </h2>
-        <p className="card-description">
-          În prima parte vezi propoziția cu verbul greșit, iar în a doua parte
-          rescrii propoziția corectă, completând doar forma corectă a verbului
-          în spațiul liber.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 6),
@@ -920,13 +894,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – construiește propoziții corecte
+          Scrie cuvintele date în ordinea corectă pentru a forma propoziții la
+          Present Simple afirmativ
         </h2>
-        <p className="card-description">
-          Ai cuvintele amestecate între paranteze. Scrie în căsuța de dedesubt
-          propoziția corectă, la Present Simple afirmativ, cu ordinea corectă a
-          cuvintelor.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 7),
@@ -955,13 +925,9 @@ export const PS_AFFIRMATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – traduce propozițiile în engleză
+          Tradu propozițiile din română în engleză. Folosește dicționarul pentru
+          a găsi cuvintele și expresiile potrivite.
         </h2>
-        <p className="card-description">
-          Scrie propoziția în engleză pentru fiecare enunț în limba română.
-          Folosește Present Simple afirmativ și ai grijă la forma verbului
-          pentru he / she / it.
-        </p>
       </>
     ),
     afterBody: ({ roomState }) =>
