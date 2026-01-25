@@ -77,7 +77,7 @@ export function InterrogativeYesNoPairsExerciseList({
             className="exercise-row exercise-row--stacked-textarea"
           >
             <p className="exercise-text">
-              <span className="exercise-index">{index + 1})</span>
+              <span className="exercise-index">{index + 1}.</span>
               {pair.questionText}
               <button
                 type="button"

@@ -15,7 +15,7 @@ import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect
  * - onChange: (id, newValue) => void
  */
 export function UsesCardMcqExerciseList({
-  showIndex = false,
+  showIndex = true,
   exercises,
   answers,
   feedback,
@@ -51,7 +51,7 @@ export function UsesCardMcqExerciseList({
               <div className="uses-card-header">
                 <p className="exercise-text">
                   {showIndex && (
-                    <span className="exercise-index">{index + 1})</span>
+                    <span className="exercise-index">{index + 1}.</span>
                   )}{" "}
                   {ex.prompt}
                 </p>

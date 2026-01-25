@@ -97,7 +97,7 @@ export function RuneTranslationExerciseList({
           <li key={ex.id} className={rowClasses}>
             <div className="exercise-main">
               <p className="sentence-native">
-                <span className="exercise-index">{index + 1})</span>{" "}
+                <span className="exercise-index">{index + 1}.</span>{" "}
                 {ex.native}
               </p>
 

@@ -17,6 +17,7 @@ export default function TextInputExerciseList({
   feedback,
   onChange,
   // Optional stable test selector prefix (e.g. "ps-aff-room1")
+  showIndex = true,
   testIdPrefix,
   /**
    * If true, renders LexListenOnCorrect using each exercise's `tts`.
@@ -62,7 +63,12 @@ export default function TextInputExerciseList({
 
         return (
           <li key={ex.id} className="exercise-row">
-            <span className="exercise-text">{ex.prompt}</span>
+            <span className="exercise-text">
+              {showIndex && (
+                <span className="exercise-index">{index + 1}.</span>
+              )}
+              {ex.prompt}
+            </span>
 
             <input
               type="text"

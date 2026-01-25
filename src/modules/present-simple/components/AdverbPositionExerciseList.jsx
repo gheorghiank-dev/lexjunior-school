@@ -28,7 +28,7 @@ export function AdverbPositionExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
 }) {
   const getCurrentSlot = (ex) => {
     if (!answers) return null;
@@ -61,7 +61,7 @@ export function AdverbPositionExerciseList({
             <div className="adverb-pos-header">
               <p className="adverb-pos-sentence">
                 {showIndex && (
-                  <span className="exercise-index">{index + 1})</span>
+                  <span className="exercise-index">{index + 1}.</span>
                 )}
                 <span className="adverb-pos-text">
                   {ex.before}{" "}

@@ -23,7 +23,7 @@ export function FrequencyAdverbExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
 }) {
   return (
     <ol className="exercise-list">
@@ -64,7 +64,7 @@ export function FrequencyAdverbExerciseList({
             <div className="exercise-header-row">
               <p className="exercise-text">
                 {showIndex && (
-                  <span className="exercise-index">{index + 1}) </span>
+                  <span className="exercise-index">{index + 1}. </span>
                 )}
                 {sentenceText}
               </p>
