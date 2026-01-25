@@ -1,7 +1,7 @@
 import React from "react";
 import { PsRoomHeaderHud } from "./PsRoomHeaderHud.jsx";
 import { PsRoomDevToolsAndStatus } from "./PsRoomDevToolsAndStatus.jsx";
-import { PsLexJuniorPanel } from "./PsLexJuniorPanel.jsx";
+// import { PsLexJuniorPanel } from "./PsLexJuniorPanel.jsx";*/>
 
 /**
  * Shell generic pentru o cameră Present Simple.
@@ -48,7 +48,7 @@ export function PsRoomPageShell({
         onDevAutofill={onDevAutofill}
         onDevReset={onDevReset}
       />
-      <PsLexJuniorPanel lexHints={lexHints} />
+      {/*<PsLexJuniorPanel lexHints={lexHints} /> */}
     </main>
   );
 }
