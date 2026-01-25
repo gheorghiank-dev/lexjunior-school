@@ -72,8 +72,20 @@ function addFolder(folderPath, zipPath = "") {
   }
 }
 
-addFolder(".");
+archive.on("warning", (err) => {
+  if (err.code === "ENOENT") {
+    console.warn("⚠️ Minor archiver warning:", err);
+  } else {
+    throw err;
+  }
+});
 
+archive.on("error", (err) => {
+  console.error("❌ Archiver error:", err);
+  process.exit(1);
+});
+
+// Finalize archive
 archive.finalize();
 
 output.on("close", () => {
@@ -84,4 +96,7 @@ output.on("close", () => {
 🕒 Timestamp: ${timestamp}
 📁 Folder: /backups
 `);
+
+  // inchide MANUAL orice event loop ramas
+  process.nextTick(() => process.exit(0));
 });
