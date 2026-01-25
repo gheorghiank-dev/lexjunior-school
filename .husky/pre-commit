@@ -1,6 +1,28 @@
 #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 1) Room content validator
+echo "🔍 Validating room content..."
 npm run validate-room-content --silent
 if [ $? -ne 0 ]; then
   echo "❌ Room validation failed. Commit blocked."
   exit 1
 fi
+
+# 2) Create ZIP for AI
+echo "📦 Creating ZIP for AI..."
+npm run zip-for-ai
+if [ $? -ne 0 ]; then
+  echo "❌ ZIP creation failed. Commit blocked."
+  exit 1
+fi
+
+# 3) Backup project
+echo "💾 Creating project backup..."
+npm run backup-project
+if [ $? -ne 0 ]; then
+  echo "❌ Backup failed. Commit blocked."
+  exit 1
+fi
+
+echo "🎉 Commit passed: validation + ZIP + backup done."
