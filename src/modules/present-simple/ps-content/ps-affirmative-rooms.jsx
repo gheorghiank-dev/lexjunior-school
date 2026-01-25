@@ -917,11 +917,6 @@ export const PS_AFFIRMATIVE_ROOMS = [
     lexHints: affirmativeLexHints.room7,
     ExerciseListComponent: TextareaExerciseList,
     exerciseListProps: { rows: 1, stacked: true, showIndex: true },
-    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
-    verifyTestId: null,
-    feedbackTestId: null,
-    nextTo: null,
-    verifyLabel: "Verifică răspunsurile",
     cardIntro: (
       <>
         <h2 className="card-title">
@@ -930,32 +925,25 @@ export const PS_AFFIRMATIVE_ROOMS = [
         </h2>
       </>
     ),
-    afterBody: ({ roomState }) =>
-      roomState.passed ? (
-        <section className="card section-complete-card">
-          <h2 className="card-title">
-            Bravo! Ai terminat toate camerele din secțiunea Afirmativ – Present
-            Simple. 🎉
-          </h2>
-          <p className="card-description">
-            Ai parcurs toată ruta pentru propozițiile afirmative. Mergi la hartă
-            ca să vezi progresul cheilor și cât de aproape ești de camera
-            finală.
-          </p>
-          <div className="buttons">
-            <Link to={psMapPath()} className="btn btn-outline">
-              🏁 Înapoi la hartă
-            </Link>
-          </div>
-        </section>
-      ) : null,
+    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
+    verifyTestId: null,
+    feedbackTestId: null,
+    nextTo: null,
+    verifyLabel: "Verifică răspunsurile",
+
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_7_GLOSSARY_ITEMS,
     errorText:
       "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText: (
+      <>
+        <strong>Bravo!</strong> Ai terminat toate camerele din secțiunea{" "}
+        <b>Afirmativ – Present Simple</b>. 🎉
+        <br />
+        Mergi la hartă ca să vezi progresul și următorul pas.
+      </>
+    ),
   },
 ];
 

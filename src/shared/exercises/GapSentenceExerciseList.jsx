@@ -6,7 +6,7 @@ export function GapSentenceExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
   testIdPrefix,
 }) {
   const GAP_TOKEN = "[gap]";
@@ -28,7 +28,9 @@ export function GapSentenceExerciseList({
         return (
           <li key={ex.id} className="exercise-row">
             <span className="exercise-text">
-              {showIndex && <span className="exercise-index">{index + 1})</span>}
+              {showIndex && (
+                <span className="exercise-index">{index + 1}.</span>
+              )}
               {before}
               <input
                 type="text"
@@ -48,7 +50,9 @@ export function GapSentenceExerciseList({
             <LexListenOnCorrect
               isCorrect={feedback[ex.id] === "correct"}
               tts={ex.tts}
-              ariaLabel={ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"}
+              ariaLabel={
+                ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"
+              }
             />
           </li>
         );

@@ -899,6 +899,7 @@ export const PS_NEGATIVE_ROOMS = [
     verifyTestId: null,
     feedbackTestId: null,
     nextTo: null,
+    verifyLabel: "Verifică răspunsurile",
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți cuvintele și expresiile, apoi verifică cum le folosești în propozițiile tale la negativ.",
     dictionaryItems: NEG_ROOM_7_GLOSSARY_ITEMS,
@@ -907,7 +908,7 @@ export const PS_NEGATIVE_ROOMS = [
     successText: (
       <>
         <strong>Bravo!</strong> Ai terminat toate camerele din secțiunea{" "}
-        <b>Negative – Present Simple</b>. 🎉
+        <b>Negativ – Present Simple</b>. 🎉
         <br />
         Mergi la hartă ca să vezi progresul și următorul pas.
       </>
