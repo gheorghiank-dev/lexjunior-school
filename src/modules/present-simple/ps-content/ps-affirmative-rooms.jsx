@@ -130,81 +130,79 @@ const AFF_ROOM_1_GLOSSARY_ITEMS = [
 const AFF_ROOM_2_EXERCISES = [
   {
     id: 1,
-    template: "1) I like apples. → She [gap] apples.",
-    correct: "likes",
-    tts: "She likes apples.",
+    template: "1. I [gap] jam. (like)",
+    correct: "like",
+    tts: "I like jam.",
   },
   {
     id: 2,
-    template: "2) I go to school by bus. → He [gap] to school by bus.",
-    correct: "goes",
-    tts: "He goes to school by bus.",
+    template: "2. My brother [gap] honey. (like)",
+    correct: "likes",
+    tts: "My brother likes honey.",
   },
   {
     id: 3,
-    template: "3) I watch TV in the evening. → She [gap] TV in the evening.",
-    correct: "watches",
-    tts: "She watches TV in the evening.",
+    template: "3. We [gap] to school in the morning. (go)",
+    correct: "go",
+    tts: "We go to school in the morning.",
   },
   {
     id: 4,
-    template: "4) I play football on Sundays. → He [gap] football on Sundays.",
-    correct: "plays",
-    tts: "He plays football on Sundays.",
+    template: "4. The girl [gap] to the cinema on Saturday. (go)",
+    correct: "goes",
+    tts: "The girl goes to the cinema on Saturday.",
   },
   {
     id: 5,
-    template: "5) I study English every day. → She [gap] English every day.",
-    correct: "studies",
-    tts: "She studies English every day.",
+    template: "5. The teacher [gap] the lesson every day. (read)",
+    correct: "reads",
+    tts: "The teacher reads the lesson every day.",
   },
   {
     id: 6,
-    template:
-      "6) I do my homework in the afternoon. → He [gap] his homework in the afternoon.",
-    correct: "does",
-    tts: "He does his homework in the afternoon.",
+    template: "6. The pupils [gap] the lesson, too. (read)",
+    correct: "read",
+    tts: "The pupils read the lesson, too.",
   },
   {
     id: 7,
-    template:
-      "7) I wash the dishes after dinner. → She [gap] the dishes after dinner.",
-    correct: "washes",
-    tts: "She washes the dishes after dinner.",
+    template: "7. The bus [gap] at the traffic lights. (stop)",
+    correct: "stops",
+    tts: "The bus stops at the traffic lights.",
   },
   {
     id: 8,
-    template:
-      "8) I fix my bike at the weekend. → He [gap] his bike at the weekend.",
-    correct: "fixes",
-    tts: "He fixes his bike at the weekend.",
+    template: "8. Tom [gap] TV in the evening. (watch)",
+    correct: "watches",
+    tts: "Tom watches TV in the evening.",
   },
   {
     id: 9,
-    template: "9) I clean my room on Fridays. → She [gap] her room on Fridays.",
-    correct: "cleans",
-    tts: "She cleans her room on Fridays.",
+    template: "9. My sister [gap] to read that book. (want)",
+    correct: "wants",
+    tts: "My sister wants to read that book.",
   },
   {
     id: 10,
-    template:
-      "10) I paint pictures in my free time. → He [gap] pictures in his free time.",
-    correct: "paints",
-    tts: "He paints pictures in his free time.",
+    template: "10. Alice [gap] this blouse every Sunday. (wear)",
+    correct: "wears",
+    tts: "Alice wears this blouse every Sunday.",
   },
 ];
 
 const AFF_ROOM_2_GLOSSARY_ITEMS = [
   { tts: "like", word: "like", meaning: "a plăcea" },
   { tts: "go", word: "go", meaning: "a merge" },
+  { tts: "read", word: "read", meaning: "a citi" },
+  { tts: "stop", word: "stop", meaning: "a opri" },
   { tts: "watch", word: "watch", meaning: "a se uita / a privi" },
-  { tts: "play", word: "play", meaning: "a se juca / a cânta" },
-  { tts: "study", word: "study", meaning: "a studia" },
-  { tts: "do", word: "do", meaning: "a face" },
-  { tts: "wash", word: "wash", meaning: "a spăla" },
-  { tts: "fix", word: "fix", meaning: "a repara" },
-  { tts: "clean", word: "clean", meaning: "a curăța" },
-  { tts: "paint", word: "paint", meaning: "a picta / a vopsi" },
+  { tts: "want", word: "want", meaning: "a vrea" },
+  { tts: "wear", word: "wear", meaning: "a purta" },
+  { tts: "jam", word: "jam", meaning: "gem" },
+  { tts: "honey", word: "honey", meaning: "miere" },
+  { tts: "pupils", word: "pupils", meaning: "elevi" },
+  { tts: "traffic lights", word: "traffic lights", meaning: "semafor" },
+  { tts: "blouse", word: "blouse", meaning: "bluză" },
 ];
 
 // -------------------- Room 3 --------------------
@@ -780,24 +778,31 @@ export const PS_AFFIRMATIVE_ROOMS = [
     sectionLabel: "Afirmativ",
     roomNumber: 2,
     exercises: AFF_ROOM_2_EXERCISES,
-    lexHints: affirmativeLexHints.room2,
-    ExerciseListComponent: TextInputExerciseList,
-    exerciseListProps: { withListenOnCorrect: true },
+    // Keep hints local to this room so they follow the global Lex Junior rules.
+    // (Task clarification → rule with NEW examples → strategy → motivation)
+    lexHints: [
+      "<strong>Ce ai de făcut:</strong> Completează fiecare spațiu liber cu <em>forma corectă a verbului</em> din paranteză, la <strong>Present Simple afirmativ</strong>. Scrie <strong>doar verbul</strong>.",
+      "<strong>Regulă rapidă:</strong> cu <em>he / she / it</em> sau un singur om (Tom, my sister) verbul primește de obicei <strong>-s / -es</strong>: <em>She reads</em>, <em>Tom watches</em>. Cu <em>I / we / you / they</em> rămâne forma de bază: <em>We go</em>.",
+      "<strong>Strategie:</strong> Întreabă-te mai întâi: subiectul e la singular (my brother, the bus, Alice)? Dacă da, adaugă <strong>-s</strong>. Dacă nu, lasă verbul simplu. Apoi citește propoziția cu voce tare (sau apasă 🔊 după ce e corect) ca să verifici dacă sună natural.",
+      "Ține-o tot așa — încă 10 răspunsuri și cheia e tot mai aproape 🔑😊",
+    ],
+    ExerciseListComponent: GapSentenceExerciseList,
+    exerciseListProps: {
+      testIdPrefix: "ps-aff-room2",
+      showIndex: false,
+    },
     cardIntro: (
       <>
-        <h2 className="card-title">
-          Exercițiu – transformă propozițiile pentru he / she
-        </h2>
+        <h2 className="card-title">Camera 2 – Present Simple Afirmativ</h2>
         <p className="card-description">
-          Ai propoziția de bază cu <strong>I</strong>. Rescrie propoziția pentru{" "}
-          <strong>he / she</strong>, având grijă să pui{" "}
-          <strong>forma corectă a verbului</strong> la Present Simple și să
-          păstrezi restul ideii.
+          Completează spațiile libere cu forma corectă a verbului din paranteză,
+          la <strong>Present Simple afirmativ</strong>. Scrie doar forma
+          verbului.
         </p>
       </>
     ),
     dictionaryDescription:
-      "Apasă pe 🔊 ca să asculți verbele, apoi verifică cum le folosești în propozițiile tale.",
+      "Apasă pe 🔊 ca să auzi pronunția cuvintelor, apoi verifică sensul lor în română.",
     dictionaryItems: AFF_ROOM_2_GLOSSARY_ITEMS,
     errorText:
       "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
