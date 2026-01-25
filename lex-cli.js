@@ -4,16 +4,32 @@
 // Interactive console: generate AI ZIP, clean exports, backup, restore, etc.
 
 const inquirer = require("inquirer");
-const { exec } = require("child_process");
+const { spawn, execSync } = require("child_process");
+const readline = require("readline");
+
+function pause(message = "\n↩️  Apasă ENTER ca să te întorci în meniu...") {
+  return new Promise((resolve) => {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    rl.question(message, () => {
+      rl.close();
+      resolve();
+    });
+  });
+}
 
 function runCommand(command) {
+  // Use spawn instead of exec to avoid stdout buffer limits on long commands (e.g., vite build).
   console.log(`\n▶ Running: ${command}\n`);
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      console.error(`❌ Error:\n${stderr}`);
-    } else {
-      console.log(stdout);
+  const child = spawn(command, {
+    stdio: "inherit",
+    shell: true, // cross-platform (Windows) compatibility for npm scripts
+  });
+
+  child.on("close", async (code) => {
+    if (code !== 0) {
+      console.error(`\n❌ Command failed with exit code ${code}.`);
     }
+    await pause();
     showMenu();
   });
 }
@@ -52,26 +68,24 @@ Hello, Anca! Choose your action:
     ])
     .then((answer) => {
       switch (answer.action) {
-        case "zip":
+        case "generate_zip":
           runCommand("npm run zip-for-ai");
           break;
 
-        case "clean":
+        case "clean_exports":
           runCommand("npm run clean-exports");
           break;
 
-        case "backup":
+        case "create_backup":
           runCommand("npm run backup-project");
           break;
 
-        case "restore":
+        case "restore_backup":
           runCommand("npm run restore-backup");
           break;
 
         case "validate_rooms":
           console.log("\n🔎 Running Present Simple room validator...\n");
-
-          const { execSync } = require("child_process");
 
           try {
             execSync(
@@ -82,7 +96,7 @@ Hello, Anca! Choose your action:
             console.error("\n❌ Validator reported errors.\n");
           }
 
-          showMenu();
+          pause().then(showMenu);
 
           break;
 
@@ -107,22 +121,25 @@ Hello, Anca! Choose your action:
                 message: "Room number:",
                 validate(input) {
                   const n = Number(input);
-                  if (!Number.isFinite(n) || n <= 0) return "Enter a valid room number.";
+                  if (!Number.isFinite(n) || n <= 0)
+                    return "Enter a valid room number.";
                   return true;
                 },
               },
             ])
             .then(({ section, roomNumber }) => {
-              const { execSync } = require("child_process");
               console.log(`\n🧪 Debugging: ${section} / room ${roomNumber}\n`);
               try {
-                execSync(`node scripts/lex-debugger.js ${section} ${roomNumber}`, {
-                  stdio: "inherit",
-                });
+                execSync(
+                  `node scripts/lex-debugger.js ${section} ${roomNumber}`,
+                  {
+                    stdio: "inherit",
+                  },
+                );
               } catch {
                 // lex-debugger handles its own printing
               }
-              showMenu();
+              pause().then(showMenu);
             });
           break;
         }
@@ -135,7 +152,7 @@ Hello, Anca! Choose your action:
           } catch {
             // predeploy-check handles its own printing
           }
-          showMenu();
+          pause().then(showMenu);
           break;
         }
 

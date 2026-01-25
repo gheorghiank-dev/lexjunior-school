@@ -1,11 +1,12 @@
 // restore-backup.js
-// Restores a selected ZIP backup from /backups.
+// Restores a selected ZIP backup from /backups (overwrites files in-place).
 
 const fs = require("fs");
 const unzipper = require("unzipper");
 const path = require("path");
 
-const backupDir = "./backups";
+const projectRoot = process.cwd();
+const backupDir = path.join(projectRoot, "backups");
 
 // Check backup folder
 if (!fs.existsSync(backupDir)) {
@@ -13,8 +14,11 @@ if (!fs.existsSync(backupDir)) {
   process.exit(0);
 }
 
-// List backups
-const backups = fs.readdirSync(backupDir).filter((f) => f.endsWith(".zip"));
+// List backups (newest first)
+const backups = fs
+  .readdirSync(backupDir)
+  .filter((f) => f.endsWith(".zip"))
+  .sort((a, b) => b.localeCompare(a));
 
 if (backups.length === 0) {
   console.log("❌ Nu există backup-uri în folderul /backups.");
@@ -47,16 +51,34 @@ readline.question(
     const selectedBackup = backups[index];
     const backupPath = path.join(backupDir, selectedBackup);
 
-    console.log(`\n🔄 Restaurăm backup-ul: ${selectedBackup}...`);
+    console.log(
+      `\n⚠️ ATENȚIE: restaurarea va SUPRASCRIE fișierele curente din proiect.\n`,
+    );
 
-    fs.createReadStream(backupPath)
-      .pipe(unzipper.Extract({ path: "." }))
-      .on("close", () => {
-        console.log(`
+    readline.question("Continui? (y/n): ", (confirm) => {
+      if (!/^y(es)?$/i.test(String(confirm).trim())) {
+        console.log("\n❎ Restaurare anulată.\n");
+        readline.close();
+        return;
+      }
+
+      console.log(`\n🔄 Restaurăm backup-ul: ${selectedBackup}...`);
+
+      fs.createReadStream(backupPath)
+        .pipe(unzipper.Extract({ path: projectRoot }))
+        .on("error", (err) => {
+          console.error("\n❌ Eroare la restaurare:", err);
+          readline.close();
+          process.exit(1);
+        })
+        .on("close", () => {
+          console.log(`
 ✅ Restaurare completă!
 Proiectul tău a fost readus la versiunea: ${selectedBackup}
 `);
-        readline.close();
-      });
+          readline.close();
+          process.exit(0);
+        });
+    });
   },
 );

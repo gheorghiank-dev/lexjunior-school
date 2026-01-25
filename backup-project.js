@@ -1,30 +1,31 @@
-// backup-project.js
-// Creates a FULL backup of the project, excluding items from .zipignore
-// Saved inside /backups/ with timestamp.
+#!/usr/bin/env node
+/**
+ * backup-project.js
+ *
+ * Creates a FULL project backup ZIP (for humans), excluding heavy/build artifacts.
+ *
+ * Always excludes:
+ *  - node_modules/, dist/, backups/, exports/
+ *  - .git/, .vscode/, .netlify/
+ *  - common caches + test artifacts
+ *
+ * It can also read extra EXCLUDE patterns from .zipignore.
+ * NOTE: Many .zipignore files (like yours) contain an "OK de inclus" allowlist section.
+ * For FULL backups we ONLY apply the EXCLUDE section (❌ / "NU include") and ignore the allowlist.
+ *
+ * Output: ./backups/lex-project-backup_YYYY-MM-DD_HH-MM-SS.zip
+ */
 
-const fs = require("fs");
+"use strict";
+
+const fs = require("node:fs");
+const path = require("node:path");
 const archiver = require("archiver");
-const path = require("path");
 
-// Load ignore rules from .zipignore
-const ignoreFile = ".zipignore";
-let ignoreRules = [];
+// Use the script's folder as the project root (more robust than process.cwd()).
+const projectRoot = path.resolve(__dirname);
+const backupDir = path.join(projectRoot, "backups");
 
-if (fs.existsSync(ignoreFile)) {
-  ignoreRules = fs
-    .readFileSync(ignoreFile, "utf8")
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line && !line.startsWith("#"));
-}
-
-// Create /backups directory if needed
-const backupDir = "./backups";
-if (!fs.existsSync(backupDir)) {
-  fs.mkdirSync(backupDir);
-}
-
-// Timestamp helper
 function getTimestamp() {
   const now = new Date();
   const yyyy = now.getFullYear();
@@ -33,51 +34,129 @@ function getTimestamp() {
   const hh = String(now.getHours()).padStart(2, "0");
   const min = String(now.getMinutes()).padStart(2, "0");
   const ss = String(now.getSeconds()).padStart(2, "0");
-
   return `${yyyy}-${mm}-${dd}_${hh}-${min}-${ss}`;
 }
 
+function normalizeIgnoreRule(rule) {
+  // strip leading ./ and trailing spaces
+  let r = String(rule || "").trim().replace(/^\.\//, "");
+  if (!r) return null;
+
+  // zipignore often uses trailing slashes for folders
+  if (r.endsWith("/")) return `${r}**`;
+
+  // If it's a folder name without globbing and that folder exists, ignore all inside it.
+  const hasGlob = /[*?\[]/.test(r);
+  const looksLikePath = r.includes("/") || r.includes("\\");
+  if (!hasGlob && !looksLikePath) {
+    const maybeDir = path.join(projectRoot, r);
+    try {
+      if (fs.existsSync(maybeDir) && fs.statSync(maybeDir).isDirectory()) {
+        return `${r}/**`;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  return r;
+}
+
+/**
+ * Reads .zipignore but returns ONLY the EXCLUDE rules.
+ * If the file has a "✔ OK de inclus" section, we DO NOT treat those as excludes.
+ *
+ * Heuristic:
+ *  - Start in EXCLUDE mode.
+ *  - Any comment line containing "OK de inclus" / "include" / "✔" switches to INCLUDE mode.
+ *  - Any comment line containing "NU include" / "exclude" / "❌" switches back to EXCLUDE mode.
+ *  - Non-comment lines are collected ONLY while in EXCLUDE mode.
+ */
+function readZipIgnoreExcludes(zipIgnorePath) {
+  try {
+    if (!fs.existsSync(zipIgnorePath)) return [];
+
+    const raw = fs.readFileSync(zipIgnorePath, "utf8");
+    const lines = raw.split(/\r?\n/g);
+
+    let mode = "exclude"; // default
+    const rules = [];
+
+    for (const lineRaw of lines) {
+      const line = (lineRaw || "").trim();
+      if (!line) continue;
+
+      if (line.startsWith("#")) {
+        const lower = line.toLowerCase();
+
+        const isIncludeHeader =
+          lower.includes("ok de inclus") ||
+          lower.includes("de inclus") ||
+          lower.includes("include") ||
+          line.includes("✔");
+
+        const isExcludeHeader =
+          lower.includes("nu include") ||
+          lower.includes("exclude") ||
+          line.includes("❌");
+
+        if (isIncludeHeader) mode = "include";
+        if (isExcludeHeader) mode = "exclude";
+        continue;
+      }
+
+      if (mode === "exclude") rules.push(line);
+    }
+
+    return rules;
+  } catch {
+    return [];
+  }
+}
+
+const alwaysIgnore = [
+  // explicitly requested
+  "node_modules/**",
+  "dist/**",
+
+  // safety + common project noise
+  "backups/**",
+  "exports/**",
+  ".git/**",
+  ".vscode/**",
+  ".netlify/**",
+  "test-results/**",
+  "coverage/**",
+  ".cache/**",
+  ".turbo/**",
+  ".parcel-cache/**",
+  "*.log",
+];
+
+const zipIgnorePath = path.join(projectRoot, ".zipignore");
+const extraIgnore = readZipIgnoreExcludes(zipIgnorePath)
+  .map(normalizeIgnoreRule)
+  .filter(Boolean);
+
+const ignore = Array.from(new Set([...alwaysIgnore, ...extraIgnore]));
+
+// Ensure /backups exists
+if (!fs.existsSync(backupDir)) {
+  fs.mkdirSync(backupDir, { recursive: true });
+}
+
 const timestamp = getTimestamp();
-const outputName = `${backupDir}/lex-project-backup_${timestamp}.zip`;
+const outputName = path.join(backupDir, `lex-project-backup_${timestamp}.zip`);
 
 const output = fs.createWriteStream(outputName);
 const archive = archiver("zip", { zlib: { level: 9 } });
 
-// Check exclusions
-function shouldExclude(filepath) {
-  return ignoreRules.some((rule) => {
-    if (rule.endsWith("/")) return filepath.startsWith(rule.replace("/", ""));
-    if (rule.startsWith("*.")) return filepath.endsWith(rule.replace("*", ""));
-    return filepath === rule;
-  });
-}
-
-archive.pipe(output);
-
-// Recursively zip everything respecting ignore rules
-function addFolder(folderPath, zipPath = "") {
-  const entries = fs.readdirSync(folderPath, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const fullPath = path.join(folderPath, entry.name);
-    const relativePath = path.join(zipPath, entry.name);
-
-    if (shouldExclude(relativePath)) continue;
-
-    if (entry.isDirectory()) {
-      archive.directory(fullPath, relativePath);
-    } else {
-      archive.file(fullPath, { name: relativePath });
-    }
-  }
-}
-
 archive.on("warning", (err) => {
   if (err.code === "ENOENT") {
-    console.warn("⚠️ Minor archiver warning:", err);
-  } else {
-    throw err;
+    console.warn("⚠️ Minor archiver warning:", err.message);
+    return;
   }
+  throw err;
 });
 
 archive.on("error", (err) => {
@@ -85,18 +164,22 @@ archive.on("error", (err) => {
   process.exit(1);
 });
 
-// Finalize archive
-archive.finalize();
-
 output.on("close", () => {
-  console.log(`
-🗄️ Backup COMPLET creat cu succes!
-
-📦 Fișier: ${outputName}
-🕒 Timestamp: ${timestamp}
-📁 Folder: /backups
-`);
-
-  // inchide MANUAL orice event loop ramas
-  process.nextTick(() => process.exit(0));
+  const sizeMB = (archive.pointer() / (1024 * 1024)).toFixed(2);
+  console.log(
+    `\n🗄️ Backup COMPLET creat cu succes!\n\n📦 Fișier: ${outputName}\n📏 Mărime: ${sizeMB} MB\n🕒 Timestamp: ${timestamp}\n📁 Folder: /backups\n`
+  );
+  process.exit(0);
 });
+
+archive.pipe(output);
+
+// Add everything under project root, respecting ignore patterns.
+archive.glob("**/*", {
+  cwd: projectRoot,
+  dot: true,
+  ignore,
+  follow: false,
+});
+
+archive.finalize();
