@@ -17,6 +17,13 @@ export function PsMiniDictionaryCard({ description, items }) {
     return null;
   }
 
+  // Sort items alphabetically by word (case-insensitive), without mutating input.
+  const sortedItems = [...items].sort((a, b) =>
+    String(a?.word ?? "").localeCompare(String(b?.word ?? ""), "en", {
+      sensitivity: "base",
+    }),
+  );
+
   return (
     <section className="card">
       <h2 className="card-title">Mini-dicționar</h2>
@@ -24,7 +31,7 @@ export function PsMiniDictionaryCard({ description, items }) {
       <details>
         <summary>Deschide dicționarul</summary>
         <ul className="glossary-list">
-          {items.map((item, index) => (
+          {sortedItems.map((item, index) => (
             <li key={index} className="glossary-item">
               <button
                 type="button"
