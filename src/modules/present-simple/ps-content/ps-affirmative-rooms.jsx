@@ -209,64 +209,64 @@ const AFF_ROOM_2_GLOSSARY_ITEMS = [
 const AFF_ROOM_3_EXERCISES = [
   {
     id: 1,
-    template: "1) I fix machines. → He [gap] machines.",
+    template: "I fix machines. → He [gap] machines.",
     correct: "fixes",
     tts: "He fixes machines.",
   },
   {
     id: 2,
-    template: "2) They build houses. → My father [gap] houses.",
+    template: "They build houses. → My father [gap] houses.",
     correct: "builds",
     tts: "My father builds houses.",
   },
   {
     id: 3,
-    template: "3) We catch the bus at 7. → She [gap] the bus at 7.",
+    template: "We catch the bus at 7. → She [gap] the bus at 7.",
     correct: "catches",
     tts: "She catches the bus at 7.",
   },
   {
     id: 4,
-    template: "4) They wash the car on Sundays. → He [gap] the car on Sundays.",
+    template: "They wash the car on Sundays. → He [gap] the car on Sundays.",
     correct: "washes",
     tts: "He washes the car on Sundays.",
   },
   {
     id: 5,
     template:
-      "5) We go to the park after school. → She [gap] to the park after school.",
+      "We go to the park after school. → She [gap] to the park after school.",
     correct: "goes",
     tts: "She goes to the park after school.",
   },
   {
     id: 6,
-    template: "6) They watch cartoons in the evening. → He [gap] cartoons.",
+    template: "They watch cartoons in the evening. → He [gap] cartoons.",
     correct: "watches",
     tts: "He watches cartoons.",
   },
   {
     id: 7,
-    template: "7) We study English on Monday. → She [gap] English on Monday.",
+    template: "We study English on Monday. → She [gap] English on Monday.",
     correct: "studies",
     tts: "She studies English on Monday.",
   },
   {
     id: 8,
-    template: "8) They play tennis at the weekend. → He [gap] tennis.",
+    template: "They play tennis at the weekend. → He [gap] tennis.",
     correct: "plays",
     tts: "He plays tennis.",
   },
   {
     id: 9,
     template:
-      "9) We do our homework in the afternoon. → She [gap] her homework in the afternoon.",
+      "We do our homework in the afternoon. → She [gap] her homework in the afternoon.",
     correct: "does",
     tts: "She does her homework in the afternoon.",
   },
   {
     id: 10,
     template:
-      "10) They clean the classroom on Fridays. → He [gap] the classroom on Fridays.",
+      "They clean the classroom on Fridays. → He [gap] the classroom on Fridays.",
     correct: "cleans",
     tts: "He cleans the classroom on Fridays.",
   },

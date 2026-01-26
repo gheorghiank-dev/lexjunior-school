@@ -27,61 +27,61 @@ const SECTION_ID = "negative";
 const NEG_ROOM_1_EXERCISES = [
   {
     id: 1,
-    template: "1) She [gap] like carrots.",
+    template: "She [gap] like carrots.",
     correct: "doesn't",
     tts: "She doesn't like carrots.",
   },
   {
     id: 2,
-    template: "2) They [gap] watch TV in the morning.",
+    template: "They [gap] watch TV in the morning.",
     correct: "don't",
     tts: "They don't watch TV in the morning.",
   },
   {
     id: 3,
-    template: "3) My brother [gap] play tennis.",
+    template: "My brother [gap] play tennis.",
     correct: "doesn't",
     tts: "My brother doesn't play tennis.",
   },
   {
     id: 4,
-    template: "4) I [gap] eat fast food.",
+    template: "I [gap] eat fast food.",
     correct: "don't",
     tts: "I don't eat fast food.",
   },
   {
     id: 5,
-    template: "5) Michael [gap] read in bed.",
+    template: "Michael [gap] read in bed.",
     correct: "doesn't",
     tts: "Michael doesn't read in bed.",
   },
   {
     id: 6,
-    template: "6) We [gap] drink soda.",
+    template: "We [gap] drink soda.",
     correct: "don't",
     tts: "We don't drink soda.",
   },
   {
     id: 7,
-    template: "7) The dog [gap] bark at strangers.",
+    template: "The dog [gap] bark at strangers.",
     correct: "doesn't",
     tts: "The dog doesn't bark at strangers.",
   },
   {
     id: 8,
-    template: "8) You [gap] need that book.",
+    template: "You [gap] need that book.",
     correct: "don't",
     tts: "You don't need that book.",
   },
   {
     id: 9,
-    template: "9) Anna [gap] study on Saturdays.",
+    template: "Anna [gap] study on Saturdays.",
     correct: "doesn't",
     tts: "Anna doesn't study on Saturdays.",
   },
   {
     id: 10,
-    template: "10) I [gap] go to the gym on Mondays.",
+    template: "I [gap] go to the gym on Mondays.",
     correct: "don't",
     tts: "I don't go to the gym on Mondays.",
   },
@@ -125,61 +125,61 @@ const NEG_ROOM_1_GLOSSARY_ITEMS = [
 const NEG_ROOM_2_EXERCISES = [
   {
     id: 1,
-    template: "1) I [gap] understand this exercise.",
+    template: "I [gap] understand this exercise.",
     correct: "don't",
     tts: "I don't understand this exercise.",
   },
   {
     id: 2,
-    template: "2) Sarah [gap] live near the school.",
+    template: "Sarah [gap] live near the school.",
     correct: "doesn't",
     tts: "Sarah doesn't live near the school.",
   },
   {
     id: 3,
-    template: "3) They [gap] want ice cream.",
+    template: "They [gap] want ice cream.",
     correct: "don't",
     tts: "They don't want ice cream.",
   },
   {
     id: 4,
-    template: "4) He [gap] like loud music.",
+    template: "He [gap] like loud music.",
     correct: "doesn't",
     tts: "He doesn't like loud music.",
   },
   {
     id: 5,
-    template: "5) We [gap] have classes today.",
+    template: "We [gap] have classes today.",
     correct: "don't",
     tts: "We don't have classes today.",
   },
   {
     id: 6,
-    template: "6) My parents [gap] cook dinner on Fridays.",
+    template: "My parents [gap] cook dinner on Fridays.",
     correct: "don't",
     tts: "My parents don't cook dinner on Fridays.",
   },
   {
     id: 7,
-    template: "7) The teacher [gap] speak Spanish.",
+    template: "The teacher [gap] speak Spanish.",
     correct: "doesn't",
     tts: "The teacher doesn't speak Spanish.",
   },
   {
     id: 8,
-    template: "8) You [gap] know my cousin.",
+    template: "You [gap] know my cousin.",
     correct: "don't",
     tts: "You don't know my cousin.",
   },
   {
     id: 9,
-    template: "9) Emma [gap] drink milk.",
+    template: "Emma [gap] drink milk.",
     correct: "doesn't",
     tts: "Emma doesn't drink milk.",
   },
   {
     id: 10,
-    template: "10) I [gap] play the piano.",
+    template: "1I [gap] play the piano.",
     correct: "don't",
     tts: "I don't play the piano.",
   },
@@ -231,7 +231,7 @@ const NEG_ROOM_2_GLOSSARY_ITEMS = [
 const NEG_ROOM_3_EXERCISES = [
   {
     id: 1,
-    template: "1) She loves chocolate. → She [gap] chocolate.",
+    template: "She loves chocolate. → She [gap] chocolate.",
     // Student writes the full negative verb form (aux + base verb)
     // e.g., "doesn't love" / "don't walk".
     correct: "doesn't love",
@@ -240,58 +240,58 @@ const NEG_ROOM_3_EXERCISES = [
   {
     id: 2,
     template:
-      "2) They walk to school every day. → They [gap] to school every day.",
+      "They walk to school every day. → They [gap] to school every day.",
     correct: "don't walk",
     tts: "They don't walk to school every day.",
   },
   {
     id: 3,
-    template: "3) He plays basketball. → He [gap] basketball.",
+    template: "He plays basketball. → He [gap] basketball.",
     correct: "doesn't play",
     tts: "He doesn't play basketball.",
   },
   {
     id: 4,
-    template: "4) I read in the evening. → I [gap] in the evening.",
+    template: "I read in the evening. → I [gap] in the evening.",
     correct: "don't read",
     tts: "I don't read in the evening.",
   },
   {
     id: 5,
     template:
-      "5) Emma visits her aunt every weekend. → Emma [gap] her aunt every weekend.",
+      "Emma visits her aunt every weekend. → Emma [gap] her aunt every weekend.",
     correct: "doesn't visit",
     tts: "Emma doesn't visit her aunt every weekend.",
   },
   {
     id: 6,
-    template: "6) We travel in summer. → We [gap] in summer.",
+    template: "We travel in summer. → We [gap] in summer.",
     correct: "don't travel",
     tts: "We don't travel in summer.",
   },
   {
     id: 7,
     template:
-      "7) My mother cooks dinner every day. → My mother [gap] dinner every day.",
+      "My mother cooks dinner every day. → My mother [gap] dinner every day.",
     correct: "doesn't cook",
     tts: "My mother doesn't cook dinner every day.",
   },
   {
     id: 8,
-    template: "8) The dog barks at night. → The dog [gap] at night.",
+    template: "The dog barks at night. → The dog [gap] at night.",
     correct: "doesn't bark",
     tts: "The dog doesn't bark at night.",
   },
   {
     id: 9,
-    template: "9) You study a lot. → You [gap] a lot.",
+    template: "You study a lot. → You [gap] a lot.",
     correct: "don't study",
     tts: "You don't study a lot.",
   },
   {
     id: 10,
     template:
-      "10) Mark drinks coffee in the morning. → Mark [gap] coffee in the morning.",
+      "Mark drinks coffee in the morning. → Mark [gap] coffee in the morning.",
     correct: "doesn't drink",
     tts: "Mark doesn't drink coffee in the morning.",
   },
@@ -782,7 +782,7 @@ export const PS_NEGATIVE_ROOMS = [
       <>
         <h2 className="card-title">
           Completează spațiile libere cu forma de negativ a verbului din
-          propozițiile date
+          propoziția dată
         </h2>
       </>
     ),

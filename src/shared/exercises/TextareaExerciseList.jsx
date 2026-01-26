@@ -8,7 +8,7 @@ export function TextareaExerciseList({
   onChange,
   rows = 2,
   stacked = false,
-  showIndex = false,
+  showIndex = true,
 }) {
   return (
     <ol className="exercise-list">
@@ -27,8 +27,8 @@ export function TextareaExerciseList({
           feedback[ex.id] === "correct"
             ? "exercise-input-correct"
             : feedback[ex.id] === "incorrect"
-            ? "exercise-input-incorrect"
-            : "",
+              ? "exercise-input-incorrect"
+              : "",
         ]
           .filter(Boolean)
           .join(" ");
@@ -37,7 +37,7 @@ export function TextareaExerciseList({
           <li key={ex.id} className={rowClassNames.join(" ")}>
             <p className="exercise-text">
               {showIndex && (
-                <span className="exercise-index">{index + 1})</span>
+                <span className="exercise-index">{index + 1}.</span>
               )}
               {ex.prompt}
             </p>
@@ -45,7 +45,11 @@ export function TextareaExerciseList({
               className={textareaClassNames}
               id={textareaId}
               name={textareaId}
-              aria-label={ex.prompt ? `Răspuns: ${ex.prompt}` : `Răspuns exercițiul ${index + 1}`}
+              aria-label={
+                ex.prompt
+                  ? `Răspuns: ${ex.prompt}`
+                  : `Răspuns exercițiul ${index + 1}`
+              }
               rows={rows}
               value={answers[ex.id] ?? ""}
               onChange={(e) => onChange(ex.id, e.target.value)}
@@ -53,7 +57,9 @@ export function TextareaExerciseList({
             <LexListenOnCorrect
               isCorrect={feedback[ex.id] === "correct"}
               tts={ex.tts}
-              ariaLabel={ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"}
+              ariaLabel={
+                ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"
+              }
             />
           </li>
         );

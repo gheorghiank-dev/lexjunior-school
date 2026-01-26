@@ -47,26 +47,28 @@ export function InterrogativeYesNoPairsExerciseList({
 
         const yesTextareaClassNames = [
           "exercise-input",
+          "pill-gap",
           "long-input",
           "textarea-large",
           yesFeedback === "correct"
             ? "exercise-input-correct"
             : yesFeedback === "incorrect"
-            ? "exercise-input-incorrect"
-            : "",
+              ? "exercise-input-incorrect"
+              : "",
         ]
           .filter(Boolean)
           .join(" ");
 
         const noTextareaClassNames = [
           "exercise-input",
+          "pill-gap",
           "long-input",
           "textarea-large",
           noFeedback === "correct"
             ? "exercise-input-correct"
             : noFeedback === "incorrect"
-            ? "exercise-input-incorrect"
-            : "",
+              ? "exercise-input-incorrect"
+              : "",
         ]
           .filter(Boolean)
           .join(" ");
@@ -89,6 +91,7 @@ export function InterrogativeYesNoPairsExerciseList({
               </button>
             </p>
 
+            {/* YES */}
             <div className="short-answer-row">
               <span
                 className={[
@@ -106,15 +109,21 @@ export function InterrogativeYesNoPairsExerciseList({
                 {yesFeedback === "correct"
                   ? "✅"
                   : yesFeedback === "incorrect"
-                  ? "❌"
-                  : "•"}
+                    ? "❌"
+                    : "•"}
               </span>
+
+              <span className="short-answer-prefix" aria-hidden="true">
+                Yes,
+              </span>
+
               <textarea
                 className={yesTextareaClassNames}
                 rows={1}
                 value={answers[pair.yesExercise.id] ?? ""}
                 onChange={(e) => onChange(pair.yesExercise.id, e.target.value)}
               />
+
               <LexListenOnCorrect
                 isCorrect={feedback[pair.yesExercise.id] === "correct"}
                 tts={pair.yesExercise.tts}
@@ -122,11 +131,14 @@ export function InterrogativeYesNoPairsExerciseList({
               />
             </div>
 
+            {/* NO */}
             <div className="short-answer-row">
               <span
                 className={[
                   "short-answer-status",
-                  noFeedback === "correct" ? "short-answer-status--correct" : "",
+                  noFeedback === "correct"
+                    ? "short-answer-status--correct"
+                    : "",
                   noFeedback === "incorrect"
                     ? "short-answer-status--incorrect"
                     : "",
@@ -137,15 +149,21 @@ export function InterrogativeYesNoPairsExerciseList({
                 {noFeedback === "correct"
                   ? "✅"
                   : noFeedback === "incorrect"
-                  ? "❌"
-                  : "•"}
+                    ? "❌"
+                    : "•"}
               </span>
+
+              <span className="short-answer-prefix" aria-hidden="true">
+                No,
+              </span>
+
               <textarea
                 className={noTextareaClassNames}
                 rows={1}
                 value={answers[pair.noExercise.id] ?? ""}
                 onChange={(e) => onChange(pair.noExercise.id, e.target.value)}
               />
+
               <LexListenOnCorrect
                 isCorrect={feedback[pair.noExercise.id] === "correct"}
                 tts={pair.noExercise.tts}

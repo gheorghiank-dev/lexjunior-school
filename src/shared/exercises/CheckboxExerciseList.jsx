@@ -12,7 +12,7 @@ export function CheckboxExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
 }) {
   return (
     <ol className="exercise-list">
@@ -23,8 +23,12 @@ export function CheckboxExerciseList({
         const classes = [
           "exercise-row",
           "exercise-row--checkbox",
-          feedback[ex.id] === "correct" && isChecked ? "exercise-row-correct" : "",
-          feedback[ex.id] === "incorrect" && isChecked ? "exercise-row-incorrect" : "",
+          feedback[ex.id] === "correct" && isChecked
+            ? "exercise-row-correct"
+            : "",
+          feedback[ex.id] === "incorrect" && isChecked
+            ? "exercise-row-incorrect"
+            : "",
         ]
           .filter(Boolean)
           .join(" ");
@@ -34,9 +38,7 @@ export function CheckboxExerciseList({
         // - după Verify, arătăm 🔊 doar pentru opțiunile selectate CORECT de elev.
         //   (adică: elevul a bifat, iar verdictul e "correct")
         const showListen =
-          feedback?.[ex.id] === "correct" &&
-          isChecked &&
-          ex.correct === "true";
+          feedback?.[ex.id] === "correct" && isChecked && ex.correct === "true";
 
         return (
           <li key={ex.id} className={classes}>
@@ -52,14 +54,18 @@ export function CheckboxExerciseList({
                 }}
               />
               <span className="checkbox-option-label">
-                {showIndex && <span className="exercise-index">{index + 1})</span>}
+                {showIndex && (
+                  <span className="exercise-index">{index + 1}.</span>
+                )}
                 {ex.prompt}
               </span>
             </label>
             <LexListenOnCorrect
               isCorrect={showListen}
               tts={ex.tts}
-              ariaLabel={ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"}
+              ariaLabel={
+                ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"
+              }
             />
           </li>
         );

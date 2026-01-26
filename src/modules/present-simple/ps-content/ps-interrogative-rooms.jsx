@@ -14,6 +14,8 @@ import { GapSentenceExerciseList } from "../../../shared/exercises/GapSentenceEx
 import { McqExerciseList } from "../../../shared/exercises/McqExerciseList.jsx";
 import { TextareaExerciseList } from "../../../shared/exercises/TextareaExerciseList.jsx";
 
+import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
+
 import { InterrogativeYesNoPairsExerciseList } from "../components/InterrogativeYesNoPairsExerciseList.jsx";
 
 import { presentSimpleInterrogativeLexHints as interrogativeLexHints } from "../../lex-hints/present-simple/index.js";
@@ -370,62 +372,64 @@ const INT_ROOM_3_GLOSSARY_ITEMS = [
 const INT_ROOM_4_EXERCISES = [
   {
     id: 1,
-    prompt: "Do she likes ice cream?",
-    correct: "does she like ice cream",
+    template: "Does she likes ice cream? → [gap] ice cream?",
+    correct: "does she like",
     tts: "Does she like ice cream?",
   },
   {
     id: 2,
-    prompt: "Does they live in this house?",
-    correct: "do they live in this house",
+    template: "Does they live in this house? → [gap] in this house?",
+    correct: "do they live",
     tts: "Do they live in this house?",
   },
   {
     id: 3,
-    prompt: "Does your parents works at night?",
-    correct: "do your parents work at night",
+    template: "Does your parents works at night? → [gap] at night?",
+    correct: "do your parents work",
     tts: "Do your parents work at night?",
   },
   {
     id: 4,
-    prompt: "Do he go to school by bus?",
-    correct: "does he go to school by bus",
+    template: "Do he go to school by bus? → [gap] to school by bus?",
+    correct: "does he go",
     tts: "Does he go to school by bus?",
   },
   {
     id: 5,
-    prompt: "Does you play basketball every day?",
-    correct: "do you play basketball every day",
+    template:
+      "Does you play basketball every day? → [gap] basketball every day?",
+    correct: "do you play",
     tts: "Do you play basketball every day?",
   },
   {
     id: 6,
-    prompt: "Do Maria studies French?",
-    correct: "does maria study french",
-    tts: "Does maria study french?",
+    template: "Do Maria studies French? → [gap] French?",
+    correct: "does maria study",
+    tts: "Does Maria study French?",
   },
   {
     id: 7,
-    prompt: "Do it rains a lot in April?",
-    correct: "does it rain a lot in april",
-    tts: "Does it rain a lot in april?",
+    template: "Do it rains a lot in April? → [gap] a lot in April?",
+    correct: "does it rain",
+    tts: "Does it rain a lot in April?",
   },
   {
     id: 8,
-    prompt: "Does my friends goes to the gym?",
-    correct: "do my friends go to the gym",
+    template: "Does my friends goes to the gym? → [gap] to the gym?",
+    correct: "do my friends go",
     tts: "Do my friends go to the gym?",
   },
   {
     id: 9,
-    prompt: "Do the movie starts at seven?",
-    correct: "does the movie start at seven",
+    template: "Do the movie starts at seven? → [gap] at seven?",
+    correct: "does the movie start",
     tts: "Does the movie start at seven?",
   },
   {
     id: 10,
-    prompt: "Does your brother and sister plays the piano?",
-    correct: "do your brother and sister play the piano",
+    template:
+      "Does your brother and sister plays the piano? → [gap] the piano?",
+    correct: "do your brother and sister play",
     tts: "Do your brother and sister play the piano?",
   },
 ];
@@ -476,6 +480,94 @@ const INT_ROOM_4_GLOSSARY_ITEMS = [
   { tts: "play the piano", word: "play the piano", meaning: "a cânta la pian" },
 ];
 
+function InterrogativeDoLikeExerciseList({
+  exercises,
+  answers,
+  feedback,
+  onChange,
+  showIndex = true,
+  testIdPrefix,
+}) {
+  return (
+    <ol className="exercise-list">
+      {exercises.map((ex, index) => {
+        const status = feedback?.[ex.id];
+        const isCorrect = status === "correct";
+        const isIncorrect = status === "incorrect";
+
+        const current = (answers?.[ex.id] ?? "").trim();
+        const parts = current.split(/\s+/).filter(Boolean);
+        const aux = parts[0] ?? "";
+        const verb = parts[1] ?? "";
+
+        const inputClassName = `exercise-input ${
+          isCorrect
+            ? "exercise-input-correct"
+            : isIncorrect
+              ? "exercise-input-incorrect"
+              : ""
+        }`;
+
+        const auxId = `ex-${ex.id}-aux`;
+        const verbId = `ex-${ex.id}-verb`;
+
+        const setAux = (v) => {
+          const next = `${v} ${verb}`.trim().replace(/\s+/g, " ");
+          onChange && onChange(ex.id, next);
+        };
+
+        const setVerb = (v) => {
+          const next = `${aux} ${v}`.trim().replace(/\s+/g, " ");
+          onChange && onChange(ex.id, next);
+        };
+
+        return (
+          <li key={ex.id} className="exercise-row">
+            <span className="exercise-text">
+              {showIndex && (
+                <span className="exercise-index">{index + 1}.</span>
+              )}
+              <input
+                type="text"
+                id={auxId}
+                name={auxId}
+                aria-label={`Do/Does – exercițiul ${index + 1}`}
+                className={inputClassName}
+                data-testid={
+                  testIdPrefix ? `${testIdPrefix}-aux-${ex.id}` : undefined
+                }
+                value={aux}
+                onChange={(e) => setAux(e.target.value)}
+              />{" "}
+              {ex.subject}{" "}
+              <input
+                type="text"
+                id={verbId}
+                name={verbId}
+                aria-label={`Verb (like) – exercițiul ${index + 1}`}
+                className={inputClassName}
+                data-testid={
+                  testIdPrefix ? `${testIdPrefix}-verb-${ex.id}` : undefined
+                }
+                value={verb}
+                onChange={(e) => setVerb(e.target.value)}
+              />{" "}
+              {ex.rest}
+            </span>
+
+            <LexListenOnCorrect
+              isCorrect={isCorrect}
+              tts={ex.tts}
+              ariaLabel={
+                ex.tts ? `Ascultă propoziția: ${ex.tts}` : "Ascultă propoziția"
+              }
+            />
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
 // -------------------- Room 5 --------------------
 const INT_ROOM_5_EXERCISES = [
   {
@@ -971,12 +1063,9 @@ export const PS_INTERROGATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – transformă propozițiile în întrebări
+          Copletează spațiile libere cu forma de interogativ a verbului din
+          propoziția dată
         </h2>
-        <p className="card-description">
-          Transformă propozițiile afirmative date în întrebări la{" "}
-          <strong>Present Simple interogativ</strong>, folosind Do / Does.
-        </p>
       </>
     ),
     dictionaryDescription: DICT_DESC,
@@ -1000,12 +1089,9 @@ export const PS_INTERROGATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – rearanjează cuvintele în întrebări corecte
+          Scrie cuvintele date în ordinea corectă pentru a forma propoziții la
+          Present Simple interogativ
         </h2>
-        <p className="card-description">
-          Cuvintele sunt amestecate. Scrie o întrebare corectă la Present
-          Simple, în ordinea corectă.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 4),
@@ -1022,19 +1108,20 @@ export const PS_INTERROGATIVE_ROOMS = [
     roomNumber: 4,
     exercises: INT_ROOM_4_EXERCISES,
     lexHints: interrogativeLexHints.room4,
-    ExerciseListComponent: TextareaExerciseList,
-    exerciseListProps: { rows: 1, stacked: true, showIndex: true },
+    ExerciseListComponent: GapSentenceExerciseList,
+    exerciseListProps: { showIndex: true, testIdPrefix: "ps-int-room4" },
     // Room 4 previously had no ps-check/ps-feedback testIDs; keep output identical.
     verifyTestId: null,
     feedbackTestId: null,
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – corectează întrebările greșite
+          Corectează întrebările greșite: scrie începutul corect
         </h2>
         <p className="card-description">
-          Unele întrebări au greșeli de tipul do/does sau verb la forma greșită.
-          Rescrie fiecare propoziție în forma corectă.
+          În spațiul liber scrii începutul întrebării corecte:
+          <strong> Do/Does + subiect + like</strong>. Restul propoziției este
+          deja afișat.
         </p>
       </>
     ),

@@ -30,7 +30,7 @@ export function SentenceBuilderExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
 }) {
   const shuffledBankMap = useMemo(() => {
     const map = new Map();
@@ -91,7 +91,10 @@ export function SentenceBuilderExerciseList({
         const isCorrect = state === "correct";
         const isIncorrect = state === "incorrect";
 
-        const rowClassNames = ["exercise-row", "exercise-row--sentence-builder"];
+        const rowClassNames = [
+          "exercise-row",
+          "exercise-row--sentence-builder",
+        ];
         if (isCorrect) rowClassNames.push("exercise-row--correct");
         if (isIncorrect) rowClassNames.push("exercise-row--incorrect");
 
@@ -100,7 +103,7 @@ export function SentenceBuilderExerciseList({
             <div className="sentence-builder-header">
               <p className="sentence-builder-question">
                 {showIndex && (
-                  <span className="exercise-index">{index + 1})</span>
+                  <span className="exercise-index">{index + 1}.</span>
                 )}
                 <span>{ex.question}</span>
               </p>
@@ -145,16 +148,18 @@ export function SentenceBuilderExerciseList({
                 Cuvinte disponibile
               </div>
               <div className="sentence-builder-bank-words">
-                {(shuffledBankMap.get(ex.id) || ex.wordBank || []).map((word, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className="sentence-builder-word"
-                    onClick={() => handleAddWord(ex, word)}
-                  >
-                    {word}
-                  </button>
-                ))}
+                {(shuffledBankMap.get(ex.id) || ex.wordBank || []).map(
+                  (word, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className="sentence-builder-word"
+                      onClick={() => handleAddWord(ex, word)}
+                    >
+                      {word}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
 

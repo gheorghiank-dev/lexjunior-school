@@ -30,7 +30,7 @@ export function MatchingPairsExerciseList({
   answers,
   feedback,
   onChange,
-  showIndex = false,
+  showIndex = true,
   testIdPrefix,
 }) {
   const [draggingValue, setDraggingValue] = useState(null);
@@ -121,10 +121,7 @@ export function MatchingPairsExerciseList({
             }
 
             return (
-              <li
-                key={ex.id}
-                className="exercise-row exercise-row--matching"
-              >
+              <li key={ex.id} className="exercise-row exercise-row--matching">
                 <div className="exercise-header-row">
                   {showIndex && (
                     <span className="exercise-index">{index + 1}.</span>
@@ -143,9 +140,7 @@ export function MatchingPairsExerciseList({
                   onClick={() => handleClickSlot(ex.id)}
                 >
                   {currentLabel ? (
-                    <span className="matching-slot-label">
-                      {currentLabel}
-                    </span>
+                    <span className="matching-slot-label">{currentLabel}</span>
                   ) : (
                     <span className="matching-slot-placeholder">
                       Trage sau alege o expresie de timp
@@ -189,9 +184,7 @@ export function MatchingPairsExerciseList({
                 draggable
                 onDragStart={() => setDraggingValue(opt.value)}
                 onDragEnd={() => setDraggingValue(null)}
-                onClick={() =>
-                  setSelectedValue(isSelected ? null : opt.value)
-                }
+                onClick={() => setSelectedValue(isSelected ? null : opt.value)}
               >
                 {opt.label}
               </button>
