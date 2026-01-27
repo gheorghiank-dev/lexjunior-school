@@ -2,6 +2,9 @@ import React, { useMemo } from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 import LexTtsButton from "./LexTtsButton.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/sentence-builder.css";
+
 /**
  * SentenceBuilderExerciseList
  *
@@ -83,7 +86,8 @@ export function SentenceBuilderExerciseList({
   };
 
   return (
-    <ol className="exercise-list sentence-builder-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list sentence-builder-list">
       {exercises.map((ex, index) => {
         const currentValue = getCurrentValue(ex);
         const tokens = getTokens(currentValue);
@@ -176,5 +180,6 @@ export function SentenceBuilderExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

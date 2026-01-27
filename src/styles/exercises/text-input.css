@@ -1,0 +1,31 @@
+/*
+  Exercises — Text input (Sprint 1)
+  Extracted from src/styles/global.css.
+  Covers: .exercise-input base + focus + correct/incorrect states.
+*/
+
+.exercise-input {
+  display: inline-block;
+  min-width: 70px;
+  max-width: 220px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  border: 1px solid #d4d4ff;
+  font-size: 0.95rem;
+}
+
+.exercise-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px rgba(107, 140, 255, 0.3);
+}
+
+.exercise-input-correct {
+  background: #ecfdf3;
+  border-color: #16a34a;
+}
+
+.exercise-input-incorrect {
+  background: #fef2f2;
+  border-color: #dc2626;
+}

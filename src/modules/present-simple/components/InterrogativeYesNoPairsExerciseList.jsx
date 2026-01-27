@@ -2,6 +2,12 @@ import React from "react";
 
 import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
 
+import "../../../styles/exercises/base.css";
+import "../../../styles/exercises/text-input.css";
+import "../../../styles/exercises/textarea.css";
+import "../../../styles/exercises/yesno-pairs.css";
+import "../../../styles/components/lex-voice-btn.css";
+
 /**
  * Room 6 (Interrogative) exercise list:
  * For each question, student writes BOTH a short YES and a short NO answer.
@@ -39,8 +45,32 @@ export function InterrogativeYesNoPairsExerciseList({
     return result;
   }, [exercises]);
 
+  // We purposely avoid trimming while the user types.
+  // Trimming would "eat" trailing spaces and make it impossible to type multi-word answers naturally.
+  const stripLeadingYesNo = React.useCallback((value, kind) => {
+    const raw = String(value ?? "");
+    if (!raw) return "";
+    const reYes = /^\s*yes\s*,?\s*/i;
+    const reNo = /^\s*no\s*,?\s*/i;
+    const re = kind === "no" ? reNo : reYes;
+    return raw.replace(re, "");
+  }, []);
+
+  const buildStoredAnswer = React.useCallback((kind, typedSuffix) => {
+    const raw = String(typedSuffix ?? "");
+    // If it's only whitespace, keep it empty.
+    if (raw.trim().length === 0) return "";
+    // If user already typed the prefix (Yes/No), keep their full input as-is.
+    if (/^\s*yes\b/i.test(raw) || /^\s*no\b/i.test(raw)) return raw;
+    const prefix = kind === "no" ? "No" : "Yes";
+    // Avoid double space if user starts with a space.
+    return raw.startsWith(" ") ? `${prefix}${raw}` : `${prefix} ${raw}`;
+  }, []);
+
+
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {pairs.map((pair, index) => {
         const yesFeedback = feedback[pair.yesExercise.id];
         const noFeedback = feedback[pair.noExercise.id];
@@ -120,8 +150,8 @@ export function InterrogativeYesNoPairsExerciseList({
               <textarea
                 className={yesTextareaClassNames}
                 rows={1}
-                value={answers[pair.yesExercise.id] ?? ""}
-                onChange={(e) => onChange(pair.yesExercise.id, e.target.value)}
+                value={stripLeadingYesNo(answers[pair.yesExercise.id] ?? "", "yes")}
+                onChange={(e) => onChange(pair.yesExercise.id, buildStoredAnswer("yes", e.target.value))}
               />
 
               <LexListenOnCorrect
@@ -160,8 +190,8 @@ export function InterrogativeYesNoPairsExerciseList({
               <textarea
                 className={noTextareaClassNames}
                 rows={1}
-                value={answers[pair.noExercise.id] ?? ""}
-                onChange={(e) => onChange(pair.noExercise.id, e.target.value)}
+                value={stripLeadingYesNo(answers[pair.noExercise.id] ?? "", "no")}
+                onChange={(e) => onChange(pair.noExercise.id, buildStoredAnswer("no", e.target.value))}
               />
 
               <LexListenOnCorrect
@@ -174,5 +204,6 @@ export function InterrogativeYesNoPairsExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

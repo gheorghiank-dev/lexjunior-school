@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/components/lex-voice-btn.css";
 
 /**
  * Componentă globală pentru butonul de listen în exerciții.

@@ -8,6 +8,8 @@ import { PsMiniDictionaryCard } from "./components/PsMiniDictionaryCard.jsx";
 import PsRoomTemplateV1 from "./components/PsRoomTemplateV1.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import "../../styles/badge.css";
+import "../../styles/exercises/base.css";
+import "../../styles/components/lex-voice-btn.css";
 import {
   badgeStoryConfig,
   badgeEx2Questions,

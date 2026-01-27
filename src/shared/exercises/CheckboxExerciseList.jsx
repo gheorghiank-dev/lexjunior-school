@@ -1,6 +1,8 @@
 import React from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+
 /**
  * Generic checkbox exercise list for multiple-true statements.
  * Each exercise:
@@ -15,7 +17,8 @@ export function CheckboxExerciseList({
   showIndex = true,
 }) {
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const inputId = `ex-${ex.id}-chk`;
         const isChecked = answers[ex.id] === "true";
@@ -71,5 +74,6 @@ export function CheckboxExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

@@ -449,6 +449,14 @@ a {
   margin-top: 0.35rem;
 }
 
+/* emoji-ul lui Lex folosit inline în texte */
+.lex-emoji {
+  display: inline-block;
+  width: 2.4em;
+  height: 2.4em;
+  vertical-align: -0.35em;
+}
+
 /* === Present Simple – structure box (Affirmative theory) === */
 
 .ps-structure-box {
@@ -962,6 +970,63 @@ a.btn {
   background: var(--lex-chip-bg-hover);
 }
 
+/* exercițiul din Camera 1 React */
+.exercise-row--mcq {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mcq-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+
+/* ✅ Pill gap look pentru textarea (rows=1) */
+.exercise-input.pill-gap {
+  resize: none;
+  overflow: hidden;
+
+  border-radius: 999px;
+  height: 32px;
+  min-height: 32px;
+
+  padding: 4px 12px;
+  line-height: 20px;
+
+  background: #eafaf0;
+  border: 2px solid #1fb15c;
+
+  width: 200px;
+  max-width: 100%;
+}
+
+/* păstrează highlight-ul existent, dar îl face “pill” */
+.exercise-input-correct.pill-gap {
+  background: #eafaf0;
+}
+
+.exercise-input-incorrect.pill-gap {
+  background: #fff0f0;
+}
+
+.exercise-listen-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* cutia de rezultate */
+.result-box {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
 
 /* dev bar */
 .dev-bar {
@@ -1158,6 +1223,19 @@ a.btn {
   margin-top: 1.5rem;
 }
 
+/* Header row for exercise text + listen button */
+.exercise-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Make sure text wraps nicely and the listen button stays aligned */
+.exercise-header-row .exercise-text {
+  margin: 0;
+}
+
 /* Uses card header for MCQ cards */
 .uses-card-header {
   display: flex;
@@ -1170,8 +1248,179 @@ a.btn {
   margin: 0;
 }
 
+/* Short answer rows (yes/no) with inline status icon */
+.short-answer-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
 
+.short-answer-status {
+  width: 1.5rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
 
+.short-answer-status--correct {
+  color: #16a34a;
+}
+
+.short-answer-status--incorrect {
+  color: #dc2626;
+}
+
+/* === Matching pairs layout – Time Expressions & other matching rooms === */
+.matching-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
+  align-items: flex-start;
+}
+
+.matching-left {
+  min-width: 0;
+}
+
+.matching-right {
+  min-width: 0;
+}
+
+.exercise-list.matching-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.exercise-row--matching {
+  padding: 0.75rem 1rem 1rem;
+  border-radius: 1.1rem;
+  background: var(--lex-matching-row-bg);
+  border: var(--lex-matching-row-border);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.exercise-row--matching .exercise-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-row--matching .exercise-text {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.matching-slot {
+  margin-top: 0.25rem;
+  border-radius: 999px;
+  border: var(--lex-matching-slot-border);
+  background: var(--lex-matching-slot-bg);
+  padding: 0.4rem 0.9rem;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.matching-slot:hover {
+  background: var(--lex-matching-slot-bg-hover);
+}
+
+.matching-slot--empty .matching-slot-placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.matching-slot-label {
+  font-weight: 500;
+}
+
+.matching-slot--correct {
+  border-color: #22c55e;
+  background: #dcfce7;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.25);
+}
+
+.matching-slot--incorrect {
+  border-color: #ef4444;
+  background: #fee2e2;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.25);
+}
+
+.matching-options {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.25rem 1.4rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.matching-options::before {
+  content: "Expresii de timp";
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.matching-option {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  text-align: left;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  cursor: grab;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease,
+    opacity 0.1s ease;
+}
+
+.matching-option:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.09);
+}
+
+.matching-option--selected {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.matching-option--used {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .matching-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .matching-right {
+    margin-top: 1.5rem;
+  }
+}
+
+/* Sentence Builder (Time Expressions – Camera 5 și viitoare camere similare) */
 .exercise-list.sentence-builder-list {
   list-style: none;
   margin: 0;
@@ -1307,4 +1556,99 @@ a.btn {
   font-size: 0.82rem;
 }
 
+/* Adverb Position (Time Expressions – propoziții cu două spații) */
+.exercise-list.adverb-position-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
 
+.exercise-row--adverb-pos {
+  padding: 0.85rem 1rem;
+  border-radius: 1.1rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.exercise-row--adverb-pos.exercise-row--correct {
+  border-color: #22c55e;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+}
+
+.exercise-row--adverb-pos.exercise-row--incorrect {
+  border-color: #f97373;
+  box-shadow: 0 8px 20px rgba(248, 113, 113, 0.25);
+}
+
+.adverb-pos-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.adverb-pos-sentence {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.adverb-pos-text {
+  display: inline;
+}
+
+.adverb-pos-slot {
+  border-radius: 999px;
+  border: var(--lex-sb-zone-border);
+  background: var(--lex-sb-zone-bg);
+  padding: 0.1rem 0.8rem;
+  min-width: 4.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.adverb-pos-slot--filled {
+  border-style: solid;
+  border-color: #4f46e5;
+  background: #eef2ff;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+}
+
+.adverb-pos-slot:hover {
+  background-color: #e0e7ff;
+  transform: translateY(-1px);
+}
+
+.adverb-pos-word-label {
+  margin: 0.35rem 0 0;
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+}
+
+.adverb-pos-word {
+  font-weight: 600;
+}
+
+.sentence-builder-answer-content {
+  flex: 1;
+}
+
+.sentence-builder-answer-zone .lex-voice-btn {
+  flex-shrink: 0;
+}

@@ -1,0 +1,154 @@
+/*
+  Exercises — Matching pairs (Sprint 3)
+  Extracted 1:1 from src/styles/global.css.
+  IMPORTANT: values must remain identical to preserve UI/UX.
+*/
+
+/* === Matching pairs layout – Time Expressions & other matching rooms === */
+.matching-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
+  align-items: flex-start;
+}
+
+.matching-left {
+  min-width: 0;
+}
+
+.matching-right {
+  min-width: 0;
+}
+
+.exercise-list.matching-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.exercise-row--matching {
+  padding: 0.75rem 1rem 1rem;
+  border-radius: 1.1rem;
+  background: var(--lex-matching-row-bg);
+  border: var(--lex-matching-row-border);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.exercise-row--matching .exercise-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.exercise-row--matching .exercise-text {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.matching-slot {
+  margin-top: 0.25rem;
+  border-radius: 999px;
+  border: var(--lex-matching-slot-border);
+  background: var(--lex-matching-slot-bg);
+  padding: 0.4rem 0.9rem;
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.matching-slot:hover {
+  background: var(--lex-matching-slot-bg-hover);
+}
+
+.matching-slot--empty .matching-slot-placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.matching-slot-label {
+  font-weight: 500;
+}
+
+.matching-slot--correct {
+  border-color: #22c55e;
+  background: #dcfce7;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.25);
+}
+
+.matching-slot--incorrect {
+  border-color: #ef4444;
+  background: #fee2e2;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.25);
+}
+
+.matching-options {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.25rem 1.4rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.matching-options::before {
+  content: "Expresii de timp";
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.matching-option {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  text-align: left;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  cursor: grab;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease,
+    opacity 0.1s ease;
+}
+
+.matching-option:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.09);
+}
+
+.matching-option--selected {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.matching-option--used {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .matching-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .matching-right {
+    margin-top: 1.5rem;
+  }
+}
+

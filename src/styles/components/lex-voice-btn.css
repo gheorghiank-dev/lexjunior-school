@@ -1,0 +1,20 @@
+/*
+  Components — Lex voice button (Sprint 2)
+  Consolidates .lex-voice-btn styles (previously split across global.css + lex.css).
+  Values unchanged.
+*/
+
+.lex-voice-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.95rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.lex-voice-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

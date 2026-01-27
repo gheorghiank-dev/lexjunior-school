@@ -1,0 +1,40 @@
+/*
+  Components — Dictionary (Sprint 2)
+  Extracted from src/styles/lex.css (legacy glossary styles).
+  NOTE: current PsMiniDictionaryCard uses .glossary-list/.glossary-item (different classnames),
+  so this file is extracted for architecture, but it does NOT affect UI yet.
+*/
+
+/* Mini-dictionary (RO→EN translation help) */
+.glossary {
+  margin: 14px 0 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.glossary__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.glossary__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.glossary__item {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.92rem;
+}

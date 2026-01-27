@@ -1,6 +1,9 @@
 import React from "react";
 import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
 
+import "../../../styles/exercises/base.css";
+import "../../../styles/exercises/choice.css";
+
 /**
  * FrequencyAdverbExerciseList
  *
@@ -26,7 +29,8 @@ export function FrequencyAdverbExerciseList({
   showIndex = true,
 }) {
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const selected = (answers && answers[ex.id]) || "";
         const itemFeedback = feedback && feedback[ex.id];
@@ -101,5 +105,6 @@ export function FrequencyAdverbExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

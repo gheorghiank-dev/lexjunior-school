@@ -260,6 +260,71 @@
     font-size: 0.8rem;
   }
 }
+#exercise-root.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+}
+.choice-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 2px solid #d6dcff;
+  box-shadow: 0 4px 10px rgba(33, 56, 120, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.choice-card label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.choice-card input[type="checkbox"] {
+  transform: scale(1.1);
+}
+.choice-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(33, 56, 120, 0.12);
+  border-color: #aeb8ff;
+}
+/* Mini-dictionary (RO→EN translation help) */
+.glossary {
+  margin: 14px 0 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.glossary__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.glossary__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.glossary__item {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.92rem;
+}
 /* ===== Lex custom: Back-link buttons (theory + map) ===== */
 .back-link {
   margin-bottom: 16px;
@@ -278,6 +343,19 @@
   color: #c0392b;
   font-weight: 700;
 }
+.lex-voice-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.lex-voice-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 /* Lex Junior SVG avatar & emoji helpers */
 .lex-avatar-img {
   width: 180%;

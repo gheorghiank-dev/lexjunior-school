@@ -1,6 +1,9 @@
 import React from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/text-input.css";
+
 export function GapSentenceExerciseList({
   exercises,
   answers,
@@ -12,7 +15,8 @@ export function GapSentenceExerciseList({
   const GAP_TOKEN = "[gap]";
 
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const [before, after] = ex.template.split(GAP_TOKEN);
         const inputId = `ex-${ex.id}-gap`;
@@ -58,5 +62,6 @@ export function GapSentenceExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

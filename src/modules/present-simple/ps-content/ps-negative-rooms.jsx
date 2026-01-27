@@ -729,6 +729,7 @@ export const PS_NEGATIVE_ROOMS = [
     exercises: NEG_ROOM_1_EXERCISES,
     lexHints: negativeLexHints.room1,
     ExerciseListComponent: GapSentenceExerciseList,
+    exerciseListProps: { showIndex: true, testIdPrefix: "ps-neg-room1" },
     cardIntro: (
       <>
         <h2 className="card-title">
@@ -751,6 +752,7 @@ export const PS_NEGATIVE_ROOMS = [
     exercises: NEG_ROOM_2_EXERCISES,
     lexHints: negativeLexHints.room2,
     ExerciseListComponent: GapSentenceExerciseList,
+    exerciseListProps: { showIndex: true, testIdPrefix: "ps-neg-room2" },
     cardIntro: (
       <>
         <h2 className="card-title">
@@ -887,6 +889,11 @@ export const PS_NEGATIVE_ROOMS = [
     lexHints: negativeLexHints.room7,
     ExerciseListComponent: TextareaExerciseList,
     exerciseListProps: { rows: 1, stacked: true, showIndex: true },
+    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
+    verifyTestId: null,
+    feedbackTestId: null,
+    nextTo: null,
+    verifyLabel: "Verifică răspunsurile",
     cardIntro: (
       <>
         <h2 className="card-title">
@@ -895,24 +902,33 @@ export const PS_NEGATIVE_ROOMS = [
         </h2>
       </>
     ),
-    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
-    verifyTestId: null,
-    feedbackTestId: null,
-    nextTo: null,
-    verifyLabel: "Verifică răspunsurile",
+    afterBody: ({ roomState }) =>
+      roomState.passed ? (
+        <section className="card section-complete-card">
+          <h2 className="card-title">
+            Bravo! Ai terminat toate camerele din secțiunea Negativ – Present
+            Simple. 🎉
+          </h2>
+          <p className="card-description">
+            Ai parcurs toată ruta pentru propozițiile negative la Present
+            Simple. Mergi la hartă ca să vezi progresul cheilor și următorul
+            pas.
+          </p>
+          <div className="buttons">
+            <Link to={psMapPath()} className="btn btn-outline">
+              🏁 Înapoi la hartă
+            </Link>
+          </div>
+        </section>
+      ) : null,
+
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți cuvintele și expresiile, apoi verifică cum le folosești în propozițiile tale la negativ.",
     dictionaryItems: NEG_ROOM_7_GLOSSARY_ITEMS,
     errorText:
       "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: (
-      <>
-        <strong>Bravo!</strong> Ai terminat toate camerele din secțiunea{" "}
-        <b>Negativ – Present Simple</b>. 🎉
-        <br />
-        Mergi la hartă ca să vezi progresul și următorul pas.
-      </>
-    ),
+    successText:
+      "Bravo! Ai completat corect toate exercițiile din această cameră!",
   },
 ];
 

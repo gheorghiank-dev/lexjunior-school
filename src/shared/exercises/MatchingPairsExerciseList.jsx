@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/pairs.css";
+
 /**
  * MatchingPairsExerciseList
  *
@@ -96,7 +99,8 @@ export function MatchingPairsExerciseList({
   };
 
   return (
-    <div className="matching-layout">
+    <div className="notranslate" translate="no">
+      <div className="matching-layout">
       {/* Coloana stângă – propozițiile */}
       <div className="matching-left">
         <ol className="exercise-list matching-list">
@@ -192,6 +196,7 @@ export function MatchingPairsExerciseList({
           })}
         </div>
       </div>
+    </div>
     </div>
   );
 }

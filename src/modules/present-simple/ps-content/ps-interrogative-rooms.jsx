@@ -22,6 +22,11 @@ import { presentSimpleInterrogativeLexHints as interrogativeLexHints } from "../
 
 import { validateRoomRegistry } from "../../../core/registry/validate-room-registry.js";
 
+// Sprint 1 CSS extraction: keep exercise foundation styles scoped to the PS interrogative bundle
+// (this file includes a custom inline exercise list that doesn't live in shared/exercises).
+import "../../../styles/exercises/base.css";
+import "../../../styles/exercises/text-input.css";
+
 const SECTION_ID = "interrogative";
 const DICT_DESC =
   "Apasă pe 🔊 ca să asculți cuvintele și întrebările din această cameră. Te ajută să înțelegi mai ușor vocabularul folosit în întrebările la Present Simple interogativ.";
@@ -1026,6 +1031,7 @@ const INT_ROOM_7_GLOSSARY_ITEMS = [
     meaning: "a vizita biblioteca",
   },
   { tts: "every week", word: "every week", meaning: "în fiecare săptămână" },
+  { tts: "on weekends", word: "on weekends", meaning: "în weekend" },
 ];
 
 export const PS_INTERROGATIVE_ROOMS = [
@@ -1116,13 +1122,9 @@ export const PS_INTERROGATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Corectează întrebările greșite: scrie începutul corect
+          Corectează propozițiile completând spațiile libere cu forma corectă a
+          verbului la Present Simple interogativ
         </h2>
-        <p className="card-description">
-          În spațiul liber scrii începutul întrebării corecte:
-          <strong> Do/Does + subiect + like</strong>. Restul propoziției este
-          deja afișat.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 5),
@@ -1146,11 +1148,9 @@ export const PS_INTERROGATIVE_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Exercițiu – alege întrebarea corectă</h2>
-        <p className="card-description">
-          Pentru fiecare item, alege varianta de propoziție care respectă
-          regulile pentru întrebările la Present Simple.
-        </p>
+        <h2 className="card-title">
+          Bifează propoziția corectă la Present Simple interogativ
+        </h2>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 6),
@@ -1175,12 +1175,10 @@ export const PS_INTERROGATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – răspunsuri scurte (Yes/No) la întrebări
+          Pentru fiecare întrebare, scrie răspunsul scurt afirmativ și răspunsul
+          scurt negativ, folosind pronumele corespunzător și forma corectă a
+          verbului auxiliar.
         </h2>
-        <p className="card-description">
-          Pentru fiecare întrebare, scrie câte un răspuns scurt afirmativ și
-          unul negativ, folosind pronumele și forma corectă de do/does.
-        </p>
       </>
     ),
     nextTo: psRoomPath(SECTION_ID, 7),
@@ -1209,19 +1207,16 @@ export const PS_INTERROGATIVE_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Exercițiu – traduce întrebările în engleză
+          Tradu propozițiile din română în engleză. Folosește dicționarul pentru
+          a găsi cuvintele și expresiile potrivite.
         </h2>
-        <p className="card-description">
-          Ai întrebări în limba română. Scrie forma corectă a întrebării în
-          engleză, la Present Simple interogativ.
-        </p>
       </>
     ),
     afterBody: ({ roomState }) =>
       roomState.passed ? (
         <section className="card section-complete-card">
           <h2 className="card-title">
-            Bravo! Ai terminat toate camerele din secțiunea Interrogative –
+            Bravo! Ai terminat toate camerele din secțiunea Interogativ –
             Present Simple. 🎉
           </h2>
           <p className="card-description">
@@ -1236,6 +1231,7 @@ export const PS_INTERROGATIVE_ROOMS = [
           </div>
         </section>
       ) : null,
+
     dictionaryDescription: DICT_DESC,
     dictionaryItems: INT_ROOM_7_GLOSSARY_ITEMS,
     errorText:

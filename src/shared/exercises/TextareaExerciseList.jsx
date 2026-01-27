@@ -1,6 +1,10 @@
 import React from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/text-input.css";
+import "../../styles/exercises/textarea.css";
+
 export function TextareaExerciseList({
   exercises,
   answers,
@@ -11,7 +15,8 @@ export function TextareaExerciseList({
   showIndex = true,
 }) {
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const rowClassNames = ["exercise-row"];
         if (stacked) {
@@ -65,5 +70,6 @@ export function TextareaExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

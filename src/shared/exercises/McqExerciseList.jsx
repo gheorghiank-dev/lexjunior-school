@@ -1,6 +1,9 @@
 import React from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/choice.css";
+
 export function McqExerciseList({
   exercises,
   answers,
@@ -10,7 +13,8 @@ export function McqExerciseList({
   testIdPrefix,
 }) {
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => (
         <li key={ex.id} className="exercise-row exercise-row--mcq">
           <div className="exercise-header-row">
@@ -75,5 +79,6 @@ export function McqExerciseList({
         </li>
       ))}
     </ol>
+    </div>
   );
 }

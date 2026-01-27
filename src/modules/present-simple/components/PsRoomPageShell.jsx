@@ -1,7 +1,7 @@
 import React from "react";
 import { PsRoomHeaderHud } from "./PsRoomHeaderHud.jsx";
 import { PsRoomDevToolsAndStatus } from "./PsRoomDevToolsAndStatus.jsx";
-// import { PsLexJuniorPanel } from "./PsLexJuniorPanel.jsx";*/>
+import LexJunior from "./LexJunior.jsx";
 
 /**
  * Shell generic pentru o cameră Present Simple.
@@ -9,7 +9,7 @@ import { PsRoomDevToolsAndStatus } from "./PsRoomDevToolsAndStatus.jsx";
  * - layout-ul principal (<main className="page page-pastel">)
  * - header-ul cu HUD (PsRoomHeaderHud)
  * - cardul de Dev Tools + Status (PsRoomDevToolsAndStatus)
- * - panoul lui Lex Junior (PsLexJuniorPanel)
+ * - Lex Junior (bulina flotantă + hinturi)
  *
  * Conținutul specific camerei este trimis ca `children`.
  */
@@ -48,7 +48,9 @@ export function PsRoomPageShell({
         onDevAutofill={onDevAutofill}
         onDevReset={onDevReset}
       />
-      {/*<PsLexJuniorPanel lexHints={lexHints} /> */}
+
+      {/* Lex Junior UI is position: fixed via CSS; rendering it here keeps the page UX unchanged. */}
+      <LexJunior hints={lexHints} />
     </main>
   );
 }

@@ -240,7 +240,8 @@ const AFF_ROOM_3_EXERCISES = [
   },
   {
     id: 6,
-    template: "They watch cartoons in the evening. → He [gap] cartoons.",
+    template:
+      "They watch cartoons in the evening. → He [gap] cartoons in the evening.",
     correct: "watches",
     tts: "He watches cartoons.",
   },
@@ -252,7 +253,8 @@ const AFF_ROOM_3_EXERCISES = [
   },
   {
     id: 8,
-    template: "They play tennis at the weekend. → He [gap] tennis.",
+    template:
+      "They play tennis at the weekend. → He [gap] tennis at the weekend.",
     correct: "plays",
     tts: "He plays tennis.",
   },
@@ -917,6 +919,11 @@ export const PS_AFFIRMATIVE_ROOMS = [
     lexHints: affirmativeLexHints.room7,
     ExerciseListComponent: TextareaExerciseList,
     exerciseListProps: { rows: 1, stacked: true, showIndex: true },
+    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
+    verifyTestId: null,
+    feedbackTestId: null,
+    nextTo: null,
+    verifyLabel: "Verifică răspunsurile",
     cardIntro: (
       <>
         <h2 className="card-title">
@@ -925,25 +932,33 @@ export const PS_AFFIRMATIVE_ROOMS = [
         </h2>
       </>
     ),
-    // Room 7 previously had no ps-check/ps-feedback testIDs; keep output identical.
-    verifyTestId: null,
-    feedbackTestId: null,
-    nextTo: null,
-    verifyLabel: "Verifică răspunsurile",
+    afterBody: ({ roomState }) =>
+      roomState.passed ? (
+        <section className="card section-complete-card">
+          <h2 className="card-title">
+            Bravo! Ai terminat toate camerele din secțiunea Afirmativ – Present
+            Simple. 🎉
+          </h2>
+          <p className="card-description">
+            Ai parcurs toată ruta pentru propozițiile afirmative la Present
+            Simple. Mergi la hartă ca să vezi progresul cheilor și următorul
+            pas.
+          </p>
+          <div className="buttons">
+            <Link to={psMapPath()} className="btn btn-outline">
+              🏁 Înapoi la hartă
+            </Link>
+          </div>
+        </section>
+      ) : null,
 
     dictionaryDescription:
       "Apasă pe 🔊 ca să asculți verbele și expresiile, apoi verifică cum le folosești în propozițiile tale.",
     dictionaryItems: AFF_ROOM_7_GLOSSARY_ITEMS,
     errorText:
       "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText: (
-      <>
-        <strong>Bravo!</strong> Ai terminat toate camerele din secțiunea{" "}
-        <b>Afirmativ – Present Simple</b>. 🎉
-        <br />
-        Mergi la hartă ca să vezi progresul și următorul pas.
-      </>
-    ),
+    successText:
+      "Bravo! Ai completat corect toate exercițiile din această cameră!",
   },
 ];
 

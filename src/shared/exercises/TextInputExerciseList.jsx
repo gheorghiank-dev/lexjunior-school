@@ -1,6 +1,9 @@
 import React from "react";
 import { LexListenOnCorrect } from "./LexListenOnCorrect.jsx";
 
+import "../../styles/exercises/base.css";
+import "../../styles/exercises/text-input.css";
+
 /**
  * TextInputExerciseList
  *
@@ -36,7 +39,8 @@ export default function TextInputExerciseList({
   rightPlaceholderWidth,
 }) {
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const status = feedback?.[ex.id];
         const isCorrect = status === "correct";
@@ -92,5 +96,6 @@ export default function TextInputExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

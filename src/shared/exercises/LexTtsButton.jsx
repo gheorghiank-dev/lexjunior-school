@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/components/lex-voice-btn.css";
 
 /**
  * Buton standard pentru text-to-speech (🔊) în paginile de teorie.

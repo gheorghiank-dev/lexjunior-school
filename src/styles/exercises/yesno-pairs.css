@@ -1,0 +1,70 @@
+/*
+  Exercises — Yes/No pairs (Sprint 3)
+  Extracted from src/styles/global.css, then adjusted to remove the "always-correct"
+  green baseline. The baseline is now neutral; correct/incorrect states are applied
+  via existing exercise-input-correct / exercise-input-incorrect classes.
+*/
+
+/* Pill gap look for textarea (rows=1) — neutral baseline */
+.exercise-input.pill-gap {
+  resize: none;
+  overflow: hidden;
+
+  border-radius: 999px;
+  height: 32px;
+  min-height: 32px;
+
+  padding: 4px 12px;
+  line-height: 20px;
+
+  background: #f8fafc;
+  border: 1px solid #d4d4ff;
+
+  width: 200px;
+  max-width: 100%;
+}
+
+/* Ensure states win even when long-input styles are present */
+.exercise-input.exercise-input-correct.pill-gap {
+  background: #ecfdf3;
+  border-color: #16a34a;
+}
+
+.exercise-input.exercise-input-incorrect.pill-gap {
+  background: #fef2f2;
+  border-color: #dc2626;
+}
+
+.short-answer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* The shared textarea styles (.long-input) set display:block + margin-top.
+   For Yes/No rows we want the pill input inline with the prefix. */
+.short-answer-row .long-input {
+  display: inline-block;
+  margin-top: 0;
+}
+
+.short-answer-prefix {
+  white-space: nowrap;
+}
+
+.short-answer-status {
+  width: 1.5rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.short-answer-status--correct {
+  color: #16a34a;
+}
+
+.short-answer-status--incorrect {
+  color: #dc2626;
+}

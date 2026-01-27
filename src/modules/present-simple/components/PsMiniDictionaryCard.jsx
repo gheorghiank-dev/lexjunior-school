@@ -1,4 +1,6 @@
 import React from "react";
+import "../../../styles/components/lex-voice-btn.css";
+import "../../../styles/components/dictionary.css";
 
 /**
  * Card reutilizabil pentru mini-dicționar + butoane de listen.

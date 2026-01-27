@@ -1,0 +1,18 @@
+/*
+  Exercises — Choice (Sprint 2)
+  Extracted from src/styles/global.css (mid-risk, but values unchanged).
+  Covers: MCQ vertical layout + option container stacking.
+*/
+
+.exercise-row--mcq {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mcq-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}

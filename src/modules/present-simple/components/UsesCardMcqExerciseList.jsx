@@ -1,6 +1,8 @@
 import React from "react";
 import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
 
+import "../../../styles/exercises/base.css";
+
 /**
  * UsesCardMcqExerciseList
  *
@@ -28,7 +30,8 @@ export function UsesCardMcqExerciseList({
   };
 
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const selected = answers && answers[ex.id];
         const itemFeedback = feedback && feedback[ex.id]; // "correct" | "incorrect" | undefined
@@ -92,5 +95,6 @@ export function UsesCardMcqExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

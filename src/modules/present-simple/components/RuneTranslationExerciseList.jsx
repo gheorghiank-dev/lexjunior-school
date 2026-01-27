@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { normalizeAnswer } from "../ps-core/normalize-answer.js";
 import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
 
+import "../../../styles/exercises/base.css";
+
 /**
  * Exerciții de tip "traduceri cu rune" pentru Uses Room 7.
  * 
@@ -76,7 +78,8 @@ export function RuneTranslationExerciseList({
     feedback && Object.prototype.hasOwnProperty.call(feedback, id);
 
   return (
-    <ol className="exercise-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list">
       {exercises.map((ex, index) => {
         const rowClasses = [
           "exercise-row",
@@ -169,5 +172,6 @@ export function RuneTranslationExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }

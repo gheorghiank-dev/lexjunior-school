@@ -1,6 +1,9 @@
 import React from "react";
 import { LexListenOnCorrect } from "../../../shared/exercises/LexListenOnCorrect.jsx";
 
+import "../../../styles/exercises/base.css";
+import "../../../styles/exercises/adverb-position.css";
+
 /**
  * AdverbPositionExerciseList
  *
@@ -42,7 +45,8 @@ export function AdverbPositionExerciseList({
   };
 
   return (
-    <ol className="exercise-list adverb-position-list">
+    <div className="notranslate" translate="no">
+      <ol className="exercise-list adverb-position-list">
       {exercises.map((ex, index) => {
         const slot = getCurrentSlot(ex);
         const state = feedback?.[ex.id];
@@ -105,5 +109,6 @@ export function AdverbPositionExerciseList({
         );
       })}
     </ol>
+    </div>
   );
 }
