@@ -9,10 +9,18 @@
   align-items: flex-start;
 }
 
+.exercise-header-row {
+  width: 100%;
+}
+
 .mcq-options {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
+}
+
+.mcq-option {
+  width: 100%;
 }

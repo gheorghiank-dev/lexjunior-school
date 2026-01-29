@@ -19,432 +19,431 @@ import { presentSimpleUsesLexHints as usesLexHints } from "../../lex-hints/prese
 import { validateRoomRegistry } from "../../../core/registry/validate-room-registry.js";
 
 import { RuneTranslationExerciseList } from "../components/RuneTranslationExerciseList.jsx";
-import { UsesCardMcqExerciseList } from "../components/UsesCardMcqExerciseList.jsx";
 
 const SECTION_ID = "uses";
 
 // Room 1
 const USES_ROOM_1_EXERCISES = [
   {
-    "id": 1,
-    "prompt": "The museum opens at 9 a.m.",
-    "options": [
+    id: 1,
+    prompt: "The museum opens at 9 a.m.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "N",
-    "tts": "The museum opens at 9 a.m."
+    correct: "N",
+    tts: "The museum opens at 9 a.m.",
   },
   {
-    "id": 2,
-    "prompt": "We play tennis on Saturdays.",
-    "options": [
+    id: 2,
+    prompt: "We play tennis on Saturdays.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "We play tennis on Saturdays."
+    correct: "R",
+    tts: "We play tennis on Saturdays.",
   },
   {
-    "id": 3,
-    "prompt": "My brother lives in Madrid.",
-    "options": [
+    id: 3,
+    prompt: "My brother lives in Madrid.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "N",
-    "tts": "My brother lives in Madrid."
+    correct: "N",
+    tts: "My brother lives in Madrid.",
   },
   {
-    "id": 4,
-    "prompt": "He usually walks to work.",
-    "options": [
+    id: 4,
+    prompt: "He usually walks to work.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "He usually walks to work."
+    correct: "R",
+    tts: "He usually walks to work.",
   },
   {
-    "id": 5,
-    "prompt": "The train leaves at 6:30.",
-    "options": [
+    id: 5,
+    prompt: "The train leaves at 6:30.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "N",
-    "tts": "The train leaves at 6:30."
+    correct: "N",
+    tts: "The train leaves at 6:30.",
   },
   {
-    "id": 6,
-    "prompt": "I get up at 7 o’clock.",
-    "options": [
+    id: 6,
+    prompt: "I get up at 7 o’clock.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "I get up at 7 o’clock."
+    correct: "R",
+    tts: "I get up at 7 o’clock.",
   },
   {
-    "id": 7,
-    "prompt": "The film starts at 8 p.m.",
-    "options": [
+    id: 7,
+    prompt: "The film starts at 8 p.m.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "N",
-    "tts": "The film starts at 8 p.m."
+    correct: "N",
+    tts: "The film starts at 8 p.m.",
   },
   {
-    "id": 8,
-    "prompt": "We have English on Mondays.",
-    "options": [
+    id: 8,
+    prompt: "We have English on Mondays.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "We have English on Mondays."
+    correct: "R",
+    tts: "We have English on Mondays.",
   },
   {
-    "id": 9,
-    "prompt": "She goes to school every day.",
-    "options": [
+    id: 9,
+    prompt: "She goes to school every day.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "She goes to school every day."
+    correct: "R",
+    tts: "She goes to school every day.",
   },
   {
-    "id": 10,
-    "prompt": "My dad drinks coffee every morning.",
-    "options": [
+    id: 10,
+    prompt: "My dad drinks coffee every morning.",
+    options: [
       {
-        "value": "R",
-        "label": "Rutina"
+        value: "R",
+        label: "Rutina",
       },
       {
-        "value": "N",
-        "label": "Nu este rutina"
-      }
+        value: "N",
+        label: "Nu este rutina",
+      },
     ],
-    "correct": "R",
-    "tts": "My dad drinks coffee every morning."
-  }
+    correct: "R",
+    tts: "My dad drinks coffee every morning.",
+  },
 ];
 
 const USES_ROOM_1_GLOSSARY_ITEMS = [
   {
-    "tts": "museum",
-    "word": "museum",
-    "meaning": "muzeu"
+    tts: "museum",
+    word: "museum",
+    meaning: "muzeu",
   },
   {
-    "tts": "opens",
-    "word": "opens",
-    "meaning": "se deschide"
+    tts: "opens",
+    word: "opens",
+    meaning: "se deschide",
   },
   {
-    "tts": "play tennis",
-    "word": "play tennis",
-    "meaning": "a juca tenis"
+    tts: "play tennis",
+    word: "play tennis",
+    meaning: "a juca tenis",
   },
   {
-    "tts": "brother",
-    "word": "brother",
-    "meaning": "frate"
+    tts: "brother",
+    word: "brother",
+    meaning: "frate",
   },
   {
-    "tts": "lives",
-    "word": "lives",
-    "meaning": "locuiește"
+    tts: "lives",
+    word: "lives",
+    meaning: "locuiește",
   },
   {
-    "tts": "Madrid",
-    "word": "Madrid",
-    "meaning": "Madrid"
+    tts: "Madrid",
+    word: "Madrid",
+    meaning: "Madrid",
   },
   {
-    "tts": "usually",
-    "word": "usually",
-    "meaning": "de obicei"
+    tts: "usually",
+    word: "usually",
+    meaning: "de obicei",
   },
   {
-    "tts": "walks to work",
-    "word": "walks to work",
-    "meaning": "merge pe jos la serviciu"
+    tts: "walks to work",
+    word: "walks to work",
+    meaning: "merge pe jos la serviciu",
   },
   {
-    "tts": "train",
-    "word": "train",
-    "meaning": "tren"
+    tts: "train",
+    word: "train",
+    meaning: "tren",
   },
   {
-    "tts": "leaves",
-    "word": "leaves",
-    "meaning": "pleacă"
+    tts: "leaves",
+    word: "leaves",
+    meaning: "pleacă",
   },
   {
-    "tts": "get up",
-    "word": "get up",
-    "meaning": "a se trezi"
+    tts: "get up",
+    word: "get up",
+    meaning: "a se trezi",
   },
   {
-    "tts": "o'clock",
-    "word": "o'clock",
-    "meaning": "fix (ora exactă)"
+    tts: "o'clock",
+    word: "o'clock",
+    meaning: "fix (ora exactă)",
   },
   {
-    "tts": "film",
-    "word": "film",
-    "meaning": "film"
+    tts: "film",
+    word: "film",
+    meaning: "film",
   },
   {
-    "tts": "starts",
-    "word": "starts",
-    "meaning": "începe"
+    tts: "starts",
+    word: "starts",
+    meaning: "începe",
   },
   {
-    "tts": "have English",
-    "word": "have English",
-    "meaning": "a avea ora de engleză"
+    tts: "have English",
+    word: "have English",
+    meaning: "a avea ora de engleză",
   },
   {
-    "tts": "on Mondays",
-    "word": "on Mondays",
-    "meaning": "în zilele de luni"
+    tts: "on Mondays",
+    word: "on Mondays",
+    meaning: "în zilele de luni",
   },
   {
-    "tts": "every day",
-    "word": "every day",
-    "meaning": "în fiecare zi"
+    tts: "every day",
+    word: "every day",
+    meaning: "în fiecare zi",
   },
   {
-    "tts": "drinks coffee",
-    "word": "drinks coffee",
-    "meaning": "bea cafea"
+    tts: "drinks coffee",
+    word: "drinks coffee",
+    meaning: "bea cafea",
   },
   {
-    "tts": "every morning",
-    "word": "every morning",
-    "meaning": "în fiecare dimineață"
-  }
+    tts: "every morning",
+    word: "every morning",
+    meaning: "în fiecare dimineață",
+  },
 ];
 
 // Room 2
 const USES_ROOM_2_EXERCISES = [
   {
-    "id": 1,
-    "prompt": "Water boils at 100°C.",
-    "correct": "true",
-    "tts": "Water boils at 100°C."
+    id: 1,
+    prompt: "Water boils at 100°C.",
+    correct: "true",
+    tts: "Water boils at 100°C.",
   },
   {
-    "id": 2,
-    "prompt": "The Earth orbits the Sun.",
-    "correct": "true",
-    "tts": "The Earth orbits the Sun."
+    id: 2,
+    prompt: "The Earth orbits the Sun.",
+    correct: "true",
+    tts: "The Earth orbits the Sun.",
   },
   {
-    "id": 3,
-    "prompt": "My brother works in a bank.",
-    "correct": "false",
-    "tts": "My brother works in a bank."
+    id: 3,
+    prompt: "My brother works in a bank.",
+    correct: "false",
+    tts: "My brother works in a bank.",
   },
   {
-    "id": 4,
-    "prompt": "Cats have four legs.",
-    "correct": "true",
-    "tts": "Cats have four legs."
+    id: 4,
+    prompt: "Cats have four legs.",
+    correct: "true",
+    tts: "Cats have four legs.",
   },
   {
-    "id": 5,
-    "prompt": "We live in Bucharest.",
-    "correct": "false",
-    "tts": "We live in Bucharest."
+    id: 5,
+    prompt: "We live in Bucharest.",
+    correct: "false",
+    tts: "We live in Bucharest.",
   },
   {
-    "id": 6,
-    "prompt": "Metal expands when it is heated.",
-    "correct": "true",
-    "tts": "Metal expands when it is heated."
+    id: 6,
+    prompt: "Metal expands when it is heated.",
+    correct: "true",
+    tts: "Metal expands when it is heated.",
   },
   {
-    "id": 7,
-    "prompt": "Children need sleep to grow.",
-    "correct": "true",
-    "tts": "Children need sleep to grow."
+    id: 7,
+    prompt: "Children need sleep to grow.",
+    correct: "true",
+    tts: "Children need sleep to grow.",
   },
   {
-    "id": 8,
-    "prompt": "She studies French on Mondays.",
-    "correct": "false",
-    "tts": "She studies French on Mondays."
+    id: 8,
+    prompt: "She studies French on Mondays.",
+    correct: "false",
+    tts: "She studies French on Mondays.",
   },
   {
-    "id": 9,
-    "prompt": "Sugar dissolves in water.",
-    "correct": "true",
-    "tts": "Sugar dissolves in water."
+    id: 9,
+    prompt: "Sugar dissolves in water.",
+    correct: "true",
+    tts: "Sugar dissolves in water.",
   },
   {
-    "id": 10,
-    "prompt": "The Sun rises in the east.",
-    "correct": "true",
-    "tts": "The Sun rises in the east."
-  }
+    id: 10,
+    prompt: "The Sun rises in the east.",
+    correct: "true",
+    tts: "The Sun rises in the east.",
+  },
 ];
 
 const USES_ROOM_2_GLOSSARY_ITEMS = [
   {
-    "tts": "water",
-    "word": "water",
-    "meaning": "apă"
+    tts: "water",
+    word: "water",
+    meaning: "apă",
   },
   {
-    "tts": "boils",
-    "word": "boils",
-    "meaning": "fierbe"
+    tts: "boils",
+    word: "boils",
+    meaning: "fierbe",
   },
   {
-    "tts": "orbits",
-    "word": "orbits",
-    "meaning": "se învârte în jurul"
+    tts: "orbits",
+    word: "orbits",
+    meaning: "se învârte în jurul",
   },
   {
-    "tts": "the Sun",
-    "word": "the Sun",
-    "meaning": "Soarele"
+    tts: "the Sun",
+    word: "the Sun",
+    meaning: "Soarele",
   },
   {
-    "tts": "works in a bank",
-    "word": "works in a bank",
-    "meaning": "lucrează într-o bancă"
+    tts: "works in a bank",
+    word: "works in a bank",
+    meaning: "lucrează într-o bancă",
   },
   {
-    "tts": "cats",
-    "word": "cats",
-    "meaning": "pisici"
+    tts: "cats",
+    word: "cats",
+    meaning: "pisici",
   },
   {
-    "tts": "have four legs",
-    "word": "have four legs",
-    "meaning": "au patru picioare"
+    tts: "have four legs",
+    word: "have four legs",
+    meaning: "au patru picioare",
   },
   {
-    "tts": "We live in Bucharest.",
-    "word": "We live in Bucharest",
-    "meaning": "noi locuim în București"
+    tts: "We live in Bucharest.",
+    word: "We live in Bucharest",
+    meaning: "noi locuim în București",
   },
   {
-    "tts": "metal",
-    "word": "metal",
-    "meaning": "metal"
+    tts: "metal",
+    word: "metal",
+    meaning: "metal",
   },
   {
-    "tts": "expands",
-    "word": "expands",
-    "meaning": "se dilată"
+    tts: "expands",
+    word: "expands",
+    meaning: "se dilată",
   },
   {
-    "tts": "when it is heated",
-    "word": "when it is heated",
-    "meaning": "când este încălzit"
+    tts: "when it is heated",
+    word: "when it is heated",
+    meaning: "când este încălzit",
   },
   {
-    "tts": "children",
-    "word": "children",
-    "meaning": "copiii"
+    tts: "children",
+    word: "children",
+    meaning: "copiii",
   },
   {
-    "tts": "need sleep",
-    "word": "need sleep",
-    "meaning": "au nevoie de somn"
+    tts: "need sleep",
+    word: "need sleep",
+    meaning: "au nevoie de somn",
   },
   {
-    "tts": "to grow",
-    "word": "to grow",
-    "meaning": "ca să crească"
+    tts: "to grow",
+    word: "to grow",
+    meaning: "ca să crească",
   },
   {
-    "tts": "studies French",
-    "word": "studies French",
-    "meaning": "studiază franceza"
+    tts: "studies French",
+    word: "studies French",
+    meaning: "studiază franceza",
   },
   {
-    "tts": "on Mondays",
-    "word": "on Mondays",
-    "meaning": "în zilele de luni"
+    tts: "on Mondays",
+    word: "on Mondays",
+    meaning: "în zilele de luni",
   },
   {
-    "tts": "sugar",
-    "word": "sugar",
-    "meaning": "zahărul"
+    tts: "sugar",
+    word: "sugar",
+    meaning: "zahărul",
   },
   {
-    "tts": "dissolves in water",
-    "word": "dissolves in water",
-    "meaning": "se dizolvă în apă"
+    tts: "dissolves in water",
+    word: "dissolves in water",
+    meaning: "se dizolvă în apă",
   },
   {
-    "tts": "rises in the east",
-    "word": "rises in the east",
-    "meaning": "răsare la est"
-  }
+    tts: "rises in the east",
+    word: "rises in the east",
+    meaning: "răsare la est",
+  },
 ];
 
 // Room 3
@@ -493,7 +492,8 @@ const USES_ROOM_3_EXERCISES = [
   },
   {
     id: 8,
-    template: "The plane [gap] at 4:20 tomorrow morning.\n            (to land)",
+    template:
+      "The plane [gap] at 4:20 tomorrow morning.\n            (to land)",
     correct: "lands",
     tts: "The plane lands at 4:20 tomorrow morning.",
   },
@@ -597,163 +597,163 @@ const USES_ROOM_3_GLOSSARY_ITEMS = [
 // Room 4
 const USES_ROOM_4_EXERCISES = [
   {
-    "id": 1,
-    "prompt": "They live in Cluj.",
-    "correct": "true",
-    "tts": "They live in Cluj."
+    id: 1,
+    prompt: "They live in Cluj.",
+    correct: "true",
+    tts: "They live in Cluj.",
   },
   {
-    "id": 2,
-    "prompt": "She stays in a hotel in the mountains every winter.",
-    "correct": "false",
-    "tts": "She stays in a hotel in the mountains every winter."
+    id: 2,
+    prompt: "She stays in a hotel in the mountains every winter.",
+    correct: "false",
+    tts: "She stays in a hotel in the mountains every winter.",
   },
   {
-    "id": 3,
-    "prompt": "He works in IT.",
-    "correct": "true",
-    "tts": "He works in IT."
+    id: 3,
+    prompt: "He works in IT.",
+    correct: "true",
+    tts: "He works in IT.",
   },
   {
-    "id": 4,
-    "prompt": "We visit our cousins for a few days every summer.",
-    "correct": "false",
-    "tts": "We visit our cousins for a few days every summer."
+    id: 4,
+    prompt: "We visit our cousins for a few days every summer.",
+    correct: "false",
+    tts: "We visit our cousins for a few days every summer.",
   },
   {
-    "id": 5,
-    "prompt": "My parents have a small house in the country.",
-    "correct": "true",
-    "tts": "My parents have a small house in the country."
+    id: 5,
+    prompt: "My parents have a small house in the country.",
+    correct: "true",
+    tts: "My parents have a small house in the country.",
   },
   {
-    "id": 6,
-    "prompt": "I work on a big project every summer.",
-    "correct": "false",
-    "tts": "I work on a big project every summer."
+    id: 6,
+    prompt: "I work on a big project every summer.",
+    correct: "false",
+    tts: "I work on a big project every summer.",
   },
   {
-    "id": 7,
-    "prompt": "She believes this is a good idea.",
-    "correct": "true",
-    "tts": "She believes this is a good idea."
+    id: 7,
+    prompt: "She believes this is a good idea.",
+    correct: "true",
+    tts: "She believes this is a good idea.",
   },
   {
-    "id": 8,
-    "prompt": "I wear a uniform at school.",
-    "correct": "true",
-    "tts": "I wear a uniform at school."
+    id: 8,
+    prompt: "I wear a uniform at school.",
+    correct: "true",
+    tts: "I wear a uniform at school.",
   },
   {
-    "id": 9,
-    "prompt": "My sister studies at a medical university.",
-    "correct": "true",
-    "tts": "My sister studies at a medical university."
+    id: 9,
+    prompt: "My sister studies at a medical university.",
+    correct: "true",
+    tts: "My sister studies at a medical university.",
   },
   {
-    "id": 10,
-    "prompt": "They own a small café in town.",
-    "correct": "true",
-    "tts": "They own a small café in town."
-  }
+    id: 10,
+    prompt: "They own a small café in town.",
+    correct: "true",
+    tts: "They own a small café in town.",
+  },
 ];
 
 const USES_ROOM_4_GLOSSARY_ITEMS = [
   {
-    "tts": "live",
-    "word": "live",
-    "meaning": "a locui"
+    tts: "live",
+    word: "live",
+    meaning: "a locui",
   },
   {
-    "tts": "stay",
-    "word": "stay",
-    "meaning": "a sta / a rămâne temporar"
+    tts: "stay",
+    word: "stay",
+    meaning: "a sta / a rămâne temporar",
   },
   {
-    "tts": "work",
-    "word": "work",
-    "meaning": "a lucra"
+    tts: "work",
+    word: "work",
+    meaning: "a lucra",
   },
   {
-    "tts": "visit",
-    "word": "visit",
-    "meaning": "a vizita"
+    tts: "visit",
+    word: "visit",
+    meaning: "a vizita",
   },
   {
-    "tts": "have",
-    "word": "have",
-    "meaning": "a avea"
+    tts: "have",
+    word: "have",
+    meaning: "a avea",
   },
   {
-    "tts": "believe",
-    "word": "believe",
-    "meaning": "a crede"
+    tts: "believe",
+    word: "believe",
+    meaning: "a crede",
   },
   {
-    "tts": "wear",
-    "word": "wear",
-    "meaning": "a purta"
+    tts: "wear",
+    word: "wear",
+    meaning: "a purta",
   },
   {
-    "tts": "study",
-    "word": "study",
-    "meaning": "a studia"
+    tts: "study",
+    word: "study",
+    meaning: "a studia",
   },
   {
-    "tts": "own",
-    "word": "own",
-    "meaning": "a deține"
+    tts: "own",
+    word: "own",
+    meaning: "a deține",
   },
   {
-    "tts": "hotel",
-    "word": "hotel",
-    "meaning": "hotel"
+    tts: "hotel",
+    word: "hotel",
+    meaning: "hotel",
   },
   {
-    "tts": "mountains",
-    "word": "mountains",
-    "meaning": "munți"
+    tts: "mountains",
+    word: "mountains",
+    meaning: "munți",
   },
   {
-    "tts": "cousins",
-    "word": "cousins",
-    "meaning": "veri / verișori"
+    tts: "cousins",
+    word: "cousins",
+    meaning: "veri / verișori",
   },
   {
-    "tts": "house in the country",
-    "word": "house in the country",
-    "meaning": "casă la țară"
+    tts: "house in the country",
+    word: "house in the country",
+    meaning: "casă la țară",
   },
   {
-    "tts": "project",
-    "word": "project",
-    "meaning": "proiect"
+    tts: "project",
+    word: "project",
+    meaning: "proiect",
   },
   {
-    "tts": "uniform",
-    "word": "uniform",
-    "meaning": "uniformă"
+    tts: "uniform",
+    word: "uniform",
+    meaning: "uniformă",
   },
   {
-    "tts": "medical university",
-    "word": "medical university",
-    "meaning": "universitate de medicină"
+    tts: "medical university",
+    word: "medical university",
+    meaning: "universitate de medicină",
   },
   {
-    "tts": "café in town",
-    "word": "café in town",
-    "meaning": "cafenea în oraș"
+    tts: "café in town",
+    word: "café in town",
+    meaning: "cafenea în oraș",
   },
   {
-    "tts": "every summer",
-    "word": "every summer",
-    "meaning": "în fiecare vară"
+    tts: "every summer",
+    word: "every summer",
+    meaning: "în fiecare vară",
   },
   {
-    "tts": "every winter",
-    "word": "every winter",
-    "meaning": "în fiecare iarnă"
-  }
+    tts: "every winter",
+    word: "every winter",
+    meaning: "în fiecare iarnă",
+  },
 ];
 
 // Room 5
@@ -1554,10 +1554,20 @@ export const PS_USES_ROOMS = [
       showIndex: true,
       testIdPrefix: "ps-uses-room1",
     },
-    cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    cardIntro: (
+      <>
+        <h2 className="card-title">
+          Completează propozițiile cu don't / doesn't
+        </h2>
+      </>
+    ),
+
+    errorText:
+      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_1_GLOSSARY_ITEMS,
   },
   {
@@ -1569,10 +1579,12 @@ export const PS_USES_ROOMS = [
     ExerciseListComponent: CheckboxExerciseList,
     exerciseListProps: { showIndex: true },
     cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_2_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -1583,10 +1595,12 @@ export const PS_USES_ROOMS = [
     ExerciseListComponent: GapSentenceExerciseList,
     exerciseListProps: { showIndex: true },
     cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_3_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -1603,10 +1617,12 @@ export const PS_USES_ROOMS = [
         Alege propozițiile care descriu <strong>situații permanente</strong>.
       </p>
     ),
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_4_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -1614,7 +1630,7 @@ export const PS_USES_ROOMS = [
     roomNumber: 5,
     exercises: USES_ROOM_5_EXERCISES,
     lexHints: usesLexHints.room5,
-    ExerciseListComponent: UsesCardMcqExerciseList,
+    ExerciseListComponent: McqExerciseList,
     exerciseListProps: { showIndex: true },
     verifyTestId: null,
     feedbackTestId: null,
@@ -1628,10 +1644,12 @@ export const PS_USES_ROOMS = [
         </p>
       </>
     ),
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_5_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -1639,7 +1657,7 @@ export const PS_USES_ROOMS = [
     roomNumber: 6,
     exercises: USES_ROOM_6_EXERCISES,
     lexHints: usesLexHints.room6,
-    ExerciseListComponent: UsesCardMcqExerciseList,
+    ExerciseListComponent: McqExerciseList,
     exerciseListProps: { showIndex: true },
     verifyTestId: null,
     feedbackTestId: null,
@@ -1651,10 +1669,12 @@ export const PS_USES_ROOMS = [
         <strong>Program fix</strong>, 🏠 <strong>Situație permanentă</strong>.
       </p>
     ),
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_6_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
   {
     sectionId: SECTION_ID,
@@ -1671,11 +1691,13 @@ export const PS_USES_ROOMS = [
       roomState.passed ? (
         <section className="card section-complete-card">
           <h2 className="card-title">
-            Bravo! Ai terminat toate camerele din secțiunea Uses – Present Simple. 🎉
+            Bravo! Ai terminat toate camerele din secțiunea Uses – Present
+            Simple. 🎉
           </h2>
           <p className="card-description">
-            Ai parcurs toată ruta pentru întrebuințările Present Simple. Mergi la hartă
-            ca să vezi progresul cheilor și cât de aproape ești de camera finală.
+            Ai parcurs toată ruta pentru întrebuințările Present Simple. Mergi
+            la hartă ca să vezi progresul cheilor și cât de aproape ești de
+            camera finală.
           </p>
           <div className="buttons">
             <Link to={psMapPath()} className="btn btn-outline">
@@ -1684,10 +1706,12 @@ export const PS_USES_ROOMS = [
           </div>
         </section>
       ) : null,
-    dictionaryDescription: "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
+    dictionaryDescription:
+      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_7_GLOSSARY_ITEMS,
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText: "Bravo! Ai completat corect toate propozițiile la această cameră!",
+    successText:
+      "Bravo! Ai completat corect toate propozițiile la această cameră!",
   },
 ];
 
