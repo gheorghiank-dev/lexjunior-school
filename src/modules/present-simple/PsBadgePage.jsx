@@ -10,6 +10,8 @@ import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import "../../styles/badge.css";
 import "../../styles/exercises/base.css";
 import "../../styles/components/lex-voice-btn.css";
+import "../../styles/exercises/pairs.css";
+
 import {
   badgeStoryConfig,
   badgeEx2Questions,
@@ -55,7 +57,7 @@ export default function PsBadgePage() {
     api.setKeyState({ icon: "🏅", label: "Nu există cheie aici, doar badge." });
     api.showMessage(
       "Rezolvă exercițiile și apasă pe „Verifică badge-ul” ca să vezi progresul.",
-      "info"
+      "info",
     );
   }, [badgePercent]);
 
@@ -73,7 +75,7 @@ export default function PsBadgePage() {
     const used = new Set(
       (Array.isArray(slots) ? slots : [])
         .map((v) => (v || "").trim())
-        .filter(Boolean)
+        .filter(Boolean),
     );
     const remaining = badgeStoryConfig.verbs.filter((v) => !used.has(v));
     return shuffleList(remaining);
@@ -81,20 +83,30 @@ export default function PsBadgePage() {
 
   // Pool-ul din dreapta: verbe unice. Când pui un verb într-un slot, dispare din pool.
   const [verbPool, setVerbPool] = useState(() =>
-    shuffleList([...badgeStoryConfig.verbs])
+    shuffleList([...badgeStoryConfig.verbs]),
   );
 
   // "În mână": fie un verb din pool, fie un verb ridicat dintr-un slot.
   // source: 'pool' | 'slot'
   const [activePick, setActivePick] = useState(null);
 
+  // helper ca să avem rapid un array de statusuri goale
+  const makeEmptyEx1Status = () => badgeStoryConfig.slotAnswers.map(() => null);
+
   const [ex1Slots, setEx1Slots] = useState(
-    badgeStoryConfig.slotAnswers.map(() => "")
+    badgeStoryConfig.slotAnswers.map(() => ""),
   );
+  const [ex1SlotStatus, setEx1SlotStatus] = useState(makeEmptyEx1Status());
   const [ex1Score, setEx1Score] = useState(0);
   const [ex1Feedback, setEx1Feedback] = useState("");
 
+  const resetEx1Statuses = () => {
+    setEx1SlotStatus(makeEmptyEx1Status());
+  };
+
   const handlePickVerb = (verb) => {
+    // orice interacțiune după "Verifică" resetează culorile
+    resetEx1Statuses();
     setActivePick((prev) => {
       // Dacă aveam un verb ridicat dintr-un slot și acum alegem din pool,
       // îl punem înapoi în slotul lui (logică legacy).
@@ -123,6 +135,8 @@ export default function PsBadgePage() {
   };
 
   const handleSlotClick = (index) => {
+    // orice modificare după "Verifică" resetează culorile
+    resetEx1Statuses();
     // Dacă nu avem nimic selectat: click pe slot ocupat => "ridică" verbul din slot
     if (!activePick) {
       const current = ex1Slots[index];
@@ -189,20 +203,54 @@ export default function PsBadgePage() {
   };
 
   const handleCheckEx1 = () => {
-    let score = 0;
     const correct = badgeStoryConfig.slotAnswers;
-    ex1Slots.forEach((value, idx) => {
-      const user = (value || "").trim().toLowerCase();
-      const target = (correct[idx] || "").trim().toLowerCase();
-      if (user && user === target) {
-        score++;
+    let score = 0;
+
+    const statuses = correct.map((targetRaw, idx) => {
+      const userRaw = ex1Slots[idx] || "";
+      const user = userRaw.trim().toLowerCase();
+      const target = (targetRaw || "").trim().toLowerCase();
+
+      if (!user) {
+        return null; // slot gol -> rămâne gri
       }
+
+      if (user === target) {
+        score += 1;
+        return "correct";
+      }
+
+      return "incorrect";
     });
+
     setEx1Score(score);
+    setEx1SlotStatus(statuses);
     setEx1Feedback(
-      `Scor exercițiul 1: ${score}/${badgeStoryConfig.slotAnswers.length}`
+      `Scor exercițiul 1: ${score}/${badgeStoryConfig.slotAnswers.length}`,
     );
   };
+
+  const getEx1SlotClassName = (index) => {
+    const status = ex1SlotStatus[index];
+    const classes = ["badge-slot", "badge-slot-btn"];
+    // păstrăm ambele, ca să prindem atât stilul vechi, cât și viitorul .badge-slot
+
+    if (status === "correct" || status === "incorrect") {
+      classes.push(status);
+    }
+
+    return classes.join(" ");
+  };
+
+  const renderEx1Slot = (index) => (
+    <button
+      type="button"
+      className={getEx1SlotClassName(index)}
+      onClick={() => handleSlotClick(index)}
+    >
+      {ex1Slots[index] || "_____"}
+    </button>
+  );
 
   const handleDevAutofillEx1 = () => {
     const full = [...badgeStoryConfig.slotAnswers];
@@ -212,7 +260,7 @@ export default function PsBadgePage() {
     const fullScore = badgeStoryConfig.slotAnswers.length;
     setEx1Score(fullScore);
     setEx1Feedback(
-      `Scor exercițiul 1: ${fullScore}/${badgeStoryConfig.slotAnswers.length}`
+      `Scor exercițiul 1: ${fullScore}/${badgeStoryConfig.slotAnswers.length}`,
     );
   };
 
@@ -269,10 +317,11 @@ export default function PsBadgePage() {
       // Accept the main expected sentence + any alternatives provided by data
       const expectedList = [];
       if (q.sentence) expectedList.push(q.sentence);
-      if (Array.isArray(q.acceptSentences)) expectedList.push(...q.acceptSentences);
+      if (Array.isArray(q.acceptSentences))
+        expectedList.push(...q.acceptSentences);
 
       const expectedNormalizedSet = new Set(
-        expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean)
+        expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean),
       );
 
       let isCorrect = true;
@@ -305,10 +354,9 @@ export default function PsBadgePage() {
     setEx2Score(score);
     setEx2PerQuestionFeedback(perFeedback);
     setEx2Summary(
-      `Scor exercițiul 2: ${score}/${badgeEx2Questions.length} întrebări corecte.`
+      `Scor exercițiul 2: ${score}/${badgeEx2Questions.length} întrebări corecte.`,
     );
   };
-
 
   const handleDevAutofillEx2 = () => {
     const nextShort = {};
@@ -324,7 +372,7 @@ export default function PsBadgePage() {
     setEx2PerQuestionFeedback({});
     setEx2Score(badgeEx2Questions.length);
     setEx2Summary(
-      `Scor exercițiul 2: ${badgeEx2Questions.length}/${badgeEx2Questions.length} întrebări corecte.`
+      `Scor exercițiul 2: ${badgeEx2Questions.length}/${badgeEx2Questions.length} întrebări corecte.`,
     );
   };
 
@@ -404,7 +452,7 @@ export default function PsBadgePage() {
     setEx3Messages(nextMessages);
     setEx3Score(score);
     setEx3Summary(
-      `Scor exercițiul 3: ${score}/${badgeEx3Prompts.length} propoziții valide.`
+      `Scor exercițiul 3: ${score}/${badgeEx3Prompts.length} propoziții valide.`,
     );
   };
 
@@ -452,111 +500,116 @@ export default function PsBadgePage() {
   const practiceResetVisible = badgeUnlocked || roomState.passed;
 
   useEffect(() => {
-  // Inițializăm starea globală a badge-ului (progressManager) și rehidratăm răspunsurile.
-  // Regula:
-  //  - dacă există "draft" -> îl încărcăm (pentru a păstra munca elevului + reset-ul de practică)
-  //  - altfel, dacă badge-ul este trecut -> încărcăm "master" (răspunsurile oficiale de la 100%)
-  //  - păstrăm master-ul în state chiar dacă afișăm draft-ul, ca să nu îl suprascriem accidental
-  const hydrateFrom = (payload) => {
-    if (!payload || typeof payload !== "object") return;
+    // Inițializăm starea globală a badge-ului (progressManager) și rehidratăm răspunsurile.
+    // Regula:
+    //  - dacă există "draft" -> îl încărcăm (pentru a păstra munca elevului + reset-ul de practică)
+    //  - altfel, dacă badge-ul este trecut -> încărcăm "master" (răspunsurile oficiale de la 100%)
+    //  - păstrăm master-ul în state chiar dacă afișăm draft-ul, ca să nu îl suprascriem accidental
+    const hydrateFrom = (payload) => {
+      if (!payload || typeof payload !== "object") return;
 
-    // Ex1
-    if (Array.isArray(payload.ex1Slots)) {
-      if (payload.ex1Slots.length === badgeStoryConfig.slotAnswers.length) {
-        setEx1Slots(payload.ex1Slots);
-        setActivePick(null);
-        if (Array.isArray(payload.ex1VerbPool)) {
-          setVerbPool(payload.ex1VerbPool);
-        } else {
-          setVerbPool(computePoolFromSlots(payload.ex1Slots));
+      // Ex1
+      if (Array.isArray(payload.ex1Slots)) {
+        if (payload.ex1Slots.length === badgeStoryConfig.slotAnswers.length) {
+          setEx1Slots(payload.ex1Slots);
+          setActivePick(null);
+          if (Array.isArray(payload.ex1VerbPool)) {
+            setVerbPool(payload.ex1VerbPool);
+          } else {
+            setVerbPool(computePoolFromSlots(payload.ex1Slots));
+          }
         }
       }
-    }
 
-    // Ex2
-    if (payload.ex2ShortAnswers && typeof payload.ex2ShortAnswers === "object") {
-      setEx2ShortAnswers(payload.ex2ShortAnswers);
-    }
-    if (payload.ex2Sentences && typeof payload.ex2Sentences === "object") {
-      setEx2Sentences(payload.ex2Sentences);
-    }
+      // Ex2
+      if (
+        payload.ex2ShortAnswers &&
+        typeof payload.ex2ShortAnswers === "object"
+      ) {
+        setEx2ShortAnswers(payload.ex2ShortAnswers);
+      }
+      if (payload.ex2Sentences && typeof payload.ex2Sentences === "object") {
+        setEx2Sentences(payload.ex2Sentences);
+      }
 
-    // Ex3
-    if (payload.ex3Answers && typeof payload.ex3Answers === "object") {
-      setEx3Answers(payload.ex3Answers);
-    }
-  };
+      // Ex3
+      if (payload.ex3Answers && typeof payload.ex3Answers === "object") {
+        setEx3Answers(payload.ex3Answers);
+      }
+    };
 
-  try {
-    const state = progressManager.getRoomState(SECTION_ID, ROOM_NUMBER);
-    setRoomState(state);
-
-    // Citește master (dacă există) – îl ținem în state chiar dacă elevul lucrează pe draft
-    let savedMaster = null;
     try {
-      savedMaster = storage.get(MASTER_ANSWERS_KEY, null);
-      if (savedMaster && typeof savedMaster === "object") {
-        setMasterAnswers(savedMaster);
+      const state = progressManager.getRoomState(SECTION_ID, ROOM_NUMBER);
+      setRoomState(state);
+
+      // Citește master (dacă există) – îl ținem în state chiar dacă elevul lucrează pe draft
+      let savedMaster = null;
+      try {
+        savedMaster = storage.get(MASTER_ANSWERS_KEY, null);
+        if (savedMaster && typeof savedMaster === "object") {
+          setMasterAnswers(savedMaster);
+        }
+      } catch (err) {
+        console.warn("Badge master answers read failed", err);
+      }
+
+      // Citește draft (dacă există) – acesta are prioritate la rehidratare
+      let savedDraft = null;
+      try {
+        savedDraft = storage.get(DRAFT_ANSWERS_KEY, null);
+      } catch (err) {
+        console.warn("Badge draft answers read failed", err);
+      }
+
+      if (savedDraft) {
+        hydrateFrom(savedDraft);
+      } else if (state && state.passed && savedMaster) {
+        hydrateFrom(savedMaster);
+      }
+
+      if (state && state.passed) {
+        setBadgeUnlocked(true);
+
+        let initialPercent = 100;
+        if (typeof state.firstAttemptScore === "number") {
+          initialPercent = state.firstAttemptScore;
+          if (initialPercent < 100) initialPercent = 100;
+        }
+        setBadgePercent(initialPercent);
       }
     } catch (err) {
-      console.warn("Badge master answers read failed", err);
+      console.warn("Progress manager init failed for badge", err);
     }
 
-    // Citește draft (dacă există) – acesta are prioritate la rehidratare
-    let savedDraft = null;
+    // După ce am încercat să rehidratăm, permitem autosave-ul draft-ului
+    setDidInit(true);
+  }, []);
+
+  // Autosave draft: păstrăm răspunsurile curente (și reset-ul de practică) la revenire în cameră.
+  useEffect(() => {
+    if (!didInit) return;
+
+    const draft = {
+      ex1Slots: Array.isArray(ex1Slots) ? [...ex1Slots] : [],
+      ex1VerbPool: Array.isArray(verbPool) ? [...verbPool] : [],
+      ex2ShortAnswers:
+        ex2ShortAnswers && typeof ex2ShortAnswers === "object"
+          ? { ...ex2ShortAnswers }
+          : {},
+      ex2Sentences:
+        ex2Sentences && typeof ex2Sentences === "object"
+          ? { ...ex2Sentences }
+          : {},
+      ex3Answers:
+        ex3Answers && typeof ex3Answers === "object" ? { ...ex3Answers } : {},
+    };
+
     try {
-      savedDraft = storage.get(DRAFT_ANSWERS_KEY, null);
+      storage.set(DRAFT_ANSWERS_KEY, draft);
     } catch (err) {
-      console.warn("Badge draft answers read failed", err);
+      console.warn("Badge draft answers persist failed", err);
     }
-
-    if (savedDraft) {
-      hydrateFrom(savedDraft);
-    } else if (state && state.passed && savedMaster) {
-      hydrateFrom(savedMaster);
-    }
-
-    if (state && state.passed) {
-      setBadgeUnlocked(true);
-
-      let initialPercent = 100;
-      if (typeof state.firstAttemptScore === "number") {
-        initialPercent = state.firstAttemptScore;
-        if (initialPercent < 100) initialPercent = 100;
-      }
-      setBadgePercent(initialPercent);
-    }
-  } catch (err) {
-    console.warn("Progress manager init failed for badge", err);
-  }
-
-  // După ce am încercat să rehidratăm, permitem autosave-ul draft-ului
-  setDidInit(true);
-}, []);
-
-// Autosave draft: păstrăm răspunsurile curente (și reset-ul de practică) la revenire în cameră.
-useEffect(() => {
-  if (!didInit) return;
-
-  const draft = {
-    ex1Slots: Array.isArray(ex1Slots) ? [...ex1Slots] : [],
-    ex1VerbPool: Array.isArray(verbPool) ? [...verbPool] : [],
-    ex2ShortAnswers:
-      ex2ShortAnswers && typeof ex2ShortAnswers === "object"
-        ? { ...ex2ShortAnswers }
-        : {},
-    ex2Sentences:
-      ex2Sentences && typeof ex2Sentences === "object" ? { ...ex2Sentences } : {},
-    ex3Answers:
-      ex3Answers && typeof ex3Answers === "object" ? { ...ex3Answers } : {},
-  };
-
-  try {
-    storage.set(DRAFT_ANSWERS_KEY, draft);
-  } catch (err) {
-    console.warn("Badge draft answers persist failed", err);
-  }
-}, [didInit, ex1Slots, verbPool, ex2ShortAnswers, ex2Sentences, ex3Answers]);
+  }, [didInit, ex1Slots, verbPool, ex2ShortAnswers, ex2Sentences, ex3Answers]);
 
   const handlePracticeReset = () => {
     // Exercițiul 1 – reset complet (ca în HTML vechi: repornește + reshuffle pool)
@@ -585,62 +638,60 @@ useEffect(() => {
   };
 
   const handleCheckBadge = () => {
-const max1 = badgeStoryConfig.slotAnswers.length;
-const max2 = badgeEx2Questions.length;
-const max3 = badgeEx3Prompts.length;
+    const max1 = badgeStoryConfig.slotAnswers.length;
+    const max2 = badgeEx2Questions.length;
+    const max3 = badgeEx3Prompts.length;
 
-// IMPORTANT: Scorul final se calculează din răspunsurile curente,
-// nu din scorurile intermediare (Ex1/Ex2/Ex3). Astfel, elevul poate
-// verifica badge-ul chiar dacă nu a apăsat "Verifică" pe fiecare exercițiu.
-let score1 = 0;
-const correct1 = badgeStoryConfig.slotAnswers;
-ex1Slots.forEach((value, idx) => {
-  const user = (value || "").trim().toLowerCase();
-  const target = (correct1[idx] || "").trim().toLowerCase();
-  if (user && user === target) score1++;
-});
+    // IMPORTANT: Scorul final se calculează din răspunsurile curente,
+    // nu din scorurile intermediare (Ex1/Ex2/Ex3). Astfel, elevul poate
+    // verifica badge-ul chiar dacă nu a apăsat "Verifică" pe fiecare exercițiu.
+    let score1 = 0;
+    const correct1 = badgeStoryConfig.slotAnswers;
+    ex1Slots.forEach((value, idx) => {
+      const user = (value || "").trim().toLowerCase();
+      const target = (correct1[idx] || "").trim().toLowerCase();
+      if (user && user === target) score1++;
+    });
 
-let score2 = 0;
-badgeEx2Questions.forEach((q) => {
-  const short = ((ex2ShortAnswers[q.id] || "") + "").trim().toLowerCase();
-  const sentenceRaw = ex2Sentences[q.id] || "";
-  const normalizedSentence = normalizeAnswer(sentenceRaw);
+    let score2 = 0;
+    badgeEx2Questions.forEach((q) => {
+      const short = ((ex2ShortAnswers[q.id] || "") + "").trim().toLowerCase();
+      const sentenceRaw = ex2Sentences[q.id] || "";
+      const normalizedSentence = normalizeAnswer(sentenceRaw);
 
-  const expectedShort = ((q.correctShort || "") + "").trim().toLowerCase();
+      const expectedShort = ((q.correctShort || "") + "").trim().toLowerCase();
 
-  const expectedList = [];
-  if (q.sentence) expectedList.push(q.sentence);
-  if (Array.isArray(q.acceptSentences)) expectedList.push(...q.acceptSentences);
+      const expectedList = [];
+      if (q.sentence) expectedList.push(q.sentence);
+      if (Array.isArray(q.acceptSentences))
+        expectedList.push(...q.acceptSentences);
 
-  const expectedNormalizedSet = new Set(
-    expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean)
-  );
+      const expectedNormalizedSet = new Set(
+        expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean),
+      );
 
-  const isCorrectShort = !!short && short === expectedShort;
-  const isCorrectSentence =
-    !!normalizedSentence && expectedNormalizedSet.has(normalizedSentence);
+      const isCorrectShort = !!short && short === expectedShort;
+      const isCorrectSentence =
+        !!normalizedSentence && expectedNormalizedSet.has(normalizedSentence);
 
-  if (isCorrectShort && isCorrectSentence) score2++;
-});
+      if (isCorrectShort && isCorrectSentence) score2++;
+    });
 
-let score3 = 0;
-badgeEx3Prompts.forEach((_, idx) => {
-  const sentence = ex3Answers[idx + 1] || "";
-  const trimmed = (sentence || "").trim();
-  const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
+    let score3 = 0;
+    badgeEx3Prompts.forEach((_, idx) => {
+      const sentence = ex3Answers[idx + 1] || "";
+      const trimmed = (sentence || "").trim();
+      const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
 
-  if (
-    trimmed &&
-    wordCount >= 4 &&
-    /[a-zA-Z]/.test(trimmed)
-  ) {
-    score3++;
-  }
-});
+      if (trimmed && wordCount >= 4 && /[a-zA-Z]/.test(trimmed)) {
+        score3++;
+      }
+    });
 
-const totalScore = score1 + score2 + score3;
-const totalMax = max1 + max2 + max3;
-const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
+    const totalScore = score1 + score2 + score3;
+    const totalMax = max1 + max2 + max3;
+    const percent =
+      totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
 
     let nextState = roomState;
     try {
@@ -648,13 +699,13 @@ const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
         nextState = progressManager.setFirstAttempt(
           SECTION_ID,
           ROOM_NUMBER,
-          percent
+          percent,
         );
       } else {
         nextState = progressManager.recordAttempt(
           SECTION_ID,
           ROOM_NUMBER,
-          percent
+          percent,
         );
       }
 
@@ -670,12 +721,12 @@ const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
     setBadgePercent(visualPercent);
 
     setBadgeResult(
-      `Scor total badge (Ex.1 + Ex.2 + Ex.3): ${totalScore}/${totalMax} (${percent}%)`
+      `Scor total badge (Ex.1 + Ex.2 + Ex.3): ${totalScore}/${totalMax} (${percent}%)`,
     );
 
     if (percent === 100) {
       setBadgeMessage(
-        "Perfect! Ai obținut badge-ul Present Simple! Îl găsești și în hub."
+        "Perfect! Ai obținut badge-ul Present Simple! Îl găsești și în hub.",
       );
 
       // Dacă este prima dată când ajungem la 100% (sau nu avem încă masterAnswers),
@@ -699,7 +750,7 @@ const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
       try {
         const ensuredState = progressManager.ensureBadgeUnlocked(
           SECTION_ID,
-          ROOM_NUMBER
+          ROOM_NUMBER,
         );
         setRoomState(ensuredState);
         setBadgeUnlocked(true);
@@ -709,7 +760,7 @@ const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
     } else {
       // nu revocăm badge-ul dacă a fost deja obținut; elevul poate exersa în continuare
       setBadgeMessage(
-        "Mai ai puțin până la 100%. Corectează răspunsurile și verifică din nou."
+        "Mai ai puțin până la 100%. Corectează răspunsurile și verifică din nou.",
       );
       // la fel, nu schimbăm badgeUnlocked aici
     }
@@ -779,524 +830,390 @@ const percent = totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
         <>
           {/* Introducere badge */}
           <section className="card">
-            <h2 className="card-title">Provocarea finală – Badge Present Simple</h2>
+            <h2 className="card-title">
+              Provocarea finală – Badge Present Simple
+            </h2>
             <p className="card-description">
               Aceasta este camera specială a badge-ului. Rezolvă corect toate
-              exercițiile. Dacă obții 100% la verificarea finală, primești badge-ul
-              Present Simple!
+              exercițiile. Dacă obții 100% la verificarea finală, primești
+              badge-ul Present Simple!
             </p>
           </section>
 
           {/* Exercițiul 1 */}
           <section className="card">
-        <h2 className="card-title">Exercițiul 1 – Completează povestea</h2>
-        <p className="card-description">
-          Citește povestea și completează verbele lipsă în Present Simple. Ai 20
-          de verbe amestecate în partea dreaptă (sau în panoul pentru mobil).
-        </p>
+            <h2 className="card-title">Exercițiul 1 – Completează povestea</h2>
+            <p className="card-description">
+              Citește povestea și completează verbele lipsă în Present Simple.
+              Ai 20 de verbe amestecate în partea dreaptă (sau în panoul pentru
+              mobil).
+            </p>
 
-        <PsMiniDictionaryCard
-          description="Citește cuvintele și expresiile de mai jos, ascultă pronunția cu 🔊 și folosește-le ca ajutor pentru poveste."
-          items={badgeMiniDictionaryItems}
-        />
+            <PsMiniDictionaryCard
+              description="Citește cuvintele și expresiile de mai jos, ascultă pronunția cu 🔊 și folosește-le ca ajutor pentru poveste."
+              items={badgeMiniDictionaryItems}
+            />
 
-        <div className="matching-layout">
-          <div className="matching-left">
-            <div className="badge-story">
-              <div className="exercise-row exercise-row--matching">
-                <div className="exercise-header-row">
-                  <div className="exercise-text">
-                    <p>
-                      Every day in my family starts differently for each of us.
-                      I have my own routine, and my brother has his, and they
-                      almost never look the same. That’s why our daily schedules
-                      feel like two separate little stories.
-                    </p>
+            <div className="matching-layout badge-layout">
+              <div className="matching-left">
+                <div className="badge-story">
+                  <div className="exercise-row exercise-row--matching">
+                    <div className="exercise-header-row">
+                      <div className="exercise-text">
+                        <p>
+                          Every day in my family starts differently for each of
+                          us. I have my own routine, and my brother has his, and
+                          they almost never look the same. That’s why our daily
+                          schedules feel like two separate little stories.
+                        </p>
 
-                    <p>
-                      <strong>Paragraph 2 — I</strong>
-                    </p>
+                        <p>
+                          <strong>Paragraph 2 — I</strong>
+                        </p>
 
-                    <p>
-                      I usually{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(0)}
-                      >
-                        {ex1Slots[0] || "_____"}
-                      </button>{" "}
-                      at 7 a.m., and the first thing I do is{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(1)}
-                      >
-                        {ex1Slots[1] || "_____"}
-                      </button>{" "}
-                      a quick cup of coffee.
-                    </p>
+                        <p>
+                          I usually {renderEx1Slot(0)} at 7 a.m., and the first
+                          thing I do is {renderEx1Slot(1)} a quick cup of
+                          coffee.
+                        </p>
 
-                    <p>
-                      I{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(2)}
-                      >
-                        {ex1Slots[2] || "_____"}
-                      </button>{" "}
-                      my messages, then I{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(3)}
-                      >
-                        {ex1Slots[3] || "_____"}
-                      </button>{" "}
-                      preparing for school.
-                    </p>
+                        <p>
+                          I {renderEx1Slot(2)} my messages, then I{" "}
+                          {renderEx1Slot(3)} preparing for school.
+                        </p>
 
-                    <p>
-                      I always{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(4)}
-                      >
-                        {ex1Slots[4] || "_____"}
-                      </button>{" "}
-                      the house around 7:45 because I{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(5)}
-                      >
-                        {ex1Slots[5] || "_____"}
-                      </button>{" "}
-                      to walk slowly and enjoy the quiet morning.
-                    </p>
+                        <p>
+                          I always {renderEx1Slot(4)} the house around 7:45
+                          because I {renderEx1Slot(5)} to walk slowly and enjoy
+                          the quiet morning.
+                        </p>
 
-                    <p>
-                      During the day, I{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(6)}
-                      >
-                        {ex1Slots[6] || "_____"}
-                      </button>{" "}
-                      , teach, and work on different projects.
-                    </p>
+                        <p>
+                          During the day, I {renderEx1Slot(6)}, teach, and work
+                          on different projects.
+                        </p>
 
-                    <p>
-                      In the afternoon, I often{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(7)}
-                      >
-                        {ex1Slots[7] || "_____"}
-                      </button>{" "}
-                      my friends or{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(8)}
-                      >
-                        {ex1Slots[8] || "_____"}
-                      </button>{" "}
-                      something relaxing.
-                    </p>
+                        <p>
+                          In the afternoon, I often {renderEx1Slot(7)} my
+                          friends or {renderEx1Slot(8)} something relaxing.
+                        </p>
 
-                    <p>
-                      I usually{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(9)}
-                      >
-                        {ex1Slots[9] || "_____"}
-                      </button>{" "}
-                      around 6 p.m., cook something simple, and finish my homework
-                      or plan lessons for the next day.
-                    </p>
+                        <p>
+                          I usually {renderEx1Slot(9)} around 6 p.m., cook
+                          something simple, and finish my homework or plan
+                          lessons for the next day.
+                        </p>
 
-                    <p>
-                      <strong>Paragraph 3 — He</strong>
-                    </p>
+                        <p>
+                          <strong>Paragraph 3 — He</strong>
+                        </p>
 
-                    <p>
-                      My brother, on the other hand,{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(10)}
-                      >
-                        {ex1Slots[10] || "_____"}
-                      </button>{" "}
-                      much later.
-                    </p>
+                        <p>
+                          My brother, on the other hand, {renderEx1Slot(10)}{" "}
+                          much later.
+                        </p>
 
-                    <p>
-                      He normally{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(11)}
-                      >
-                        {ex1Slots[11] || "_____"}
-                      </button>{" "}
-                      the news,{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(12)}
-                      >
-                        {ex1Slots[12] || "_____"}
-                      </button>{" "}
-                      a big breakfast, and{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(13)}
-                      >
-                        {ex1Slots[13] || "_____"}
-                      </button>{" "}
-                      at his computer around 10.
-                    </p>
+                        <p>
+                          He normally {renderEx1Slot(11)} the news,{" "}
+                          {renderEx1Slot(12)} a big breakfast, and{" "}
+                          {renderEx1Slot(13)} at his computer around 10.
+                        </p>
 
-                    <p>
-                      He{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(14)}
-                      >
-                        {ex1Slots[14] || "_____"}
-                      </button>{" "}
-                      most of the afternoon gaming or working on tech projects.
-                    </p>
+                        <p>
+                          He {renderEx1Slot(14)} most of the afternoon gaming or
+                          working on tech projects.
+                        </p>
 
-                    <p>
-                      In the evening, he sometimes{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(15)}
-                      >
-                        {ex1Slots[15] || "_____"}
-                      </button>{" "}
-                      with friends or{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(16)}
-                      >
-                        {ex1Slots[16] || "_____"}
-                      </button>{" "}
-                      food online because he{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(17)}
-                      >
-                        {ex1Slots[17] || "_____"}
-                      </button>{" "}
-                      cooking.
-                    </p>
+                        <p>
+                          In the evening, he sometimes {renderEx1Slot(15)} with
+                          friends or {renderEx1Slot(16)} food online because he{" "}
+                          {renderEx1Slot(17)} cooking.
+                        </p>
 
-                    <p>
-                      He usually{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(18)}
-                      >
-                        {ex1Slots[18] || "_____"}
-                      </button>{" "}
-                      from home and{" "}
-                      <button
-                        type="button"
-                        className="badge-slot-btn"
-                        onClick={() => handleSlotClick(19)}
-                      >
-                        {ex1Slots[19] || "_____"}
-                      </button>{" "}
-                      after midnight, while I’m already asleep.
-                    </p>
+                        <p>
+                          He usually {renderEx1Slot(18)} from home and{" "}
+                          {renderEx1Slot(19)} after midnight, while I’m already
+                          asleep.
+                        </p>
 
-                    <p>
-                      Even though our days are different, we still find time to talk,
-                      laugh, and share small moments. And maybe that’s what really
-                      matters in a family.
-                    </p>
+                        <p>
+                          Even though our days are different, we still find time
+                          to talk, laugh, and share small moments. And maybe
+                          that’s what really matters in a family.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="matching-right">
-            <div className="matching-options">
-              {verbPool.map((verb) => {
-                const isActive = activePick && activePick.source === "pool" && activePick.value === verb;
-                const optionClasses = ["matching-option"];
-                if (isActive) optionClasses.push("matching-option--selected");
+              <div className="matching-right">
+                <div className="matching-options">
+                  {verbPool.map((verb) => {
+                    const isActive =
+                      activePick &&
+                      activePick.source === "pool" &&
+                      activePick.value === verb;
+                    const optionClasses = ["matching-option"];
+                    if (isActive)
+                      optionClasses.push("matching-option--selected");
+
+                    return (
+                      <button
+                        key={verb}
+                        type="button"
+                        className={optionClasses.join(" ")}
+                        onClick={() => handlePickVerb(verb)}
+                      >
+                        {verb}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {ex1Score === badgeStoryConfig.slotAnswers.length && (
+              <div className="exercise-listen">
+                {/* Handler-ul global e acum React-pur (SpeechSynthesis) */}
+                <button
+                  type="button"
+                  className="lex-voice-btn button secondary"
+                  data-tts={badgeStoryTtsText}
+                  aria-label="Ascultă povestea completă"
+                >
+                  🔊 Ascultă povestea completă
+                </button>
+              </div>
+            )}
+
+            <div className="exercise-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleCheckEx1}
+              >
+                Verifică exercițiul 1
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={handleRetryEx1}
+              >
+                Repornește exercițiul 1
+              </button>
+            </div>
+            {ex1Feedback && <div className="exercise-score">{ex1Feedback}</div>}
+          </section>
+
+          {/* Exercițiul 2 */}
+          <section className="card">
+            <h2 className="card-title">
+              Exercițiul 2 – Yes/No &amp; propoziții complete
+            </h2>
+            <p className="card-description">
+              Pentru fiecare întrebare, răspunde cu Yes/No și scrie o propoziție
+              completă care se potrivește cu povestea din exercițiul 1.
+            </p>
+
+            <div className="ex2-list" id="exercise-2">
+              {badgeEx2Questions.map((q) => {
+                const short = ex2ShortAnswers[q.id] || "";
+                const sentence = ex2Sentences[q.id] || "";
+                const feedback = ex2PerQuestionFeedback[q.id] || "";
+                const hasSentenceBox = !!short;
+                const shortLabel = q.shortLabels[short] || "";
+                const answerTts = [shortLabel, sentence]
+                  .filter(Boolean)
+                  .join(" ");
+                const canListenAnswer = !!answerTts && !!ex2Summary;
 
                 return (
-                  <button
-                    key={verb}
-                    type="button"
-                    className={optionClasses.join(" ")}
-                    onClick={() => handlePickVerb(verb)}
-                  >
-                    {verb}
-                  </button>
+                  <article key={q.id} className="ex2-card" data-q={q.id}>
+                    <p className="ex2-question">
+                      {q.id}. {q.question}{" "}
+                      <LexTtsButton
+                        text={q.question}
+                        ariaLabel={`Ascultă întrebarea ${q.id}`}
+                      />
+                    </p>
+                    <div className="ex2-short">
+                      <label>
+                        <input
+                          type="radio"
+                          name={`ex2-q${q.id}`}
+                          value="yes"
+                          checked={short === "yes"}
+                          onChange={() => handleEx2ShortChange(q.id, "yes")}
+                        />
+                        {q.shortLabels.yes}
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name={`ex2-q${q.id}`}
+                          value="no"
+                          checked={short === "no"}
+                          onChange={() => handleEx2ShortChange(q.id, "no")}
+                        />
+                        {q.shortLabels.no}
+                      </label>
+                    </div>
+                    {hasSentenceBox && (
+                      <div className="ex2-sentence" data-sentence-box="">
+                        <label>
+                          Scrie propoziția ta:
+                          <input
+                            type="text"
+                            className="ex2-input"
+                            value={sentence}
+                            onChange={(e) =>
+                              handleEx2SentenceChange(q.id, e.target.value)
+                            }
+                          />
+                        </label>
+                      </div>
+                    )}
+                    {feedback && (
+                      <div className="ex2-feedback">
+                        <span className="ex2-message">{feedback}</span>
+                      </div>
+                    )}
+                    {canListenAnswer && (
+                      <div className="ex2-listen-answer">
+                        <LexTtsButton
+                          text={answerTts}
+                          ariaLabel={`Ascultă răspunsul complet pentru întrebarea ${q.id}`}
+                        />
+                      </div>
+                    )}
+                  </article>
                 );
               })}
             </div>
-          </div>
-        </div>
 
-        {ex1Score === badgeStoryConfig.slotAnswers.length && (
-          <div className="exercise-listen">
-            {/* Handler-ul global e acum React-pur (SpeechSynthesis) */}
-            <button
-              type="button"
-              className="lex-voice-btn button secondary"
-              data-tts={badgeStoryTtsText}
-              aria-label="Ascultă povestea completă"
-            >
-              🔊 Ascultă povestea completă
-            </button>
-          </div>
-        )}
+            <div className="exercise-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleCheckEx2}
+              >
+                Verifică exercițiul 2
+              </button>
 
-        <div className="exercise-actions">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleCheckEx1}
-          >
-            Verifică exercițiul 1
-          </button>
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={handleRetryEx2}
+              >
+                Repornește exercițiul 2
+              </button>
+            </div>
+            {ex2Summary && <div className="exercise-score">{ex2Summary}</div>}
+          </section>
 
-          <button
-            type="button"
-            className="btn btn-outline"
-            onClick={handleRetryEx1}
-          >
-            Repornește exercițiul 1
-          </button>
-        </div>
-        {ex1Feedback && <div className="exercise-score">{ex1Feedback}</div>}
-      </section>
-
-      {/* Exercițiul 2 */}
-      <section className="card">
-        <h2 className="card-title">
-          Exercițiul 2 – Yes/No &amp; propoziții complete
-        </h2>
-        <p className="card-description">
-          Pentru fiecare întrebare, răspunde cu Yes/No și scrie o propoziție
-          completă care se potrivește cu povestea din exercițiul 1.
-        </p>
-
-        <div className="ex2-list" id="exercise-2">
-          {badgeEx2Questions.map((q) => {
-            const short = ex2ShortAnswers[q.id] || "";
-            const sentence = ex2Sentences[q.id] || "";
-            const feedback = ex2PerQuestionFeedback[q.id] || "";
-            const hasSentenceBox = !!short;
-            const shortLabel = q.shortLabels[short] || "";
-            const answerTts = [shortLabel, sentence].filter(Boolean).join(" ");
-            const canListenAnswer = !!answerTts && !!ex2Summary;
-
-            return (
-              <article key={q.id} className="ex2-card" data-q={q.id}>
-                <p className="ex2-question">
-                  {q.id}. {q.question}{" "}
-                  <LexTtsButton
-                    text={q.question}
-                    ariaLabel={`Ascultă întrebarea ${q.id}`}
-                  />
-                </p>
-                <div className="ex2-short">
-                  <label>
-                    <input
-                      type="radio"
-                      name={`ex2-q${q.id}`}
-                      value="yes"
-                      checked={short === "yes"}
-                      onChange={() => handleEx2ShortChange(q.id, "yes")}
-                    />
-                    {q.shortLabels.yes}
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name={`ex2-q${q.id}`}
-                      value="no"
-                      checked={short === "no"}
-                      onChange={() => handleEx2ShortChange(q.id, "no")}
-                    />
-                    {q.shortLabels.no}
-                  </label>
-                </div>
-                {hasSentenceBox && (
-                  <div className="ex2-sentence" data-sentence-box="">
-                    <label>
-                      Scrie propoziția ta:
-                      <input
-                        type="text"
-                        className="ex2-input"
-                        value={sentence}
-                        onChange={(e) =>
-                          handleEx2SentenceChange(q.id, e.target.value)
-                        }
-                      />
-                    </label>
-                  </div>
-                )}
-                {feedback && (
-                  <div className="ex2-feedback">
-                    <span className="ex2-message">{feedback}</span>
-                  </div>
-                )}
-                {canListenAnswer && (
-                  <div className="ex2-listen-answer">
-                    <LexTtsButton
-                      text={answerTts}
-                      ariaLabel={`Ascultă răspunsul complet pentru întrebarea ${q.id}`}
-                    />
-                  </div>
-                )}
-              </article>
-            );
-          })}
-        </div>
-
-        <div className="exercise-actions">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleCheckEx2}
-          >
-            Verifică exercițiul 2
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-outline"
-            onClick={handleRetryEx2}
-          >
-            Repornește exercițiul 2
-          </button>
-        </div>
-        {ex2Summary && <div className="exercise-score">{ex2Summary}</div>}
-      </section>
-
-      {/* Exercițiul 3 */}
-      <section className="card">
-        <h2 className="card-title">Exercițiul 3 – Rutina ta zilnică</h2>
-        <p className="card-description">
-          Scrie 5 propoziții despre rutina ta zilnică, folosind Present Simple.
-          Fiecare propoziție trebuie să aibă cel puțin 4 cuvinte și să
-          folosească un verb la Present Simple.
-        </p>
-
-        <div className="ex3-list" id="exercise-3">
-          {badgeEx3Prompts.map((prompt, index) => {
-            const idx = index + 1;
-            const value = ex3Answers[idx] || "";
-            const msg = ex3Messages[idx] || "";
-            return (
-              <div key={idx} className="ex3-row" data-s={idx}>
-                <label>
-                  {idx}. {prompt}
-                  <textarea
-                    className="ex3-input"
-                    rows={2}
-                    value={value}
-                    onChange={(e) => handleEx3Change(idx, e.target.value)}
-                  />{" "}
-                  {value.trim() && (
-                    <LexTtsButton
-                      text={value}
-                      ariaLabel={`Ascultă propoziția ${idx}`}
-                    />
-                  )}
-                </label>
-                <div className="ex3-feedback">
-                  <span className="ex3-message">{msg}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="exercise-actions">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleCheckEx3}
-          >
-            Verifică exercițiul 3
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-outline"
-            onClick={handleRetryEx3}
-          >
-            Repornește exercițiul 3
-          </button>
-        </div>
-        {ex3Summary && <div className="exercise-score">{ex3Summary}</div>}
-      </section>
-
-      {/* Verificare finală + badge */}
-      <section className="card">
-        <h2 className="card-title">Badge-ul tău Present Simple</h2>
-        <p className="card-description">
-          Când ești gata, apasă pe butonul de mai jos ca să calculezi scorul
-          final pentru toate cele trei exerciții.
-        </p>
-
-        <div className="exercise-actions">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleCheckBadge}
-          >
-            Verifică badge-ul Present Simple
-          </button>
-        </div>
-        {badgeResult && (
-          <div className="exercise-score" id="badge-result">
-            {badgeResult}
-          </div>
-        )}
-        {badgeMessage && (
-          <div className="exercise-score">
-            <p>{badgeMessage}</p>
-          </div>
-        )}
-
-        {badgeUnlocked && (
-          <div className="badge-reward" id="badge-reward">
-            <p className="badge-reward__text">
-              Felicitări! Ai obținut badge-ul <strong>Present Simple</strong>! 🎉
+          {/* Exercițiul 3 */}
+          <section className="card">
+            <h2 className="card-title">Exercițiul 3 – Rutina ta zilnică</h2>
+            <p className="card-description">
+              Scrie 5 propoziții despre rutina ta zilnică, folosind Present
+              Simple. Fiecare propoziție trebuie să aibă cel puțin 4 cuvinte și
+              să folosească un verb la Present Simple.
             </p>
-          </div>
-        )}
 
-        {!badgeUnlocked && (
-          <div className="badge-reward" id="badge-reward" hidden>
-            {/* Hidden fallback – păstrăm structură similară cu legacy */}
-          </div>
-        )}
+            <div className="ex3-list" id="exercise-3">
+              {badgeEx3Prompts.map((prompt, index) => {
+                const idx = index + 1;
+                const value = ex3Answers[idx] || "";
+                const msg = ex3Messages[idx] || "";
+                return (
+                  <div key={idx} className="ex3-row" data-s={idx}>
+                    <label>
+                      {idx}. {prompt}
+                      <textarea
+                        className="ex3-input"
+                        rows={2}
+                        value={value}
+                        onChange={(e) => handleEx3Change(idx, e.target.value)}
+                      />{" "}
+                      {value.trim() && (
+                        <LexTtsButton
+                          text={value}
+                          ariaLabel={`Ascultă propoziția ${idx}`}
+                        />
+                      )}
+                    </label>
+                    <div className="ex3-feedback">
+                      <span className="ex3-message">{msg}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="exercise-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleCheckEx3}
+              >
+                Verifică exercițiul 3
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={handleRetryEx3}
+              >
+                Repornește exercițiul 3
+              </button>
+            </div>
+            {ex3Summary && <div className="exercise-score">{ex3Summary}</div>}
+          </section>
+
+          {/* Verificare finală + badge */}
+          <section className="card">
+            <h2 className="card-title">Badge-ul tău Present Simple</h2>
+            <p className="card-description">
+              Când ești gata, apasă pe butonul de mai jos ca să calculezi scorul
+              final pentru toate cele trei exerciții.
+            </p>
+
+            <div className="exercise-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleCheckBadge}
+              >
+                Verifică badge-ul Present Simple
+              </button>
+            </div>
+            {badgeResult && (
+              <div className="exercise-score" id="badge-result">
+                {badgeResult}
+              </div>
+            )}
+            {badgeMessage && (
+              <div className="exercise-score">
+                <p>{badgeMessage}</p>
+              </div>
+            )}
+
+            {badgeUnlocked && (
+              <div className="badge-reward" id="badge-reward">
+                <p className="badge-reward__text">
+                  Felicitări! Ai obținut badge-ul{" "}
+                  <strong>Present Simple</strong>! 🎉
+                </p>
+              </div>
+            )}
+
+            {!badgeUnlocked && (
+              <div className="badge-reward" id="badge-reward" hidden>
+                {/* Hidden fallback – păstrăm structură similară cu legacy */}
+              </div>
+            )}
           </section>
         </>
       )}

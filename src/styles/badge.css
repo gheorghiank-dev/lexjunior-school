@@ -1,1 +1,261 @@
-.exercise-block { margin: 30px 0; padding: 20px; border-radius: 16px; background: #ffffffd9; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); } .exercise-block h2 { margin-top: 0; margin-bottom: 10px; } .exercise-desc { margin-top: 0; margin-bottom: 15px; font-size: 0.95rem; color: #555; } .exercise-controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; } .exercise-score { margin-top: 10px; font-weight: 600; } .dragdrop-container { display: flex; gap: 20px; align-items: flex-start; margin-top: 10px; } .story-text { flex: 2; } .verbs-column { flex: 1; background: #f6f7ff; border-radius: 12px; padding: 12px; } .verbs-column h3 { margin-top: 0; margin-bottom: 4px; } .verbs-hint { font-size: 0.85rem; color: #666; margin: 0 0 8px 0; } .verb-pool { list-style: none; padding: 0; margin: 0; } .verb-token { background: #e9f1ff; padding: 8px; border-radius: 999px; margin: 6px 0; cursor: pointer; text-align: center; font-weight: 500; transition: transform 0.1s ease, box-shadow 0.1s ease; } .verb-token:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); } .badge-slot { display: inline-block; min-width: 90px; padding: 3px 6px; border-bottom: 2px dashed #bbb; text-align: center; margin: 0 3px; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease; } .badge-slot.correct { background: #d3f9d8; border-color: #43a047; } .badge-slot.incorrect { background: #ffe1e1; border-color: #e53935; } .story-intro, .story-outro { margin-bottom: 15px; } @media (max-width: 768px) { .dragdrop-container { flex-direction: column; } .verbs-column { width: 100%; } } .ex2-list { display: flex; flex-direction: column; gap: 12px; } .ex2-card { background: #fdfdff; border-radius: 12px; border: 1px solid #e0e3ff; padding: 12px 14px; } .ex2-card.correct { border-color: #43a047; background: #e7fbe9; } .ex2-card.incorrect { border-color: #e53935; background: #ffecec; } .ex2-question { margin-top: 0; margin-bottom: 6px; font-weight: 600; } .ex2-short label { display: block; margin: 3px 0; } .ex2-sentence { margin-top: 8px; } .ex2-input { display: block; width: 100%; max-width: 480px; margin-top: 4px; padding: 6px 8px; border-radius: 8px; border: 1px solid #ccc; } #exercise-1 .dev-bar { display: block; margin-top: 15px; } .dev-ex1 { width: 100%; clear: both; } #exercise-1 .dev-bar, #exercise-2 .dev-bar, #exercise-3 .dev-bar { position: static; bottom: auto; right: auto; margin-top: 12px; justify-content: flex-start; } .ex3-list { display: flex; flex-direction: column; gap: 10px; } .ex3-row { background: #fdfdff; border-radius: 12px; border: 1px solid #e0e3ff; padding: 10px 12px; } .ex3-row.correct { border-color: #43a047; background: #e7fbe9; } .ex3-row.incorrect { border-color: #e53935; background: #ffecec; } .ex3-input { display: block; width: 100%; max-width: 520px; margin-top: 6px; padding: 6px 8px; border-radius: 8px; border: 1px solid #ccc; resize: vertical; } .ex3-feedback { margin-top: 4px; font-size: 0.85rem; color: #444; } #exercise-1 .dev-bar, #exercise-2 .dev-bar, #exercise-3 .dev-bar { position: static; bottom: auto; right: auto; margin-top: 12px; justify-content: flex-start; } .badge-reward { margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: #ecfdf5; border: 1px solid #bbf7d0; } .badge-reward__text { margin-bottom: 8px; } .ex2-answer-listen{color:#000000;} .ex3-answer-listen{color:#000000;}
+.exercise-block {
+  margin: 30px 0;
+  padding: 20px;
+  border-radius: 16px;
+  background: #ffffffd9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.exercise-block h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.exercise-desc {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+.exercise-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+.exercise-score {
+  margin-top: 10px;
+  font-weight: 600;
+}
+.dragdrop-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+.story-text {
+  flex: 2;
+}
+.verbs-column {
+  flex: 1;
+  background: #f6f7ff;
+  border-radius: 12px;
+  padding: 12px;
+}
+.verbs-column h3 {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+.verbs-hint {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+.verb-pool {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.verb-token {
+  background: #e9f1ff;
+  padding: 8px;
+  border-radius: 999px;
+  margin: 6px 0;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+.verb-token:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.badge-slot {
+  display: inline-block;
+  min-width: 90px;
+  padding: 3px 6px;
+  border-bottom: 2px dashed #bbb;
+  text-align: center;
+  margin: 0 3px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+.badge-slot.correct {
+  background: #d3f9d8;
+  border-color: #43a047;
+}
+.badge-slot.incorrect {
+  background: #ffe1e1;
+  border-color: #e53935;
+}
+.story-intro,
+.story-outro {
+  margin-bottom: 15px;
+}
+@media (max-width: 768px) {
+  .dragdrop-container {
+    flex-direction: column;
+  }
+  .verbs-column {
+    width: 100%;
+  }
+}
+.ex2-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ex2-card {
+  background: #fdfdff;
+  border-radius: 12px;
+  border: 1px solid #e0e3ff;
+  padding: 12px 14px;
+}
+.ex2-card.correct {
+  border-color: #43a047;
+  background: #e7fbe9;
+}
+.ex2-card.incorrect {
+  border-color: #e53935;
+  background: #ffecec;
+}
+.ex2-question {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.ex2-short label {
+  display: block;
+  margin: 3px 0;
+}
+.ex2-sentence {
+  margin-top: 8px;
+}
+.ex2-input {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+#exercise-1 .dev-bar {
+  display: block;
+  margin-top: 15px;
+}
+.dev-ex1 {
+  width: 100%;
+  clear: both;
+}
+#exercise-1 .dev-bar,
+#exercise-2 .dev-bar,
+#exercise-3 .dev-bar {
+  position: static;
+  bottom: auto;
+  right: auto;
+  margin-top: 12px;
+  justify-content: flex-start;
+}
+.ex3-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ex3-row {
+  background: #fdfdff;
+  border-radius: 12px;
+  border: 1px solid #e0e3ff;
+  padding: 10px 12px;
+}
+.ex3-row.correct {
+  border-color: #43a047;
+  background: #e7fbe9;
+}
+.ex3-row.incorrect {
+  border-color: #e53935;
+  background: #ffecec;
+}
+.ex3-input {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+.ex3-feedback {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #444;
+}
+#exercise-1 .dev-bar,
+#exercise-2 .dev-bar,
+#exercise-3 .dev-bar {
+  position: static;
+  bottom: auto;
+  right: auto;
+  margin-top: 12px;
+  justify-content: flex-start;
+}
+.badge-reward {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+}
+.badge-reward__text {
+  margin-bottom: 8px;
+}
+.ex2-answer-listen {
+  color: #000000;
+}
+.ex3-answer-listen {
+  color: #000000;
+}
+/* Layout special pentru Exercițiul 1 din badge:
+   textul povestii în stânga, pool-ul de verbe în dreapta pe ecrane mari */
+.badge-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Pe ecrane mici (telefon), revenim la layout pe coloană: text sus, pool jos */
+@media (max-width: 900px) {
+  .badge-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Card frumos doar pentru povestea din badge,
+   fără să afecteze camerele de Time Expressions */
+.badge-story .exercise-row--matching {
+  padding: 0.75rem 1rem 1rem;
+  border-radius: 1.1rem;
+  background: var(--lex-matching-row-bg, #ffffff);
+  border: var(--lex-matching-row-border, 1px solid rgba(15, 23, 42, 0.06));
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* Un pic de spațiu între paragrafe în poveste */
+.badge-story .exercise-text p {
+  margin-bottom: 0.5rem;
+}
+/* În badge, lista de verbe din dreapta să fie pe coloană */
+.badge-layout .matching-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Butoanele din pool ocupă toată lățimea coloanei, arată mai ordonat */
+.badge-layout .matching-options .matching-option {
+  width: 100%;
+  text-align: center;
+}
