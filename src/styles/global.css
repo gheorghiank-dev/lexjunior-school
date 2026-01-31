@@ -501,6 +501,15 @@ a {
   color: var(--lex-color-text-main);
 }
 
+.ps-sensory-feel-card {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1.3rem;
+  border-radius: 18px;
+  background: var(--lex-color-surface-soft, #fffaf2);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
 /* Back-link de pe paginile de teorie */
 .page-backlink-row {
   margin-bottom: 0.75rem;

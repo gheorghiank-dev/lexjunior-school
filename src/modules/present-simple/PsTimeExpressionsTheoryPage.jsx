@@ -18,7 +18,7 @@ export default function PsTimeExpressionsTheoryPage() {
     } catch (err) {
       console.error(
         "Failed to mark time-expressions theory as completed:",
-        err
+        err,
       );
     }
   }, []);
@@ -31,10 +31,7 @@ export default function PsTimeExpressionsTheoryPage() {
     <PsTheoryPageShell>
       <header className="page-header">
         <p className="page-backlink-row">
-          <Link
-            to={PS_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
+          <Link to={PS_BASE_PATH} className="btn btn-soft ps-back-link">
             ← Înapoi la modulul Present Simple
           </Link>
         </p>
@@ -57,50 +54,81 @@ export default function PsTimeExpressionsTheoryPage() {
           <strong>Present Simple</strong>.
         </p>
 
-        {/* Două carduri lila side-by-side: Expresii comune vs Adverbe de frecvență */}
-        <div className="columns-2">
-          <div className="ps-structure-box">
-            <h3 className="card-subtitle">Expresii comune</h3>
-            <ul className="ps-mini-list">
-              <li>
-                <strong>every </strong> day / week / month / year/ weekend/
-                Wednesday
-              </li>
-              <li>
-                <strong>in</strong> the morning / afternoon / evening
-              </li>
-              <li>
-                <strong>at</strong> noon / night
-              </li>
-              <li>
-                <strong>on</strong> Monday<strong>s</strong>
-              </li>
-            </ul>
-          </div>
+        <div className="ps-structure-box">
+          <h3 className="ps-structure-title">Expresii comune</h3>
 
-          <div className="ps-structure-box">
-            <h3 className="card-subtitle">Adverbe de frecvență</h3>
-            <ul className="ps-mini-list">
-              <li>
-                <strong>always</strong> – 100%
-              </li>
-              <li>
-                <strong>usually</strong> – ~75%
-              </li>
-              <li>
-                <strong>often</strong> – ~50%
-              </li>
-              <li>
-                <strong>sometimes</strong> – ~25%
-              </li>
-              <li>
-                <strong>rarely / seldom</strong> – ~10%
-              </li>
-              <li>
-                <strong>never</strong> – 0%
-              </li>
-            </ul>
-          </div>
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">every</span> day / week
+              / month / year/ weekend/ Wednesday
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">in</span> the morning /
+              afternoon / evening
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">at</span> noon / night /
+              midnight / the weekend / 7 o'clock
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">on</span> Monday
+              <span className="rule-highlight-emphasis">s</span> / weekend
+              <span className="rule-highlight-emphasis">s</span>
+            </span>
+          </p>
+        </div>
+
+        <div className="ps-structure-box">
+          <h3 className="ps-structure-title">Adverbe de frecvență</h3>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">always</span> – 100%
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">usually</span> – ~75%
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">often</span> – ~50%
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">sometimes</span> – ~25%
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">rarely / seldom</span> –
+              ~10%
+            </span>
+          </p>
+
+          <p className="ps-text">
+            <span className="rule-highlight">
+              <span className="rule-highlight-emphasis">
+                never/ hardly ever
+              </span>{" "}
+              – 0%
+            </span>
+          </p>
         </div>
 
         <div className="example-box">

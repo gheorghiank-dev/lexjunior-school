@@ -14,100 +14,61 @@
   gap: 0.9rem;
 }
 
-.exercise-row--sentence-builder {
-  padding: 0.85rem 1rem 1.1rem;
-  border-radius: 1.1rem;
-  background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
-  border: 2px solid transparent;
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    background-color 0.15s ease;
+.sentence-builder-row {
+  align-items: stretch;
 }
 
-.exercise-row--sentence-builder.exercise-row--correct {
-  border-color: #22c55e;
-  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
-}
-
-.exercise-row--sentence-builder.exercise-row--incorrect {
-  border-color: #f97373;
-  box-shadow: 0 8px 20px rgba(248, 113, 113, 0.25);
-}
-
-.sentence-builder-header {
+/* Zona de propoziție rămâne fix sub întrebare, pe stânga */
+.sentence-builder-answer-zone {
+  margin-top: 0.6rem;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.6rem;
 }
 
-.sentence-builder-question {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.4;
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-}
-
-.sentence-builder-answer-zone {
+.sentence-builder-answer-content {
+  flex: 1;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 12px;
+  border: 1px dashed var(--lex-color-border-soft, rgba(0, 0, 0, 0.08));
+  background: var(--lex-color-surface-subtle, rgba(255, 255, 255, 0.7));
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-
-  margin-top: 0.4rem;
-  border-radius: 999px;
-  border: var(--lex-sb-zone-border);
-  background: var(--lex-sb-zone-bg);
-  padding: 0.45rem 0.9rem;
-  min-height: 2.2rem;
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  text-align: left;
 }
 
 .sentence-builder-placeholder {
-  font-size: 0.88rem;
-  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  opacity: 0.8;
+  color: var(--lex-color-text-muted, #555555);
 }
 
-.sentence-builder-tokens {
+.sentence-builder-answer-tokens {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
 }
 
-.sentence-builder-token {
+.sentence-builder-answer-token {
   border-radius: 999px;
-  border: var(--lex-sb-token-border);
-  padding: 0.25rem 0.7rem;
-  background: var(--lex-sb-token-bg);
-  color: var(--lex-sb-token-color);
+  border: 1px solid var(--lex-color-border-strong, rgba(0, 0, 0, 0.15));
+  background: var(--lex-color-surface-card, #ffffff);
+  padding: 0.1rem 0.65rem;
   font-size: 0.9rem;
+  line-height: 1.3;
   cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    transform 0.1s ease;
 }
 
-.sentence-builder-token:hover {
-  background-color: var(--lex-sb-token-bg-hover);
-  transform: translateY(-1px);
+.sentence-builder-answer-token:hover {
+  box-shadow: 0 0 0 1px var(--lex-color-accent-soft, rgba(0, 0, 0, 0.12));
 }
 
-.sentence-builder-bank {
-  margin-top: 0.6rem;
-}
-
-.sentence-builder-bank-title {
-  font-size: 0.82rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.25rem;
-}
-
-.sentence-builder-bank-words {
+/* Banca de cuvinte (pool) */
+.sentence-builder-wordbank {
+  margin-top: 0.75rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
@@ -115,36 +76,30 @@
 
 .sentence-builder-word {
   border-radius: 999px;
-  border: 1px solid #cbd5f5;
-  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--lex-color-border-soft, rgba(0, 0, 0, 0.12));
+  background: var(--lex-color-surface-soft, #f7f7f7);
+  padding: 0.15rem 0.7rem;
   font-size: 0.9rem;
-  background: #f8fafc;
+  line-height: 1.3;
   cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    transform 0.1s ease,
-    box-shadow 0.15s ease;
 }
 
 .sentence-builder-word:hover {
-  background-color: #e5e7eb;
-  box-shadow: 0 4px 10px rgba(148, 163, 184, 0.25);
-  transform: translateY(-1px);
+  background: var(--lex-color-surface-soft-strong, #f0f0f0);
 }
 
-.sentence-builder-actions {
+/* Row cu butonul de reset */
+.sentence-builder-actions-row {
   margin-top: 0.6rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .sentence-builder-reset-button {
   font-size: 0.82rem;
 }
 
-
-.sentence-builder-answer-content {
-  flex: 1;
-}
-
+/* Butonul de listen nu strică layout-ul răspunsului */
 .sentence-builder-answer-zone .lex-voice-btn {
   flex-shrink: 0;
 }

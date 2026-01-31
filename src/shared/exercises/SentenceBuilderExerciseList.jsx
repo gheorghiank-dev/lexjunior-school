@@ -5,41 +5,21 @@ import LexTtsButton from "./LexTtsButton.jsx";
 import "../../styles/exercises/base.css";
 import "../../styles/exercises/sentence-builder.css";
 
-/**
- * SentenceBuilderExerciseList
- *
- * Tip de exercițiu pentru:
- *  - întrebare (How often... ?)
- *  - zonă de răspuns unde elevul construiește propoziția
- *  - bancă de cuvinte (word bank) din care poate selecta cuvinte.
- *
- * Structura unui exercițiu:
- * {
- *   id: 1,
- *   question: "How often do you brush your teeth?",
- *   wordBank: ["I", "brush", "my", "teeth", "twice", "a", "day."],
- *   correct: "I brush my teeth twice a day.",
- *   tts: "I brush my teeth twice a day.",
- * }
- *
- * Componenta este controlată de useRoomEngine prin:
- *  - answers[ex.id] = propoziția construită ("I brush my teeth twice a day.")
- *  - feedback[ex.id] = "correct" | "incorrect" | undefined
- *  - onChange(id, value) pentru actualizarea răspunsului.
- */
-
 export function SentenceBuilderExerciseList({
   exercises,
   answers,
   feedback,
   onChange,
   showIndex = true,
+  testIdPrefix,
 }) {
+  // 🔁 Shuffle stabil al word bank-ului, o singură dată per montare
   const shuffledBankMap = useMemo(() => {
     const map = new Map();
     if (!exercises) return map;
+
     exercises.forEach((ex) => {
-      const bank = ex.wordBank || [];
+      const bank = Array.isArray(ex.wordBank) ? ex.wordBank : [];
       const arr = [...bank];
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -49,137 +29,199 @@ export function SentenceBuilderExerciseList({
       }
       map.set(ex.id, arr);
     });
+
     return map;
   }, [exercises]);
 
-  const getCurrentValue = (ex) => {
-    if (!answers) return "";
-    const raw = answers[ex.id];
-    if (raw == null) return "";
-    return String(raw);
-  };
-
-  const getTokens = (value) => {
-    const trimmed = (value || "").trim();
+  const getWordsFromAnswer = (raw) => {
+    if (!raw) return [];
+    const trimmed = String(raw).trim();
     if (!trimmed) return [];
     return trimmed.split(/\s+/);
   };
 
-  const handleAddWord = (ex, word) => {
-    const current = getCurrentValue(ex);
-    const tokens = getTokens(current);
-    const nextTokens = [...tokens, word];
-    const nextValue = nextTokens.join(" ");
-    onChange?.(ex.id, nextValue);
+  // Din banca shuffle-uită scădem ce e deja folosit în răspuns → rămân doar cuvintele disponibile
+  const getRemainingWords = (wordBank, chosenWords) => {
+    if (!Array.isArray(wordBank) || wordBank.length === 0) return [];
+    const remaining = [];
+    const usedCounts = {};
+
+    chosenWords.forEach((w) => {
+      usedCounts[w] = (usedCounts[w] || 0) + 1;
+    });
+
+    wordBank.forEach((w) => {
+      const count = usedCounts[w] || 0;
+      if (count > 0) {
+        usedCounts[w] = count - 1;
+      } else {
+        remaining.push(w);
+      }
+    });
+
+    return remaining;
   };
 
-  const handleRemoveToken = (ex, indexToRemove) => {
-    const current = getCurrentValue(ex);
-    const tokens = getTokens(current);
-    const nextTokens = tokens.filter((_, idx) => idx !== indexToRemove);
-    const nextValue = nextTokens.join(" ");
-    onChange?.(ex.id, nextValue);
+  const handleAddWord = (ex, word) => {
+    if (!word || !onChange) return;
+
+    const currentAnswer = answers?.[ex.id] ?? "";
+    const currentWords = getWordsFromAnswer(currentAnswer);
+    const bank = shuffledBankMap.get(ex.id) || ex.wordBank || [];
+
+    // Siguranță: nu putem folosi un cuvânt de mai multe ori decât apare în bancă
+    const totalInBank = bank.filter((w) => w === word).length;
+    const alreadyUsed = currentWords.filter((w) => w === word).length;
+
+    if (totalInBank > 0 && alreadyUsed >= totalInBank) {
+      return;
+    }
+
+    const nextAnswer = [...currentWords, word].join(" ");
+    onChange(ex.id, nextAnswer);
+  };
+
+  const handleRemoveWordAt = (ex, indexToRemove) => {
+    if (!onChange) return;
+
+    const currentAnswer = answers?.[ex.id] ?? "";
+    const currentWords = getWordsFromAnswer(currentAnswer);
+
+    if (indexToRemove < 0 || indexToRemove >= currentWords.length) return;
+
+    const nextWords = [
+      ...currentWords.slice(0, indexToRemove),
+      ...currentWords.slice(indexToRemove + 1),
+    ];
+
+    onChange(ex.id, nextWords.join(" "));
   };
 
   const handleReset = (ex) => {
-    onChange?.(ex.id, "");
+    if (!onChange) return;
+    onChange(ex.id, "");
   };
 
   return (
     <div className="notranslate" translate="no">
       <ol className="exercise-list sentence-builder-list">
-      {exercises.map((ex, index) => {
-        const currentValue = getCurrentValue(ex);
-        const tokens = getTokens(currentValue);
-        const state = feedback?.[ex.id];
-        const isCorrect = state === "correct";
-        const isIncorrect = state === "incorrect";
+        {exercises.map((ex, index) => {
+          const answerForEx = answers?.[ex.id] ?? "";
+          const chosenWords = getWordsFromAnswer(answerForEx);
+          const shuffledBank = shuffledBankMap.get(ex.id) || ex.wordBank || [];
+          const remainingWords = getRemainingWords(shuffledBank, chosenWords);
 
-        const rowClassNames = [
-          "exercise-row",
-          "exercise-row--sentence-builder",
-        ];
-        if (isCorrect) rowClassNames.push("exercise-row--correct");
-        if (isIncorrect) rowClassNames.push("exercise-row--incorrect");
+          const state = feedback?.[ex.id];
+          const isCorrect = state === "correct";
+          const isIncorrect = state === "incorrect";
 
-        return (
-          <li key={ex.id} className={rowClassNames.join(" ")}>
-            <div className="sentence-builder-header">
-              <p className="sentence-builder-question">
-                {showIndex && (
-                  <span className="exercise-index">{index + 1}.</span>
-                )}
-                <span>{ex.question}</span>
-              </p>
+          // 🔴🟢 Astea dau culoarea pe rând (corect/greșit)
+          const rowClassNames = [
+            "exercise-row",
+            "exercise-row--sentence-builder",
+          ];
+          if (isCorrect) rowClassNames.push("exercise-row--correct");
+          if (isIncorrect) rowClassNames.push("exercise-row--incorrect");
 
-              <LexTtsButton
-                text={ex.question}
-                ariaLabel={`Ascultă întrebarea: ${ex.question}`}
-              />
-            </div>
+          const headerText = ex.question || ex.prompt || "";
 
-            <div className="sentence-builder-answer-zone">
-              <div className="sentence-builder-answer-content">
-                {tokens.length === 0 ? (
-                  <span className="sentence-builder-placeholder">
-                    Dă click pe cuvinte ca să construiești propoziția.
-                  </span>
-                ) : (
-                  <div className="sentence-builder-tokens">
-                    {tokens.map((token, idx) => (
+          return (
+            <li
+              key={ex.id}
+              className={rowClassNames.join(" ")}
+              data-testid={
+                testIdPrefix ? `${testIdPrefix}-row-${ex.id}` : undefined
+              }
+            >
+              <div className="exercise-card">
+                <div className="exercise-card-body">
+                  {/* Întrebare + TTS pentru întrebare */}
+                  <div className="sentence-builder-header">
+                    <p className="sentence-builder-question">
+                      {showIndex && (
+                        <span className="exercise-index">{index + 1}.</span>
+                      )}
+                      <span>{headerText}</span>
+                    </p>
+
+                    {headerText && (
+                      <LexTtsButton
+                        text={ex.ttsQuestion || headerText}
+                        ariaLabel={`Ascultă întrebarea ${index + 1}`}
+                      />
+                    )}
+                  </div>
+
+                  {/* Zona de propoziție — fix sub întrebare, nu mai „dansează” */}
+                  <div className="sentence-builder-answer-zone">
+                    <div className="sentence-builder-answer-content">
+                      {chosenWords.length === 0 ? (
+                        <span className="sentence-builder-placeholder">
+                          Click pe cuvintele din bancă pentru a construi
+                          propoziția.
+                        </span>
+                      ) : (
+                        <div className="sentence-builder-answer-tokens">
+                          {chosenWords.map((word, wordIndex) => (
+                            <button
+                              key={`${ex.id}-answer-${wordIndex}-${word}`}
+                              type="button"
+                              className="sentence-builder-answer-token"
+                              onClick={() => handleRemoveWordAt(ex, wordIndex)}
+                            >
+                              {word}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {ex.tts && (
+                      <LexListenOnCorrect
+                        isCorrect={isCorrect}
+                        tts={ex.tts}
+                        ariaLabel={`Ascultă propoziția corectă pentru exercițiul ${
+                          index + 1
+                        }`}
+                      />
+                    )}
+                  </div>
+
+                  {/* Banca de cuvinte — cuvintele folosite dispar */}
+                  <div className="sentence-builder-wordbank">
+                    {remainingWords.map((word, wordIndex) => (
                       <button
-                        key={idx}
+                        key={`${ex.id}-pool-${wordIndex}-${word}`}
                         type="button"
-                        className="sentence-builder-token"
-                        onClick={() => handleRemoveToken(ex, idx)}
+                        className="sentence-builder-word"
+                        onClick={() => handleAddWord(ex, word)}
+                        data-testid={
+                          testIdPrefix
+                            ? `${testIdPrefix}-pool-${ex.id}-${wordIndex}`
+                            : undefined
+                        }
                       >
-                        {token}
+                        {word}
                       </button>
                     ))}
                   </div>
-                )}
-              </div>
 
-              <LexListenOnCorrect
-                isCorrect={isCorrect}
-                tts={ex.tts}
-                ariaLabel={`Ascultă răspunsul corect: ${ex.tts}`}
-              />
-            </div>
-
-            <div className="sentence-builder-bank">
-              <div className="sentence-builder-bank-title">
-                Cuvinte disponibile
-              </div>
-              <div className="sentence-builder-bank-words">
-                {(shuffledBankMap.get(ex.id) || ex.wordBank || []).map(
-                  (word, idx) => (
+                  {/* Buton reset */}
+                  <div className="sentence-builder-actions-row">
                     <button
-                      key={idx}
                       type="button"
-                      className="sentence-builder-word"
-                      onClick={() => handleAddWord(ex, word)}
+                      className="btn btn-secondary btn-sm sentence-builder-reset-button"
+                      onClick={() => handleReset(ex)}
                     >
-                      {word}
+                      Resetează răspunsul
                     </button>
-                  ),
-                )}
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div className="sentence-builder-actions">
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm sentence-builder-reset-button"
-                onClick={() => handleReset(ex)}
-              >
-                Resetează răspunsul
-              </button>
-            </div>
-          </li>
-        );
-      })}
-    </ol>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { PS_BASE_PATH, psMapPath, psRoomPath, psSensoryTheoryPath } from "./ps-paths.js";
+import {
+  PS_BASE_PATH,
+  psMapPath,
+  psRoomPath,
+  psSensoryTheoryPath,
+} from "./ps-paths.js";
 import { markTheoryCompleted } from "./ps-core/theory-progress.js";
 import PsTheoryPageShell from "./components/PsTheoryPageShell.jsx";
 import PsTheoryCard from "./components/PsTheoryCard.jsx";
@@ -28,10 +33,7 @@ export default function PsUsesTheoryPage() {
     <PsTheoryPageShell>
       <header className="page-header">
         <p className="page-backlink-row">
-          <Link
-            to={PS_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
+          <Link to={PS_BASE_PATH} className="btn btn-soft ps-back-link">
             ← Înapoi la modulul Present Simple
           </Link>
         </p>
@@ -62,18 +64,22 @@ export default function PsUsesTheoryPage() {
         <ul className="ps-mini-list">
           <li>o explicație scurtă de tip „grammar book”,</li>
           <li>câteva exemple ,</li>
-          <li>buton de listen 🔊 pentru a auzi propoziția.</li>
+          <li>buton de listen 🔊 pentru a asculta propoziția.</li>
         </ul>
       </PsTheoryCard>
 
       {/* 1. Rutine și obiceiuri */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">1. Rutine și obiceiuri</h2>
-        <p className="ps-text">
-          Lucruri pe care le facem în mod regulat: zilnic, săptămânal, în
-          general. De obicei apar și adverbe de frecvență:{" "}
-          <strong>always, usually, often, sometimes, rarely, never</strong>.
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">1. Rutine și obiceiuri</span>
+          </p>
+          <p className="ps-text">
+            Lucruri pe care le facem în mod regulat: zilnic, săptămânal, în
+            general.<br></br> De obicei apar și adverbe de frecvență:{" "}
+            <strong>always, usually, often, sometimes, rarely, never</strong>.
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -104,13 +110,17 @@ export default function PsUsesTheoryPage() {
 
       {/* 2. Adevăruri general valabile și legi ale naturii */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">
-          2. Adevăruri general valabile și legi ale naturii
-        </h2>
-        <p className="ps-text">
-          Fapte care sunt mereu adevărate sau care sunt considerate legi ale
-          naturii.
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              2. Adevăruri general valabile și legi ale naturii
+            </span>
+          </p>
+          <p className="ps-text">
+            Fapte care sunt mereu adevărate sau care sunt considerate legi ale
+            naturii.
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -141,14 +151,18 @@ export default function PsUsesTheoryPage() {
 
       {/* 3. Programe fixe / orare (uneori cu valoare de viitor) */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">
-          3. Programe fixe / orare (uneori cu valoare de viitor)
-        </h2>
-        <p className="ps-text">
-          Programe fixe care nu țin de noi (orare de tren, autobuz, școală,
-          cinema etc.). Deși uneori ne referim la viitor, programul este
-          considerat fix, stabil.
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              3. Programe fixe / orare (uneori cu valoare de viitor)
+            </span>
+          </p>
+          <p className="ps-text">
+            Programe fixe care nu țin de noi (orare de tren, autobuz, școală,
+            cinema etc.).<br></br> Deși uneori ne referim la viitor, programul
+            este considerat fix, stabil.
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -179,11 +193,17 @@ export default function PsUsesTheoryPage() {
 
       {/* 4. Situații și stări permanente */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">4. Situații și stări permanente</h2>
-        <p className="ps-text">
-          Lucruri care nu se schimbă des: unde locuim, unde lucrăm, ce credem
-          sau ce simțim în general (nu pe moment).
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              4. Situații și stări permanente
+            </span>
+          </p>
+          <p className="ps-text">
+            Lucruri care nu se schimbă des: unde locuim, unde lucrăm, ce credem
+            sau ce simțim în general (nu pe moment).
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -214,10 +234,16 @@ export default function PsUsesTheoryPage() {
 
       {/* 5. Instrucțiuni, rețete și direcții */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">5. Instrucțiuni, rețete și direcții</h2>
-        <p className="ps-text">
-          Pași într-o instrucțiune, rețetă sau indicații de orientare.
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              5. Instrucțiuni, rețete și direcții
+            </span>
+          </p>
+          <p className="ps-text">
+            Pași într-o instrucțiune, rețetă sau indicații de orientare.
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -250,13 +276,17 @@ export default function PsUsesTheoryPage() {
 
       {/* 6. Comentarii sportive, transmisiuni live și indicații scenice */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">
-          6. Comentarii sportive, transmisiuni live și indicații scenice
-        </h2>
-        <p className="ps-text">
-          Acțiuni care se întâmplă chiar acum, în fața publicului (meciuri,
-          spectacole, scenă).
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              6. Comentarii sportive, transmisiuni live și indicații scenice
+            </span>
+          </p>
+          <p className="ps-text">
+            Acțiuni care se întâmplă chiar acum, în fața publicului (meciuri,
+            spectacole, scenă).
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -290,8 +320,12 @@ export default function PsUsesTheoryPage() {
 
       {/* 7. Titluri de ziar */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">7. Titluri de ziar</h2>
-        <p className="ps-text">Știri mai vii și mai directe.</p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">7. Titluri de ziar</span>
+          </p>
+          <p className="ps-text">Știri mai vii și mai directe.</p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
@@ -322,10 +356,16 @@ export default function PsUsesTheoryPage() {
 
       {/* 8. Recenzii de filme / cărți / emisiuni */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
-        <h2 className="card-title">8. Recenzii de filme / cărți / emisiuni</h2>
-        <p className="ps-text">
-          Acțiunea filmului / cărții / emisiunii în general.
-        </p>
+        <div className="ps-structure-box">
+          <p className="ps-text">
+            <span className="rule-highlight">
+              8. Recenzii de filme / cărți / emisiuni
+            </span>
+          </p>
+          <p className="ps-text">
+            Acțiunea filmului / cărții / emisiunii în general.
+          </p>
+        </div>
 
         <div className="example-box">
           <ul className="ps-mini-list">
