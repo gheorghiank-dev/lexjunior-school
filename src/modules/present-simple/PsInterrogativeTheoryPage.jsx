@@ -8,7 +8,7 @@ import PsTheoryNextSteps from "./components/PsTheoryNextSteps.jsx";
 import PsLexStudyTipCard from "./components/PsLexStudyTipCard.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import { scrollMainToTop } from "../../core/platform/browser-dom.js";
-
+import { PsInterrogativeStructureBlock } from "./components/PsPresentSimpleStructureBlocks.jsx";
 const SECTION_ID = "interrogative";
 
 /**
@@ -64,46 +64,7 @@ export default function PsInterrogativeTheoryPage() {
           <strong>forma de bază</strong> (fără -s / -es).
         </p>
 
-        <div className="ps-structure-box">
-          <h3 className="ps-structure-title">
-            Structură generală (Yes/No Questions)
-          </h3>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">Do</span> + subiect +
-              verb (forma de bază) + restul propoziției ?
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">Does</span> + subiect +
-              verb (forma de bază) + restul propoziției ?
-            </span>
-            <span className="ps-structure-note">
-              (pentru <strong>he / she / it</strong>)
-            </span>
-          </p>
-        </div>
-
-        <div className="ps-structure-box">
-          <h3 className="ps-structure-title">
-            Structură generală (Wh-word Questions)
-          </h3>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">
-                Wh-word + do / does
-              </span>{" "}
-              + subiect + verb (forma de bază) + restul propoziției ?
-            </span>{" "}
-            <span className="ps-structure-note">
-              (Where, When, What, Why, How often... )
-            </span>
-          </p>
-        </div>
+        <PsInterrogativeStructureBlock />
 
         <div className="example-box">
           <h3>Exemple</h3>

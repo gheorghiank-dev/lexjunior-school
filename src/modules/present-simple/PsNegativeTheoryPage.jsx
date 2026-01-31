@@ -8,6 +8,7 @@ import PsTheoryNextSteps from "./components/PsTheoryNextSteps.jsx";
 import PsLexStudyTipCard from "./components/PsLexStudyTipCard.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import { scrollMainToTop } from "../../core/platform/browser-dom.js";
+import { PsNegativeStructureBlock } from "./components/PsPresentSimpleStructureBlocks.jsx";
 
 const SECTION_ID = "negative";
 
@@ -37,10 +38,7 @@ export default function PsNegativeTheoryPage() {
     <PsTheoryPageShell>
       <header className="page-header">
         <p className="page-backlink-row">
-          <Link
-            to={PS_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
+          <Link to={PS_BASE_PATH} className="btn btn-soft ps-back-link">
             ← Înapoi la modulul Present Simple
           </Link>
         </p>
@@ -65,32 +63,7 @@ export default function PsNegativeTheoryPage() {
           spune că ceva <strong>nu</strong> se întâmplă.
         </p>
 
-        <div className="ps-structure-box">
-          <h3 className="ps-structure-title">Structură generală</h3>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              Subject +{" "}
-              <span className="rule-highlight-emphasis">
-                do not (don&apos;t)
-              </span>{" "}
-              + Verb (forma de bază)
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              Subject +{" "}
-              <span className="rule-highlight-emphasis">
-                does not (doesn&apos;t)
-              </span>{" "}
-              + Verb (forma de bază)
-            </span>{" "}
-            <span className="ps-structure-note">
-              (pentru <strong>he / she / it</strong>)
-            </span>
-          </p>
-        </div>
+        <PsNegativeStructureBlock />
 
         <div className="example-box" style={{ marginTop: "1.25rem" }}>
           <h3>Exemple</h3>

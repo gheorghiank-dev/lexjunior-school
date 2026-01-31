@@ -2,6 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { PS_BASE_PATH, psMapPath, psRoomPath } from "./ps-paths.js";
 import "../../styles/overview.css";
+import {
+  PsAffirmativeStructureBlock,
+  PsNegativeStructureBlock,
+  PsInterrogativeStructureBlock,
+  PsUsesStructureBlock,
+  PsTimeExpressionsStructureBlock,
+} from "./components/PsPresentSimpleStructureBlocks.jsx";
 
 /**
  * Present Simple – Overview
@@ -27,193 +34,27 @@ export default function PresentSimpleOverviewPage() {
       <section className="overview-grid" style={{ marginBottom: "1.25rem" }}>
         <div className="card">
           <div className="card-title">Afirmativ</div>
-          <div className="ps-structure-box">
-            <h3 className="ps-structure-title">Structură generală</h3>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                Subject + Verb (forma de bază)
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                Subject + Verb +{" "}
-                <span className="rule-highlight-emphasis">-s / -es</span>
-              </span>{" "}
-              <span className="ps-structure-note">
-                (pentru <strong>he / she / it</strong>)
-              </span>
-            </p>
-          </div>
+          <PsAffirmativeStructureBlock />
         </div>
 
         <div className="card">
           <div className="card-title">Negativ</div>
-          <div className="ps-structure-box">
-            <h3 className="ps-structure-title">Structură generală</h3>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                Subject +{" "}
-                <span className="rule-highlight-emphasis">
-                  do not (don&apos;t)
-                </span>{" "}
-                + Verb (forma de bază)
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                Subject +{" "}
-                <span className="rule-highlight-emphasis">
-                  does not (doesn&apos;t)
-                </span>{" "}
-                + Verb (forma de bază)
-              </span>{" "}
-              <span className="ps-structure-note">
-                (pentru <strong>he / she / it</strong>)
-              </span>
-            </p>
-          </div>
+          <PsNegativeStructureBlock />
         </div>
 
         <div className="card">
           <div className="card-title">Interogativ</div>
-          <div className="ps-structure-box">
-            <h3 className="ps-structure-title">
-              Structură generală (Yes/No Questions)
-            </h3>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">Do</span> + subiect +
-                verb (forma de bază) + restul propoziției ?
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">Does</span> + subiect
-                + verb (forma de bază) + restul propoziției ?
-              </span>
-              <span className="ps-structure-note">
-                (pentru <strong>he / she / it</strong>)
-              </span>
-            </p>
-          </div>
-
-          <div className="ps-structure-box">
-            <h3 className="ps-structure-title">
-              Structură generală (Wh-word Questions)
-            </h3>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">
-                  Wh-word + do / does
-                </span>{" "}
-                + subiect + verb (forma de bază) + restul propoziției ?
-              </span>{" "}
-              <span className="ps-structure-note">
-                (Where, When, What, Why, How often... )
-              </span>
-            </p>
-          </div>
+          <PsInterrogativeStructureBlock />
         </div>
 
         <div className="card">
           <div className="card-title">Întrebuințări</div>
-          <div className="ps-structure-box">
-            <h3 className="ps-structure-title">
-              Folosim Present Simple pentru:
-            </h3>
-            <p className="ps-text">
-              <span className="rule-highlight">1. Rutine și obiceiuri</span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                2. Adevăruri general valabile și legi ale naturii
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                3. Programe fixe / orare (uneori cu valoare de viitor)
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                4. Situații și stări permanente
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                5. Instrucțiuni, rețete și direcții
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                6. Comentarii sportive, transmisiuni live și indicații scenice
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">7. Titluri de ziar</span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                8. Recenzii de filme / cărți / emisiuni
-              </span>
-            </p>
-          </div>
+          <PsUsesStructureBlock />
         </div>
 
         <div className="card">
           <div className="card-title">Expresii de timp</div>
-          <div className="ps-structure-box">
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">every</span> day /
-                week / month / year/ weekend/ Wednesday
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">in</span> the morning
-                / afternoon / evening
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">at</span> noon / night
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                <span className="rule-highlight-emphasis">on</span> Monday
-                <span className="rule-highlight-emphasis">s</span>
-              </span>
-            </p>
-
-            <p className="ps-text">
-              <span className="rule-highlight">
-                Adverbe de frecvență :
-                <span className="rule-highlight-emphasis">
-                  {" "}
-                  always, usually, often, sometimes, rarely/seldom,never
-                </span>
-              </span>
-            </p>
-          </div>
+          <PsTimeExpressionsStructureBlock />
         </div>
       </section>
 

@@ -8,6 +8,10 @@ import PsTheoryNextSteps from "./components/PsTheoryNextSteps.jsx";
 import PsLexStudyTipCard from "./components/PsLexStudyTipCard.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import { scrollMainToTop } from "../../core/platform/browser-dom.js";
+import {
+  PRESENT_SIMPLE_TIME_EXPRESSIONS,
+  PRESENT_SIMPLE_FREQUENCY_ADVERBS,
+} from "./components/PsPresentSimpleStructureBlocks.jsx";
 
 const SECTION_ID = "time-expressions";
 
@@ -26,6 +30,9 @@ export default function PsTimeExpressionsTheoryPage() {
   const handleScrollToTop = () => {
     scrollMainToTop({ smooth: true });
   };
+
+  const t = PRESENT_SIMPLE_TIME_EXPRESSIONS;
+  const frequencyAdverbs = PRESENT_SIMPLE_FREQUENCY_ADVERBS;
 
   return (
     <PsTheoryPageShell>
@@ -59,30 +66,29 @@ export default function PsTimeExpressionsTheoryPage() {
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">every</span> day / week
-              / month / year/ weekend/ Wednesday
+              <span className="rule-highlight-emphasis">every</span>{" "}
+              {t.every.replace("every ", "")}
             </span>
           </p>
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">in</span> the morning /
-              afternoon / evening
+              <span className="rule-highlight-emphasis">in</span>{" "}
+              {t.inPhrase.replace("in ", "")}
             </span>
           </p>
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">at</span> noon / night /
-              midnight / the weekend / 7 o'clock
+              <span className="rule-highlight-emphasis">at</span>{" "}
+              {t.atPhrase.replace("at ", "")}
             </span>
           </p>
 
           <p className="ps-text">
             <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">on</span> Monday
-              <span className="rule-highlight-emphasis">s</span> / weekend
-              <span className="rule-highlight-emphasis">s</span>
+              <span className="rule-highlight-emphasis">on</span>{" "}
+              {t.onPhrase.replace("on ", "")}
             </span>
           </p>
         </div>
@@ -90,45 +96,14 @@ export default function PsTimeExpressionsTheoryPage() {
         <div className="ps-structure-box">
           <h3 className="ps-structure-title">Adverbe de frecvență</h3>
 
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">always</span> – 100%
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">usually</span> – ~75%
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">often</span> – ~50%
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">sometimes</span> – ~25%
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">rarely / seldom</span> –
-              ~10%
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              <span className="rule-highlight-emphasis">
-                never/ hardly ever
-              </span>{" "}
-              – 0%
-            </span>
-          </p>
+          {frequencyAdverbs.map((item) => (
+            <p key={item.label} className="ps-text">
+              <span className="rule-highlight">
+                <span className="rule-highlight-emphasis">{item.label}</span> –{" "}
+                {item.approx}
+              </span>
+            </p>
+          ))}
         </div>
 
         <div className="example-box">

@@ -13,6 +13,7 @@ import PsTheoryNextSteps from "./components/PsTheoryNextSteps.jsx";
 import PsLexStudyTipCard from "./components/PsLexStudyTipCard.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import { scrollMainToTop } from "../../core/platform/browser-dom.js";
+import { PRESENT_SIMPLE_USES_TITLES } from "./components/PsPresentSimpleStructureBlocks.jsx";
 
 const SECTION_ID = "uses";
 
@@ -72,7 +73,10 @@ export default function PsUsesTheoryPage() {
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         <div className="ps-structure-box">
           <p className="ps-text">
-            <span className="rule-highlight">1. Rutine și obiceiuri</span>
+            <span className="rule-highlight">
+              {" "}
+              1. {PRESENT_SIMPLE_USES_TITLES[0]}
+            </span>
           </p>
           <p className="ps-text">
             Lucruri pe care le facem în mod regulat: zilnic, săptămânal, în
@@ -113,7 +117,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              2. Adevăruri general valabile și legi ale naturii
+              2. {PRESENT_SIMPLE_USES_TITLES[1]}
             </span>
           </p>
           <p className="ps-text">
@@ -154,7 +158,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              3. Programe fixe / orare (uneori cu valoare de viitor)
+              3. {PRESENT_SIMPLE_USES_TITLES[2]}
             </span>
           </p>
           <p className="ps-text">
@@ -196,7 +200,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              4. Situații și stări permanente
+              4. {PRESENT_SIMPLE_USES_TITLES[3]}
             </span>
           </p>
           <p className="ps-text">
@@ -237,7 +241,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              5. Instrucțiuni, rețete și direcții
+              5. {PRESENT_SIMPLE_USES_TITLES[4]}
             </span>
           </p>
           <p className="ps-text">
@@ -279,7 +283,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              6. Comentarii sportive, transmisiuni live și indicații scenice
+              6. {PRESENT_SIMPLE_USES_TITLES[5]}
             </span>
           </p>
           <p className="ps-text">
@@ -322,7 +326,9 @@ export default function PsUsesTheoryPage() {
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         <div className="ps-structure-box">
           <p className="ps-text">
-            <span className="rule-highlight">7. Titluri de ziar</span>
+            <span className="rule-highlight">
+              7. {PRESENT_SIMPLE_USES_TITLES[6]}
+            </span>
           </p>
           <p className="ps-text">Știri mai vii și mai directe.</p>
         </div>
@@ -359,7 +365,7 @@ export default function PsUsesTheoryPage() {
         <div className="ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
-              8. Recenzii de filme / cărți / emisiuni
+              8. {PRESENT_SIMPLE_USES_TITLES[7]}
             </span>
           </p>
           <p className="ps-text">

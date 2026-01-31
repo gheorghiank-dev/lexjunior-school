@@ -8,6 +8,7 @@ import PsTheoryNextSteps from "./components/PsTheoryNextSteps.jsx";
 import PsLexStudyTipCard from "./components/PsLexStudyTipCard.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import { scrollMainToTop } from "../../core/platform/browser-dom.js";
+import { PsAffirmativeStructureBlock } from "./components/PsPresentSimpleStructureBlocks.jsx";
 
 const SECTION_ID = "affirmative";
 
@@ -37,10 +38,7 @@ export default function PsAffirmativeTheoryPage() {
     <PsTheoryPageShell>
       <header className="page-header">
         <p className="page-backlink-row">
-          <Link
-            to={PS_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
+          <Link to={PS_BASE_PATH} className="btn btn-soft ps-back-link">
             ← Înapoi la modulul Present Simple
           </Link>
         </p>
@@ -65,25 +63,7 @@ export default function PsAffirmativeTheoryPage() {
           <strong>-es</strong>.
         </p>
 
-        <div className="ps-structure-box">
-          <h3 className="ps-structure-title">Structură generală</h3>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              Subject + Verb (forma de bază)
-            </span>
-          </p>
-
-          <p className="ps-text">
-            <span className="rule-highlight">
-              Subject + Verb +{" "}
-              <span className="rule-highlight-emphasis">-s / -es</span>
-            </span>{" "}
-            <span className="ps-structure-note">
-              (pentru <strong>he / she / it</strong>)
-            </span>
-          </p>
-        </div>
+        <PsAffirmativeStructureBlock />
 
         <div className="example-box">
           <h3>Exemple</h3>
