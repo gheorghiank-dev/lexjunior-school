@@ -63,7 +63,7 @@ function drawCenteredAutoFit(
   }
 
   const textWidth = font.widthOfTextAtSize(text, size);
-  const x = Math.max(24, (w - textWidth) / 2 + 80);
+  const x = Math.max(24, (w - textWidth) / 2 + w * 0.1);
 
   page.drawText(text, {
     x,
