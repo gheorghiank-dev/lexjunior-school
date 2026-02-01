@@ -510,6 +510,13 @@ a {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
 
+.ps-footer {
+  margin: 2.25rem 0 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.65;
+}
+
 /* Back-link de pe paginile de teorie */
 .page-backlink-row {
   margin-bottom: 0.75rem;
