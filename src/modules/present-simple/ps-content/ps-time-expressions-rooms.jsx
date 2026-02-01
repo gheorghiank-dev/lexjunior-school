@@ -26,13 +26,13 @@ const SECTION_ID = "time-expressions";
 
 // Room 1
 const TIME_EXPRESSION_OPTIONS = [
-  { value: "every-morning", label: "every morning" },
+  { value: "in-the-morning", label: "in the morning" },
   { value: "every-month", label: "every month" },
   { value: "every-weekend", label: "every weekend" },
   { value: "every-wednesday", label: "every Wednesday" },
   { value: "every-saturday", label: "every Saturday" },
   { value: "on-mondays", label: "on Mondays" },
-  { value: "in-the-morning", label: "in the morning" },
+  { value: "every-morning", label: "every morning" },
   { value: "in-the-afternoon", label: "in the afternoon" },
   { value: "in-the-evening", label: "in the evening" },
   { value: "at-noon", label: "at noon" },

@@ -9,21 +9,22 @@ export default function HomePage() {
         <section className="hero">
           <div>
             <div className="hero-highlight">
-              <span>✨ Escape Room pentru engleză</span>
+              <span>✨ Escape Room de Limba Engleză</span>
               <span>•</span>
               <span>by Anca &amp; Lex</span>
             </div>
             <h1 className="hero-title">
-              Transformă engleza
+              Transformă Limba Engleză
               <br />
               într-o aventură cu camere și chei.
             </h1>
             <p className="hero-description">
               Lex Junior English Lab este un spațiu de joacă pentru învățarea
-              limbii engleze: camere, chei, hartă și badge-uri. Fiecare temă de
-              gramatică sau vocabular are propria ei mini-aventură, pentru ca{" "}
-              <strong>Tu</strong> să înveți regulile prin joc, repetiție și
-              feedback clar, astfel încât să ajungi să le folosești intuitiv.
+              limbii engleze, compus din: camere, chei, hartă și badge-uri.
+              Fiecare temă de gramatică sau vocabular are propria ei
+              mini-aventură, pentru ca <strong>TU</strong> să înveți regulile
+              prin joc, repetiție și feedback clar, astfel încât să ajungi să le
+              folosești intuitiv.
             </p>
             <div className="btn-row">
               <Link to="/grammar" className="btn btn-hub">
@@ -34,16 +35,11 @@ export default function HomePage() {
           <div className="hero-visual">
             <div className="hero-orbit">
               <div className="hero-lex">
-                <img
-                  src={getDefaultBrandAvatarSrc()}
-                  alt="Lex Junior"
-                />
+                <img src={getDefaultBrandAvatarSrc()} alt="Lex Junior" />
               </div>
               <div className="hero-badge">
                 <span className="hero-badge-dot" />
-                <span className="hero-badge-label">
-                  Present Simple • Escape in 7 rooms
-                </span>
+                <span className="hero-badge-label">Lex Junior English Lab</span>
               </div>
             </div>
           </div>
@@ -65,13 +61,12 @@ export default function HomePage() {
                   alt="Lex Junior"
                   className="lex-emoji"
                 />
-                , ghidul tău prin acest Escape Room de limba engleză 🔐.
+                , ghidul tău prin acest Escape Room de Limba Engleză 🔐.
               </p>
 
               <p className="ps-text">
-                Îți explic, pe scurt, ce facem aici și cum funcționează totul,
-                ca să știi exact cum să obții chei, să deschizi camere și să
-                ajungi la badge-uri.
+                Îți explic, pe scurt, cum funcționează totul, ca să știi exact
+                cum să obții chei, să deschizi camere și să ajungi la badge-uri.
               </p>
             </section>
 
@@ -88,7 +83,7 @@ export default function HomePage() {
                 provocarea finală (badge-ul sau camera bonus).
               </p>
               <p className="ps-text">
-                La mine, camerele nu sunt pline cu monștri 👾, ci cu{" "}
+                La mine, camerele nu sunt pline cu monștri, ci cu{" "}
                 <strong>exerciții de limba engleză</strong>. Când înțelegi bine
                 structura exercițiului din acea cameră, eu îți dau{" "}
                 <strong>cheia</strong> ei.
@@ -120,8 +115,8 @@ export default function HomePage() {
               </ul>
               <p className="ps-text">
                 Formula mea secretă este:{" "}
-                <strong>teorie + exerciții + chei + repetiție</strong> =
-                timpurile rămân în cap pe bune 💪
+                <strong>teorie + exerciții + chei + repetiție</strong> = gândire
+                cursivă și vorbire fluentă în limba engleză!
               </p>
             </section>
 
@@ -137,9 +132,9 @@ export default function HomePage() {
                 </li>
                 <li>
                   <strong>Verifici.</strong> Apeși pe{" "}
-                  <strong>„Verifică”</strong>, iar eu îți arăt ce e corect și ce
-                  e greșit și actualizez cercul de progres de sus, de lângă
-                  numele camerei.
+                  <strong>„Verifică răspunsurile”</strong>, iar eu îți arăt ce e
+                  corect și ce e greșit și actualizez cercul de progres de sus,
+                  de lângă numele camerei.
                 </li>
                 <li>
                   <strong>După verificare:</strong>
@@ -192,12 +187,12 @@ export default function HomePage() {
             {/* Card 4 – De ce 100% din prima */}
             <section className="card lex-rules-card">
               <h3 className="lex-rules-section-title">
-                4. De ce te pun să ajungi la 100% din prima?
+                4. De ce te pun să ajungi la 100% din prima încercare?
               </h3>
               <p className="ps-text">
-                Nu ca să-ți fac viața grea 😄 Te rog să refaci exercițiile și să
-                cauți <strong>100% din prima</strong> (după „Resetează pentru
-                cheie”) pentru că:
+                Nu ca să-ți fac viața grea! Te rog să refaci exercițiile și să
+                cauți <strong>100% din prima încercare</strong> (după „Resetează
+                pentru cheie”) pentru că:
               </p>
               <ul className="ps-list">
                 <li>
@@ -217,7 +212,7 @@ export default function HomePage() {
               </p>
               <p className="ps-text">
                 Ăsta e scopul meu: să ieși din Escape Room nu doar cu chei, ci
-                cu <strong>engleză în minte și în reflexe</strong> 💡💜
+                cu <strong>structuri corecte de Limba Engleză!</strong> 💡💜
               </p>
             </section>
           </div>

@@ -5,13 +5,13 @@ const MAP = `${BASE}/map`;
 
 // Correct answers for Time Expressions – Room 1 (value keys; stable vs wording/design).
 const ROOM1_CORRECT = {
-  1: "every-morning",
+  1: "in-the-morning",
   2: "on-mondays",
   3: "every-weekend",
   4: "in-the-evening",
   5: "every-month",
   6: "at-noon",
-  7: "in-the-morning",
+  7: "every-morning",
   8: "every-wednesday",
   9: "every-saturday",
   10: "in-the-afternoon",

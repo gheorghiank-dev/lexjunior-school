@@ -1,11 +1,14 @@
 import { assertGrammarHubItem } from "./grammar-hub-contract.js";
 import { sortByOrderThenLabel } from "../registry-utils/sort.js";
-import { getCtaForStatus, getTagForStatus } from "../registry-utils/status-ui.js";
+import {
+  getCtaForStatus,
+  getTagForStatus,
+} from "../registry-utils/status-ui.js";
 
 const items = [
   {
     id: "tenses",
-    label: "Tenses",
+    label: "Timpurile verbale",
     description:
       "Începe cu Present Simple și, pe viitor, alte timpuri verbale (Present Continuous, Past Simple, Future etc.).",
     status: "ready",

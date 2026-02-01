@@ -10,13 +10,13 @@ import {
 
 // Correct answers for Time Expressions – Room 1.
 const ROOM1_CORRECT = {
-  1: "every-morning",
+  1: "in-the-morning",
   2: "on-mondays",
   3: "every-weekend",
   4: "in-the-evening",
   5: "every-month",
   6: "at-noon",
-  7: "in-the-morning",
+  7: "every-morning",
   8: "every-wednesday",
   9: "every-saturday",
   10: "in-the-afternoon",
@@ -37,7 +37,9 @@ async function fillAllCorrect(page) {
 
 // NOTE: readRoomKeyFlag is now reused from helpers.
 
-test("Time Expressions: key persists after refresh (Room 1)", async ({ page }) => {
+test("Time Expressions: key persists after refresh (Room 1)", async ({
+  page,
+}) => {
   // Clear once at the beginning of the test run for this page (avoid re-clearing on page.goto)
   await page.addInitScript(() => {
     try {
