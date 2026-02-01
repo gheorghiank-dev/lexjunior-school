@@ -1557,7 +1557,7 @@ export const PS_USES_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Completează propozițiile cu don't / doesn't
+          Bifează varianta corectă pentru fiecare propoziție.
         </h2>
       </>
     ),
@@ -1578,7 +1578,15 @@ export const PS_USES_ROOMS = [
     lexHints: usesLexHints.room2,
     ExerciseListComponent: CheckboxExerciseList,
     exerciseListProps: { showIndex: true },
-    cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
+    cardIntro: (
+      <>
+        <h2 className="card-title">
+          Bifează propozițiile care descriu adevăruri general valabile și legi
+          ale naturii.
+        </h2>
+      </>
+    ),
+
     dictionaryDescription:
       "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_2_GLOSSARY_ITEMS,
@@ -1594,7 +1602,13 @@ export const PS_USES_ROOMS = [
     lexHints: usesLexHints.room3,
     ExerciseListComponent: GapSentenceExerciseList,
     exerciseListProps: { showIndex: true },
-    cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
+    cardIntro: (
+      <>
+        <h2 className="card-title">
+          Completează spațiile libere cu forma corectă a verbului din paranteză
+        </h2>
+      </>
+    ),
     dictionaryDescription:
       "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_3_GLOSSARY_ITEMS,
@@ -1613,9 +1627,11 @@ export const PS_USES_ROOMS = [
     verifyTestId: null,
     feedbackTestId: null,
     cardIntro: (
-      <p className="exercise-lead">
-        Alege propozițiile care descriu <strong>situații permanente</strong>.
-      </p>
+      <>
+        <h2 className="card-title">
+          Bifează propozițiile care descriu situații permanente.
+        </h2>
+      </>
     ),
     dictionaryDescription:
       "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
@@ -1636,14 +1652,14 @@ export const PS_USES_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <p className="card-text">
+        <h2 className="card-title">
           Pentru fiecare propoziție, alege categoria corectă:
           <br />
-          🍳 <strong>Instrucțiune</strong>, 🧭 <strong>Direcție</strong> sau ⭐{" "}
-          <strong>Alt tip</strong>.
-        </p>
+          🍳 Instrucțiune, 🧭 Direcție sau ⭐ Alt tip.
+        </h2>
       </>
     ),
+
     dictionaryDescription:
       "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
     dictionaryItems: USES_ROOM_5_GLOSSARY_ITEMS,
@@ -1662,12 +1678,11 @@ export const PS_USES_ROOMS = [
     verifyTestId: null,
     feedbackTestId: null,
     cardIntro: (
-      <p className="card-text">
+      <h2 className="card-title">
         Pentru fiecare propoziție, alege categoria corectă:
         <br />
-        🔁 <strong>Rutina</strong>, 🌍 <strong>Adevăr general</strong>, ⏰{" "}
-        <strong>Program fix</strong>, 🏠 <strong>Situație permanentă</strong>.
-      </p>
+        🔁 Rutina, 🌍 Adevăr general, ⏰ Program fix, 🏠 Situație permanentă.
+      </h2>
     ),
     dictionaryDescription:
       "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
@@ -1686,13 +1701,25 @@ export const PS_USES_ROOMS = [
     exerciseListProps: { showIndex: true },
     verifyTestId: null,
     feedbackTestId: null,
-    cardIntro: <p className="exercise-lead">Completează exercițiul.</p>,
+    cardIntro: (
+      <>
+        <h2 className="card-title">
+          Tradu propozițiile din română în engleză. Folosește dicționarul pentru
+          a găsi cuvintele și expresiile potrivite.{" "}
+        </h2>
+        <p className="card-description">
+          Folosește rune magice pentru a primi un indiciu, a scrie răspunsul sau
+          a verifica propoziția, apoi apasă{" "}
+          <strong>Verifică răspunsurile</strong> pentru a obține scorul oficial.
+        </p>
+      </>
+    ),
     afterBody: ({ roomState }) =>
       roomState.passed ? (
         <section className="card section-complete-card">
           <h2 className="card-title">
-            Bravo! Ai terminat toate camerele din secțiunea Uses – Present
-            Simple. 🎉
+            Bravo! Ai terminat toate camerele din secțiunea Întrebuințări –
+            Present Simple. 🎉
           </h2>
           <p className="card-description">
             Ai parcurs toată ruta pentru întrebuințările Present Simple. Mergi

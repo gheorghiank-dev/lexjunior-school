@@ -21,8 +21,6 @@ import { validateRoomRegistry } from "../../../core/registry/validate-room-regis
 import { AdverbPositionExerciseList } from "../components/AdverbPositionExerciseList.jsx";
 import { FrequencyAdverbExerciseList } from "../components/FrequencyAdverbExerciseList.jsx";
 import { RuneTranslationExerciseList } from "../components/RuneTranslationExerciseList.jsx";
-import PsExerciseActions from "../components/PsExerciseActions.jsx";
-import PsResultSummary from "../components/PsResultSummary.jsx";
 
 const SECTION_ID = "time-expressions";
 
@@ -1017,14 +1015,8 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 1 – Potrivește propozițiile cu expresiile de timp
+          Potrivește fiecare propoziție cu expresia de timp corectă.
         </h2>
-        <p className="card-description">
-          Potrivește fiecare propoziție cu expresia de timp corectă. Uită-te la
-          sensul propoziției și la tipul expresiei: every (frecvență), in (parte
-          a zilei), at (oră exactă), on (zi a săptămânii).
-        </p>
-        <p className="exercise-lead">Completează exercițiul.</p>
       </>
     ),
     errorText:
@@ -1045,18 +1037,8 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 2 – Procente și adverbe de frecvență
-        </h2>
-        <p className="card-description">
           Potrivește fiecare procent cu adverbul de frecvență corect.
-          Gândește-te cât de des se întâmplă acțiunea: 100% ≈ always, ~75% ≈
-          usually, ~50% ≈ often, ~25% ≈ sometimes, ~10% ≈ rarely, 0% ≈ never.
-        </p>
-
-        <p className="exercise-lead">
-          Uită-te la procentele din stânga și trage în dreptul fiecăruia
-          adverbul potrivit din „banca” de pe dreapta.
-        </p>
+        </h2>
       </>
     ),
     dictionaryDescription:
@@ -1081,15 +1063,9 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 3 – Alege ordinea corectă a adverbelor
+          Bifează propoziția în care adverbul de frecvență este în locul
+          potrivit
         </h2>
-        <p className="card-description">
-          Pentru fiecare item, alege propoziția care sună natural în engleză.
-          Adverbele de frecvență precum{" "}
-          <strong>always, usually, often, sometimes, never</strong> au poziții
-          clare: înaintea verbului principal sau după{" "}
-          <strong>am / is / are</strong>.
-        </p>
       </>
     ),
     dictionaryDescription:
@@ -1113,13 +1089,9 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     feedbackTestId: null,
     cardIntro: (
       <>
-        <h2 className="card-title">Camera 4 – Adverb Position (two slots)</h2>
-        <p className="card-description">
+        <h2 className="card-title">
           Alege locul corect pentru adverbul de frecvență în fiecare propoziție.
-          În versiunea HTML veche trăgeai adverbul între cele două spații
-          posibile; aici apeși pe slotul în care crezi că se potrivește mai bine
-          adverbul.
-        </p>
+        </h2>
       </>
     ),
     verifyLabel: "Verifică răspunsurile",
@@ -1145,15 +1117,9 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 5 – Sentence Builder: How often...?
+          Construiește răspunsuri complete la întrebările cu How often...?
+          folosind cuvintele din bancă.
         </h2>
-        <p className="card-description">
-          Construiește răspunsuri complete la întrebările cu{" "}
-          <strong>How often...?</strong> folosind cuvintele din bancă.
-          Gândește-te la rutina ta și la expresiile de frecvență:{" "}
-          <strong>twice a day, once a month, every weekend, every day</strong>{" "}
-          etc.
-        </p>
       </>
     ),
     verifyLabel: "Verifică răspunsurile",
@@ -1176,15 +1142,11 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 6 – Adverbe de frecvență: ce este adevărat pentru tine?
-        </h2>
-        <p className="card-description">
           Completează propozițiile alegând un adverb de frecvență care se
-          potrivește cu viața ta de zi cu zi.{" "}
-          <strong>Toate variantele sunt corecte gramatical</strong>, important
-          este să fie adevărate pentru tine. După verificare, apasă pe 🔊 ca să
-          asculți propoziția completă.
-        </p>
+          potrivește cu viața ta de zi cu zi. <br></br>
+          Toate variantele sunt corecte gramatical, important este să fie
+          adevărate pentru tine.
+        </h2>
       </>
     ),
     verifyTransform: timeExpressionsRoom6VerifyTransform,
@@ -1192,72 +1154,17 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     verifyTestId: null,
     feedbackTestId: null,
     showResultSummary: false,
-    renderBody: ({
-      exercises,
-      answers,
-      feedback,
-      dictionaryNode,
-      lastResult,
-      roomState,
-      onChange,
-      onVerify,
-      nextTo,
-    }) => (
-      <>
-        <section className="card">
-          <h1 className="card-title">
-            Camera 6 – Adverbe de frecvență: ce este adevărat pentru tine?
-          </h1>
-          <p className="card-description">
-            Completează propozițiile alegând un adverb de frecvență care se
-            potrivește cu viața ta de zi cu zi.{" "}
-            <strong>Toate variantele sunt corecte gramatical</strong>, important
-            este să fie adevărate pentru tine. După verificare, apasă pe 🔊 ca
-            să asculți propoziția completă.
-          </p>
-        </section>
-
-        {dictionaryNode}
-
-        <section className="card">
-          <h2 className="card-title">Alege adverbul de frecvență potrivit</h2>
+    afterBody: ({ lastResult }) =>
+      lastResult ? (
+        <section className="card card-subtle">
+          <h3 className="card-title-sm">Rezultatul tău</h3>
           <p>
-            Pentru fiecare propoziție, alege unul dintre cele 3 adverbe propuse:
-            <strong>
-              {" "}
-              always, usually, often, sometimes, rarely, hardly ever, never
-            </strong>
-            .
+            Ai completat toate propozițiile în funcție de rutina ta. Poți să
+            revii oricând și să alegi alte variante dacă rutina ta se schimbă.
+            🙂
           </p>
-
-          <FrequencyAdverbExerciseList
-            showIndex
-            exercises={exercises}
-            answers={answers}
-            feedback={feedback}
-            onChange={onChange}
-          />
-
-          {lastResult && (
-            <div className="card card-subtle">
-              <h3 className="card-title-sm">Rezultatul tău</h3>
-              <p>
-                Ai completat toate propozițiile în funcție de rutina ta. Poți să
-                revii oricând și să alegi alte variante dacă rutina ta se
-                schimbă. 🙂
-              </p>
-            </div>
-          )}
-
-          <PsExerciseActions
-            onVerify={onVerify}
-            nextTo={nextTo}
-            passed={roomState.passed}
-            verifyLabel="Verifică răspunsurile"
-          />
         </section>
-      </>
-    ),
+      ) : null,
     dictionaryDescription:
       "Ascultă adverbele de frecvență și gândește-te la exemple din viața ta pentru fiecare.",
     dictionaryItems: TIME_EXPRESSIONS_ROOM_6_GLOSSARY,
@@ -1277,15 +1184,13 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
     cardIntro: (
       <>
         <h2 className="card-title">
-          Camera 7 – Traduceri cu rune: expresii de timp și adverbe de frecvență
+          Tradu propozițiile din română în engleză. Folosește dicționarul pentru
+          a găsi cuvintele și expresiile potrivite.{" "}
         </h2>
         <p className="card-description">
-          Tradu propozițiile în engleză, folosind{" "}
-          <strong>Present Simple</strong> și{" "}
-          <strong>expresii de timp / adverbe de frecvență</strong>. Folosește
-          rune magice pentru a primi un indiciu, a scrie răspunsul sau a
-          verifica propoziția, apoi apasă <strong>Verifică răspunsurile</strong>{" "}
-          pentru a obține scorul oficial.
+          Folosește rune magice pentru a primi un indiciu, a scrie răspunsul sau
+          a verifica propoziția, apoi apasă{" "}
+          <strong>Verifică răspunsurile</strong> pentru a obține scorul oficial.
         </p>
       </>
     ),
@@ -1315,60 +1220,6 @@ export const PS_TIME_EXPRESSIONS_ROOMS = [
           </div>
         </section>
       ) : null,
-    renderBody: ({
-      exercises,
-      answers,
-      feedback,
-      dictionaryNode,
-      lastResult,
-      onChange,
-      onVerify,
-    }) => (
-      <>
-        <section className="card">
-          <h1 className="card-title">
-            Camera 7 – Traduceri cu rune: expresii de timp și adverbe de
-            frecvență
-          </h1>
-          <p className="card-description">
-            Tradu propozițiile în engleză, folosind{" "}
-            <strong>Present Simple</strong> și{" "}
-            <strong>expresii de timp / adverbe de frecvență</strong>. Folosește
-            rune magice pentru a primi un indiciu, a scrie răspunsul sau a
-            verifica propoziția, apoi apasă{" "}
-            <strong>Verifică răspunsurile</strong> pentru a obține scorul
-            oficial.
-          </p>
-        </section>
-
-        {dictionaryNode}
-
-        <section className="card">
-          <p className="exercise-lead">Completează traducerile.</p>
-
-          <RuneTranslationExerciseList
-            showIndex
-            exercises={exercises}
-            answers={answers}
-            feedback={feedback}
-            onChange={onChange}
-          />
-
-          <PsExerciseActions
-            onVerify={onVerify}
-            verifyLabel="Verifică răspunsurile"
-            verifyTestId={null}
-          />
-
-          <PsResultSummary
-            lastResult={lastResult}
-            errorText="Mai încearcă! Ai unele răspunsuri greșite."
-            successText="Bravo! Ai completat corect toate propozițiile la această cameră!"
-            testId={null}
-          />
-        </section>
-      </>
-    ),
     errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
     successText:
       "Bravo! Ai completat corect toate propozițiile la această cameră!",
