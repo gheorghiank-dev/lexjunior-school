@@ -368,6 +368,20 @@ a {
   line-height: 1.6;
 }
 
+.card-description--scroll {
+  max-height: 4.8em; /* ~3 rânduri; ajustezi dacă vrei */
+  overflow-y: auto;
+  padding-right: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+.card-description--scroll:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
 /* Lists & text rhythm inside cards */
 
 .card p + ul,

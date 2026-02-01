@@ -212,7 +212,7 @@ export default function HomePage() {
               </p>
               <p className="ps-text">
                 Ăsta e scopul meu: să ieși din Escape Room nu doar cu chei, ci
-                cu <strong>structuri corecte de Limba Engleză!</strong> 💡💜
+                cu <strong>structuri corecte de Limba Engleză!</strong>
               </p>
             </section>
           </div>

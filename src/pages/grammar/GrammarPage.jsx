@@ -13,7 +13,13 @@ export default function GrammarPage() {
           <div key={card.id} className="card">
             <div className={card.tagClass}>{card.tagLabel}</div>
             <div className="card-title">{card.title}</div>
-            <p className="card-description">{card.description}</p>
+            <p
+              className="card-description card-description--scroll"
+              tabIndex={0}
+            >
+              {card.description}
+            </p>
+
             {card.cta ? (
               <div className="btn-row">
                 <Link to={card.cta.to} className="btn btn-hub">

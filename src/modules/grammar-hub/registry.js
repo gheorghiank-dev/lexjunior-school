@@ -10,11 +10,11 @@ const items = [
     id: "tenses",
     label: "Timpurile verbale",
     description:
-      "Începe cu Present Simple și, pe viitor, alte timpuri verbale (Present Continuous, Past Simple, Future etc.).",
+      "Timpurile verbale sunt “busola” limbii engleze. Ele arată când și cum se întâmplă o acțiune.",
     status: "ready",
     order: 1,
     to: "/grammar/tenses",
-    ctaLabel: "Intră în Tenses",
+    ctaLabel: "Explorează timpurile verbale",
   },
   {
     id: "grammar-essentials",
