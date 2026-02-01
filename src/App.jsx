@@ -7,6 +7,7 @@ import { getTenseRouteEntries, getTenseThemeClassForPath, getDefaultBrandAvatarS
 import { getAppNavItems } from "./modules/app-nav/registry.js";
 import GlobalPasswordGate from "./access/passwords/GlobalPasswordGate.jsx";
 import TensePasswordGate from "./access/passwords/TensePasswordGate.jsx";
+import PsCopyrightFooter from "./modules/present-simple/components/PsCopyrightFooter.jsx";
 
 function AppHeader() {
   const location = useLocation();
@@ -100,6 +101,8 @@ export default function App() {
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+
+          <PsCopyrightFooter />
         </main>
       </div>
     </GlobalPasswordGate>
