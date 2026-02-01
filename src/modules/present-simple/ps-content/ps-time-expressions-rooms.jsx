@@ -41,77 +41,82 @@ const TIME_EXPRESSION_OPTIONS = [
 const TIME_EXPRESSIONS_ROOM_1_EXERCISES = [
   {
     id: 1,
-    leftText: "I go jogging ___ .",
-    correct: "every-morning",
+    leftText: "I feed the dog ___ right after waking up.",
+    correct: "in-the-morning",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "I go jogging every morning.",
+    tts: "I feed the dog in the morning, right after waking up.",
   },
   {
     id: 2,
-    leftText: "She visits her grandparents ___ .",
+    leftText:
+      "She visits her grandparents ___ because they’re only home at the beginning of the week.",
     correct: "on-mondays",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "She visits her grandparents on Mondays.",
+    tts: "She visits her grandparents on Mondays because they’re only home at the beginning of the week.",
   },
   {
     id: 3,
-    leftText: "We play board games ___ .",
+    leftText:
+      "We play long board-game sessions ___ because we have more free time.",
     correct: "every-weekend",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "We play board games every weekend.",
+    tts: "We play long board-game sessions every weekend because we have more free time.",
   },
   {
     id: 4,
-    leftText: "My dad reads the newspaper ___ .",
+    leftText: "I watch one episode of my favorite show ___ before I go to bed.",
     correct: "in-the-evening",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "My dad reads the newspaper in the evening.",
+    tts: "I watch one episode of my favorite show in the evening before I go to bed.",
   },
   {
     id: 5,
-    leftText: "They have a team meeting ___ .",
+    leftText:
+      "They have a team meeting ___ to plan the projects for the following month.",
     correct: "every-month",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "They have a team meeting every month.",
+    tts: "They have a team meeting every month to plan the projects for the following month.",
   },
   {
     id: 6,
-    leftText: "The shop closes ___ .",
+    leftText: "The shop closes ___ because the owner takes a lunch break.",
     correct: "at-noon",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "The shop closes at noon.",
+    tts: "The shop closes at noon because the owner takes a lunch break.",
   },
   {
     id: 7,
-    leftText: "I drink my coffee ___ .",
-    correct: "in-the-morning",
+    leftText: "I drink my coffee at 7 o’clock ___ .",
+    correct: "every-morning",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "I drink my coffee in the morning.",
+    tts: "I drink my coffee at 7 o’clock every morning.",
   },
   {
     id: 8,
-    leftText: "She practices the piano ___ .",
+    leftText:
+      "She practices the piano ___ because she doesn't have a lot of homework for Thursday.",
     correct: "every-wednesday",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "She practices the piano every Wednesday.",
+    tts: "She practices the piano every Wednesday because she doesn't have a lot of homework for Thursday.",
   },
   {
     id: 9,
-    leftText: "We go to the swimming pool ___ .",
+    leftText: "We go to the swimming pool ___ because we don't have classes.",
     correct: "every-saturday",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "We go to the swimming pool every Saturday.",
+    tts: "We go to the swimming pool every Saturday because we don't have classes.",
   },
   {
     id: 10,
-    leftText: "The library is crowded ___ .",
+    leftText: "The library is crowded ___ after students finish school.",
     correct: "in-the-afternoon",
     options: TIME_EXPRESSION_OPTIONS,
-    tts: "The library is crowded in the afternoon.",
+    tts: "The library is crowded in the afternoon after students finish school.",
   },
 ];
 
 const TIME_EXPRESSIONS_ROOM_1_GLOSSARY = [
+  // Time expressions
   {
     tts: "every morning",
     word: "every morning",
@@ -142,11 +147,9 @@ const TIME_EXPRESSIONS_ROOM_1_GLOSSARY = [
   { tts: "in the afternoon", word: "in the afternoon", meaning: "după-amiaza" },
   { tts: "in the evening", word: "in the evening", meaning: "seara" },
   { tts: "at noon", word: "at noon", meaning: "la prânz" },
-  {
-    tts: "go jogging",
-    word: "go jogging",
-    meaning: "a ieși la alergat / a face jogging",
-  },
+
+  // Actions from exercises
+  { tts: "feed the dog", word: "feed the dog", meaning: "a hrăni câinele" },
   {
     tts: "visit her grandparents",
     word: "visit her grandparents",
@@ -158,9 +161,9 @@ const TIME_EXPRESSIONS_ROOM_1_GLOSSARY = [
     meaning: "a juca jocuri de societate",
   },
   {
-    tts: "read the newspaper",
-    word: "read the newspaper",
-    meaning: "a citi ziarul",
+    tts: "watch one episode",
+    word: "watch one episode",
+    meaning: "a urmări un episod",
   },
   {
     tts: "have a team meeting",
@@ -191,6 +194,45 @@ const TIME_EXPRESSIONS_ROOM_1_GLOSSARY = [
     tts: "the library is crowded",
     word: "the library is crowded",
     meaning: "biblioteca este aglomerată",
+  },
+
+  // NEW supporting vocabulary added in rewritten sentences
+  {
+    tts: "right after waking up",
+    word: "right after waking up",
+    meaning: "imediat după ce mă trezesc",
+  },
+  { tts: "at 7 o'clock", word: "at 7 o'clock", meaning: "la ora 7" },
+  {
+    tts: "before I go to bed",
+    word: "before I go to bed",
+    meaning: "înainte să merg la culcare",
+  },
+  {
+    tts: "at the beginning of the week",
+    word: "at the beginning of the week",
+    meaning: "la începutul săptămânii",
+  },
+  {
+    tts: "for the following month",
+    word: "for the following month",
+    meaning: "pentru luna următoare",
+  },
+  { tts: "lunch break", word: "lunch break", meaning: "pauză de prânz" },
+  {
+    tts: "homework for Thursday",
+    word: "homework for Thursday",
+    meaning: "tema pentru joi",
+  },
+  {
+    tts: "we don't have classes",
+    word: "we don't have classes",
+    meaning: "nu avem ore / lecții",
+  },
+  {
+    tts: "after students finish school",
+    word: "after students finish school",
+    meaning: "după ce elevii termină școala",
   },
 ];
 
