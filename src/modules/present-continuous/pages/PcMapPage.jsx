@@ -2,57 +2,328 @@ import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { isTheoryCompleted } from "../pc-core/theory-progress.js";
 import { pcProgressManager } from "../pc-core/progress-manager.js";
+import { PC_ROOMS_PER_SECTION } from "../pc-core/config.js";
 import "../../../styles/map.css";
 import { isSchoolMode } from "../../../modes/mode-registry.js";
 import { SchoolStudentNameCard, SchoolCertificateCard } from "../../../modes/school/index.js";
+import { pcOverviewPath, pcRoomPath, pcTheoryPath, pcBadgePath } from "../pc-paths.js";
 
 const TENSE_ID = "present-continuous";
 const TENSE_LABEL = "Present Continuous";
+const TOTAL_ROOMS = PC_ROOMS_PER_SECTION;
 
-export default function PcMapPage() {
-  const theoryDone = useMemo(() => {
-    try {
-      return isTheoryCompleted("basics");
-    } catch (e) {
-      return false;
+// ---------- Helpers ----------
+function safeIsTheoryCompleted(sectionId) {
+  try {
+    return isTheoryCompleted(sectionId);
+  } catch (e) {
+    return false;
+  }
+}
+
+function safeGetSectionOverview(sectionId) {
+  try {
+    return pcProgressManager.getSectionOverview(sectionId, TOTAL_ROOMS) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function computeRoomStatus(overview, theoryDone, roomIndex) {
+  const roomNumber = roomIndex + 1;
+  const state = overview[roomIndex] || { passed: false, hasKey: false };
+
+  if (!theoryDone) {
+    return { status: "locked", state };
+  }
+
+  if (roomNumber === 1) {
+    if (state.passed) return { status: "done", state };
+    return { status: "available", state };
+  }
+
+  const prevState = overview[roomIndex - 1] || { passed: false, hasKey: false };
+
+  if (!prevState.passed) return { status: "locked", state };
+  if (state.passed) return { status: "done", state };
+
+  return { status: "available", state };
+}
+
+function getKeysInfoBySection() {
+  const infoById = Object.create(null);
+  try {
+    const allKeys = pcProgressManager.getAllKeysPerSection();
+    for (const section of allKeys || []) {
+      if (section?.id) {
+        infoById[section.id] = section;
+      }
     }
-  }, []);
+  } catch (e) {
+    // ignore
+  }
+  return infoById;
+}
 
-  const room1State = useMemo(() => {
-    try {
-      return pcProgressManager.getRoomState("basics", 1);
-    } catch (e) {
-      return { passed: false, hasKey: false, firstAttemptScore: null };
-    }
-  }, []);
+function getTotalKeysMeta() {
+  try {
+    const { obtainedKeys, totalRequired, hasAllKeys } =
+      pcProgressManager.getTotalKeysInfo();
+    return { obtainedKeys, totalRequired, hasAllKeys };
+  } catch (e) {
+    return { obtainedKeys: 0, totalRequired: 0, hasAllKeys: false };
+  }
+}
 
-  const room1Locked = !theoryDone;
-  const room1Class =
-    "map-node " +
-    (room1Locked
-      ? "map-node--locked"
-      : room1State.passed
-      ? "map-node--done"
-      : "map-node--available");
+// ---------- Final card ----------
+function PcFinalCard() {
+  const { obtainedKeys, totalRequired, hasAllKeys } = getTotalKeysMeta();
 
-  const keysInfo = useMemo(() => {
-    try {
-      return pcProgressManager.getTotalKeysInfo();
-    } catch (e) {
-      return { obtainedKeys: 0, totalRequired: 0, hasAllKeys: false };
-    }
-  }, []);
+  let hasBadge = false;
+  try {
+    const badgeState = pcProgressManager.getRoomState("badge", 1);
+    hasBadge = badgeState?.passed === true;
+  } catch (e) {
+    hasBadge = false;
+  }
+
+  const metaText =
+    totalRequired > 0
+      ? `Chei: ${obtainedKeys}/${totalRequired}`
+      : "Cheile vor apărea pe măsură ce adăugăm camere.";
+
+  let cardClass = "map-final-card";
+  let subtitle = "";
+  let title = "Camera finală – Badge";
+
+  if (!hasAllKeys) {
+    cardClass += " map-final-card--locked";
+    subtitle = "Strânge toate cheile ca să deblochezi provocarea finală.";
+    title = "Încă e blocată – mai ai camere de făcut.";
+  } else if (hasAllKeys && !hasBadge) {
+    subtitle = "Ai toate cheile! Intră în provocarea finală.";
+  } else {
+    cardClass += " map-final-card--done";
+    subtitle =
+      "Felicitări! Ai câștigat deja badge-ul. Poți reface provocarea oricând.";
+  }
 
   return (
+    <section className="map-final">
+      <Link
+        to={pcBadgePath()}
+        className={cardClass}
+        title="Deschide provocarea finală – Badge"
+      >
+        <div className="map-final-title">{title}</div>
+        <div className="map-final-sub">{subtitle}</div>
+        <div className="map-final-meta">{metaText}</div>
+      </Link>
+    </section>
+  );
+}
+
+// ---------- Path card ----------
+function PcMapSection({
+  sectionId,
+  title,
+  description,
+  theoryDone,
+  overview,
+  obtainedKeys,
+  pathTestId,
+  startTheoryTestId,
+  roomTestIdPrefix,
+}) {
+  const theoryPath = pcTheoryPath(sectionId);
+
+  return (
+    <article className="map-path" data-testid={pathTestId}>
+      <div className="map-path-header">
+        <div className="map-path-title">{title}</div>
+        <div className="map-path-sub">{description}</div>
+        <div className="map-path-meta">
+          Chei: {obtainedKeys}/{TOTAL_ROOMS}
+        </div>
+      </div>
+
+      <div className="map-path-body">
+        <div className="map-theory">
+          <p className="map-theory-text">
+            Începe cu teoria, apoi parcurge camerele în ordine. Cheia se obține
+            doar dacă iei 100% la „Reîncearcă pentru cheie”.
+          </p>
+          <Link
+            to={theoryPath}
+            className="btn btn-soft"
+            data-testid={startTheoryTestId}
+          >
+            Deschide teoria – {title}
+          </Link>
+        </div>
+
+        <div className="map-rooms">
+          {Array.from({ length: TOTAL_ROOMS }).map((_, index) => {
+            const roomNumber = index + 1;
+            const { status, state } = computeRoomStatus(
+              overview,
+              theoryDone,
+              index,
+            );
+
+            const testId = `${roomTestIdPrefix}-${roomNumber}`;
+            const hasKeyAttr = state?.hasKey ? "true" : "false";
+
+            let subText = "";
+            let iconText = "🔒";
+            const classNames = ["map-node"];
+
+            if (!theoryDone) {
+              subText = "Fă teoria înainte.";
+              iconText = "📘";
+              classNames.push("map-node--locked");
+            } else if (status === "locked") {
+              subText = "Blocat: termină camera anterioară.";
+              iconText = "🔒";
+              classNames.push("map-node--locked");
+            } else if (status === "available") {
+              subText = state?.hasKey ? "Ai cheia, poți reface." : "Disponibilă acum.";
+              iconText = state?.hasKey ? "🔑" : "▶️";
+              classNames.push("map-node--available");
+            } else if (status === "done") {
+              subText = state?.hasKey ? "Completată + cheie." : "Completată.";
+              iconText = state?.hasKey ? "🔑" : "✅";
+              classNames.push("map-node--done");
+            }
+
+            const roomPath = pcRoomPath(sectionId, roomNumber);
+
+            if (!theoryDone || status === "locked") {
+              return (
+                <div
+                  key={roomNumber}
+                  className={classNames.join(" ")}
+                  data-testid={testId}
+                  data-has-key={hasKeyAttr}
+                  title="Completează teoria ca să deblochezi camerele."
+                >
+                  <div className="map-node-left">
+                    <div className="map-node-title">Camera {roomNumber}</div>
+                    <div className="map-node-sub">{subText}</div>
+                  </div>
+                  <div className="map-node-status">{iconText}</div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={roomNumber}
+                to={roomPath}
+                className={classNames.join(" ")}
+                data-testid={testId}
+                data-has-key={hasKeyAttr}
+                title={subText}
+              >
+                <div className="map-node-left">
+                  <div className="map-node-title">Camera {roomNumber}</div>
+                  <div className="map-node-sub">{subText}</div>
+                </div>
+                <div className="map-node-status">{iconText}</div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// ---------- Page ----------
+export default function PcMapPage() {
+  const theoryDoneBySection = useMemo(
+  () => ({
+    affirmative: safeIsTheoryCompleted("affirmative"),
+    negative: safeIsTheoryCompleted("negative"),
+    interrogative: safeIsTheoryCompleted("interrogative"),
+    uses: safeIsTheoryCompleted("uses"),
+    "time-expressions": safeIsTheoryCompleted("time-expressions"),
+  }),
+  [],
+);
+
+
+  const overviewBySection = useMemo(
+  () => ({
+    affirmative: safeGetSectionOverview("affirmative"),
+    negative: safeGetSectionOverview("negative"),
+    interrogative: safeGetSectionOverview("interrogative"),
+    uses: safeGetSectionOverview("uses"),
+    "time-expressions": safeGetSectionOverview("time-expressions"),
+  }),
+  [],
+);
+
+
+  const keysInfoBySection = useMemo(() => getKeysInfoBySection(), []);
+
+  const MAP_SECTIONS = useMemo(
+  () => [
+    {
+      id: "affirmative",
+      title: "Affirmative",
+      description: "Structura afirmativă: am/is/are + verb-ing.",
+      pathTestId: "pc-path-affirmative",
+      startTheoryTestId: "pc-start-theory-affirmative",
+      roomTestIdPrefix: "pc-room-affirmative",
+    },
+    {
+      id: "negative",
+      title: "Negative",
+      description: "Formarea propozițiilor negative în Present Continuous.",
+      pathTestId: "pc-path-negative",
+      startTheoryTestId: "pc-start-theory-negative",
+      roomTestIdPrefix: "pc-room-negative",
+    },
+    {
+      id: "interrogative",
+      title: "Interrogative",
+      description: "Întrebări și răspunsuri scurte în Present Continuous.",
+      pathTestId: "pc-path-interrogative",
+      startTheoryTestId: "pc-start-theory-interrogative",
+      roomTestIdPrefix: "pc-room-interrogative",
+    },
+    {
+      id: "uses",
+      title: "Uses",
+      description: "Când folosim Present Continuous în viața reală.",
+      pathTestId: "pc-path-uses",
+      startTheoryTestId: "pc-start-theory-uses",
+      roomTestIdPrefix: "pc-room-uses",
+    },
+    {
+      id: "time-expressions",
+      title: "Time Expressions",
+      description: "Expresii de timp tipice pentru Present Continuous.",
+      pathTestId: "pc-path-time-expressions",
+      startTheoryTestId: "pc-start-theory-time-expressions",
+      roomTestIdPrefix: "pc-room-time-expressions",
+    },
+  ],
+  [],
+);
+
+return (
     <main className="page page-pastel map-wrapper">
       <header className="map-header">
         <h1 className="page-title">Present Continuous – Hartă</h1>
         <p className="page-subtitle" style={{ marginTop: "0.4rem" }}>
-          (Scaffold Sprint 3) – aici vei avea traseele pentru Present Continuous.
+          Scaffold pentru toate camerele Present Continuous. Începi cu teoria,
+          apoi parcurgi camerele în ordine.
         </p>
 
         <div className="map-overview-row">
-          <Link to="/grammar/tenses/present-continuous/overview" className="map-overview-link">
+          <Link to={pcOverviewPath()} className="map-overview-link">
             Overview
           </Link>
         </div>
@@ -71,61 +342,36 @@ export default function PcMapPage() {
 
       <section className="map-main">
         <div className="map-grid">
-          <article className="map-path">
-            <div className="map-path-header">
-              <div className="map-path-title">Basics</div>
-              <div className="map-path-meta">
-                <span className="map-pill">🔑 {keysInfo.obtainedKeys}/{keysInfo.totalRequired}</span>
-                <span className={theoryDone ? "map-pill map-pill--ok" : "map-pill map-pill--warn"}>
-                  {theoryDone ? "Teorie ✅" : "Teorie 🔒"}
-                </span>
-              </div>
-            </div>
+          {MAP_SECTIONS.map((section) => {
+            const id = section.id;
+            const keysInfo = keysInfoBySection[id] || {
+              obtainedKeys: 0,
+              totalRooms: TOTAL_ROOMS,
+              hasAllKeys: false,
+            };
 
-            <div className="map-path-body">
-              <div className="map-theory">
-                <div className="map-theory-title">
-                  <span>Începe teoria</span>
-                  {theoryDone ? <span className="map-pill map-pill--ok">gata</span> : null}
-                </div>
-                <div className="map-theory-desc">
-                  Citește teoria înainte să intri în camere.
-                </div>
-                <div className="map-theory-actions">
-                  <Link to="/grammar/tenses/present-continuous/basics" className="btn btn-soft">
-                    Deschide teoria
-                  </Link>
-                </div>
-              </div>
-
-              <div className="map-rooms">
-                <Link
-                  to="/grammar/tenses/present-continuous/basics/room-1"
-                  className={room1Class}
-                  aria-disabled={room1Locked}
-                  onClick={(e) => {
-                    if (room1Locked) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }
-                  }}
-                >
-                  <div className="map-node-left">
-                    <div className="map-node-title">Camera 1</div>
-                    <div className="map-node-sub">Intro – formă de bază</div>
-                  </div>
-                  <div className="map-node-right">
-                    {room1Locked ? "🔒" : room1State.hasKey ? "🔑" : room1State.passed ? "✅" : "→"}
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </article>
+            return (
+              <PcMapSection
+                key={id}
+                sectionId={id}
+                title={section.title}
+                description={section.description}
+                theoryDone={theoryDoneBySection[id]}
+                overview={overviewBySection[id]}
+                obtainedKeys={keysInfo.obtainedKeys}
+                pathTestId={section.pathTestId}
+                startTheoryTestId={section.startTheoryTestId}
+                roomTestIdPrefix={section.roomTestIdPrefix}
+              />
+            );
+          })}
         </div>
+
+        <PcFinalCard />
 
         <div className="map-info">
           <Link to="/grammar/tenses" className="btn btn-outline">
-            ← Înapoi la Present Continuous
+            ← Înapoi la Grammar Hub
           </Link>
         </div>
       </section>

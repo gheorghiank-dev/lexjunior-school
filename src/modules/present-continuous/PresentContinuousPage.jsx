@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { pcMapPath } from "./pc-paths.js";
 
 /**
  * Present Continuous landing
@@ -8,5 +9,5 @@ import { Navigate } from "react-router-dom";
  * în toate modurile.
  */
 export default function PresentContinuousPage() {
-  return <Navigate to="/grammar/tenses/present-continuous/map" replace />;
+  return <Navigate to={pcMapPath()} replace />;
 }
