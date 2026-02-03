@@ -90,7 +90,7 @@ export const PRESENT_SIMPLE_MANIFEST = {
   status: "ready",
   order: 1,
   description:
-    "Teorie, hartă, 7 camere de exerciții, cameră finală și badge. Toate pe stil Escape Room, cu Lex Junior, dicționare și butoane de listen.",
+    "Teorie, 35 de camere de exerciții, cameră finală și badge. Toate în modul Escape Room, cu Lex Junior, dicționare și butoane de listen.",
   basePath: PS_BASE_PATH,
   storagePrefix: STORAGE_PREFIX,
   roomsPerSection: ROOMS_PER_SECTION,
