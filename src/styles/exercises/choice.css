@@ -24,3 +24,24 @@
 .mcq-option {
   width: 100%;
 }
+
+/* ✔ / ✘ vizual pentru MCQ, după verificare */
+.mcq-option--correct::after,
+.mcq-option--incorrect::after {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Verde pentru răspuns corect */
+.mcq-option--correct::after {
+  content: "✓";
+  color: #16a34a; /* aceeași nuanță ca la short-answer-status--correct */
+}
+
+/* Roșu pentru răspuns greșit */
+.mcq-option--incorrect::after {
+  content: "✕";
+  color: #dc2626; /* aceeași nuanță ca la short-answer-status--incorrect */
+}
