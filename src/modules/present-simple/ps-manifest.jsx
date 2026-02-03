@@ -3,8 +3,13 @@
 // This becomes a single source of truth for future route + map generation.
 
 import React from "react";
+import "./ps-theme.css";
 
-import { SECTIONS, ROOMS_PER_SECTION, STORAGE_PREFIX } from "./ps-core/config.js";
+import {
+  SECTIONS,
+  ROOMS_PER_SECTION,
+  STORAGE_PREFIX,
+} from "./ps-core/config.js";
 import { PS_ASSETS_BASE, PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 
 // Top-level pages
@@ -17,10 +22,7 @@ import PsMapPage from "./PsMapPage.jsx";
 
 import { PS_SECTION_PAGES } from "./ps-section-pages.jsx";
 
-import {
-  PS_BASE_PATH,
-  psTheoryPath,
-} from "./ps-paths.js";
+import { PS_BASE_PATH, psTheoryPath } from "./ps-paths.js";
 
 // NOTE: PS_BASE_PATH + path helpers live in ps-paths.js to avoid circular imports.
 
@@ -31,7 +33,10 @@ import {
 export function buildPresentSimpleRoutes() {
   const routes = [
     { path: PS_BASE_PATH, element: <PresentSimplePage /> },
-    { path: `${PS_BASE_PATH}/overview`, element: <PresentSimpleOverviewPage /> },
+    {
+      path: `${PS_BASE_PATH}/overview`,
+      element: <PresentSimpleOverviewPage />,
+    },
     { path: `${PS_BASE_PATH}/downloads`, element: <PsDownloadsPage /> },
     { path: `${PS_BASE_PATH}/notes`, element: <PsNotesPage /> },
     { path: `${PS_BASE_PATH}/badge`, element: <PsBadgePage /> },

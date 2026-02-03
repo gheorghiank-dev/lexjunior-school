@@ -1,0 +1,55 @@
+.present-continuous-theme {
+  /* fundal general în tonuri galben-verzui */
+  background-color: #f5fbdf;
+
+  background:
+    radial-gradient(
+      900px 140px at 50% 0%,
+      rgba(190, 242, 100, 0.8) 0%,
+      rgba(190, 242, 100, 0) 70%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 249, 219, 0.95) 0%,
+      rgba(228, 248, 210, 0.9) 55%,
+      rgba(209, 250, 229, 0.85) 100%
+    );
+
+  /* header de pagină (titluri) */
+  --lex-header-bg: linear-gradient(
+    to bottom,
+    rgba(255, 249, 219, 0.96),
+    rgba(228, 248, 210, 0.9),
+    rgba(209, 250, 229, 0.85)
+  );
+  --lex-header-border: 1px solid rgba(22, 163, 74, 0.18);
+
+  /* butoane primare (cele „plin”/colorate) */
+  --lex-btn-primary-bg: linear-gradient(
+    90deg,
+    rgba(250, 250, 210, 0.96) 0%,
+    rgba(190, 242, 100, 0.95) 50%,
+    rgba(52, 211, 153, 0.96) 100%
+  );
+  --lex-btn-primary-color: rgba(21, 41, 10, 0.96);
+  --lex-btn-primary-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+
+  /* butoane soft (umplere mai light) */
+  --lex-btn-soft-bg: linear-gradient(
+    90deg,
+    rgba(255, 249, 219, 0.9) 0%,
+    rgba(228, 248, 210, 0.9) 55%,
+    rgba(209, 250, 229, 0.9) 100%
+  );
+  --lex-btn-soft-color: rgba(27, 46, 20, 0.92);
+  --lex-btn-soft-shadow: 0 10px 25px rgba(34, 197, 94, 0.22);
+
+  /* butoane outline (cele cu bordură) */
+  --lex-btn-outline-bg: linear-gradient(
+    90deg,
+    rgba(250, 250, 250, 0.9) 0%,
+    rgba(236, 252, 203, 0.92) 60%,
+    rgba(224, 242, 254, 0.9) 100%
+  );
+  --lex-btn-outline-border: 1px solid rgba(22, 163, 74, 0.3);
+}
