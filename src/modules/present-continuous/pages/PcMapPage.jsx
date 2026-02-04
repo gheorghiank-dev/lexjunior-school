@@ -141,21 +141,20 @@ function PcMapSection({
     <article className="map-path" data-testid={pathTestId}>
       <div className="map-path-header">
         <div className="map-path-title">{title}</div>
-        <div className="map-path-sub">{description}</div>
         <div className="map-path-meta">
-          Chei: {obtainedKeys}/{TOTAL_ROOMS}
+          <span className="map-pill">
+            🔑 {obtainedKeys || 0}/{TOTAL_ROOMS}
+          </span>
         </div>
       </div>
 
       <div className="map-path-body">
-        <div className="map-theory">
-          <p className="map-theory-text">
-            Începe cu teoria, apoi parcurge camerele în ordine. Cheia se obține
-            doar dacă iei 100% la „Reîncearcă pentru cheie”.
-          </p>
+        <p>{description}</p>
+
+        <div className="map-theory-actions">
           <Link
             to={theoryPath}
-            className="btn btn-soft"
+            className="btn btn-outline btn-sm"
             data-testid={startTheoryTestId}
           >
             Deschide teoria – {title}
@@ -271,40 +270,40 @@ export default function PcMapPage() {
   () => [
     {
       id: "affirmative",
-      title: "Affirmative",
-      description: "Structura afirmativă: am/is/are + verb-ing.",
+      title: "Afirmativ",
+      description: "Recapitulează regulile pentru forma afirmativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
       pathTestId: "pc-path-affirmative",
       startTheoryTestId: "pc-start-theory-affirmative",
       roomTestIdPrefix: "pc-room-affirmative",
     },
     {
       id: "negative",
-      title: "Negative",
-      description: "Formarea propozițiilor negative în Present Continuous.",
+      title: "Negativ",
+      description: "Recapitulează regulile pentru forma negativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
       pathTestId: "pc-path-negative",
       startTheoryTestId: "pc-start-theory-negative",
       roomTestIdPrefix: "pc-room-negative",
     },
     {
       id: "interrogative",
-      title: "Interrogative",
-      description: "Întrebări și răspunsuri scurte în Present Continuous.",
+      title: "Interogativ",
+      description:  "Recapitulează regulile pentru forma interogativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
       pathTestId: "pc-path-interrogative",
       startTheoryTestId: "pc-start-theory-interrogative",
       roomTestIdPrefix: "pc-room-interrogative",
     },
     {
       id: "uses",
-      title: "Uses",
-      description: "Când folosim Present Continuous în viața reală.",
+      title: "uses",
+      description: "Recapitulează regulile pentru întrebuințările Prezentului Continuu înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
       pathTestId: "pc-path-uses",
       startTheoryTestId: "pc-start-theory-uses",
       roomTestIdPrefix: "pc-room-uses",
     },
     {
       id: "time-expressions",
-      title: "Time Expressions",
-      description: "Expresii de timp tipice pentru Present Continuous.",
+      title: "Expresii de Timp",
+      description: "Recapitulează regulile pentru expresiile de timp înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
       pathTestId: "pc-path-time-expressions",
       startTheoryTestId: "pc-start-theory-time-expressions",
       roomTestIdPrefix: "pc-room-time-expressions",

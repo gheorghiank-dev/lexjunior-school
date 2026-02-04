@@ -314,7 +314,7 @@ export default function PsMapPage() {
     () => [
       {
         id: "affirmative",
-        title: "Affirmative",
+        title: "Afirmativ",
         description:
           "Recapitulează regulile pentru forma afirmativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
         pathTestId: "ps-path-affirmative",
@@ -323,7 +323,7 @@ export default function PsMapPage() {
       },
       {
         id: "negative",
-        title: "Negative",
+        title: "Negativ",
         description:
           "Recapitulează regulile pentru forma negativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
         pathTestId: "ps-path-negative",
@@ -332,7 +332,7 @@ export default function PsMapPage() {
       },
       {
         id: "interrogative",
-        title: "Interrogative",
+        title: "Interogativ",
         description:
           "Recapitulează regulile pentru forma interogativă înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
         pathTestId: "ps-path-interrogative",
@@ -343,14 +343,14 @@ export default function PsMapPage() {
         id: "uses",
         title: "Uses",
         description:
-          "Recapitulează regulile pentru întrebuințările lui Present Simple înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
+          "Recapitulează regulile pentru întrebuințările Prezentului Simplu înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
         pathTestId: "ps-path-uses",
         startTheoryTestId: "ps-start-theory-uses",
         roomTestIdPrefix: "ps-room-uses",
       },
       {
         id: "time-expressions",
-        title: "Time Expressions",
+        title: "Expresii de Timp",
         description:
           "Recapitulează regulile pentru expresiile de timp înainte să intri în camere. După ce deschizi această pagină, drumul de pe hartă se deblochează.",
         pathTestId: "ps-path-time-expressions",
