@@ -386,6 +386,7 @@ a {
   border: var(--lex-pc-structure-border);
 }
 
+.lj-structure-grid,
 .ps-structure-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -393,6 +394,7 @@ a {
   margin-top: var(--lex-spacing-sm);
 }
 
+.lj-structure-col,
 .ps-structure-col {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 1rem;
@@ -403,6 +405,7 @@ a {
   gap: 0.25rem;
 }
 
+.lj-structure-label,
 .ps-structure-label {
   font-size: 0.8rem;
   font-weight: 600;
@@ -411,16 +414,19 @@ a {
   color: var(--lex-color-text-muted);
 }
 
+.lj-structure-example,
 .ps-structure-example {
   font-weight: 600;
   color: var(--lex-color-text-main);
 }
 
+.lj-structure-note,
 .ps-structure-note {
   font-size: 0.8rem;
   color: var(--lex-color-text-muted);
 }
 
+.lj-structure-title,
 .ps-structure-title {
   font-size: 0.95rem;
   font-weight: 600;
@@ -428,6 +434,7 @@ a {
   color: var(--lex-color-text-main);
 }
 
+.lj-sensory-feel-card,
 .ps-sensory-feel-card {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -437,6 +444,7 @@ a {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
 
+.lj-footer,
 .ps-footer {
   margin: 2.25rem 0 1rem;
   text-align: center;
