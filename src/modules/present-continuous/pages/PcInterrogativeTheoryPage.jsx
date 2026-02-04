@@ -18,6 +18,7 @@ export default function PcInterrogativeTheoryPage() {
       </header>
 
       <section className="card" style={{ marginBottom: "1.25rem" }}>
+        <div className="lj-structure-box pc-structure-box">
         <h2 className="card-title">Formă de bază</h2>
         <p className="card-text">
           Present Continuous se folosește pentru acțiuni care se întâmplă acum sau în perioada aceasta.
@@ -27,6 +28,8 @@ export default function PcInterrogativeTheoryPage() {
           <li><em>I am reading now.</em></li>
           <li><em>She is playing.</em></li>
         </ul>
+      
+        </div>
       </section>
 
       <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

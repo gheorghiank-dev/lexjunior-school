@@ -22,6 +22,7 @@ export default function PcTimeExpressionsTheoryPage() {
       </header>
 
       <section className="card">
+        <div className="lj-structure-box pc-structure-box">
         <h2 className="card-title">Schelet de expresii de timp</h2>
         <p className="card-text">
           Exemple de expresii pe care le vom detalia ulterior:
@@ -31,6 +32,8 @@ export default function PcTimeExpressionsTheoryPage() {
           <li><em>today</em>, <em>this week</em>, <em>this month</em></li>
           <li>expresii de tipul <em>for a few days</em>, <em>these days</em> etc.</li>
         </ul>
+      
+        </div>
       </section>
 
       <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

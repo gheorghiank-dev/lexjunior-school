@@ -69,7 +69,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 1. Rutine și obiceiuri – senzorial, totul într-un singur card */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               1. {PRESENT_SIMPLE_USES_TITLES[0]}
@@ -132,7 +132,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 2. Adevăruri general valabile și legi ale naturii – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               2. {PRESENT_SIMPLE_USES_TITLES[1]}
@@ -194,7 +194,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 3. Programe fixe / orare (uneori cu valoare de viitor) – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               3. {PRESENT_SIMPLE_USES_TITLES[2]}
@@ -256,7 +256,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 4. Situații permanente – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               4. {PRESENT_SIMPLE_USES_TITLES[3]}
@@ -319,7 +319,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 5. Instrucțiuni, rețete și direcții – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               5. {PRESENT_SIMPLE_USES_TITLES[4]}
@@ -383,7 +383,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 6. Comentarii sportive, transmisiuni live și indicații scenice – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               6. {PRESENT_SIMPLE_USES_TITLES[5]}
@@ -448,7 +448,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 7. Titluri de ziar – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               7. {PRESENT_SIMPLE_USES_TITLES[6]}
@@ -511,7 +511,7 @@ export default function PsUsesSensoryTheoryPage() {
       {/* 8. Recenzii de filme / cărți / emisiuni – senzorial */}
       <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
         {/* Titlu + explicație + Imagine + Sunet */}
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <p className="ps-text">
             <span className="rule-highlight">
               8. {PRESENT_SIMPLE_USES_TITLES[7]}

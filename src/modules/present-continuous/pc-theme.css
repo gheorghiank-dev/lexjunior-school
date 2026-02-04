@@ -52,4 +52,11 @@
     rgba(224, 242, 254, 0.9) 100%
   );
   --lex-btn-outline-border: 1px solid rgba(22, 163, 74, 0.3);
+  --lex-pc-structure-bg: linear-gradient(
+    90deg,
+    rgba(255, 249, 219, 0.9) 0%,
+    rgba(228, 248, 210, 0.9) 55%,
+    rgba(209, 250, 229, 0.9) 100%
+  );
+  --lex-pc-structure-border: 1px solid rgba(22, 163, 74, 0.28);
 }

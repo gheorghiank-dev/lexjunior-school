@@ -61,7 +61,7 @@ export default function PsTimeExpressionsTheoryPage() {
           <strong>Present Simple</strong>.
         </p>
 
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <h3 className="ps-structure-title">Expresii comune</h3>
 
           <p className="ps-text">
@@ -93,7 +93,7 @@ export default function PsTimeExpressionsTheoryPage() {
           </p>
         </div>
 
-        <div className="ps-structure-box">
+        <div className="lj-structure-box ps-structure-box">
           <h3 className="ps-structure-title">Adverbe de frecvență</h3>
 
           {frequencyAdverbs.map((item) => (

@@ -368,12 +368,22 @@ a {
 
 /* === Present Simple – structure box (Affirmative theory) === */
 
-.ps-structure-box {
+.lj-structure-box,
+.ps-structure-box,
+.pc-structure-box {
   margin-top: var(--lex-spacing-md);
   padding: var(--lex-spacing-md);
   border-radius: 1.2rem;
+}
+
+.ps-structure-box {
   background: var(--lex-ps-structure-bg);
   border: var(--lex-ps-structure-border);
+}
+
+.pc-structure-box {
+  background: var(--lex-pc-structure-bg);
+  border: var(--lex-pc-structure-border);
 }
 
 .ps-structure-grid {

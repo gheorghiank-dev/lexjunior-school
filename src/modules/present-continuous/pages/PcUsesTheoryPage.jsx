@@ -22,6 +22,7 @@ export default function PcUsesTheoryPage() {
       </header>
 
       <section className="card">
+        <div className="lj-structure-box pc-structure-box">
         <h2 className="card-title">Schelet de conținut</h2>
         <p className="card-text">
           Deocamdată este doar scheletul. Urmează să completăm:
@@ -31,6 +32,8 @@ export default function PcUsesTheoryPage() {
           <li>Acțiuni temporare / în desfășurare în jurul momentului vorbirii.</li>
           <li>Planuri și aranjamente pentru viitorul apropiat.</li>
         </ul>
+      
+        </div>
       </section>
 
       <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>

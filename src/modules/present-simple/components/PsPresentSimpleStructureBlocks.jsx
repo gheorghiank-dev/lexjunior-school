@@ -40,7 +40,7 @@ export const PRESENT_SIMPLE_FREQUENCY_ADVERBS = [
  */
 export function PsAffirmativeStructureBlock() {
   return (
-    <div className="ps-structure-box">
+    <div className="lj-structure-box ps-structure-box">
       <h3 className="ps-structure-title">Structură generală</h3>
 
       <p className="ps-text">
@@ -66,7 +66,7 @@ export function PsAffirmativeStructureBlock() {
  */
 export function PsNegativeStructureBlock() {
   return (
-    <div className="ps-structure-box">
+    <div className="lj-structure-box ps-structure-box">
       <h3 className="ps-structure-title">Structură generală</h3>
 
       <p className="ps-text">
@@ -100,7 +100,7 @@ export function PsNegativeStructureBlock() {
 export function PsInterrogativeStructureBlock() {
   return (
     <>
-      <div className="ps-structure-box">
+      <div className="lj-structure-box ps-structure-box">
         <h3 className="ps-structure-title">
           Structură generală (Yes / No Questions)
         </h3>
@@ -123,7 +123,7 @@ export function PsInterrogativeStructureBlock() {
         </p>
       </div>
 
-      <div className="ps-structure-box">
+      <div className="lj-structure-box ps-structure-box">
         <h3 className="ps-structure-title">
           Structură generală (Wh-word Questions)
         </h3>

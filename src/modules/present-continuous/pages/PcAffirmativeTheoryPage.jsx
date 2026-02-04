@@ -51,7 +51,7 @@ export default function PcAffirmativeTheoryPage() {
           de bază este:
         </p>
 
-        <div className="ps-structure-box">
+        <div className="lj-structure-box pc-structure-box">
           <h3 className="ps-structure-title">Structură generală</h3>
 
           <p className="ps-text">
