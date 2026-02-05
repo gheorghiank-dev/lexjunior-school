@@ -1,29 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { TenseNextRoomButton } from "../../tenses/ui/TenseNextRoomButton.jsx";
 
 /**
- * Buton reutilizabil pentru "Camera următoare".
- * - păstrează același stil (.btn .btn-outline .next-room)
- * - este vizibil tot timpul, dar blocat logic până când passed === true
+ * Wrapper Present Simple peste butonul generic "Camera următoare".
+ *
+ * Păstrăm numele PsNextRoomButton pentru compatibilitate,
+ * dar delegăm logica și markup-ul către TenseNextRoomButton,
+ * care este folosit de toate timpurile.
  */
-export function PsNextRoomButton({ to, passed }) {
-  if (!to) return null;
-
-  const handleClick = (e) => {
-    if (!passed) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-
-  return (
-    <Link
-      to={to}
-      className="btn btn-outline next-room"
-      aria-disabled={!passed}
-      onClick={handleClick}
-    >
-      Camera următoare →
-    </Link>
-  );
+export function PsNextRoomButton(props) {
+  return <TenseNextRoomButton {...props} />;
 }

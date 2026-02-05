@@ -9,8 +9,24 @@ import {
   SECTIONS,
   ROOMS_PER_SECTION,
   STORAGE_PREFIX,
+  HUD_TEXT,
 } from "./ps-core/config.js";
 import { PS_ASSETS_BASE, PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
+
+import { PS_AFFIRMATIVE_ROOMS } from "./ps-content/ps-affirmative-rooms.jsx";
+import { PS_NEGATIVE_ROOMS } from "./ps-content/ps-negative-rooms.jsx";
+import { PS_INTERROGATIVE_ROOMS } from "./ps-content/ps-interrogative-rooms.jsx";
+import { PS_USES_ROOMS } from "./ps-content/ps-uses-rooms.jsx";
+import { PS_TIME_EXPRESSIONS_ROOMS } from "./ps-content/ps-time-expressions-rooms.jsx";
+
+import {
+  presentSimpleAffirmativeLexHints,
+  presentSimpleNegativeLexHints,
+  presentSimpleInterrogativeLexHints,
+  presentSimpleUsesLexHints,
+  presentSimpleTimeExpressionsLexHints,
+  presentSimpleBadgeLexHints,
+} from "../lex-hints/present-simple/index.js";
 
 // Top-level pages
 import PresentSimplePage from "./PresentSimplePage.jsx";
@@ -78,6 +94,40 @@ export function buildPresentSimpleRoutes() {
   return routes;
 }
 
+const PS_SECTIONS_META = SECTIONS.reduce((acc, section) => {
+  acc[section.id] = {
+    id: section.id,
+    title: section.title,
+    description: section.description,
+  };
+  return acc;
+}, {});
+
+/**
+ * Room registries for Present Simple (affirmative, negative, interrogative, uses, time-expressions).
+ * These are read-only and consumed by the Core Lex Engine / TenseKit.
+ */
+const PS_ROOM_REGISTRIES = {
+  affirmative: PS_AFFIRMATIVE_ROOMS,
+  negative: PS_NEGATIVE_ROOMS,
+  interrogative: PS_INTERROGATIVE_ROOMS,
+  uses: PS_USES_ROOMS,
+  "time-expressions": PS_TIME_EXPRESSIONS_ROOMS,
+};
+
+/**
+ * Lex Junior hints registry for Present Simple.
+ * Hint engine can consume this by tense/section/room.
+ */
+const PS_HINTS_REGISTRY = {
+  affirmative: presentSimpleAffirmativeLexHints,
+  negative: presentSimpleNegativeLexHints,
+  interrogative: presentSimpleInterrogativeLexHints,
+  uses: presentSimpleUsesLexHints,
+  "time-expressions": presentSimpleTimeExpressionsLexHints,
+  badge: presentSimpleBadgeLexHints,
+};
+
 /** Module metadata that the global registry consumes. */
 export const PRESENT_SIMPLE_MANIFEST = {
   id: "present-simple",
@@ -90,9 +140,13 @@ export const PRESENT_SIMPLE_MANIFEST = {
   status: "ready",
   order: 1,
   description:
-    "Teorie, 35 de camere de exerciții, cameră finală și badge. Toate în modul Escape Room, cu Lex Junior, dicționare și butoane de listen.",
+    "Teorie, 35 de camere de exerciții, cameră finală și badge. ...l Escape Room, cu Lex Junior, dicționare și butoane de listen.",
   basePath: PS_BASE_PATH,
   storagePrefix: STORAGE_PREFIX,
   roomsPerSection: ROOMS_PER_SECTION,
   sections: SECTIONS,
+  sectionsMeta: PS_SECTIONS_META,
+  roomRegistries: PS_ROOM_REGISTRIES,
+  hintsRegistry: PS_HINTS_REGISTRY,
+  hudText: HUD_TEXT,
 };

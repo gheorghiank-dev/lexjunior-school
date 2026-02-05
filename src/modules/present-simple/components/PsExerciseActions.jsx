@@ -1,29 +1,17 @@
 import React from "react";
-import { PsNextRoomButton } from "./PsNextRoomButton.jsx";
+import TenseExerciseActions from "../../tenses/ui/TenseExerciseActions.jsx";
 
 /**
- * Standard action bar for rooms: Verify + (optional) Next room button.
- * Keeps the same classNames used across the project (exercise-actions, btn btn-primary).
+ * Present Simple wrapper peste bara generică de acțiuni pentru camere.
+ *
+ * Păstrează:
+ * - aceeași semnătură a props-urilor ca înainte (onVerify, nextTo, passed, verifyLabel, verifyTestId)
+ * - aceleași className-uri în DOM (exercise-actions, btn btn-primary)
+ * - aceleași data-testid-uri pentru Playwright.
+ *
+ * Implementarea reală este delegată către TenseExerciseActions,
+ * care este folosită și de celelalte timpuri.
  */
-export default function PsExerciseActions({
-  onVerify,
-  nextTo,
-  passed,
-  verifyLabel = "Verifică răspunsurile",
-  verifyTestId,
-}) {
-  return (
-    <div className="exercise-actions">
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => onVerify?.()}
-        data-testid={verifyTestId}
-      >
-        {verifyLabel}
-      </button>
-
-      {nextTo ? <PsNextRoomButton to={nextTo} passed={passed} /> : null}
-    </div>
-  );
+export default function PsExerciseActions(props) {
+  return <TenseExerciseActions {...props} />;
 }

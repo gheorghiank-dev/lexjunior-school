@@ -8,6 +8,7 @@ import {
   PC_ROOMS_PER_SECTION,
   PC_SECTIONS,
   PC_STORAGE_PREFIX,
+  PC_HUD_TEXT,
 } from "./pc-core/config.js";
 import { PC_ASSETS_BASE, PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
 
@@ -73,6 +74,22 @@ export function buildPresentContinuousRoutes() {
   return routes;
 }
 
+const PC_SECTIONS_META = PC_SECTIONS.reduce((acc, section) => {
+  acc[section.id] = {
+    id: section.id,
+    title: section.title,
+    description: section.description || "",
+  };
+  return acc;
+}, {});
+
+/**
+ * Room + hints registries for Present Continuous.
+ * Not yet wired – placeholders keep the manifest shape aligned to Present Simple.
+ */
+const PC_ROOM_REGISTRIES = null;
+const PC_HINTS_REGISTRY = {};
+
 /** Module metadata that the global registry consumes. */
 export const PRESENT_CONTINUOUS_MANIFEST = {
   id: "present-continuous",
@@ -85,9 +102,13 @@ export const PRESENT_CONTINUOUS_MANIFEST = {
   status: "preview",
   order: 2,
   description:
-    "Teorie, 35 de camere de exerciții, cameră finală și badge. Toate în modul Escape Room, cu Lex Junior, dicționare și butoane de listen.",
+    "Teorie, 35 de camere de exerciții, cameră finală și badge. ...l Escape Room, cu Lex Junior, dicționare și butoane de listen.",
   basePath: PC_BASE_PATH,
   storagePrefix: PC_STORAGE_PREFIX,
   roomsPerSection: PC_ROOMS_PER_SECTION,
   sections: PC_SECTIONS,
+  sectionsMeta: PC_SECTIONS_META,
+  roomRegistries: PC_ROOM_REGISTRIES,
+  hintsRegistry: PC_HINTS_REGISTRY,
+  hudText: PC_HUD_TEXT,
 };
