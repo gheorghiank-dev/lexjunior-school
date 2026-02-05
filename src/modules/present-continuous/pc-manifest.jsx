@@ -85,9 +85,17 @@ const PC_SECTIONS_META = PC_SECTIONS.reduce((acc, section) => {
 
 /**
  * Room + hints registries for Present Continuous.
- * Not yet wired – placeholders keep the manifest shape aligned to Present Simple.
+ * Room registries currently mirror the page components per section.
+ * A future refactor can move PC to data-driven room registries like Present Simple.
  */
-const PC_ROOM_REGISTRIES = null;
+const PC_ROOM_REGISTRIES = {
+  affirmative: PC_SECTION_PAGES.affirmative?.rooms ?? [],
+  negative: PC_SECTION_PAGES.negative?.rooms ?? [],
+  interrogative: PC_SECTION_PAGES.interrogative?.rooms ?? [],
+  uses: PC_SECTION_PAGES.uses?.rooms ?? [],
+  "time-expressions": PC_SECTION_PAGES["time-expressions"]?.rooms ?? [],
+};
+
 const PC_HINTS_REGISTRY = {};
 
 /** Module metadata that the global registry consumes. */
