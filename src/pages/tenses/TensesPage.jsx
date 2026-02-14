@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getTenseCards } from "../../modules/tenses/registry.js";
+import { getTenseCards } from "../../core/manifest/tense-registry.js";
 
 export default function TensesPage() {
   const cards = getTenseCards();

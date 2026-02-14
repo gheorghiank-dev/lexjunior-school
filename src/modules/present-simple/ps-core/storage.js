@@ -1,4 +1,5 @@
 import { STORAGE_PREFIX } from "./config.js";
-import { createNamespacedStorage } from "../../../core/storage/namespaced-storage.js";
+import { createTenseStorage } from "../../tenses/core/tense-progress-kit.js";
 
-export const storage = createNamespacedStorage(STORAGE_PREFIX);
+// Present Simple: namespaced storage for all PS-specific progress/theory.
+export const storage = createTenseStorage(STORAGE_PREFIX);

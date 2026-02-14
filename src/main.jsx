@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
-import ScrollToTop from "./components/ScrollToTop";
+import AppRouter from "./app/router.jsx";
 import { ensureLexVoiceRuntimeInstalled } from "./shared/tts/lex-voice-runtime";
 import "./styles/global.css";
 import "./styles/lex.css";
@@ -12,10 +10,6 @@ ensureLexVoiceRuntimeInstalled();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      {/* Mecanism global: la fiecare schimbare de rută, face scroll sus */}
-      <ScrollToTop />
-      <App />
-    </BrowserRouter>
+    <AppRouter />
   </React.StrictMode>
 );

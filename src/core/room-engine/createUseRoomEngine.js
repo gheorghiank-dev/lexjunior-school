@@ -38,6 +38,22 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
     const [isKeyRun, setIsKeyRun] = useState(false);
     const [keyRunFirstAttempt, setKeyRunFirstAttempt] = useState(null);
 
+    // resetăm starea locală când se schimbă camera (ex: Camera 1 → Camera 2)
+    // astfel încât HUD-ul și foaia de lucru să nu "care" progresul din camera anterioară.
+    useEffect(() => {
+      const resetAnswers = {};
+      for (const ex of exercises) {
+        resetAnswers[ex.id] = "";
+      }
+
+      setAnswers(resetAnswers);
+      setFeedback({});
+      setLastResult(null);
+      setIsKeyRun(false);
+      setKeyRunFirstAttempt(null);
+      setAutoFillLocked(false);
+    }, [sectionId, roomNumber, exercises]);
+
     // flag de sesiune: dacă elevul a apăsat "Resetează pentru exersare",
     // nu mai auto-umplem camera cu răspunsurile corecte în aceeași sesiune.
     const [autoFillLocked, setAutoFillLocked] = useState(false);

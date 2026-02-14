@@ -1,0 +1,8 @@
+/* Global footer styles (Lex Junior + tense-specific footers) – extracted from global.css (Sprint 5) */
+
+.lj-footer {
+  margin: 2.25rem 0 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.65;
+}

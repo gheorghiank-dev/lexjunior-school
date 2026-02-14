@@ -13,11 +13,11 @@ import {
 } from "./ps-core/config.js";
 import { PS_ASSETS_BASE, PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 
-import { PS_AFFIRMATIVE_ROOMS } from "./ps-content/ps-affirmative-rooms.jsx";
-import { PS_NEGATIVE_ROOMS } from "./ps-content/ps-negative-rooms.jsx";
-import { PS_INTERROGATIVE_ROOMS } from "./ps-content/ps-interrogative-rooms.jsx";
-import { PS_USES_ROOMS } from "./ps-content/ps-uses-rooms.jsx";
-import { PS_TIME_EXPRESSIONS_ROOMS } from "./ps-content/ps-time-expressions-rooms.jsx";
+import { PS_AFFIRMATIVE_ROOMS } from "./rooms/ps-affirmative-rooms.jsx";
+import { PS_NEGATIVE_ROOMS } from "./rooms/ps-negative-rooms.jsx";
+import { PS_INTERROGATIVE_ROOMS } from "./rooms/ps-interrogative-rooms.jsx";
+import { PS_USES_ROOMS } from "./rooms/ps-uses-rooms.jsx";
+import { PS_TIME_EXPRESSIONS_ROOMS } from "./rooms/ps-time-expressions-rooms.jsx";
 
 import {
   presentSimpleAffirmativeLexHints,
@@ -39,6 +39,14 @@ import PsMapPage from "./PsMapPage.jsx";
 import { PS_SECTION_PAGES } from "./ps-section-pages.jsx";
 
 import { PS_BASE_PATH, psTheoryPath } from "./ps-paths.js";
+
+import {
+  defineTenseManifest,
+  defineTenseRooms,
+  defineTenseTheory,
+  defineTenseKit,
+  defineTenseTheme,
+} from "../../tense-kit";
 
 // NOTE: PS_BASE_PATH + path helpers live in ps-paths.js to avoid circular imports.
 
@@ -150,3 +158,33 @@ export const PRESENT_SIMPLE_MANIFEST = {
   hintsRegistry: PS_HINTS_REGISTRY,
   hudText: HUD_TEXT,
 };
+
+// TenseKit v1 – Present Simple full tense definition
+// This keeps behaviour identical, but documents the shape for future tenses.
+
+export const PRESENT_SIMPLE_THEORY_CONFIG = defineTenseTheory({
+  basePath: PS_BASE_PATH,
+  pages: [
+    { sectionId: "affirmative", path: psTheoryPath("affirmative") },
+    { sectionId: "negative", path: psTheoryPath("negative") },
+    { sectionId: "interrogative", path: psTheoryPath("interrogative") },
+    { sectionId: "uses", path: psTheoryPath("uses") },
+    // Extra sensory theory route for Uses (same section id).
+    { sectionId: "uses", path: `${PS_BASE_PATH}/uses/theory-sensory` },
+    { sectionId: "time-expressions", path: psTheoryPath("time-expressions") },
+  ],
+});
+
+export const PRESENT_SIMPLE_ROOMS_CONFIG = defineTenseRooms(PS_ROOM_REGISTRIES);
+
+export const PRESENT_SIMPLE_THEME_CONFIG = defineTenseTheme({
+  id: "present-simple",
+  themeClass: "present-simple-theme",
+});
+
+export const PRESENT_SIMPLE_TENSE_KIT = defineTenseKit({
+  manifest: defineTenseManifest(PRESENT_SIMPLE_MANIFEST),
+  rooms: PRESENT_SIMPLE_ROOMS_CONFIG,
+  theory: PRESENT_SIMPLE_THEORY_CONFIG,
+  theme: PRESENT_SIMPLE_THEME_CONFIG,
+});

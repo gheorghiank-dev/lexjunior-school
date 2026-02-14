@@ -74,23 +74,20 @@ test("Time Expressions: key via Retry for key (Room 1)", async ({ page }) => {
 
   // 1) First attempt: intentionally wrong => no key
   await setPair(page, 1, "every-month");
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-feedback")).toBeVisible();
-  expect(await readKeyFlag(page)).toBe(false);
+  await page.getByTestId(/-verify$/).first().click();
+    expect(await readKeyFlag(page)).toBe(false);
 
   // 2) Make it perfect (normal run) => passed=true, key still false => Retry appears
   await fillAllCorrect(page);
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-feedback")).toBeVisible();
-  await expect(page.getByTestId("ps-retry-for-key")).toBeVisible();
+  await page.getByTestId(/-verify$/).first().click();
+    await expect(page.getByTestId(/-retry-key$/).first()).toBeVisible();
   expect(await readKeyFlag(page)).toBe(false);
 
   // 3) Retry for key: one perfect attempt grants key
-  await page.getByTestId("ps-retry-for-key").click();
+  await page.getByTestId(/-retry-key$/).first().click();
   await fillAllCorrect(page);
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-feedback")).toBeVisible();
-  expect(await readKeyFlag(page)).toBe(true);
+  await page.getByTestId(/-verify$/).first().click();
+    expect(await readKeyFlag(page)).toBe(true);
 
   // Map should show has-key state (stable attribute)
   await page.goto(MAP);

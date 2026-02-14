@@ -2,16 +2,16 @@
 // Kept separate from ps-manifest to avoid circular imports with generic routes.
 
 // Section pages
-import PsAffirmativeTheoryPage from "./PsAffirmativeTheoryPage.jsx";
+import PsAffirmativeTheoryPage from "./theory/PsAffirmativeTheoryPage.jsx";
 
-import PsNegativeTheoryPage from "./PsNegativeTheoryPage.jsx";
+import PsNegativeTheoryPage from "./theory/PsNegativeTheoryPage.jsx";
 
-import PsInterrogativeTheoryPage from "./PsInterrogativeTheoryPage.jsx";
+import PsInterrogativeTheoryPage from "./theory/PsInterrogativeTheoryPage.jsx";
 
-import PsUsesTheoryPage from "./PsUsesTheoryPage.jsx";
-import PsUsesSensoryTheoryPage from "./PsUsesSensoryTheoryPage.jsx";
+import PsUsesTheoryPage from "./theory/PsUsesTheoryPage.jsx";
+import PsUsesSensoryTheoryPage from "./theory/PsUsesSensoryTheoryPage.jsx";
 
-import PsTimeExpressionsTheoryPage from "./PsTimeExpressionsTheoryPage.jsx";
+import PsTimeExpressionsTheoryPage from "./theory/PsTimeExpressionsTheoryPage.jsx";
 
 /** Read-only mapping of section -> page components. */
 export const PS_SECTION_PAGES = {

@@ -1,8 +1,9 @@
 import { ROOMS_PER_SECTION, SECTIONS } from "./config.js";
 import { storage } from "./storage.js";
-import { createProgressManager } from "../../../core/progress/createProgressManager.js";
+import { createTenseProgressManager } from "../../tenses/core/tense-progress-kit.js";
 
-export const progressManager = createProgressManager({
+// Present Simple room-level progress manager (per section / room).
+export const progressManager = createTenseProgressManager({
   storage,
   roomsPerSection: ROOMS_PER_SECTION,
   sections: SECTIONS,

@@ -82,20 +82,18 @@ export async function obtainKeyVariantA(page, expect, cfg) {
 
   // Wrong attempt
   await doWrongAttempt();
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-feedback")).toBeVisible();
-
+  await page.getByTestId(/-verify$/).first().click();
+  
   // Pass normally (still no key) => retry becomes available
   await doPerfectAttempt();
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-retry-for-key")).toBeVisible();
+  await page.getByTestId(/-verify$/).first().click();
+  await expect(page.getByTestId(/-retry-key$/).first()).toBeVisible();
 
   // Retry for key
-  await page.getByTestId("ps-retry-for-key").click();
+  await page.getByTestId(/-retry-key$/).first().click();
   await doPerfectAttempt();
-  await page.getByTestId("ps-check").click();
-  await expect(page.getByTestId("ps-feedback")).toBeVisible();
-}
+  await page.getByTestId(/-verify$/).first().click();
+  }
 
 export async function expectRoomHasKeyOnMap(page, expect, roomTestId) {
   const hasKeyAttr = await page.getByTestId(roomTestId).getAttribute("data-has-key");

@@ -1,0 +1,9 @@
+/* Grammar Hub CTA button styles – extracted from global.css (Sprint 5) */
+
+.btn-hub {
+  background: var(--lex-btn-hub-bg);
+  color: var(--lex-btn-hub-color);
+  border: none;
+  box-shadow: var(--lex-btn-hub-shadow);
+}
+

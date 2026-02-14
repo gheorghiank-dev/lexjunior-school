@@ -1,5 +1,5 @@
 import { storage } from "./storage.js";
-import { createTheoryProgress } from "../../../core/theory/createTheoryProgress.js";
+import { createTenseTheoryProgress } from "../../tenses/core/tense-progress-kit.js";
 
 export const THEORY_SECTION_IDS = {
   AFFIRMATIVE: "affirmative",
@@ -9,7 +9,7 @@ export const THEORY_SECTION_IDS = {
   TIME_EXPRESSIONS: "time-expressions",
 };
 
-const api = createTheoryProgress({ storage });
+const api = createTenseTheoryProgress(storage);
 
 /**
  * Marchează teoria unei secțiuni ca fiind parcursă.

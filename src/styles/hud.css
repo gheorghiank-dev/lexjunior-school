@@ -1,0 +1,93 @@
+/* HUD (progress, key state, dev toolbar) – extracted from global.css (Sprint 5) */
+
+.hud {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-soft);
+}
+
+.hud canvas {
+  flex-shrink: 0;
+}
+
+.hud .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.hud .key-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
+.hud .key-status .icon {
+  font-size: 1.25rem;
+}
+
+.hud .message {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.hud .message--success {
+  color: #16a34a;
+}
+
+.hud .message--info {
+  color: var(--color-text-muted);
+}
+
+.retry-for-key {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: var(--lex-chip-border);
+  background: var(--lex-chip-bg);
+  color: var(--lex-chip-color);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.retry-for-key:hover {
+  background: var(--lex-chip-bg-hover);
+}
+
+/* dev bar */
+.dev-bar {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dev-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #d4d4ff;
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.dev-btn-secondary {
+  background: #f9fafb;
+}
+
+.dev-btn-danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+

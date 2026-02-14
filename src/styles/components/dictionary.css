@@ -38,3 +38,101 @@
   border: 1px solid rgba(0, 0, 0, 0.06);
   font-size: 0.92rem;
 }
+
+
+.mini-dictionary-card {
+  margin-bottom: 1.25rem;
+}
+
+.mini-dictionary-card__details {
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+}
+
+.mini-dictionary-card__summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.55rem 0.9rem;
+}
+
+.mini-dictionary-card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.mini-dictionary-card__summary-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mini-dictionary-card__summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mini-dictionary-card__title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.mini-dictionary-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.mini-dictionary-card__badge {
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 214, 102, 0.2);
+  border: 1px solid rgba(255, 214, 102, 0.7);
+}
+
+.mini-dictionary-card__hint {
+  opacity: 0.9;
+}
+
+.mini-dictionary-card__chevron {
+  font-size: 0.95rem;
+  transition: transform 150ms ease-out;
+}
+
+.mini-dictionary-card__summary-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* Hover / focus state for better affordance */
+.mini-dictionary-card__summary:hover,
+.mini-dictionary-card__summary:focus-visible {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 1px rgba(80, 60, 0, 0.08);
+}
+
+/* Rotate chevron when open */
+.mini-dictionary-card__details[open] .mini-dictionary-card__chevron {
+  transform: rotate(180deg);
+}
+
+.mini-dictionary-card__description {
+  margin: 0 0.5rem 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.mini-dictionary-card__list {
+  padding: 0.35rem 0.6rem 0.6rem;
+}

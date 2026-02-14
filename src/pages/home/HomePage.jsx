@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getDefaultBrandAvatarSrc } from "../../modules/tenses/registry.js";
+import { getDefaultBrandAvatarSrc } from "../../core/manifest/tense-registry.js";
 
 export default function HomePage() {
   return (

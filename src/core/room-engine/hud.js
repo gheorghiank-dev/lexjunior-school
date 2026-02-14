@@ -16,7 +16,24 @@ export class HUD {
     this.hudText = hudText || DEFAULT_HUD_TEXT;
 
     // Preferred: React-driven HUD API (set by <RoomHud /> on the root element)
-    this.api = root?.__hudApi;
+    this.api = root?.__hudApi || null;
+  }
+
+  /**
+   * Lazily pick up the React-driven API from the root element.
+   *
+   * This makes the HUD resilient to timing differences:
+   * - if the HUD is constructed before <RoomHud /> attaches __hudApi,
+   *   the first call to setProgress/setKeyState/showMessage will
+   *   re-sync this.api from root.__hudApi.
+   */
+  ensureApi() {
+    const root = this.root;
+    if (!root) return;
+
+    if (!this.api && root.__hudApi) {
+      this.api = root.__hudApi;
+    }
   }
 
   warnIfMissingApi() {
@@ -35,6 +52,7 @@ export class HUD {
   }
 
   setProgress(percent) {
+    this.ensureApi();
     if (!this.api?.setProgress) {
       this.warnIfMissingApi();
       return;
@@ -43,6 +61,7 @@ export class HUD {
   }
 
   setKeyState({ hasKey, passed }) {
+    this.ensureApi();
     if (!this.api?.setKeyState) {
       this.warnIfMissingApi();
       return;
@@ -51,9 +70,9 @@ export class HUD {
     const t = this.hudText || DEFAULT_HUD_TEXT;
     let label = t?.keyMissingLabel || "";
     if (hasKey) {
-      label = t?.keyObtainedLabel || label;
+      label = t?.keyObtainedLabel || "";
     } else if (passed) {
-      label = t?.keyMissingAfterPassLabel || label;
+      label = t?.keyMissingAfterPassLabel || "";
     }
 
     this.api.setKeyState({
@@ -68,6 +87,7 @@ export class HUD {
   }
 
   showMessage(text, type = "info") {
+    this.ensureApi();
     if (!this.api?.showMessage) {
       this.warnIfMissingApi();
       return;

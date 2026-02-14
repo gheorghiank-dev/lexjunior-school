@@ -1,4 +1,6 @@
-# Lex Junior English Lab – Architecture Notes (Baseline Sprint 9)
+# Lex Junior English Lab – LJEL Senior Architecture v1
+
+(Acest document descrie arhitectura stabilă după Sprinturile 1–6 – Core Engine, TenseKit și modulele de timp.)
 
 Acest document descrie structura proiectului **React + Vite** și regulile de separare (boundaries) stabilite în sprinturile 1–9.
 
@@ -22,6 +24,18 @@ Conține logica de joc reutilizabilă pentru orice timp:
 
 **Regulă:** `src/core/**` NU trebuie să importe din `src/modules/**`.
 
+
+
+### `src/tense-kit/` (TenseKit v1 – contract)
+
+- Conține helper-ele și schemele oficiale pentru un timp:
+  - `tense-schema.js` – wrapper pentru manifest + rooms + theory + theme;
+  - `tense-manifest.js` – helper pentru manifestul unui timp (id, basePath, storagePrefix, sections etc.);
+  - `tense-rooms-schema.js` – shape pentru registrii de camere;
+  - `tense-theory-schema.js` – shape pentru paginile de teorie;
+  - `tense-theme.js` – metadate de theming per timp;
+  - `index.js` – re-exportă și `createTenseModule` din `src/core/tense/tense-kit.js`.
+- **Nu** schimbă modul în care engine-ul funcționează; este un strat de contract/documentație folosit acum de Present Simple și Present Continuous.
 ### `src/modules/**` (FEATURES / MODULES)
 
 #### Tenses
@@ -165,3 +179,19 @@ Proiectul include un script de verificare boundary:
 - `npm run guard:core-boundaries`
 
 Acesta verifică faptul că `src/core/**` nu importă nimic din `src/modules/**`.
+
+## TenseKit v1 (contract folder)
+
+Sprint 2 a introdus un folder dedicat pentru contractul unui timp verbal:
+
+- `src/tense-kit/tense-schema.js` – tipuri de bază + `defineTenseKit`
+- `src/tense-kit/tense-manifest.js` – helper pentru manifest (`defineTenseManifest`)
+- `src/tense-kit/tense-rooms-schema.js` – helper pentru registrul de camere (`defineTenseRooms`)
+- `src/tense-kit/tense-theory-schema.js` – helper pentru teoria pe ramuri (`defineTenseTheory`)
+- `src/tense-kit/tense-theme.js` – helper pentru metadata de theming (`defineTenseTheme`)
+- `src/tense-kit/index.js` – entrypoint care re‑exportă tot + `createTenseModule` din `src/core/tense/tense-kit.js`
+
+Important:
+- Nicio rută nu depinde încă direct de aceste helpers.
+- Present Simple și Present Continuous continuă să funcționeze pe arhitectura existentă.
+- TenseKit devine sursa unică de „adevăr” pentru forma unui modul de timp (manifest, rooms, theory, theme) în sprinturile următoare.

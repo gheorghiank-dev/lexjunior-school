@@ -17,6 +17,7 @@ export const PRESENT_SIMPLE_USES_TITLES = [
 
 /**
  * Date comune pentru Expresii de timp
+ * – folosite în teoria Present Simple și în Overview.
  */
 export const PRESENT_SIMPLE_TIME_EXPRESSIONS = {
   every: "every day / week / month / year / weekend / Wednesday",
@@ -143,7 +144,7 @@ export function PsInterrogativeStructureBlock() {
 }
 
 /**
- * Blocul special pentru Întrebuințări (Overview).
+ * Blocul special pentru Întrebuințări (Overview + teorie Uses).
  * Layout-ul galben cu "pills" numerotate.
  */
 export function PsUsesStructureBlock() {
@@ -163,10 +164,16 @@ export function PsUsesStructureBlock() {
 }
 
 /**
- * Blocul special pentru Expresii de timp (Overview).
+ * Blocul special pentru Expresii de timp (Overview + teorie Time Expressions).
+ *
+ * Conține aceleași expresii și adverbe de frecvență, într-un layout compact
+ * cu "pills". Este sursa unică de adevăr pentru recap + teoria secțiunii 1.
  */
 export function PsTimeExpressionsStructureBlock() {
   const t = PRESENT_SIMPLE_TIME_EXPRESSIONS;
+  const frequencyLabels = PRESENT_SIMPLE_FREQUENCY_ADVERBS.map(
+    (item) => item.label,
+  ).join(", ");
 
   return (
     <div className="ps-structure-box ps-time-structure">
@@ -194,8 +201,10 @@ export function PsTimeExpressionsStructureBlock() {
         </li>
 
         <li className="ps-time-pill">
-          {t.frequencyLabel}{" "}
-          <span className="rule-highlight-emphasis">{t.frequencyAdverbs}</span>
+          <span className="rule-highlight-emphasis">
+            Adverbe de frecvență:
+          </span>{" "}
+          {frequencyLabels}
         </li>
       </ul>
     </div>

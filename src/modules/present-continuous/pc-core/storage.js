@@ -1,5 +1,5 @@
-import { createNamespacedStorage } from "../../../core/storage/namespaced-storage.js";
 import { PC_STORAGE_PREFIX } from "./config.js";
+import { createTenseStorage } from "../../tenses/core/tense-progress-kit.js";
 
-// Namespaced localStorage for Present Continuous.
-export const pcStorage = createNamespacedStorage(PC_STORAGE_PREFIX);
+// Present Continuous: namespaced storage for all PC-specific progress/theory.
+export const pcStorage = createTenseStorage(PC_STORAGE_PREFIX);

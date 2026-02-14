@@ -1,0 +1,151 @@
+/* Lex Design System tokens – extracted from global.css (Sprint 5) */
+
+:root {
+  /* variabilele vechi – rămân ca fallback */
+  --color-bg: #f8f4ff;
+  --color-surface: #ffffff;
+  --color-primary: #6b8cff;
+  --color-primary-soft: #c7d6ff;
+  --color-secondary: #ff9ecb;
+  --color-text-main: #1f2933;
+  --color-text-muted: #6b7280;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.06);
+  --radius-xl: 1.5rem;
+
+  /* Lex Design Tokens – colors */
+  --lex-color-bg-body: var(--color-bg);
+  --lex-color-bg-body-soft-pink: #ffe6f4;
+  --lex-color-bg-body-soft-blue: #e3f2ff;
+
+  --lex-color-surface-card: var(--color-surface);
+  --lex-color-surface-muted: #f9fafb;
+
+  --lex-color-primary: var(--color-primary);
+  --lex-color-primary-soft: var(--color-primary-soft);
+  --lex-color-accent-pink: #f9a8d4;
+  --lex-color-accent-hero: #c4b5fd;
+
+  --lex-color-success: #22c55e;
+  --lex-color-success-soft: rgba(34, 197, 94, 0.12);
+  --lex-color-warning: #f59e0b;
+  --lex-color-warning-soft: rgba(245, 158, 11, 0.12);
+  --lex-color-danger: #ef4444;
+  --lex-color-danger-soft: rgba(239, 68, 68, 0.12);
+
+  --lex-color-text-main: var(--color-text-main);
+  --lex-color-text-muted: var(--color-text-muted);
+  --lex-color-text-on-primary: #312e81;
+  --lex-color-text-on-success: #14532d;
+
+  /* Radii */
+  --lex-radius-card: var(--radius-xl);
+  --lex-radius-pill: 999px;
+  --lex-radius-chip: 14px;
+
+  /* Shadows */
+  --lex-shadow-card: var(--shadow-soft);
+  --lex-shadow-button: 0 10px 30px rgba(15, 23, 42, 0.12);
+  --lex-shadow-elevated: 0 32px 80px rgba(15, 23, 42, 0.16);
+
+  /* Spacing */
+  --lex-spacing-xs: 0.25rem;
+  --lex-spacing-sm: 0.5rem;
+  --lex-spacing-md: 0.75rem;
+  --lex-spacing-lg: 1rem;
+  --lex-spacing-xl: 1.5rem;
+  --lex-spacing-2xl: 2rem;
+
+  /* Typography scale – pentru mai târziu */
+  --lex-font-size-page-title: 2.1rem;
+  --lex-font-size-page-subtitle: 1rem;
+  --lex-font-size-card-title: 1.05rem;
+  --lex-font-size-card-description: 0.9rem;
+  --lex-font-size-meta: 0.8rem;
+
+  /* Hub buttons – CTA pentru cardurile de navigație (Grammar hub / Tenses / Present Simple hub) */
+  --lex-color-hub-cta-start: #6b8cff; /* albastru-mov Lex */
+  --lex-color-hub-cta-end: #c4b5fd; /* mov-liliac pastel */
+
+  /* Present Simple – Color Coding System v1 (ambient only) */
+  --ps-present-bg: #fff7d6; /* galben foarte soft (timpul: Present) */
+  --ps-present-glow: rgba(
+    245,
+    158,
+    11,
+    0.14
+  ); /* glow discret (accent: Simple) */
+  --ps-simple-accent: #f59e0b; /* portocaliu (nefolosit încă pentru UI) */
+
+  /* Lex Theme – semantic UI tokens (themeable) */
+  --lex-header-bg: linear-gradient(
+    to bottom,
+    rgba(248, 244, 255, 0.94),
+    rgba(248, 244, 255, 0.88),
+    rgba(248, 244, 255, 0.75)
+  );
+  --lex-header-border: 1px solid rgba(148, 163, 184, 0.25);
+
+  /* Buttons */
+  --lex-btn-primary-bg: linear-gradient(
+    135deg,
+    var(--lex-color-accent-hero),
+    var(--lex-color-accent-pink)
+  );
+  --lex-btn-primary-color: var(--lex-color-text-on-primary);
+  --lex-btn-primary-shadow: 0 10px 25px rgba(192, 132, 252, 0.28);
+
+  --lex-btn-soft-bg: linear-gradient(
+    135deg,
+    var(--lex-color-primary-soft),
+    #f5d0fe
+  );
+  --lex-btn-soft-color: var(--lex-color-text-on-primary);
+  --lex-btn-soft-shadow: 0 10px 25px rgba(129, 140, 248, 0.25);
+
+  --lex-btn-outline-bg: linear-gradient(135deg, #bbf7d0, #fef9c3);
+  --lex-btn-outline-color: var(--lex-color-text-on-success);
+  --lex-btn-outline-shadow: 0 10px 25px rgba(34, 197, 94, 0.18);
+
+  --lex-btn-hub-bg: linear-gradient(
+    135deg,
+    var(--lex-color-hub-cta-start),
+    var(--lex-color-hub-cta-end)
+  );
+  --lex-btn-hub-color: var(--lex-color-text-on-primary);
+  --lex-btn-hub-shadow: 0 10px 25px rgba(129, 140, 248, 0.25);
+
+  /* Chips / small buttons (Retry for key, etc.) */
+  --lex-chip-border: 1px solid var(--color-primary-soft);
+  --lex-chip-bg: #f1f5ff;
+  --lex-chip-bg-hover: #e0e7ff;
+  --lex-chip-color: inherit;
+
+  /* Rune buttons */
+  --lex-accent-soft: #e0e7ff;
+  --lex-accent-soft-stronger: #c7d2fe;
+  --lex-focus-outline: 2px solid #4f46e5;
+
+  /* Sentence builder */
+  --lex-sb-zone-border: 2px dashed #c7d2fe;
+  --lex-sb-zone-bg: rgba(239, 246, 255, 0.85);
+  --lex-sb-token-border: 1px solid #4f46e5;
+  --lex-sb-token-bg: #eef2ff;
+  --lex-sb-token-bg-hover: #e0e7ff;
+  --lex-sb-token-color: inherit;
+
+  /* Matching */
+  --lex-matching-row-bg: #eef2ff;
+  --lex-matching-row-border: 2px dashed #c7d2fe;
+  --lex-matching-slot-border: 2px dashed #c7d2fe;
+  --lex-matching-slot-bg: rgba(239, 246, 255, 0.85);
+  --lex-matching-slot-bg-hover: var(--lex-matching-slot-bg);
+
+  /* Present Simple – structure box (Affirmative theory) */
+  --lex-ps-structure-bg: linear-gradient(
+    135deg,
+    rgba(199, 214, 255, 0.35),
+    rgba(244, 219, 255, 0.4)
+  );
+  --lex-ps-structure-border: 1px solid rgba(129, 140, 248, 0.16);
+}
+

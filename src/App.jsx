@@ -1,13 +1,14 @@
 import React from "react";
 import { Routes, Route, Navigate, useLocation, Link } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import GrammarPage from "./pages/grammar/GrammarPage";
-import TensesPage from "./pages/tenses/TensesPage";
-import { getTenseRouteEntries, getTenseThemeClassForPath, getDefaultBrandAvatarSrc } from "./modules/tenses/registry.js";
+import {
+  getTenseThemeClassForPath,
+  getDefaultBrandAvatarSrc,
+} from "./core/manifest/tense-registry.js";
+import { createAppRoutes } from "./core/routing/createAppRoutes.jsx";
 import { getAppNavItems } from "./modules/app-nav/registry.js";
 import GlobalPasswordGate from "./access/passwords/GlobalPasswordGate.jsx";
 import TensePasswordGate from "./access/passwords/TensePasswordGate.jsx";
-import PsCopyrightFooter from "./modules/present-simple/components/PsCopyrightFooter.jsx";
+import LexCopyrightFooter from "./components/LexCopyrightFooter.jsx";
 
 function AppHeader() {
   const location = useLocation();
@@ -25,10 +26,7 @@ function AppHeader() {
       <div className="app-header-inner">
         <Link to="/" className="brand-mark">
           <div className="brand-avatar">
-            <img
-              src={getDefaultBrandAvatarSrc()}
-              alt="Lex Junior avatar"
-            />
+            <img src={getDefaultBrandAvatarSrc()} alt="Lex Junior avatar" />
           </div>
           <div className="brand-title">
             <span className="brand-title-main">Lex Junior English Lab</span>
@@ -75,7 +73,7 @@ function AppHeader() {
 export default function App() {
   const location = useLocation();
   const themeClass = getTenseThemeClassForPath(location.pathname);
-  const tenseRoutes = getTenseRouteEntries();
+  const appRoutes = createAppRoutes();
 
   return (
     <GlobalPasswordGate>
@@ -83,26 +81,28 @@ export default function App() {
         <AppHeader />
         <main className="app-main">
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/grammar" element={<GrammarPage />} />
-            <Route path="/grammar/tenses" element={<TensesPage />} />
+            {appRoutes.map((r) => {
+              if (r.tenseId) {
+                return (
+                  <Route
+                    key={r.path}
+                    path={r.path}
+                    element={
+                      <TensePasswordGate tenseId={r.tenseId}>
+                        {r.element}
+                      </TensePasswordGate>
+                    }
+                  />
+                );
+              }
 
-            {tenseRoutes.map((r) => (
-              <Route
-                key={r.path}
-                path={r.path}
-                element={
-                  <TensePasswordGate tenseId={r.tenseId}>
-                    {r.element}
-                  </TensePasswordGate>
-                }
-              />
-            ))}
+              return <Route key={r.path} path={r.path} element={r.element} />;
+            })}
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
 
-          <PsCopyrightFooter />
+          <LexCopyrightFooter />
         </main>
       </div>
     </GlobalPasswordGate>
