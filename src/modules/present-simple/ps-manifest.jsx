@@ -17,7 +17,7 @@ import { PS_AFFIRMATIVE_ROOMS } from "./rooms/ps-affirmative-rooms.jsx";
 import { PS_NEGATIVE_ROOMS } from "./rooms/ps-negative-rooms.jsx";
 import { PS_INTERROGATIVE_ROOMS } from "./rooms/ps-interrogative-rooms.jsx";
 import { PS_USES_ROOMS } from "./rooms/ps-uses-rooms.jsx";
-import { PS_TIME_EXPRESSIONS_ROOMS } from "./rooms/ps-time-expressions-rooms.jsx";
+import { PS_TIMEEXPRESSIONS_ROOMS } from "./rooms/ps-time-expressions-rooms.jsx";
 
 import {
   presentSimpleAffirmativeLexHints,
@@ -120,7 +120,7 @@ const PS_ROOM_REGISTRIES = {
   negative: PS_NEGATIVE_ROOMS,
   interrogative: PS_INTERROGATIVE_ROOMS,
   uses: PS_USES_ROOMS,
-  "time-expressions": PS_TIME_EXPRESSIONS_ROOMS,
+  timeexpressions: PS_TIMEEXPRESSIONS_ROOMS,
 };
 
 /**

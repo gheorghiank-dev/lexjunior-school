@@ -118,7 +118,7 @@ const PC_ROOM_REGISTRIES = {
   negative: PC_NEGATIVE_ROOMS,
   interrogative: PC_INTERROGATIVE_ROOMS,
   uses: PC_USES_ROOMS,
-  "time-expressions": PC_TIMEEXPRESSIONS_ROOMS,
+  timeexpressions: PC_TIMEEXPRESSIONS_ROOMS,
 };
 
 const PC_HINTS_REGISTRY = {
