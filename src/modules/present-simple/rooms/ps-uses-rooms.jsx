@@ -1,29 +1,9 @@
-// Present Simple > Uses content registry
-// Sprint 16: start moving *content* (exercises, dictionaries, intros, messages) out of page files.
-//
-// Guardrails:
-// - NO UX / gating / keys changes
-// - keep templates intact (PsRoomTemplateV1 renders the same)
+import { PS_ROOMS_PER_SECTION, PS_SECTIONS } from "../pS-core/config.js";
 
-import React from "react";
-import { Link } from "react-router-dom";
 
-import { psMapPath } from "../ps-paths.js";
+export const PS_USES_EXERCISES_BY_ROOM = {
 
-import { McqExerciseList } from "../../../shared/exercises/McqExerciseList.jsx";
-import { CheckboxExerciseList } from "../../../shared/exercises/CheckboxExerciseList.jsx";
-import { GapSentenceExerciseList } from "../../../shared/exercises/GapSentenceExerciseList.jsx";
-
-import { presentSimpleUsesLexHints as usesLexHints } from "../../lex-hints/present-simple/index.js";
-
-import { validateRoomRegistry } from "../../../core/registry/validate-room-registry.js";
-
-import { RuneTranslationExerciseList } from "../components/RuneTranslationExerciseList.jsx";
-
-const SECTION_ID = "uses";
-
-// Room 1
-const USES_ROOM_1_EXERCISES = [
+1: [
   {
     id: 1,
     prompt: "The museum opens at 9 a.m.",
@@ -184,108 +164,10 @@ const USES_ROOM_1_EXERCISES = [
     correct: "R",
     tts: "My dad drinks coffee every morning.",
   },
-];
-
-const USES_ROOM_1_GLOSSARY_ITEMS = [
-  {
-    tts: "museum",
-    word: "museum",
-    meaning: "muzeu",
-  },
-  {
-    tts: "opens",
-    word: "opens",
-    meaning: "se deschide",
-  },
-  {
-    tts: "play tennis",
-    word: "play tennis",
-    meaning: "a juca tenis",
-  },
-  {
-    tts: "brother",
-    word: "brother",
-    meaning: "frate",
-  },
-  {
-    tts: "lives",
-    word: "lives",
-    meaning: "locuiește",
-  },
-  {
-    tts: "Madrid",
-    word: "Madrid",
-    meaning: "Madrid",
-  },
-  {
-    tts: "usually",
-    word: "usually",
-    meaning: "de obicei",
-  },
-  {
-    tts: "walks to work",
-    word: "walks to work",
-    meaning: "merge pe jos la serviciu",
-  },
-  {
-    tts: "train",
-    word: "train",
-    meaning: "tren",
-  },
-  {
-    tts: "leaves",
-    word: "leaves",
-    meaning: "pleacă",
-  },
-  {
-    tts: "get up",
-    word: "get up",
-    meaning: "a se trezi",
-  },
-  {
-    tts: "o'clock",
-    word: "o'clock",
-    meaning: "fix (ora exactă)",
-  },
-  {
-    tts: "film",
-    word: "film",
-    meaning: "film",
-  },
-  {
-    tts: "starts",
-    word: "starts",
-    meaning: "începe",
-  },
-  {
-    tts: "have English",
-    word: "have English",
-    meaning: "a avea ora de engleză",
-  },
-  {
-    tts: "on Mondays",
-    word: "on Mondays",
-    meaning: "în zilele de luni",
-  },
-  {
-    tts: "every day",
-    word: "every day",
-    meaning: "în fiecare zi",
-  },
-  {
-    tts: "drinks coffee",
-    word: "drinks coffee",
-    meaning: "bea cafea",
-  },
-  {
-    tts: "every morning",
-    word: "every morning",
-    meaning: "în fiecare dimineață",
-  },
-];
+],
 
 // Room 2
-const USES_ROOM_2_EXERCISES = [
+2: [
   {
     id: 1,
     prompt: "Water boils at 100°C.",
@@ -346,108 +228,10 @@ const USES_ROOM_2_EXERCISES = [
     correct: "true",
     tts: "The Sun rises in the east.",
   },
-];
-
-const USES_ROOM_2_GLOSSARY_ITEMS = [
-  {
-    tts: "water",
-    word: "water",
-    meaning: "apă",
-  },
-  {
-    tts: "boils",
-    word: "boils",
-    meaning: "fierbe",
-  },
-  {
-    tts: "orbits",
-    word: "orbits",
-    meaning: "se învârte în jurul",
-  },
-  {
-    tts: "the Sun",
-    word: "the Sun",
-    meaning: "Soarele",
-  },
-  {
-    tts: "works in a bank",
-    word: "works in a bank",
-    meaning: "lucrează într-o bancă",
-  },
-  {
-    tts: "cats",
-    word: "cats",
-    meaning: "pisici",
-  },
-  {
-    tts: "have four legs",
-    word: "have four legs",
-    meaning: "au patru picioare",
-  },
-  {
-    tts: "We live in Bucharest.",
-    word: "We live in Bucharest",
-    meaning: "noi locuim în București",
-  },
-  {
-    tts: "metal",
-    word: "metal",
-    meaning: "metal",
-  },
-  {
-    tts: "expands",
-    word: "expands",
-    meaning: "se dilată",
-  },
-  {
-    tts: "when it is heated",
-    word: "when it is heated",
-    meaning: "când este încălzit",
-  },
-  {
-    tts: "children",
-    word: "children",
-    meaning: "copiii",
-  },
-  {
-    tts: "need sleep",
-    word: "need sleep",
-    meaning: "au nevoie de somn",
-  },
-  {
-    tts: "to grow",
-    word: "to grow",
-    meaning: "ca să crească",
-  },
-  {
-    tts: "studies French",
-    word: "studies French",
-    meaning: "studiază franceza",
-  },
-  {
-    tts: "on Mondays",
-    word: "on Mondays",
-    meaning: "în zilele de luni",
-  },
-  {
-    tts: "sugar",
-    word: "sugar",
-    meaning: "zahărul",
-  },
-  {
-    tts: "dissolves in water",
-    word: "dissolves in water",
-    meaning: "se dizolvă în apă",
-  },
-  {
-    tts: "rises in the east",
-    word: "rises in the east",
-    meaning: "răsare la est",
-  },
-];
+],
 
 // Room 3
-const USES_ROOM_3_EXERCISES = [
+3: [
   {
     id: 1,
     template: "The train [gap] at 6:30.\n            (to leave)",
@@ -509,93 +293,10 @@ const USES_ROOM_3_EXERCISES = [
     correct: "arrives",
     tts: "The train arrives at platform 4 at 7:10.",
   },
-];
-
-const USES_ROOM_3_GLOSSARY_ITEMS = [
-  {
-    tts: "train",
-    word: "train",
-    meaning: "tren",
-  },
-  {
-    tts: "leave",
-    word: "leave",
-    meaning: "a pleca",
-  },
-  {
-    tts: "start",
-    word: "start",
-    meaning: "a începe",
-  },
-  {
-    tts: "begin",
-    word: "begin",
-    meaning: "a începe",
-  },
-  {
-    tts: "museum",
-    word: "museum",
-    meaning: "muzeu",
-  },
-  {
-    tts: "open",
-    word: "open",
-    meaning: "a deschide",
-  },
-  {
-    tts: "close",
-    word: "close",
-    meaning: "a închide",
-  },
-  {
-    tts: "bus",
-    word: "bus",
-    meaning: "autobuz",
-  },
-  {
-    tts: "shop",
-    word: "shop",
-    meaning: "magazin",
-  },
-  {
-    tts: "land",
-    word: "land",
-    meaning: "a ateriza",
-  },
-  {
-    tts: "arrive",
-    word: "arrive",
-    meaning: "a sosi",
-  },
-  {
-    tts: "at quarter past seven",
-    word: "at quarter past seven",
-    meaning: "la și un sfert",
-  },
-  {
-    tts: "at ten o’clock",
-    word: "at ten o’clock",
-    meaning: "la ora zece fix",
-  },
-  {
-    tts: "on Sundays",
-    word: "on Sundays",
-    meaning: "duminica",
-  },
-  {
-    tts: "tomorrow morning",
-    word: "tomorrow morning",
-    meaning: "mâine dimineață",
-  },
-  {
-    tts: "every day",
-    word: "every day",
-    meaning: "în fiecare zi",
-  },
-];
+],
 
 // Room 4
-const USES_ROOM_4_EXERCISES = [
+4: [
   {
     id: 1,
     prompt: "They live in Cluj.",
@@ -656,108 +357,10 @@ const USES_ROOM_4_EXERCISES = [
     correct: "true",
     tts: "They own a small café in town.",
   },
-];
-
-const USES_ROOM_4_GLOSSARY_ITEMS = [
-  {
-    tts: "live",
-    word: "live",
-    meaning: "a locui",
-  },
-  {
-    tts: "stay",
-    word: "stay",
-    meaning: "a sta / a rămâne temporar",
-  },
-  {
-    tts: "work",
-    word: "work",
-    meaning: "a lucra",
-  },
-  {
-    tts: "visit",
-    word: "visit",
-    meaning: "a vizita",
-  },
-  {
-    tts: "have",
-    word: "have",
-    meaning: "a avea",
-  },
-  {
-    tts: "believe",
-    word: "believe",
-    meaning: "a crede",
-  },
-  {
-    tts: "wear",
-    word: "wear",
-    meaning: "a purta",
-  },
-  {
-    tts: "study",
-    word: "study",
-    meaning: "a studia",
-  },
-  {
-    tts: "own",
-    word: "own",
-    meaning: "a deține",
-  },
-  {
-    tts: "hotel",
-    word: "hotel",
-    meaning: "hotel",
-  },
-  {
-    tts: "mountains",
-    word: "mountains",
-    meaning: "munți",
-  },
-  {
-    tts: "cousins",
-    word: "cousins",
-    meaning: "veri / verișori",
-  },
-  {
-    tts: "house in the country",
-    word: "house in the country",
-    meaning: "casă la țară",
-  },
-  {
-    tts: "project",
-    word: "project",
-    meaning: "proiect",
-  },
-  {
-    tts: "uniform",
-    word: "uniform",
-    meaning: "uniformă",
-  },
-  {
-    tts: "medical university",
-    word: "medical university",
-    meaning: "universitate de medicină",
-  },
-  {
-    tts: "café in town",
-    word: "café in town",
-    meaning: "cafenea în oraș",
-  },
-  {
-    tts: "every summer",
-    word: "every summer",
-    meaning: "în fiecare vară",
-  },
-  {
-    tts: "every winter",
-    word: "every winter",
-    meaning: "în fiecare iarnă",
-  },
-];
+],
 
 // Room 5
-const USES_ROOM_5_EXERCISES = [
+5: [
   {
     id: 1,
     prompt: "First you cut the onions.",
@@ -958,103 +561,10 @@ const USES_ROOM_5_EXERCISES = [
     correct: "⭐ Alt tip",
     tts: "He lives near the station.",
   },
-];
-
-const USES_ROOM_5_GLOSSARY_ITEMS = [
-  {
-    tts: "cut",
-    word: "cut",
-    meaning: "a tăia",
-  },
-  {
-    tts: "add",
-    word: "add",
-    meaning: "a adăuga",
-  },
-  {
-    tts: "stir",
-    word: "stir",
-    meaning: "a amesteca",
-  },
-  {
-    tts: "heat",
-    word: "heat",
-    meaning: "a încălzi",
-  },
-  {
-    tts: "go straight ahead",
-    word: "go straight ahead",
-    meaning: "a merge drept înainte",
-  },
-  {
-    tts: "turn left",
-    word: "turn left",
-    meaning: "a face la stânga",
-  },
-  {
-    tts: "cross the bridge",
-    word: "cross the bridge",
-    meaning: "a traversa podul",
-  },
-  {
-    tts: "take the second street",
-    word: "take the second street",
-    meaning: "a o lua pe a doua stradă",
-  },
-  {
-    tts: "cook dinner",
-    word: "cook dinner",
-    meaning: "a găti cina",
-  },
-  {
-    tts: "leave",
-    word: "leave",
-    meaning: "a pleca",
-  },
-  {
-    tts: "live",
-    word: "live",
-    meaning: "a locui",
-  },
-  {
-    tts: "onions",
-    word: "onions",
-    meaning: "cepe",
-  },
-  {
-    tts: "tomatoes",
-    word: "tomatoes",
-    meaning: "roșii",
-  },
-  {
-    tts: "oven",
-    word: "oven",
-    meaning: "cuptor",
-  },
-  {
-    tts: "bridge",
-    word: "bridge",
-    meaning: "pod",
-  },
-  {
-    tts: "museum",
-    word: "museum",
-    meaning: "muzeu",
-  },
-  {
-    tts: "platform",
-    word: "platform",
-    meaning: "peron",
-  },
-  {
-    tts: "station",
-    word: "station",
-    meaning: "gară",
-  },
-];
+],
 
 // Room 6
-const USES_ROOM_6_EXERCISES = [
+6: [
   {
     id: 1,
     prompt: "The bus leaves at 7:45.",
@@ -1295,11 +805,540 @@ const USES_ROOM_6_EXERCISES = [
     correct: "🏠 Situatii permanente",
     tts: "My cousin always forgets my birthday.",
   },
-];
+],
 
-const USES_ROOM_6_GLOSSARY_ITEMS = [
+// Room 7
+7: [
+  {
+    id: 1,
+    native: "Trenul pleacă la ora 7.",
+    hint: "Este un program fix.",
+    correct: "the train leaves at 7 o'clock.",
+    tts: null,
+  },
+  {
+    id: 2,
+    native: "Noi locuim în București.",
+    hint: "Este o situație permanentă.",
+    correct: "we live in bucharest.",
+    tts: null,
+  },
+  {
+    id: 3,
+    native: "Apa fierbe la 100 de grade.",
+    hint: "Este un adevăr general.",
+    correct: "water boils at 100 degrees.",
+    tts: null,
+  },
+  {
+    id: 4,
+    native: "El se trezește la ora 6 în fiecare zi.",
+    hint: "Este o rutină.",
+    correct: "he gets up at 6 o'clock every day.",
+    tts: null,
+  },
+  {
+    id: 5,
+    native: "Filmul începe la ora 9 seara.",
+    hint: "Este un program fix.",
+    correct: "the film begins at 9 o'clock in the evening.",
+    tts: null,
+  },
+  {
+    id: 6,
+    native: "Ei merg la bunici duminica.",
+    hint: "Este o rutină.",
+    correct: "they go to their grandparents on sundays.",
+    tts: null,
+  },
+  {
+    id: 7,
+    native: "Școala se deschide la ora 8.",
+    hint: "Este un program fix.",
+    correct: "school opens at 8 o'clock.",
+    tts: null,
+  },
+  {
+    id: 8,
+    native: "Cartea povestește viața unui tânăr doctor.",
+    hint: "Este o recenzie.",
+    correct: "the book tells the story of a young doctor.",
+    tts: null,
+  },
+  {
+    id: 9,
+    native: "Ei lucrează într-un spital.",
+    hint: "Este o situație permanentă.",
+    correct: "they work in a hospital.",
+    tts: null,
+  },
+  {
+    id: 10,
+    native: "Serialul urmărește viața a patru prieteni.",
+    hint: "Este o recenzie.",
+    correct: "the series follows the life of four friends.",
+    tts: null,
+  },
+],
+};
+
+export function getPsUsesExercises(roomNumber) {
+  return PS_USES_EXERCISES_BY_ROOM[roomNumber] ?? [];
+}
+
+const PS_USES_GLOSSARY_BY_ROOM = {
+  1: [{  
+    tts: "museum",
+    word: "museum",
+    meaning: "muzeu",
+  },
+  {
+    tts: "opens",
+    word: "opens",
+    meaning: "se deschide",
+  },
+  {
+    tts: "play tennis",
+    word: "play tennis",
+    meaning: "a juca tenis",
+  },
+  {
+    tts: "brother",
+    word: "brother",
+    meaning: "frate",
+  },
+  {
+    tts: "lives",
+    word: "lives",
+    meaning: "locuiește",
+  },
+  {
+    tts: "Madrid",
+    word: "Madrid",
+    meaning: "Madrid",
+  },
+  {
+    tts: "usually",
+    word: "usually",
+    meaning: "de obicei",
+  },
+  {
+    tts: "walks to work",
+    word: "walks to work",
+    meaning: "merge pe jos la serviciu",
+  },
+  {
+    tts: "train",
+    word: "train",
+    meaning: "tren",
+  },
+  {
+    tts: "leaves",
+    word: "leaves",
+    meaning: "pleacă",
+  },
+  {
+    tts: "get up",
+    word: "get up",
+    meaning: "a se trezi",
+  },
+  {
+    tts: "o'clock",
+    word: "o'clock",
+    meaning: "fix (ora exactă)",
+  },
+  {
+    tts: "film",
+    word: "film",
+    meaning: "film",
+  },
+  {
+    tts: "starts",
+    word: "starts",
+    meaning: "începe",
+  },
+  {
+    tts: "have English",
+    word: "have English",
+    meaning: "a avea ora de engleză",
+  },
+  {
+    tts: "on Mondays",
+    word: "on Mondays",
+    meaning: "în zilele de luni",
+  },
+  {
+    tts: "every day",
+    word: "every day",
+    meaning: "în fiecare zi",
+  },
+  {
+    tts: "drinks coffee",
+    word: "drinks coffee",
+    meaning: "bea cafea",
+  },
+  {
+    tts: "every morning",
+    word: "every morning",
+    meaning: "în fiecare dimineață"}],
+
+  2: [{ tts: "water",
+    word: "water",
+    meaning: "apă",
+  },
+  {
+    tts: "boils",
+    word: "boils",
+    meaning: "fierbe",
+  },
+  {
+    tts: "orbits",
+    word: "orbits",
+    meaning: "se învârte în jurul",
+  },
+  {
+    tts: "the Sun",
+    word: "the Sun",
+    meaning: "Soarele",
+  },
+  {
+    tts: "works in a bank",
+    word: "works in a bank",
+    meaning: "lucrează într-o bancă",
+  },
+  {
+    tts: "cats",
+    word: "cats",
+    meaning: "pisici",
+  },
+  {
+    tts: "have four legs",
+    word: "have four legs",
+    meaning: "au patru picioare",
+  },
+  {
+    tts: "We live in Bucharest.",
+    word: "We live in Bucharest",
+    meaning: "noi locuim în București",
+  },
+  {
+    tts: "metal",
+    word: "metal",
+    meaning: "metal",
+  },
+  {
+    tts: "expands",
+    word: "expands",
+    meaning: "se dilată",
+  },
+  {
+    tts: "when it is heated",
+    word: "when it is heated",
+    meaning: "când este încălzit",
+  },
+  {
+    tts: "children",
+    word: "children",
+    meaning: "copiii",
+  },
+  {
+    tts: "need sleep",
+    word: "need sleep",
+    meaning: "au nevoie de somn",
+  },
+  {
+    tts: "to grow",
+    word: "to grow",
+    meaning: "ca să crească",
+  },
+  {
+    tts: "studies French",
+    word: "studies French",
+    meaning: "studiază franceza",
+  },
+  {
+    tts: "on Mondays",
+    word: "on Mondays",
+    meaning: "în zilele de luni",
+  },
+  {
+    tts: "sugar",
+    word: "sugar",
+    meaning: "zahărul",
+  },
+  {
+    tts: "dissolves in water",
+    word: "dissolves in water",
+    meaning: "se dizolvă în apă",
+  },
+  {
+    tts: "rises in the east",
+    word: "rises in the east",
+    meaning: "răsare la est" }],
+
+  3: [{ tts: "train",
+    word: "train",
+    meaning: "tren",
+  },
+  {
+    tts: "leave",
+    word: "leave",
+    meaning: "a pleca",
+  },
+  {
+    tts: "start",
+    word: "start",
+    meaning: "a începe",
+  },
+  {
+    tts: "begin",
+    word: "begin",
+    meaning: "a începe",
+  },
+  {
+    tts: "museum",
+    word: "museum",
+    meaning: "muzeu",
+  },
+  {
+    tts: "open",
+    word: "open",
+    meaning: "a deschide",
+  },
+  {
+    tts: "close",
+    word: "close",
+    meaning: "a închide",
+  },
   {
     tts: "bus",
+    word: "bus",
+    meaning: "autobuz",
+  },
+  {
+    tts: "shop",
+    word: "shop",
+    meaning: "magazin",
+  },
+  {
+    tts: "land",
+    word: "land",
+    meaning: "a ateriza",
+  },
+  {
+    tts: "arrive",
+    word: "arrive",
+    meaning: "a sosi",
+  },
+  {
+    tts: "at quarter past seven",
+    word: "at quarter past seven",
+    meaning: "la și un sfert",
+  },
+  {
+    tts: "at ten o’clock",
+    word: "at ten o’clock",
+    meaning: "la ora zece fix",
+  },
+  {
+    tts: "on Sundays",
+    word: "on Sundays",
+    meaning: "duminica",
+  },
+  {
+    tts: "tomorrow morning",
+    word: "tomorrow morning",
+    meaning: "mâine dimineață",
+  },
+  {
+    tts: "every day",
+    word: "every day",
+    meaning: "în fiecare zi" }],
+
+  4: [{ tts: "live",
+    word: "live",
+    meaning: "a locui",
+  },
+  {
+    tts: "stay",
+    word: "stay",
+    meaning: "a sta / a rămâne temporar",
+  },
+  {
+    tts: "work",
+    word: "work",
+    meaning: "a lucra",
+  },
+  {
+    tts: "visit",
+    word: "visit",
+    meaning: "a vizita",
+  },
+  {
+    tts: "have",
+    word: "have",
+    meaning: "a avea",
+  },
+  {
+    tts: "believe",
+    word: "believe",
+    meaning: "a crede",
+  },
+  {
+    tts: "wear",
+    word: "wear",
+    meaning: "a purta",
+  },
+  {
+    tts: "study",
+    word: "study",
+    meaning: "a studia",
+  },
+  {
+    tts: "own",
+    word: "own",
+    meaning: "a deține",
+  },
+  {
+    tts: "hotel",
+    word: "hotel",
+    meaning: "hotel",
+  },
+  {
+    tts: "mountains",
+    word: "mountains",
+    meaning: "munți",
+  },
+  {
+    tts: "cousins",
+    word: "cousins",
+    meaning: "veri / verișori",
+  },
+  {
+    tts: "house in the country",
+    word: "house in the country",
+    meaning: "casă la țară",
+  },
+  {
+    tts: "project",
+    word: "project",
+    meaning: "proiect",
+  },
+  {
+    tts: "uniform",
+    word: "uniform",
+    meaning: "uniformă",
+  },
+  {
+    tts: "medical university",
+    word: "medical university",
+    meaning: "universitate de medicină",
+  },
+  {
+    tts: "café in town",
+    word: "café in town",
+    meaning: "cafenea în oraș",
+  },
+  {
+    tts: "every summer",
+    word: "every summer",
+    meaning: "în fiecare vară",
+  },
+  {
+    tts: "every winter",
+    word: "every winter",
+    meaning: "în fiecare iarnă" }],
+
+  5: [{ tts: "cut",
+    word: "cut",
+    meaning: "a tăia",
+  },
+  {
+    tts: "add",
+    word: "add",
+    meaning: "a adăuga",
+  },
+  {
+    tts: "stir",
+    word: "stir",
+    meaning: "a amesteca",
+  },
+  {
+    tts: "heat",
+    word: "heat",
+    meaning: "a încălzi",
+  },
+  {
+    tts: "go straight ahead",
+    word: "go straight ahead",
+    meaning: "a merge drept înainte",
+  },
+  {
+    tts: "turn left",
+    word: "turn left",
+    meaning: "a face la stânga",
+  },
+  {
+    tts: "cross the bridge",
+    word: "cross the bridge",
+    meaning: "a traversa podul",
+  },
+  {
+    tts: "take the second street",
+    word: "take the second street",
+    meaning: "a o lua pe a doua stradă",
+  },
+  {
+    tts: "cook dinner",
+    word: "cook dinner",
+    meaning: "a găti cina",
+  },
+  {
+    tts: "leave",
+    word: "leave",
+    meaning: "a pleca",
+  },
+  {
+    tts: "live",
+    word: "live",
+    meaning: "a locui",
+  },
+  {
+    tts: "onions",
+    word: "onions",
+    meaning: "cepe",
+  },
+  {
+    tts: "tomatoes",
+    word: "tomatoes",
+    meaning: "roșii",
+  },
+  {
+    tts: "oven",
+    word: "oven",
+    meaning: "cuptor",
+  },
+  {
+    tts: "bridge",
+    word: "bridge",
+    meaning: "pod",
+  },
+  {
+    tts: "museum",
+    word: "museum",
+    meaning: "muzeu",
+  },
+  {
+    tts: "platform",
+    word: "platform",
+    meaning: "peron",
+  },
+  {
+    tts: "station",
+    word: "station",
+    meaning: "gară" }],
+
+  6: [{ tts: "bus",
     word: "bus",
     meaning: "autobuz",
   },
@@ -1421,86 +1460,9 @@ const USES_ROOM_6_GLOSSARY_ITEMS = [
   {
     tts: "always",
     word: "always",
-    meaning: "întotdeauna",
-  },
-];
+    meaning: "întotdeauna" }],
 
-// Room 7
-const USES_ROOM_7_EXERCISES = [
-  {
-    id: 1,
-    native: "Trenul pleacă la ora 7.",
-    hint: "Este un program fix.",
-    correct: "the train leaves at 7 o'clock.",
-    tts: null,
-  },
-  {
-    id: 2,
-    native: "Noi locuim în București.",
-    hint: "Este o situație permanentă.",
-    correct: "we live in bucharest.",
-    tts: null,
-  },
-  {
-    id: 3,
-    native: "Apa fierbe la 100 de grade.",
-    hint: "Este un adevăr general.",
-    correct: "water boils at 100 degrees.",
-    tts: null,
-  },
-  {
-    id: 4,
-    native: "El se trezește la ora 6 în fiecare zi.",
-    hint: "Este o rutină.",
-    correct: "he gets up at 6 o'clock every day.",
-    tts: null,
-  },
-  {
-    id: 5,
-    native: "Filmul începe la ora 9 seara.",
-    hint: "Este un program fix.",
-    correct: "the film begins at 9 o'clock in the evening.",
-    tts: null,
-  },
-  {
-    id: 6,
-    native: "Ei merg la bunici duminica.",
-    hint: "Este o rutină.",
-    correct: "they go to their grandparents on sundays.",
-    tts: null,
-  },
-  {
-    id: 7,
-    native: "Școala se deschide la ora 8.",
-    hint: "Este un program fix.",
-    correct: "school opens at 8 o'clock.",
-    tts: null,
-  },
-  {
-    id: 8,
-    native: "Cartea povestește viața unui tânăr doctor.",
-    hint: "Este o recenzie.",
-    correct: "the book tells the story of a young doctor.",
-    tts: null,
-  },
-  {
-    id: 9,
-    native: "Ei lucrează într-un spital.",
-    hint: "Este o situație permanentă.",
-    correct: "they work in a hospital.",
-    tts: null,
-  },
-  {
-    id: 10,
-    native: "Serialul urmărește viața a patru prieteni.",
-    hint: "Este o recenzie.",
-    correct: "the series follows the life of four friends.",
-    tts: null,
-  },
-];
-
-const USES_ROOM_7_GLOSSARY_ITEMS = [
-  { tts: "leave", word: "leave", meaning: "a pleca" },
+  7: [{ tts: "leave", word: "leave", meaning: "a pleca" },
   { tts: "live", word: "live", meaning: "a locui" },
   { tts: "boil", word: "boil", meaning: "a fierbe" },
   { tts: "get up", word: "get up", meaning: "a se trezi" },
@@ -1538,223 +1500,33 @@ const USES_ROOM_7_GLOSSARY_ITEMS = [
   {
     tts: "the story of a young doctor",
     word: "the story of a young doctor",
-    meaning: "povestea unui tânăr doctor",
-  },
-];
-
-export const PS_USES_ROOMS = [
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 1,
-    exercises: USES_ROOM_1_EXERCISES,
-    lexHints: usesLexHints.room1,
-    ExerciseListComponent: McqExerciseList,
-    exerciseListProps: {
-      showIndex: true,
-      testIdPrefix: "ps-uses-room1",
-    },
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Bifează varianta corectă pentru fiecare propoziție.
-        </h2>
-      </>
-    ),
-
-    errorText:
-      "Mai ai câteva răspunsuri de corectat – verifică ce e marcat cu roșu.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_1_GLOSSARY_ITEMS,
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 2,
-    exercises: USES_ROOM_2_EXERCISES,
-    lexHints: usesLexHints.room2,
-    ExerciseListComponent: CheckboxExerciseList,
-    exerciseListProps: { showIndex: true },
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Bifează propozițiile care descriu adevăruri general valabile și legi
-          ale naturii.
-        </h2>
-      </>
-    ),
-
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_2_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 3,
-    exercises: USES_ROOM_3_EXERCISES,
-    lexHints: usesLexHints.room3,
-    ExerciseListComponent: GapSentenceExerciseList,
-    exerciseListProps: { showIndex: true },
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Completează spațiile libere cu forma corectă a verbului din paranteză
-        </h2>
-      </>
-    ),
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_3_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 4,
-    exercises: USES_ROOM_4_EXERCISES,
-    lexHints: usesLexHints.room4,
-    ExerciseListComponent: CheckboxExerciseList,
-    exerciseListProps: { showIndex: true },
-    verifyTestId: null,
-    feedbackTestId: null,
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Bifează propozițiile care descriu situații permanente.
-        </h2>
-      </>
-    ),
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_4_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 5,
-    exercises: USES_ROOM_5_EXERCISES,
-    lexHints: usesLexHints.room5,
-    ExerciseListComponent: McqExerciseList,
-    exerciseListProps: { showIndex: true },
-    verifyTestId: null,
-    feedbackTestId: null,
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Pentru fiecare propoziție, alege categoria corectă:
-          <br />
-          🍳 Instrucțiune, 🧭 Direcție sau ⭐ Alt tip.
-        </h2>
-      </>
-    ),
-
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_5_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Întrebuințări",
-    roomNumber: 6,
-    exercises: USES_ROOM_6_EXERCISES,
-    lexHints: usesLexHints.room6,
-    ExerciseListComponent: McqExerciseList,
-    exerciseListProps: { showIndex: true },
-    verifyTestId: null,
-    feedbackTestId: null,
-    cardIntro: (
-      <h2 className="card-title">
-        Pentru fiecare propoziție, alege categoria corectă:
-        <br />
-        🔁 Rutina, 🌍 Adevăr general, ⏰ Program fix, 🏠 Situație permanentă.
-      </h2>
-    ),
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_6_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-  {
-    sectionId: SECTION_ID,
-    sectionLabel: "Uses",
-    roomNumber: 7,
-    exercises: USES_ROOM_7_EXERCISES,
-    lexHints: usesLexHints.room7,
-    ExerciseListComponent: RuneTranslationExerciseList,
-    exerciseListProps: { showIndex: true },
-    verifyTestId: null,
-    feedbackTestId: null,
-    cardIntro: (
-      <>
-        <h2 className="card-title">
-          Tradu propozițiile din română în engleză. Folosește dicționarul pentru
-          a găsi cuvintele și expresiile potrivite.{" "}
-        </h2>
-        <p className="card-description">
-          Folosește rune magice pentru a primi un indiciu, a scrie răspunsul sau
-          a verifica propoziția, apoi apasă{" "}
-          <strong>Verifică răspunsurile</strong> pentru a obține scorul oficial.
-        </p>
-      </>
-    ),
-
-    dictionaryDescription:
-      "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea.",
-    dictionaryItems: USES_ROOM_7_GLOSSARY_ITEMS,
-    errorText: "Mai încearcă! Ai unele răspunsuri greșite.",
-    successText:
-      "Bravo! Ai completat corect toate propozițiile la această cameră!",
-  },
-];
-
-// Dev-only fail-fast validation (no runtime / UX changes in production)
-if (import.meta.env.DEV) {
-  validateRoomRegistry(PS_USES_ROOMS, {
-    registryName: "PS_USES_ROOMS",
-    sectionId: SECTION_ID,
-    expectedRoomNumbers: [1, 2, 3, 4, 5, 6, 7],
-  });
-}
-
-export function getPsUsesRoomDef(roomNumber) {
-  const idx = Number.isFinite(roomNumber) ? roomNumber - 1 : -1;
-  if (idx < 0 || idx >= PS_USES_ROOMS.length) return null;
-  return PS_USES_ROOMS[idx];
-}
-
-export function getPsUsesExercises(roomNumber) {
-  const def = getPsUsesRoomDef(roomNumber);
-  return def?.exercises ?? [];
-}
-
-const PS_USES_GLOSSARY_BY_ROOM = {
-  1: USES_ROOM_1_GLOSSARY_ITEMS,
-  2: USES_ROOM_2_GLOSSARY_ITEMS,
-  3: USES_ROOM_3_GLOSSARY_ITEMS,
-  4: USES_ROOM_4_GLOSSARY_ITEMS,
-  5: USES_ROOM_5_GLOSSARY_ITEMS,
-  6: USES_ROOM_6_GLOSSARY_ITEMS,
-  7: USES_ROOM_7_GLOSSARY_ITEMS,
+    meaning: "povestea unui tânăr doctor" }],
 };
 
 export function getPsUsesGlossaryItems(roomNumber) {
-  const items = PS_USES_GLOSSARY_BY_ROOM[roomNumber];
-  return Array.isArray(items) ? items : [];
+  return PS_USES_GLOSSARY_BY_ROOM[roomNumber] ?? [];
 }
+
+const PS_USES_SECTION_ID = "uses";
+const PS_USES_SECTION_LABEL =
+  PS_SECTIONS.find((s) => s.id === PS_USES_SECTION_ID)?.title ?? "Uses";
+
+export const PS_USES_ROOMS = Array.from({ length: PS_ROOMS_PER_SECTION }, (_, idx) => {
+  const roomNumber = idx + 1;
+  return {
+    sectionId: PS_USES_SECTION_ID,
+    sectionLabel: PS_USES_SECTION_LABEL,
+    roomNumber,
+    exercises: PS_USES_EXERCISES_BY_ROOM[roomNumber] ?? [],
+  };
+});
+
+
+
+
+
+
+
+
+
+
