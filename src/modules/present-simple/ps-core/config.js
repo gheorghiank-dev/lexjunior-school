@@ -1,7 +1,10 @@
 // Present Simple module config (canonical)
 // NOTE: Values intentionally mirror the previous src/present-simple-core/config.js.
 
-export const SECTIONS = [
+export const PS_STORAGE_PREFIX = "ps_";
+export const PS_ROOMS_PER_SECTION = 7;
+
+export const PS_SECTIONS = [
   {
     id: "affirmative",
     title: "Affirmative",
@@ -29,8 +32,9 @@ export const SECTIONS = [
   },
 ];
 
-export const ROOMS_PER_SECTION = 7;
-export const STORAGE_PREFIX = "ps_";
+export const STORAGE_PREFIX = PS_STORAGE_PREFIX;
+export const ROOMS_PER_SECTION = PS_ROOMS_PER_SECTION;
+export const SECTIONS = PS_SECTIONS;
 
 export const HUD_TEXT = {
   keyObtainedLabel: "Cheia este obtinuta.",

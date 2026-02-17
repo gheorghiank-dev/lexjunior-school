@@ -6,8 +6,8 @@ import React from "react";
 import "./ps-theme.css";
 
 import {
-  SECTIONS,
-  ROOMS_PER_SECTION,
+  PS_SECTIONS,
+  PS_ROOMS_PER_SECTION,
   STORAGE_PREFIX,
   HUD_TEXT,
 } from "./ps-core/config.js";
@@ -70,7 +70,7 @@ export function buildPresentSimpleRoutes() {
   // Generic room route renderer (one route per section, params select the room)
   const PsRoomRoute = React.lazy(() => import("./PsRoomRoute.jsx"));
 
-  for (const section of SECTIONS) {
+  for (const section of PS_SECTIONS) {
     const pages = PS_SECTION_PAGES[section.id];
     if (!pages) continue;
 
@@ -102,7 +102,7 @@ export function buildPresentSimpleRoutes() {
   return routes;
 }
 
-const PS_SECTIONS_META = SECTIONS.reduce((acc, section) => {
+const PS_SECTIONS_META = PS_SECTIONS.reduce((acc, section) => {
   acc[section.id] = {
     id: section.id,
     title: section.title,
@@ -132,7 +132,7 @@ const PS_HINTS_REGISTRY = {
   negative: presentSimpleNegativeLexHints,
   interrogative: presentSimpleInterrogativeLexHints,
   uses: presentSimpleUsesLexHints,
-  "time-expressions": presentSimpleTimeExpressionsLexHints,
+  time_expressions: presentSimpleTimeExpressionsLexHints,
   badge: presentSimpleBadgeLexHints,
 };
 
@@ -151,8 +151,8 @@ export const PRESENT_SIMPLE_MANIFEST = {
     "Teorie, 35 de camere de exerciții, cameră finală și badge. ...l Escape Room, cu Lex Junior, dicționare și butoane de listen.",
   basePath: PS_BASE_PATH,
   storagePrefix: STORAGE_PREFIX,
-  roomsPerSection: ROOMS_PER_SECTION,
-  sections: SECTIONS,
+  roomsPerSection: PS_ROOMS_PER_SECTION,
+  sections: PS_SECTIONS,
   sectionsMeta: PS_SECTIONS_META,
   roomRegistries: PS_ROOM_REGISTRIES,
   hintsRegistry: PS_HINTS_REGISTRY,
