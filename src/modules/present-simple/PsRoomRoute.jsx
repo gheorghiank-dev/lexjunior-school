@@ -1,89 +1,42 @@
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
 
+import { TenseRoomRoute } from "../tenses/ui/TenseRoomRoute.jsx";
 import { PS_BASE_PATH } from "./ps-paths.js";
+import {
+  PS_ROOMS_PER_SECTION,
+  PS_SECTIONS,
+} from "./ps-core/config.js";
+
 import PsAffirmativeRoomFromRegistry from "./PsAffirmativeRoomFromRegistry.jsx";
 import PsNegativeRoomFromRegistry from "./PsNegativeRoomFromRegistry.jsx";
 import PsInterrogativeRoomFromRegistry from "./PsInterrogativeRoomFromRegistry.jsx";
-import PsTimeExpressionsRoomFromRegistry from "./PsTimeExpressionsRoomFromRegistry.jsx";
 import PsUsesRoomFromRegistry from "./PsUsesRoomFromRegistry.jsx";
-import { PS_SECTION_PAGES } from "./ps-section-pages.jsx";
+import PsTimeExpressionsRoomFromRegistry from "./PsTimeExpressionsRoomFromRegistry.jsx";
+
+// Mapping helper by sectionId, to keep all routing in one place.
+const SECTION_COMPONENTS = {
+  affirmative: PsAffirmativeRoomFromRegistry,
+  negative: PsNegativeRoomFromRegistry,
+  interrogative: PsInterrogativeRoomFromRegistry,
+  uses: PsUsesRoomFromRegistry,
+  "time-expressions": PsTimeExpressionsRoomFromRegistry,
+};
+
+const SECTION_IDS = PS_SECTIONS.map((section) => section.id);
 
 /**
- * Generic room route renderer.
+ * Present Simple room route
  *
- * Keeps URLs stable (e.g. /present-simple/negative/room-1), while letting
- * routing be data-driven.
+ * Delegates to the generic TenseRoomRoute with Present Simple config.
  */
 export default function PsRoomRoute({ sectionId }) {
-  const { roomSlug } = useParams();
-
-  const pages = PS_SECTION_PAGES[sectionId];
-
-  // URLs are like "room-1". React Router can't do "room-:n" params, so we
-  // match the whole slug and parse it here.
-  const match = /^room-(\d+)$/.exec(roomSlug ?? "");
-  const n = match ? Number.parseInt(match[1], 10) : NaN;
-  const idx = Number.isFinite(n) ? n - 1 : -1;
-
-  // Affirmative is now rendered from content registry (Sprint G5)
-  if (sectionId === "affirmative") {
-    if (idx < 0 || idx >= 7) {
-      return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-    }
-    return (
-      <PsAffirmativeRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />
-    );
-  }
-
-  // Uses is now rendered from content registry (Sprint 16)
-  if (sectionId === "uses") {
-    if (idx < 0 || idx >= 7) {
-      return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-    }
-    return <PsUsesRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />;
-  }
-
-  // Negative is now rendered from content registry (Sprint G6)
-  if (sectionId === "negative") {
-    if (idx < 0 || idx >= 7) {
-      return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-    }
-    return (
-      <PsNegativeRoomFromRegistry key={`${sectionId}-${n}`} roomNumber={n} />
-    );
-  }
-
-  // Interrogative is now rendered from content registry (Sprint G7)
-  if (sectionId === "interrogative") {
-    if (idx < 0 || idx >= 7) {
-      return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-    }
-    return (
-      <PsInterrogativeRoomFromRegistry
-        key={`${sectionId}-${n}`}
-        roomNumber={n}
-      />
-    );
-  }
-
-  // Time Expressions is now rendered from content registry (Sprint G8)
-  if (sectionId === "time-expressions") {
-    if (idx < 0 || idx >= 7) {
-      return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-    }
-    return (
-      <PsTimeExpressionsRoomFromRegistry
-        key={`${sectionId}-${n}`}
-        roomNumber={n}
-      />
-    );
-  }
-
-  if (!pages || idx < 0 || idx >= pages.rooms.length) {
-    return <Navigate to={`${PS_BASE_PATH}/map`} replace />;
-  }
-
-  const RoomComponent = pages.rooms[idx];
-  return <RoomComponent key={`${sectionId}-${n}`} />;
+  return (
+    <TenseRoomRoute
+      basePath={PS_BASE_PATH}
+      sections={SECTION_IDS}
+      roomsPerSection={PS_ROOMS_PER_SECTION}
+      sectionComponents={SECTION_COMPONENTS}
+      sectionId={sectionId}
+    />
+  );
 }

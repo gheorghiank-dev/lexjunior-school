@@ -9,7 +9,7 @@ import {
 } from "../ps-paths.js";
 import { markTheoryCompleted } from "../ps-core/theory-progress.js";
 import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import PsTheoryCard from "../components/PsTheoryCard.jsx";
+import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
 import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
 import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
 import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
@@ -54,7 +54,7 @@ export default function PsUsesSensoryTheoryPage() {
       <TenseLexStudyTipCard />
 
       {/* Intro – cum folosești pagina senzorială */}
-      <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
+      <TenseTheoryCard style={{ marginBottom: "1.75rem" }}>
         <h2 className="card-title">Cum să folosești această pagină</h2>
         <p className="card-description">
           Aici nu repetăm regulile gramaticale clasice. În schimb, transformăm
@@ -66,7 +66,7 @@ export default function PsUsesSensoryTheoryPage() {
           imagina scena sau poți inventa propriile imagini, sunete și culori
           pentru fiecare tip de propoziție.
         </p>
-      </PsTheoryCard>
+      </TenseTheoryCard>
 
       {/* 1. Rutine și obiceiuri – senzorial, totul într-un singur card */}
       <TenseTheorySectionCard
@@ -607,7 +607,7 @@ export default function PsUsesSensoryTheoryPage() {
       </TenseTheorySectionCard>
 
       {/* Card final – Ce poți face mai departe */}
-      <PsTheoryCard>
+      <TenseTheoryCard>
         <h2 className="card-title">Ce poți face mai departe</h2>
         <p className="card-description">
           Alege una dintre întrebuințări și creează-ți propria ta scenă:
@@ -646,7 +646,7 @@ export default function PsUsesSensoryTheoryPage() {
             },
           ]}
         />
-      </PsTheoryCard>
+      </TenseTheoryCard>
     </TenseTheoryPageShell>
   );
 }

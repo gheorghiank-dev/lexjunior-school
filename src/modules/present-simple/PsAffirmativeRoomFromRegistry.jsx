@@ -1,14 +1,18 @@
 import React, { useMemo } from "react";
+
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
+
 import {
   getPsAffirmativeExercises,
   getPsAffirmativeGlossaryItems,
 } from "./rooms/ps-affirmative-rooms.jsx";
+
 import { presentSimpleAffirmativeLexHints } from "../lex-hints/present-simple/affirmative.js";
-import SharedTextInputExerciseList from "../../shared/exercises/TextInputExerciseList.jsx";
+
+import  TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
 import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
 import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
@@ -16,7 +20,7 @@ import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseLis
 export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
     () => getPsAffirmativeExercises(roomNumber),
-    [roomNumber]
+    [roomNumber],
   );
 
   if (!exercises || exercises.length === 0) {
@@ -66,7 +70,7 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   }) => {
     if (roomNumber === 1) {
       return (
-        <SharedTextInputExerciseList
+        <TextInputExerciseList
           exercises={exercises}
           answers={answers}
           feedback={feedback}
@@ -119,7 +123,7 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
 
     // Fallback – should not be hit, but keeps the shell safe.
     return (
-      <SharedTextInputExerciseList
+      <TextInputExerciseList
         exercises={exercises}
         answers={answers}
         feedback={feedback}

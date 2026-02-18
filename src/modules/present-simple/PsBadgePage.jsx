@@ -4,7 +4,7 @@ import { normalizeAnswer } from "./ps-core/normalize-answer.js";
 import { DEV_MODE } from "./ps-core/config.js";
 import { progressManager } from "./ps-core/progress-manager.js";
 import { storage } from "./ps-core/storage.js";
-import { PsMiniDictionaryCard } from "./components/PsMiniDictionaryCard.jsx";
+import { TenseMiniDictionaryCard } from "../tenses/ui/TenseMiniDictionaryCard.jsx";
 import PsRoomTemplateV1 from "./components/PsRoomTemplateV1.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import "../../styles/badge.css";
@@ -849,7 +849,7 @@ export default function PsBadgePage() {
               mobil).
             </p>
 
-            <PsMiniDictionaryCard
+            <TenseMiniDictionaryCard
               description="Citește cuvintele și expresiile de mai jos, ascultă pronunția cu 🔊 și folosește-le ca ajutor pentru poveste."
               items={badgeMiniDictionaryItems}
             />

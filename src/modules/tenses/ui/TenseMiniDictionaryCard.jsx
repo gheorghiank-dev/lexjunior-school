@@ -16,6 +16,13 @@ export function TenseMiniDictionaryCard({ description, items }) {
     return null;
   }
 
+    // Sort items alphabetically by word (case-insensitive), without mutating input.
+  const sortedItems = [...items].sort((a, b) =>
+    String(a?.word ?? "").localeCompare(String(b?.word ?? ""), "en", {
+      sensitivity: "base",
+    }),
+  );
+
   const itemCount = items.length;
   const summaryLabel =
     itemCount === 1 ? "1 cuvânt în dicționar" : `${itemCount} cuvinte în dicționar`;
@@ -56,7 +63,7 @@ export function TenseMiniDictionaryCard({ description, items }) {
         )}
 
         <ul className="mini-dictionary-card__list">
-          {items.map((item) => (
+          {sortedItems.map((item) => (
             <li key={item.word} className="glossary__item">
               <button
                 type="button"

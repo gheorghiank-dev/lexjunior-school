@@ -6,7 +6,7 @@ import { psRoomPath, psTheoryPath } from "../ps-paths.js";
 
 import PsExerciseActions from "./PsExerciseActions.jsx";
 import PsResultSummary from "./PsResultSummary.jsx";
-import { PsMiniDictionaryCard } from "./PsMiniDictionaryCard.jsx";
+import { TenseMiniDictionaryCard } from "../../tenses/ui/TenseMiniDictionaryCard.jsx";
 import { PsRoomPageShell } from "./PsRoomPageShell.jsx";
 
 /**
@@ -67,7 +67,7 @@ function PsRoomTemplateV1Render({
   // in the exact same spot.
   const dictionaryNode =
     showDictionaryCard && Array.isArray(dictionaryItems) && dictionaryItems.length > 0 ? (
-      <PsMiniDictionaryCard
+      <TenseMiniDictionaryCard
         description={
           dictionaryDescription ??
           "Apasă pe butonul 🔊 pentru pronunție, apoi citește traducerea."

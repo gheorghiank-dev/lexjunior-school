@@ -8,7 +8,7 @@ import {
 } from "../ps-paths.js";
 import { markTheoryCompleted } from "../ps-core/theory-progress.js";
 import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import PsTheoryCard from "../components/PsTheoryCard.jsx";
+import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
 import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
 import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
 import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
@@ -295,7 +295,7 @@ export default function PsAffirmativeTheoryPage() {
       />
 
       {/* 4. Unde merg mai departe? */}
-      <PsTheoryCard>
+      <TenseTheoryCard>
         <h2 className="card-title">4. Unde merg mai departe?</h2>
         <p className="card-description">
           Când simți că regula este clară, poți începe aventura în camerele de
@@ -328,7 +328,7 @@ export default function PsAffirmativeTheoryPage() {
             },
           ]}
         />
-      </PsTheoryCard>
+      </TenseTheoryCard>
     </TenseTheoryPageShell>
   );
 }

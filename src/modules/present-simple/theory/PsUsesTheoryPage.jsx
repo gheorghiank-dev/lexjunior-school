@@ -9,7 +9,7 @@ import {
 } from "../ps-paths.js";
 import { markTheoryCompleted } from "../ps-core/theory-progress.js";
 import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import PsTheoryCard from "../components/PsTheoryCard.jsx";
+import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
 import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
 import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
 import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
@@ -57,7 +57,7 @@ export default function PsUsesTheoryPage() {
       <TenseLexStudyTipCard />
 
       {/* Intro – structură generală */}
-      <PsTheoryCard style={{ marginBottom: "1.75rem" }}>
+      <TenseTheoryCard style={{ marginBottom: "1.75rem" }}>
         <h2 className="card-title">De ce avem nevoie de „Întrebuințări”?</h2>
         <p className="card-description">
           Nu este suficient să știi cum formezi Present Simple. La fel de
@@ -74,7 +74,7 @@ export default function PsUsesTheoryPage() {
         </ul>
 
         <PsUsesStructureBlock />
-      </PsTheoryCard>
+      </TenseTheoryCard>
 
       {/* 1. Rutine și obiceiuri */}
       <TenseTheorySectionCard
@@ -442,7 +442,7 @@ export default function PsUsesTheoryPage() {
       </TenseTheorySectionCard>
 
       {/* 9. Unde merg mai departe? */}
-      <PsTheoryCard>
+      <TenseTheoryCard>
         <h2 className="card-title">Unde merg mai departe?</h2>
         <p className="card-description">
           După ce ai citit toate cele 8 întrebuințări, pune-le în practică în
@@ -480,7 +480,7 @@ export default function PsUsesTheoryPage() {
             },
           ]}
         />
-      </PsTheoryCard>
+      </TenseTheoryCard>
     </TenseTheoryPageShell>
   );
 }

@@ -8,7 +8,7 @@ import {
 } from "../ps-paths.js";
 import { markTheoryCompleted } from "../ps-core/theory-progress.js";
 import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import PsTheoryCard from "../components/PsTheoryCard.jsx";
+import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
 import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
 import TenseTheoryCommonMistakesCard from "../../tenses/ui/TenseTheoryCommonMistakesCard.jsx";
 import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
@@ -242,7 +242,7 @@ export default function PsInterrogativeTheoryPage() {
       />
 
       {/* 4. Unde merg mai departe? */}
-      <PsTheoryCard>
+      <TenseTheoryCard>
         <h2 className="card-title">4. Unde merg mai departe?</h2>
         <p className="card-description">
           Când simți că regulile pentru întrebări sunt clare, poți începe
@@ -275,7 +275,7 @@ export default function PsInterrogativeTheoryPage() {
             },
           ]}
         />
-      </PsTheoryCard>
+      </TenseTheoryCard>
     </TenseTheoryPageShell>
   );
 }
