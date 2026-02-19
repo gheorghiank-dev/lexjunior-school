@@ -3,7 +3,7 @@
 
 // Lex Junior hints pentru camerele Time Expressions (Present Simple).
 // Fiecare cameră are un set de mesaje scurte, HTML-safe,
-// folosite de PsLexJuniorPanel prin PsRoomPageShell.
+
 
 export const presentSimpleTimeExpressionsLexHints = {
   room1: [

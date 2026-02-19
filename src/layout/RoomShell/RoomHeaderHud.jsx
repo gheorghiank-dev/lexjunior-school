@@ -13,8 +13,8 @@ import RoomHud from "../../shared/components/RoomHud.jsx";
  *  - key/practice controls rendered via `actions`
  *
  * This component is meant to be used by tense-specific shells
- * (e.g. TenseRoomHeaderHud, PsRoomHeaderHud in a future refactor),
- * so that the HUD markup and behaviour stay identical across tenses.
+ * (e.g. TenseRoomHeaderHud)
+ *  * so that the HUD markup and behaviour stay identical across tenses.
  */
 export default function RoomHeaderHud({
   pageTitle,
