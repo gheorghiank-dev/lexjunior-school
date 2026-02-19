@@ -259,3 +259,106 @@
   width: 100%;
   text-align: center;
 }
+
+/* --- Exercițiul 1: sloturi corecte / greșite --- */
+
+.badge-slot {
+  border-radius: 999px;
+  border: 2px solid #dde7f0;
+  padding: 0.25rem 0.8rem;
+  background-color: #ffffff;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.badge-slot.slot-correct {
+  border-color: #2e7d32;
+  background-color: #f1f8e9;
+  color: #1b5e20;
+}
+
+.badge-slot.slot-incorrect {
+  border-color: #c62828;
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+/* --- Exercițiul 2: carduri & input-uri corecte / greșite --- */
+
+.ex2-item {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ex2-item--correct {
+  border-color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.06);
+}
+
+.ex2-item--correct .ex2-question,
+.ex2-item--correct .ex2-message {
+  color: #2e7d32;
+}
+
+.ex2-item--incorrect {
+  border-color: #c62828;
+  background-color: rgba(198, 40, 40, 0.04);
+}
+
+.ex2-item--incorrect .ex2-question,
+.ex2-item--incorrect .ex2-message {
+  color: #c62828;
+}
+
+.ex2-input--correct {
+  border-color: #2e7d32;
+  background-color: #f1f8e9;
+}
+
+.ex2-input--incorrect {
+  border-color: #c62828;
+  background-color: #ffebee;
+}
+
+/* --- Exercițiul 3: carduri & text-area corecte / greșite --- */
+
+.ex3-item {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ex3-item--correct {
+  border-color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.06);
+}
+
+.ex3-item--correct .ex3-prompt,
+.ex3-item--correct .ex3-message {
+  color: #2e7d32;
+}
+
+.ex3-item--incorrect {
+  border-color: #c62828;
+  background-color: rgba(198, 40, 40, 0.04);
+}
+
+.ex3-item--incorrect .ex3-prompt,
+.ex3-item--incorrect .ex3-message {
+  color: #c62828;
+}
+
+.ex3-textarea--correct {
+  border-color: #2e7d32;
+  background-color: #f1f8e9;
+}
+
+.ex3-textarea--incorrect {
+  border-color: #c62828;
+  background-color: #ffebee;
+}
