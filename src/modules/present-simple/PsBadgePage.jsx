@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { psTheoryPath } from "./ps-paths.js";
+import { psTheoryPath, psMapPath } from "./ps-paths.js";
 import { normalizeAnswer } from "./ps-core/normalize-answer.js";
 import { DEV_MODE } from "./ps-core/config.js";
 import { progressManager } from "./ps-core/progress-manager.js";
 import { storage } from "./ps-core/storage.js";
+import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
+import { TenseRoomPageShell } from "../tenses/ui/TenseRoomPageShell.jsx";
+import { TenseRoomDevToolsAndStatus } from "../tenses/ui/TenseRoomDevToolsAndStatus.jsx";
+import TenseLexBubble from "../tenses/ui/TenseLexBubble.jsx";
 import { TenseMiniDictionaryCard } from "../tenses/ui/TenseMiniDictionaryCard.jsx";
-import PsRoomTemplateV1 from "./components/PsRoomTemplateV1.jsx";
 import LexTtsButton from "../../shared/exercises/LexTtsButton.jsx";
 import "../../styles/badge.css";
 import "../../styles/exercises/base.css";
@@ -36,8 +39,8 @@ export default function PsBadgePage() {
   const MASTER_ANSWERS_KEY = "badge_room1_master_v1";
   const DRAFT_ANSWERS_KEY = "badge_room1_draft_v1";
 
+  // ===== HUD / progres general badge =====
   const hudRootRef = useRef(null);
-  const [badgePercent, setBadgePercent] = useState(0);
 
   const [roomState, setRoomState] = useState({
     firstAttemptScore: null,
@@ -46,20 +49,69 @@ export default function PsBadgePage() {
   });
 
   const [didInit, setDidInit] = useState(false);
-
   const [masterAnswers, setMasterAnswers] = useState(null);
 
-  useEffect(() => {
+  const [badgePercent, setBadgePercent] = useState(0);
+  const [badgeResult, setBadgeResult] = useState("");
+  const [badgeMessage, setBadgeMessage] = useState("");
+  const [badgeUnlocked, setBadgeUnlocked] = useState(false);
+
+    useEffect(() => {
     const api = hudRootRef.current?.__hudApi;
     if (!api) return;
 
+    // HUD-ul vrea un număr simplu (0–100), nu un obiect
     api.setProgress(badgePercent ?? 0);
-    api.setKeyState({ icon: "🏅", label: "Nu există cheie aici, doar badge." });
+
+    // Pentru badge nu avem cheie, doar icon + text personalizat
+    api.setKeyState({
+      icon: "🏅",
+      label: "Nu există cheie aici, doar badge.",
+    });
+
     api.showMessage(
       "Rezolvă exercițiile și apasă pe „Verifică badge-ul” ca să vezi progresul.",
       "info",
     );
   }, [badgePercent]);
+
+
+  // ===== helperi storage =====
+  const loadStoredMasterAnswers = () => {
+    try {
+      const raw = storage.get(MASTER_ANSWERS_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  };
+
+  const saveMasterAnswers = (value) => {
+    try {
+      storage.set(MASTER_ANSWERS_KEY, JSON.stringify(value));
+    } catch {
+      // ignore
+    }
+  };
+
+  const loadDraftAnswers = () => {
+    try {
+      const raw = storage.get(DRAFT_ANSWERS_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  };
+
+  const saveDraftAnswers = (value) => {
+    try {
+      storage.set(DRAFT_ANSWERS_KEY, JSON.stringify(value));
+    } catch {
+      // ignore
+    }
+  };
 
   // ===== Exercițiul 1 – povestea cu verbe (logică legacy: token pool) =====
   const shuffleList = (items) => {
@@ -77,20 +129,11 @@ export default function PsBadgePage() {
         .map((v) => (v || "").trim())
         .filter(Boolean),
     );
-    const remaining = badgeStoryConfig.verbs.filter((v) => !used.has(v));
-    return shuffleList(remaining);
+
+    return badgeStoryConfig.verbs.filter((verb) => !used.has((verb || "").trim()));
   };
 
-  // Pool-ul din dreapta: verbe unice. Când pui un verb într-un slot, dispare din pool.
-  const [verbPool, setVerbPool] = useState(() =>
-    shuffleList([...badgeStoryConfig.verbs]),
-  );
-
-  // "În mână": fie un verb din pool, fie un verb ridicat dintr-un slot.
-  // source: 'pool' | 'slot'
-  const [activePick, setActivePick] = useState(null);
-
-  // helper ca să avem rapid un array de statusuri goale
+  // starea sloturilor: ce verb este în fiecare loc
   const makeEmptyEx1Status = () => badgeStoryConfig.slotAnswers.map(() => null);
 
   const [ex1Slots, setEx1Slots] = useState(
@@ -100,6 +143,15 @@ export default function PsBadgePage() {
   const [ex1Score, setEx1Score] = useState(0);
   const [ex1Feedback, setEx1Feedback] = useState("");
 
+  // „Pool-ul” de verbe disponibile (în dreapta)
+  const [verbPool, setVerbPool] = useState(() =>
+    shuffleList(badgeStoryConfig.verbs),
+  );
+
+  // "În mână": fie un verb din pool, fie un verb ridicat dintr-un slot.
+  // source: 'pool' | 'slot'
+  const [activePick, setActivePick] = useState(null);
+
   const resetEx1Statuses = () => {
     setEx1SlotStatus(makeEmptyEx1Status());
   };
@@ -108,60 +160,60 @@ export default function PsBadgePage() {
     // orice interacțiune după "Verifică" resetează culorile
     resetEx1Statuses();
     setActivePick((prev) => {
-      // Dacă aveam un verb ridicat dintr-un slot și acum alegem din pool,
-      // îl punem înapoi în slotul lui (logică legacy).
-      if (prev && prev.source === "slot") {
-        const origin = prev.fromIndex;
-        setEx1Slots((slotsPrev) => {
-          const next = [...slotsPrev];
-          if (typeof origin === "number" && origin >= 0) {
-            if (!next[origin]) {
-              next[origin] = prev.value;
-            } else {
-              // fallback: dacă slotul a fost umplut între timp, întoarcem tokenul în pool
-              setVerbPool((poolPrev) => [...poolPrev, prev.value]);
-            }
-          } else {
-            setVerbPool((poolPrev) => [...poolPrev, prev.value]);
-          }
-          return next;
-        });
+      // Dacă aveam un verb ridicat dintr-un slot și fac click pe același verb în pool,
+      // îl "punem la loc" și renunțăm la pick.
+      if (prev && prev.source === "slot" && prev.value === verb) {
+        return null;
       }
 
-      // Toggle select pentru același verb din pool
-      if (prev && prev.source === "pool" && prev.value === verb) return null;
-      return { value: verb, source: "pool" };
+      return { source: "pool", value: verb };
     });
   };
 
   const handleSlotClick = (index) => {
-    // orice modificare după "Verifică" resetează culorile
     resetEx1Statuses();
-    // Dacă nu avem nimic selectat: click pe slot ocupat => "ridică" verbul din slot
-    if (!activePick) {
-      const current = ex1Slots[index];
-      if (!current) return;
+
+    const currentVerb = (ex1Slots[index] || "").trim();
+
+    // Dacă nu avem nimic în mână și slotul e plin -> ridicăm verbul din slot
+    if (!activePick && currentVerb) {
+      setActivePick({ source: "slot", value: currentVerb, fromIndex: index });
+
       setEx1Slots((prev) => {
         const next = [...prev];
         next[index] = "";
         return next;
       });
-      setActivePick({ value: current, source: "slot", fromIndex: index });
+
+      // Verbul se întoarce în pool
+      setVerbPool((prev) => shuffleList([...prev, currentVerb]));
       return;
     }
 
-    // Dacă avem un verb selectat din pool: îl punem în slot și îl scoatem din pool.
-    if (activePick.source === "pool") {
+    // Dacă avem un verb în mână din pool: punem verbul în slot (înlocuind ce era)
+    if (activePick && activePick.source === "pool") {
       const verb = activePick.value;
       setEx1Slots((prev) => {
         const next = [...prev];
-        const existing = next[index];
+        const previous = next[index] || "";
+
         next[index] = verb;
 
-        setVerbPool((poolPrev) => {
-          const filtered = poolPrev.filter((v) => v !== verb);
-          return existing ? [...filtered, existing] : filtered;
-        });
+        if (previous) {
+          // dacă era deja ceva în slot, se întoarce în pool
+          setVerbPool((poolPrev) => {
+            const withoutVerb = poolPrev.filter(
+              (v) => (v || "").trim() !== (verb || "").trim(),
+            );
+            return shuffleList([...withoutVerb, previous]);
+          });
+        } else {
+          setVerbPool((poolPrev) =>
+            shuffleList(
+              poolPrev.filter((v) => (v || "").trim() !== (verb || "").trim()),
+            ),
+          );
+        }
 
         return next;
       });
@@ -170,22 +222,16 @@ export default function PsBadgePage() {
     }
 
     // Dacă avem un verb ridicat dintr-un slot: mutare / swap între sloturi.
-    if (activePick.source === "slot") {
+    if (activePick && activePick.source === "slot") {
       const verb = activePick.value;
       const origin = activePick.fromIndex;
 
       setEx1Slots((prev) => {
         const next = [...prev];
-        const existing = next[index];
-        next[index] = verb;
+        const targetVerb = next[index];
 
-        if (existing) {
-          if (typeof origin === "number" && origin >= 0) {
-            next[origin] = existing;
-          } else {
-            setVerbPool((poolPrev) => [...poolPrev, existing]);
-          }
-        }
+        next[index] = verb;
+        next[origin] = targetVerb || "";
 
         return next;
       });
@@ -195,81 +241,66 @@ export default function PsBadgePage() {
   };
 
   const handleRetryEx1 = () => {
-    setActivePick(null);
     setEx1Slots(badgeStoryConfig.slotAnswers.map(() => ""));
-    setVerbPool(shuffleList([...badgeStoryConfig.verbs]));
+    setEx1SlotStatus(makeEmptyEx1Status());
     setEx1Score(0);
     setEx1Feedback("");
+    setActivePick(null);
+    setVerbPool(shuffleList(badgeStoryConfig.verbs));
   };
 
   const handleCheckEx1 = () => {
-    const correct = badgeStoryConfig.slotAnswers;
-    let score = 0;
+    const expected = badgeStoryConfig.slotAnswers || [];
+    const given = ex1Slots || [];
 
-    const statuses = correct.map((targetRaw, idx) => {
-      const userRaw = ex1Slots[idx] || "";
-      const user = userRaw.trim().toLowerCase();
-      const target = (targetRaw || "").trim().toLowerCase();
+    let correct = 0;
+    const statuses = expected.map((expectedVerb, index) => {
+      const givenVerb = (given[index] || "").trim().toLowerCase();
+      const normalizedExpected = (expectedVerb || "").trim().toLowerCase();
 
-      if (!user) {
-        return null; // slot gol -> rămâne gri
-      }
+      if (!givenVerb) return null;
 
-      if (user === target) {
-        score += 1;
-        return "correct";
-      }
-
-      return "incorrect";
+      const isOk = givenVerb === normalizedExpected;
+      if (isOk) correct += 1;
+      return isOk;
     });
 
-    setEx1Score(score);
+    const total = expected.length || 1;
+    const percent = Math.round((correct / total) * 100);
+
     setEx1SlotStatus(statuses);
-    setEx1Feedback(
-      `Scor exercițiul 1: ${score}/${badgeStoryConfig.slotAnswers.length}`,
-    );
-  };
+    setEx1Score(percent);
 
-  const getEx1SlotClassName = (index) => {
-    const status = ex1SlotStatus[index];
-    const classes = ["badge-slot", "badge-slot-btn"];
-    // păstrăm ambele, ca să prindem atât stilul vechi, cât și viitorul .badge-slot
-
-    if (status === "correct" || status === "incorrect") {
-      classes.push(status);
+    if (percent === 100) {
+      setEx1Feedback("Super! Ai completat toate verbele corect în poveste. 🎉");
+    } else if (percent >= 60) {
+      setEx1Feedback(
+        `Ești pe aproape! Ai ${correct} din ${total} verbe corecte. Mai verifică încă o dată.`,
+      );
+    } else {
+      setEx1Feedback(
+        `Ai doar ${correct} din ${total} verbe corecte. Reia povestea și încearcă să potrivești mai bine rutina.`,
+      );
     }
-
-    return classes.join(" ");
   };
 
-  const renderEx1Slot = (index) => (
-    <button
-      type="button"
-      className={getEx1SlotClassName(index)}
-      onClick={() => handleSlotClick(index)}
-    >
-      {ex1Slots[index] || "_____"}
-    </button>
-  );
+  const renderEx1Slot = (index) => {
+    const value = ex1Slots[index] || "";
+    const status = ex1SlotStatus[index];
 
-  const handleDevAutofillEx1 = () => {
-    const full = [...badgeStoryConfig.slotAnswers];
-    setActivePick(null);
-    setEx1Slots(full);
-    setVerbPool([]);
-    const fullScore = badgeStoryConfig.slotAnswers.length;
-    setEx1Score(fullScore);
-    setEx1Feedback(
-      `Scor exercițiul 1: ${fullScore}/${badgeStoryConfig.slotAnswers.length}`,
+    let className = "badge-slot";
+    if (status === true) className += " slot-correct";
+    if (status === false) className += " slot-incorrect";
+
+    return (
+      <button
+        type="button"
+        className={className}
+        onClick={() => handleSlotClick(index)}
+      >
+        {value || "_____"}
+      </button>
     );
-  };
-
-  const handleDevResetEx1 = () => {
-    setActivePick(null);
-    setEx1Slots(badgeStoryConfig.slotAnswers.map(() => ""));
-    setVerbPool(shuffleList([...badgeStoryConfig.verbs]));
-    setEx1Score(0);
-    setEx1Feedback("");
   };
 
   // ===== Exercițiul 2 – Yes/No + propoziții =====
@@ -280,17 +311,11 @@ export default function PsBadgePage() {
   const [ex2Summary, setEx2Summary] = useState("");
 
   const handleEx2ShortChange = (id, value) => {
-    setEx2ShortAnswers((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    setEx2ShortAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleEx2SentenceChange = (id, value) => {
-    setEx2Sentences((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    setEx2Sentences((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleRetryEx2 = () => {
@@ -302,7 +327,8 @@ export default function PsBadgePage() {
   };
 
   const handleCheckEx2 = () => {
-    let score = 0;
+    let correct = 0;
+    const total = badgeEx2Questions.length || 1;
     const perFeedback = {};
 
     badgeEx2Questions.forEach((q) => {
@@ -314,475 +340,482 @@ export default function PsBadgePage() {
 
       const expectedShort = (q.correctShort || "").trim().toLowerCase();
 
-      // Accept the main expected sentence + any alternatives provided by data
       const expectedList = [];
       if (q.sentence) expectedList.push(q.sentence);
-      if (Array.isArray(q.acceptSentences))
+      if (Array.isArray(q.acceptSentences)) {
         expectedList.push(...q.acceptSentences);
+      }
 
-      const expectedNormalizedSet = new Set(
-        expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean),
+      const normalizedExpectedList = expectedList.map((s) =>
+        normalizeAnswer(s),
       );
 
-      let isCorrect = true;
-      const parts = [];
+      const shortOk = short === expectedShort;
+      const sentenceOk = normalizedExpectedList.includes(normalizedSentence);
 
-      if (!short) {
-        isCorrect = false;
-        parts.push("Selectează Yes / No.");
-      } else if (short !== expectedShort) {
-        isCorrect = false;
-        parts.push("Verifică răspunsul Yes / No.");
-      }
-
-      if (!normalizedSentence) {
-        isCorrect = false;
-        parts.push("Scrie propoziția completă.");
-      } else if (!expectedNormalizedSet.has(normalizedSentence)) {
-        isCorrect = false;
-        parts.push("Verifică forma propoziției.");
-      }
-
-      if (isCorrect) {
-        score++;
-        perFeedback[q.id] = "Corect! ✅";
+      let msg = "";
+      if (!short && !sentenceRaw) {
+        msg = "Completează atât răspunsul scurt, cât și propoziția.";
+      } else if (!short) {
+        msg = "Ți-ai scris propoziția, dar ai uitat Yes/No.";
+      } else if (!sentenceRaw) {
+        msg = "Ai ales Yes/No, dar lipsește propoziția.";
+      } else if (shortOk && sentenceOk) {
+        msg = "Perfect! Răspunsul se potrivește cu povestea.";
+        correct += 1;
+      } else if (!shortOk && sentenceOk) {
+        msg =
+          "Propoziția e bună, dar răspunsul Yes/No nu se potrivește cu povestea.";
+      } else if (shortOk && !sentenceOk) {
+        msg =
+          "Yes/No este corect, dar propoziția nu se potrivește cu povestea.";
       } else {
-        perFeedback[q.id] = parts.join(" ");
+        msg =
+          "Nici Yes/No, nici propoziția nu se potrivesc cu povestea. Mai citește o dată textul din exercițiul 1.";
       }
+
+      perFeedback[q.id] = msg;
     });
 
-    setEx2Score(score);
+    const percent = Math.round((correct / total) * 100);
     setEx2PerQuestionFeedback(perFeedback);
-    setEx2Summary(
-      `Scor exercițiul 2: ${score}/${badgeEx2Questions.length} întrebări corecte.`,
+    setEx2Score(percent);
+
+    if (percent === 100) {
+      setEx2Summary(
+        "Excelent! Toate răspunsurile tale sunt în acord cu povestea. 🎉",
+      );
+    } else if (percent >= 60) {
+      setEx2Summary(
+        `Ești pe drumul cel bun: ${correct} din ${total} răspunsuri corecte. Mai ajustează câteva detalii.`,
+      );
+    } else {
+      setEx2Summary(
+        `Ai doar ${correct} din ${total} răspunsuri corecte. Reia povestea și încearcă să-ți imaginezi mai clar rutina.`,
+      );
+    }
+  };
+
+  // ===== Exercițiul 3 – scriere liberă =====
+  const [ex3Answers, setEx3Answers] = useState(
+    badgeEx3Prompts.map(() => ""),
+  );
+  const [ex3Status, setEx3Status] = useState(
+    badgeEx3Prompts.map(() => "pending"),
+  );
+  const [ex3Summary, setEx3Summary] = useState("");
+
+  const handleEx3Change = (index, value) => {
+    setEx3Answers((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  };
+
+  const handleRetryEx3 = () => {
+    setEx3Answers(badgeEx3Prompts.map(() => ""));
+    setEx3Status(badgeEx3Prompts.map(() => "pending"));
+    setEx3Summary("");
+  };
+
+  const handleCheckEx3 = () => {
+    const trimmed = ex3Answers.map((v) => (v || "").trim());
+    const total = trimmed.length || 1;
+
+    let filled = 0;
+    const statuses = trimmed.map((v) => {
+      if (!v) return "empty";
+      filled += 1;
+      const wordCount = v.split(/\s+/).filter(Boolean).length;
+      if (wordCount < 5) return "too-short";
+      return "ok";
+    });
+
+    setEx3Status(statuses);
+
+    const percent = Math.round((filled / total) * 100);
+    if (percent === 100) {
+      setEx3Summary(
+        "Bravo! Ai scris câte o propoziție pentru fiecare situație. 😊",
+      );
+    } else if (percent >= 60) {
+      setEx3Summary(
+        "Ai acoperit o parte bună dintre situații, dar mai poți adăuga câteva propoziții.",
+      );
+    } else {
+      setEx3Summary(
+        "Ai scris foarte puțin. Încearcă să gândești fiecare propoziție ca o mică parte din povestea ta zilnică.",
+      );
+    }
+  };
+
+    // ===== Rehidratare din storage (master + draft) =====
+
+  const rehydrateFromMasterAnswers = (data) => {
+    if (!data || typeof data !== "object") return;
+
+    // Exercițiul 1 – refacem sloturile, pool-ul și scorul
+    if (Array.isArray(data.ex1Slots)) {
+      const slots = data.ex1Slots.map((v) => v || "");
+      setEx1Slots(slots);
+      setVerbPool(computePoolFromSlots(slots));
+
+      const expected = badgeStoryConfig.slotAnswers || [];
+      let correct = 0;
+      const statuses = expected.map((expectedVerb, index) => {
+        const givenVerb = (slots[index] || "").trim().toLowerCase();
+        const normalizedExpected = (expectedVerb || "").trim().toLowerCase();
+        if (!givenVerb) return null;
+        const isOk = givenVerb === normalizedExpected;
+        if (isOk) correct += 1;
+        return isOk;
+      });
+
+      const total = expected.length || 1;
+      const percent = Math.round((correct / total) * 100);
+      setEx1SlotStatus(statuses);
+      setEx1Score(percent);
+
+      if (percent === 100) {
+        setEx1Feedback("Super! Ai completat toate verbele corect în poveste. 🎉");
+      } else if (percent >= 60) {
+        setEx1Feedback(
+          `Ești pe aproape! Ai ${correct} din ${total} verbe corecte. Mai verifică încă o dată.`,
+        );
+      } else {
+        setEx1Feedback(
+          `Ai doar ${correct} din ${total} verbe corecte. Reia povestea și încearcă să potrivești mai bine rutina.`,
+        );
+      }
+    }
+
+    // Exercițiul 2 – rehidratăm răspunsurile și recalcăm scorul
+    if (data.ex2ShortAnswers) {
+      setEx2ShortAnswers(data.ex2ShortAnswers);
+    }
+    if (data.ex2Sentences) {
+      setEx2Sentences(data.ex2Sentences);
+    }
+
+    if (data.ex2ShortAnswers || data.ex2Sentences) {
+      let correct = 0;
+      const total = badgeEx2Questions.length || 1;
+      const perFeedback = {};
+
+      badgeEx2Questions.forEach((q) => {
+        const shortRaw = (data.ex2ShortAnswers?.[q.id] || "").trim().toLowerCase();
+        const sentenceRaw = data.ex2Sentences?.[q.id] || "";
+        const normalizedSentence = normalizeAnswer(sentenceRaw);
+
+        const expectedShort = (q.correctShort || "").trim().toLowerCase();
+
+        const expectedList = [];
+        if (q.sentence) expectedList.push(q.sentence);
+        if (Array.isArray(q.acceptSentences)) {
+          expectedList.push(...q.acceptSentences);
+        }
+        const normalizedExpectedList = expectedList.map((s) =>
+          normalizeAnswer(s),
+        );
+
+        const shortOk = shortRaw === expectedShort;
+        const sentenceOk = normalizedExpectedList.includes(normalizedSentence);
+
+        let msg = "";
+        if (!shortRaw && !sentenceRaw) {
+          msg = "Completează atât răspunsul scurt, cât și propoziția.";
+        } else if (!shortRaw) {
+          msg = "Ți-ai scris propoziția, dar ai uitat Yes/No.";
+        } else if (!sentenceRaw) {
+          msg = "Ai ales Yes/No, dar lipsește propoziția.";
+        } else if (shortOk && sentenceOk) {
+          msg = "Perfect! Răspunsul se potrivește cu povestea.";
+          correct += 1;
+        } else if (!shortOk && sentenceOk) {
+          msg =
+            "Propoziția e bună, dar răspunsul Yes/No nu se potrivește cu povestea.";
+        } else if (shortOk && !sentenceOk) {
+          msg =
+            "Yes/No este corect, dar propoziția nu se potrivește cu povestea.";
+        } else {
+          msg =
+            "Nici Yes/No, nici propoziția nu se potrivesc cu povestea. Mai citește o dată textul din exercițiul 1.";
+        }
+
+        perFeedback[q.id] = msg;
+      });
+
+      const percent = Math.round((correct / total) * 100);
+      setEx2PerQuestionFeedback(perFeedback);
+      setEx2Score(percent);
+
+      if (percent === 100) {
+        setEx2Summary(
+          "Excelent! Toate răspunsurile tale sunt în acord cu povestea. 🎉",
+        );
+      } else if (percent >= 60) {
+        setEx2Summary(
+          `Ești pe drumul cel bun: ${correct} din ${total} răspunsuri corecte. Mai ajustează câteva detalii.`,
+        );
+      } else {
+        setEx2Summary(
+          `Ai doar ${correct} din ${total} răspunsuri corecte. Reia povestea și încearcă să-ți imaginezi mai clar rutina.`,
+        );
+      }
+    }
+
+    // Exercițiul 3 – textul tău + statusuri
+    if (Array.isArray(data.ex3Answers)) {
+      setEx3Answers(data.ex3Answers.map((v) => v || ""));
+    }
+    if (Array.isArray(data.ex3Status)) {
+      setEx3Status(data.ex3Status);
+      const filled = data.ex3Status.filter((s) => s === "ok").length;
+      const total = data.ex3Status.length || 1;
+      const percent = Math.round((filled / total) * 100);
+
+      if (percent === 100) {
+        setEx3Summary(
+          "Bravo! Ai scris câte o propoziție pentru fiecare situație. 😊",
+        );
+      } else if (percent >= 60) {
+        setEx3Summary(
+          "Ai acoperit o parte bună dintre situații, dar mai poți adăuga câteva propoziții.",
+        );
+      } else {
+        setEx3Summary(
+          "Ai scris foarte puțin. Încearcă să gândești fiecare propoziție ca o mică parte din povestea ta zilnică.",
+        );
+      }
+    }
+
+    const score = typeof data.score === "number" ? data.score : 0;
+    setBadgePercent(score);
+    setBadgeUnlocked(!!data.passed);
+
+    if (score) {
+      setBadgeResult(`Scor badge: ${score}%`);
+    }
+
+    setRoomState((prev) => ({
+      ...prev,
+      firstAttemptScore:
+        prev.firstAttemptScore == null ? score : prev.firstAttemptScore,
+      passed: prev.passed || !!data.passed,
+      hasKey: prev.hasKey,
+    }));
+  };
+
+  const rehydrateFromDraftAnswers = (draft) => {
+    if (!draft || typeof draft !== "object") return;
+
+    if (Array.isArray(draft.ex1Slots)) {
+      const slots = draft.ex1Slots.map((v) => v || "");
+      setEx1Slots(slots);
+      setVerbPool(computePoolFromSlots(slots));
+      setEx1SlotStatus(makeEmptyEx1Status());
+      setEx1Score(0);
+      setEx1Feedback("");
+    }
+
+    if (draft.ex2ShortAnswers) {
+      setEx2ShortAnswers(draft.ex2ShortAnswers);
+    }
+    if (draft.ex2Sentences) {
+      setEx2Sentences(draft.ex2Sentences);
+    }
+
+    if (Array.isArray(draft.ex3Answers)) {
+      setEx3Answers(draft.ex3Answers.map((v) => v || ""));
+    }
+    if (Array.isArray(draft.ex3Status)) {
+      setEx3Status(draft.ex3Status);
+    }
+  };
+
+  // La primul mount: încercăm master → apoi draft
+  useEffect(() => {
+    if (didInit) return;
+
+    const storedMaster = loadStoredMasterAnswers?.();
+    if (storedMaster) {
+      setMasterAnswers(storedMaster);
+      rehydrateFromMasterAnswers(storedMaster);
+      setDidInit(true);
+      return;
+    }
+
+    const draft = loadDraftAnswers?.();
+    if (draft) {
+      rehydrateFromDraftAnswers(draft);
+    }
+
+    setDidInit(true);
+  }, [didInit]);
+
+  // Autosave draft cât timp lucrează elevul
+  useEffect(() => {
+    if (!didInit) return;
+
+    const draft = {
+      ex1Slots,
+      ex2ShortAnswers,
+      ex2Sentences,
+      ex3Answers,
+      ex3Status,
+    };
+    saveDraftAnswers?.(draft);
+  }, [didInit, ex1Slots, ex2ShortAnswers, ex2Sentences, ex3Answers, ex3Status]);
+
+
+  // ===== Integrare scor + master answers =====
+  const computeBadgeScore = () => {
+    // Ex1: întrebările au 20 de sloturi => 20 puncte max
+    // Ex2: câte întrebări avem => tot 20 puncte max (scalăm)
+    // Ex3: completarea tuturor prompt-urilor => 60 puncte max
+    // => total 100
+    const ex1Weight = 20;
+    const ex2Weight = 20;
+    const ex3Weight = 60;
+
+    const ex1Percent = ex1Score || 0;
+    const ex2Percent = ex2Score || 0;
+
+    const filledEx3 = ex3Status.filter((s) => s === "ok").length;
+    const ex3Percent = Math.round(
+      (filledEx3 / (badgeEx3Prompts.length || 1)) * 100,
     );
+
+    const weighted =
+      (ex1Percent / 100) * ex1Weight +
+      (ex2Percent / 100) * ex2Weight +
+      (ex3Percent / 100) * ex3Weight;
+
+    return Math.round(weighted);
+  };
+
+  const [devMode] = useState(() => Boolean(DEV_MODE));
+
+  const handleCheckBadge = () => {
+    const score = computeBadgeScore();
+    setBadgePercent(score);
+
+    let passed = false;
+    let message = "";
+
+    if (score === 100) {
+      passed = true;
+      message =
+        "Ai obținut 100%! Badge-ul Present Simple este al tău. 🎉 Poți fi mândru de tine!";
+    } else if (score >= 80) {
+      passed = true;
+      message =
+        "Foarte bine! Ai peste 80%, ceea ce e suficient pentru badge. Dacă vrei, poți încerca să ajungi la 100%.";
+    } else if (score >= 60) {
+      message =
+        "E un început bun, dar încă nu este suficient pentru badge. Mai lucrează puțin la exerciții.";
+    } else {
+      message =
+        "Scorul este destul de mic. Nu te descuraja! Reia pe rând exercițiile și vezi unde poți îmbunătăți răspunsurile.";
+    }
+
+    setBadgeResult(`Scor badge: ${score}%`);
+    setBadgeMessage(message);
+    setBadgeUnlocked(passed);
+
+    const newMaster = {
+      ex1Slots,
+      ex2ShortAnswers,
+      ex2Sentences,
+      ex3Answers,
+      ex3Status,
+      score,
+      passed,
+    };
+    setMasterAnswers(newMaster);
+    saveMasterAnswers(newMaster);
+
+    setRoomState((prev) => ({
+      ...prev,
+      firstAttemptScore:
+        prev.firstAttemptScore == null
+          ? score
+          : prev.firstAttemptScore,
+      passed: prev.passed || passed,
+      hasKey: prev.hasKey,
+    }));
+
+    progressManager.markBadgeChecked({
+      sectionId: SECTION_ID,
+      roomNumber: ROOM_NUMBER,
+      scorePercent: score,
+      passed,
+    });
+  };
+
+  // Dev tools – Autofill / Reset
+  const handleDevAutofillEx1 = () => {
+    setEx1Slots([...badgeStoryConfig.slotAnswers]);
+    setVerbPool([]);
+    setEx1SlotStatus(badgeStoryConfig.slotAnswers.map(() => true));
+    setEx1Score(100);
+    setEx1Feedback(
+      "Dev: toate sloturile au fost completate automat cu răspunsurile corecte.",
+    );
+  };
+
+  const handleDevResetEx1 = () => {
+    handleRetryEx1();
   };
 
   const handleDevAutofillEx2 = () => {
     const nextShort = {};
     const nextSentences = {};
+    const nextFeedback = {};
 
     badgeEx2Questions.forEach((q) => {
-      nextShort[q.id] = q.correctShort;
-      nextSentences[q.id] = q.sentence;
+      nextShort[q.id] = q.correctShort || "";
+      nextSentences[q.id] = q.sentence || "";
+      nextFeedback[q.id] = "Dev: răspuns completat automat.";
     });
 
     setEx2ShortAnswers(nextShort);
     setEx2Sentences(nextSentences);
-    setEx2PerQuestionFeedback({});
-    setEx2Score(badgeEx2Questions.length);
+    setEx2PerQuestionFeedback(nextFeedback);
+    setEx2Score(100);
     setEx2Summary(
-      `Scor exercițiul 2: ${badgeEx2Questions.length}/${badgeEx2Questions.length} întrebări corecte.`,
+      "Dev: toate întrebările au fost completate cu răspunsurile corecte.",
     );
   };
 
   const handleDevResetEx2 = () => {
-    setEx2ShortAnswers({});
-    setEx2Sentences({});
-    setEx2PerQuestionFeedback({});
-    setEx2Score(0);
-    setEx2Summary("");
-  };
-
-  // ===== Exercițiul 3 – rutina elevului =====
-  const [ex3Answers, setEx3Answers] = useState({});
-  const [ex3Messages, setEx3Messages] = useState({});
-  const [ex3Score, setEx3Score] = useState(0);
-  const [ex3Summary, setEx3Summary] = useState("");
-
-  const handleEx3Change = (index, value) => {
-    const trimmed = value || "";
-
-    setEx3Answers((prev) => ({
-      ...prev,
-      [index]: trimmed,
-    }));
-
-    let message = "";
-    const wordCount = trimmed.trim().split(/\s+/).filter(Boolean).length;
-
-    if (!trimmed.trim()) {
-      message = "Write a sentence here.";
-    } else if (wordCount < 4) {
-      message = "Your sentence is too short. Write at least 4 words.";
-    } else if (!/[a-zA-Z]/.test(trimmed)) {
-      message = "Use letters to write your sentence.";
-    }
-
-    setEx3Messages((prev) => ({
-      ...prev,
-      [index]: message,
-    }));
-  };
-
-  const handleRetryEx3 = () => {
-    setEx3Answers({});
-    setEx3Messages({});
-    setEx3Score(0);
-    setEx3Summary("");
-  };
-
-  const handleCheckEx3 = () => {
-    let score = 0;
-    const nextMessages = {};
-
-    badgeEx3Prompts.forEach((_, index) => {
-      const idx = index + 1;
-      // ex3Answers is keyed 1..N (idx), matching the legacy HTML.
-      const sentence = ex3Answers[idx] || "";
-      const trimmed = sentence.trim();
-      const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
-
-      let msg = "";
-
-      if (!trimmed) {
-        msg = "Write a sentence here.";
-      } else if (wordCount < 4) {
-        msg = "Your sentence is too short. Write at least 4 words.";
-      } else if (!/[a-zA-Z]/.test(trimmed)) {
-        msg = "Use letters to write your sentence.";
-      } else {
-        score++;
-        msg = "";
-      }
-
-      nextMessages[idx] = msg;
-    });
-
-    setEx3Messages(nextMessages);
-    setEx3Score(score);
-    setEx3Summary(
-      `Scor exercițiul 3: ${score}/${badgeEx3Prompts.length} propoziții valide.`,
-    );
+    handleRetryEx2();
   };
 
   const handleDevAutofillEx3 = () => {
-    const examples = [
-      "I wake up at 7 o'clock every day.",
-      "I always eat breakfast with my family.",
-      "I go to school by bus in the morning.",
-      "I do my homework in the afternoon.",
-      "I never watch TV late at night.",
-      "On Sundays I visit my grandparents.",
-    ];
-
-    const nextAnswers = {};
-    const nextMessages = {};
-
-    badgeEx3Prompts.forEach((_, index) => {
-      const idx = index + 1;
-      const sentence = examples[index] || "";
-      nextAnswers[idx] = sentence;
-      nextMessages[idx] = sentence ? "" : "Write a sentence here.";
-    });
-
+    const nextAnswers = badgeEx3Prompts.map(
+      (prompt) =>
+        `${prompt} (Dev) I usually wake up at 7 a.m., go to school, and spend time with my family.`,
+    );
     setEx3Answers(nextAnswers);
-    setEx3Messages(nextMessages);
-
-    const fullScore = badgeEx3Prompts.length;
-    setEx3Score(fullScore);
-    setEx3Summary(`Scor exercițiul 3: ${fullScore}/${badgeEx3Prompts.length}`);
+    setEx3Status(badgeEx3Prompts.map(() => "ok"));
+    setEx3Summary(
+      "Dev: toate propozițiile au fost completate automat cu un text generic.",
+    );
   };
 
   const handleDevResetEx3 = () => {
-    setEx3Answers({});
-    setEx3Messages({});
-    setEx3Score(0);
-    setEx3Summary("");
+    handleRetryEx3();
   };
-
-  // ===== Verificare finală badge =====
-  const [badgeResult, setBadgeResult] = useState("");
-  const [badgeMessage, setBadgeMessage] = useState("");
-  const [badgeUnlocked, setBadgeUnlocked] = useState(false);
-
-  // Buton "Resetează pentru exersare" – vizibil doar după ce badge-ul a fost obținut
-  const practiceResetVisible = badgeUnlocked || roomState.passed;
-
-  useEffect(() => {
-    // Inițializăm starea globală a badge-ului (progressManager) și rehidratăm răspunsurile.
-    // Regula:
-    //  - dacă există "draft" -> îl încărcăm (pentru a păstra munca elevului + reset-ul de practică)
-    //  - altfel, dacă badge-ul este trecut -> încărcăm "master" (răspunsurile oficiale de la 100%)
-    //  - păstrăm master-ul în state chiar dacă afișăm draft-ul, ca să nu îl suprascriem accidental
-    const hydrateFrom = (payload) => {
-      if (!payload || typeof payload !== "object") return;
-
-      // Ex1
-      if (Array.isArray(payload.ex1Slots)) {
-        if (payload.ex1Slots.length === badgeStoryConfig.slotAnswers.length) {
-          setEx1Slots(payload.ex1Slots);
-          setActivePick(null);
-          if (Array.isArray(payload.ex1VerbPool)) {
-            setVerbPool(payload.ex1VerbPool);
-          } else {
-            setVerbPool(computePoolFromSlots(payload.ex1Slots));
-          }
-        }
-      }
-
-      // Ex2
-      if (
-        payload.ex2ShortAnswers &&
-        typeof payload.ex2ShortAnswers === "object"
-      ) {
-        setEx2ShortAnswers(payload.ex2ShortAnswers);
-      }
-      if (payload.ex2Sentences && typeof payload.ex2Sentences === "object") {
-        setEx2Sentences(payload.ex2Sentences);
-      }
-
-      // Ex3
-      if (payload.ex3Answers && typeof payload.ex3Answers === "object") {
-        setEx3Answers(payload.ex3Answers);
-      }
-    };
-
-    try {
-      const state = progressManager.getRoomState(SECTION_ID, ROOM_NUMBER);
-      setRoomState(state);
-
-      // Citește master (dacă există) – îl ținem în state chiar dacă elevul lucrează pe draft
-      let savedMaster = null;
-      try {
-        savedMaster = storage.get(MASTER_ANSWERS_KEY, null);
-        if (savedMaster && typeof savedMaster === "object") {
-          setMasterAnswers(savedMaster);
-        }
-      } catch (err) {
-        console.warn("Badge master answers read failed", err);
-      }
-
-      // Citește draft (dacă există) – acesta are prioritate la rehidratare
-      let savedDraft = null;
-      try {
-        savedDraft = storage.get(DRAFT_ANSWERS_KEY, null);
-      } catch (err) {
-        console.warn("Badge draft answers read failed", err);
-      }
-
-      if (savedDraft) {
-        hydrateFrom(savedDraft);
-      } else if (state && state.passed && savedMaster) {
-        hydrateFrom(savedMaster);
-      }
-
-      if (state && state.passed) {
-        setBadgeUnlocked(true);
-
-        let initialPercent = 100;
-        if (typeof state.firstAttemptScore === "number") {
-          initialPercent = state.firstAttemptScore;
-          if (initialPercent < 100) initialPercent = 100;
-        }
-        setBadgePercent(initialPercent);
-      }
-    } catch (err) {
-      console.warn("Progress manager init failed for badge", err);
-    }
-
-    // După ce am încercat să rehidratăm, permitem autosave-ul draft-ului
-    setDidInit(true);
-  }, []);
-
-  // Autosave draft: păstrăm răspunsurile curente (și reset-ul de practică) la revenire în cameră.
-  useEffect(() => {
-    if (!didInit) return;
-
-    const draft = {
-      ex1Slots: Array.isArray(ex1Slots) ? [...ex1Slots] : [],
-      ex1VerbPool: Array.isArray(verbPool) ? [...verbPool] : [],
-      ex2ShortAnswers:
-        ex2ShortAnswers && typeof ex2ShortAnswers === "object"
-          ? { ...ex2ShortAnswers }
-          : {},
-      ex2Sentences:
-        ex2Sentences && typeof ex2Sentences === "object"
-          ? { ...ex2Sentences }
-          : {},
-      ex3Answers:
-        ex3Answers && typeof ex3Answers === "object" ? { ...ex3Answers } : {},
-    };
-
-    try {
-      storage.set(DRAFT_ANSWERS_KEY, draft);
-    } catch (err) {
-      console.warn("Badge draft answers persist failed", err);
-    }
-  }, [didInit, ex1Slots, verbPool, ex2ShortAnswers, ex2Sentences, ex3Answers]);
-
-  const handlePracticeReset = () => {
-    // Exercițiul 1 – reset complet (ca în HTML vechi: repornește + reshuffle pool)
-    setActivePick(null);
-    setEx1Slots(badgeStoryConfig.slotAnswers.map(() => ""));
-    setVerbPool(shuffleList([...badgeStoryConfig.verbs]));
-    setEx1Score(0);
-    setEx1Feedback("");
-
-    // Exercițiul 2
-    setEx2ShortAnswers({});
-    setEx2Sentences({});
-    setEx2PerQuestionFeedback({});
-    setEx2Score(0);
-    setEx2Summary("");
-
-    // Exercițiul 3
-    setEx3Answers({});
-    setEx3Messages({});
-    setEx3Score(0);
-    setEx3Summary("");
-
-    // Rezultatul final pentru badge – îl ștergem ca să poată reface verificarea de la zero,
-    // dar păstrăm badge-ul și procentul 100% (dacă au fost deja obținute).
-    setBadgeResult("");
-  };
-
-  const handleCheckBadge = () => {
-    const max1 = badgeStoryConfig.slotAnswers.length;
-    const max2 = badgeEx2Questions.length;
-    const max3 = badgeEx3Prompts.length;
-
-    // IMPORTANT: Scorul final se calculează din răspunsurile curente,
-    // nu din scorurile intermediare (Ex1/Ex2/Ex3). Astfel, elevul poate
-    // verifica badge-ul chiar dacă nu a apăsat "Verifică" pe fiecare exercițiu.
-    let score1 = 0;
-    const correct1 = badgeStoryConfig.slotAnswers;
-    ex1Slots.forEach((value, idx) => {
-      const user = (value || "").trim().toLowerCase();
-      const target = (correct1[idx] || "").trim().toLowerCase();
-      if (user && user === target) score1++;
-    });
-
-    let score2 = 0;
-    badgeEx2Questions.forEach((q) => {
-      const short = ((ex2ShortAnswers[q.id] || "") + "").trim().toLowerCase();
-      const sentenceRaw = ex2Sentences[q.id] || "";
-      const normalizedSentence = normalizeAnswer(sentenceRaw);
-
-      const expectedShort = ((q.correctShort || "") + "").trim().toLowerCase();
-
-      const expectedList = [];
-      if (q.sentence) expectedList.push(q.sentence);
-      if (Array.isArray(q.acceptSentences))
-        expectedList.push(...q.acceptSentences);
-
-      const expectedNormalizedSet = new Set(
-        expectedList.map((s) => normalizeAnswer(s || "")).filter(Boolean),
-      );
-
-      const isCorrectShort = !!short && short === expectedShort;
-      const isCorrectSentence =
-        !!normalizedSentence && expectedNormalizedSet.has(normalizedSentence);
-
-      if (isCorrectShort && isCorrectSentence) score2++;
-    });
-
-    let score3 = 0;
-    badgeEx3Prompts.forEach((_, idx) => {
-      const sentence = ex3Answers[idx + 1] || "";
-      const trimmed = (sentence || "").trim();
-      const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
-
-      if (trimmed && wordCount >= 4 && /[a-zA-Z]/.test(trimmed)) {
-        score3++;
-      }
-    });
-
-    const totalScore = score1 + score2 + score3;
-    const totalMax = max1 + max2 + max3;
-    const percent =
-      totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
-
-    let nextState = roomState;
-    try {
-      if (roomState.firstAttemptScore === null) {
-        nextState = progressManager.setFirstAttempt(
-          SECTION_ID,
-          ROOM_NUMBER,
-          percent,
-        );
-      } else {
-        nextState = progressManager.recordAttempt(
-          SECTION_ID,
-          ROOM_NUMBER,
-          percent,
-        );
-      }
-
-      if (!roomState.passed && nextState.passed) {
-        setBadgeUnlocked(true);
-      }
-    } catch (err) {
-      console.warn("Badge progress update failed", err);
-    }
-    setRoomState(nextState);
-
-    const visualPercent = nextState.passed ? 100 : percent;
-    setBadgePercent(visualPercent);
-
-    setBadgeResult(
-      `Scor total badge (Ex.1 + Ex.2 + Ex.3): ${totalScore}/${totalMax} (${percent}%)`,
-    );
-
-    if (percent === 100) {
-      setBadgeMessage(
-        "Perfect! Ai obținut badge-ul Present Simple! Îl găsești și în hub.",
-      );
-
-      // Dacă este prima dată când ajungem la 100% (sau nu avem încă masterAnswers),
-      // salvăm răspunsurile curente ca "oficiale" pentru badge.
-      if (!masterAnswers) {
-        const newMaster = {
-          ex1Slots: [...ex1Slots],
-          ex2ShortAnswers: { ...ex2ShortAnswers },
-          ex2Sentences: { ...ex2Sentences },
-          ex3Answers: { ...ex3Answers },
-        };
-        setMasterAnswers(newMaster);
-        try {
-          storage.set(MASTER_ANSWERS_KEY, newMaster);
-        } catch (err) {
-          console.warn("Badge master answers persist failed", err);
-        }
-      }
-
-      // Dacă badge-ul nu era încă "oficial" în progressManager, îl marcăm aici.
-      try {
-        const ensuredState = progressManager.ensureBadgeUnlocked(
-          SECTION_ID,
-          ROOM_NUMBER,
-        );
-        setRoomState(ensuredState);
-        setBadgeUnlocked(true);
-      } catch (err) {
-        console.warn("Badge ensure unlock failed", err);
-      }
-    } else {
-      // nu revocăm badge-ul dacă a fost deja obținut; elevul poate exersa în continuare
-      setBadgeMessage(
-        "Mai ai puțin până la 100%. Corectează răspunsurile și verifică din nou.",
-      );
-      // la fel, nu schimbăm badgeUnlocked aici
-    }
-  };
-
-  const handleRetryForKey = () => {};
 
   const handleDevAutofill = () => {
-    if (!DEV_MODE) return;
     handleDevAutofillEx1();
     handleDevAutofillEx2();
     handleDevAutofillEx3();
   };
 
   const handleDevReset = () => {
-    try {
-      const newState = progressManager.resetRoom(SECTION_ID, ROOM_NUMBER);
-      setRoomState(newState);
-    } catch (err) {
-      console.warn("Badge progress reset failed", err);
-    }
-
     handleDevResetEx1();
     handleDevResetEx2();
     handleDevResetEx3();
@@ -799,34 +832,53 @@ export default function PsBadgePage() {
     }
   };
 
+  const practiceResetVisible = badgeUnlocked || roomState.passed;
+
+  const handlePracticeReset = () => {
+    handleRetryEx1();
+    handleRetryEx2();
+    handleRetryEx3();
+    setBadgeResult("");
+    setBadgeMessage("");
+    setBadgePercent(0);
+  };
+
+  const handleRetryForKey = () => {
+    // Badge nu are cheie; păstrăm handlerul pentru compatibilitate.
+  };
+
   const lexHints = presentSimpleBadgeLexHints.final || [];
+  const pageTitle = "Present Simple – Badge";
+  const roomLabel = "Badge – Camera 1";
+
+  const devTools = (
+    <TenseRoomDevToolsAndStatus
+      roomState={roomState}
+      onDevAutofill={handleDevAutofill}
+      onDevReset={handleDevReset}
+    />
+  );
+
+  const lex = (
+    <TenseLexBubble hints={lexHints} avatarSrc={PS_LEX_HEAD_SVG} />
+  );
 
   return (
-    <PsRoomTemplateV1
-      sectionId={SECTION_ID}
+    <TenseRoomPageShell
+      pageTitle={pageTitle}
+      roomLabel={roomLabel}
       sectionLabel="Badge"
-      roomNumber={ROOM_NUMBER}
-      lexHints={lexHints}
       theoryRoute={psTheoryPath("affirmative")}
-      // Badge este o pagină specială: își gestionează singură logica (scor, storage, gating).
-      // Folosim template-ul doar ca shell (HUD + DevTools + Lex Junior panel), fără engine-ul standard.
-      shell={{
-        answers: null,
-        feedback: null,
-        lastResult: null,
-        roomState,
-        keyButtonVisible: false,
-        practiceResetVisible,
-        hudRootRef,
-        onRetryForKey: handleRetryForKey,
-        onPracticeReset: handlePracticeReset,
-        onDevAutofill: handleDevAutofill,
-        onDevReset: handleDevReset,
-        onChange: null,
-        handleVerify: null,
-      }}
-      showDictionaryCard={false}
-      renderBody={() => (
+      mapRoute={psMapPath()}
+      hudRootRef={hudRootRef}
+      onRetryForKey={handleRetryForKey}
+      keyButtonVisible={false}
+      practiceResetVisible={practiceResetVisible}
+      onPracticeReset={handlePracticeReset}
+      retryForKeyTestId="ps-badge-room1-retry-for-key"
+      devTools={devTools}
+      lex={lex}
+    >
         <>
           {/* Introducere badge */}
           <section className="card">
@@ -954,15 +1006,14 @@ export default function PsBadgePage() {
                       activePick &&
                       activePick.source === "pool" &&
                       activePick.value === verb;
-                    const optionClasses = ["matching-option"];
-                    if (isActive)
-                      optionClasses.push("matching-option--selected");
 
                     return (
                       <button
                         key={verb}
                         type="button"
-                        className={optionClasses.join(" ")}
+                        className={
+                          "badge-verb" + (isActive ? " badge-verb--active" : "")
+                        }
                         onClick={() => handlePickVerb(verb)}
                       >
                         {verb}
@@ -972,20 +1023,6 @@ export default function PsBadgePage() {
                 </div>
               </div>
             </div>
-
-            {ex1Score === badgeStoryConfig.slotAnswers.length && (
-              <div className="exercise-listen">
-                {/* Handler-ul global e acum React-pur (SpeechSynthesis) */}
-                <button
-                  type="button"
-                  className="lex-voice-btn button secondary"
-                  data-tts={badgeStoryTtsText}
-                  aria-label="Ascultă povestea completă"
-                >
-                  🔊 Ascultă povestea completă
-                </button>
-              </div>
-            )}
 
             <div className="exercise-actions">
               <button
@@ -1022,46 +1059,37 @@ export default function PsBadgePage() {
                 const short = ex2ShortAnswers[q.id] || "";
                 const sentence = ex2Sentences[q.id] || "";
                 const feedback = ex2PerQuestionFeedback[q.id] || "";
-                const hasSentenceBox = !!short;
-                const shortLabel = q.shortLabels[short] || "";
-                const answerTts = [shortLabel, sentence]
-                  .filter(Boolean)
-                  .join(" ");
-                const canListenAnswer = !!answerTts && !!ex2Summary;
+
+                const showSentence =
+                  short.trim().toLowerCase() === "yes" ||
+                  short.trim().toLowerCase() === "no";
+
+                const canListenAnswer = Boolean(q.fullAnswer);
+
+                const answerTts = q.fullAnswer || "";
 
                 return (
-                  <article key={q.id} className="ex2-card" data-q={q.id}>
+                  <article key={q.id} className="ex2-item">
                     <p className="ex2-question">
-                      {q.id}. {q.question}{" "}
-                      <LexTtsButton
-                        text={q.question}
-                        ariaLabel={`Ascultă întrebarea ${q.id}`}
-                      />
+                      <strong>Întrebarea {q.id}:</strong> {q.question}
                     </p>
-                    <div className="ex2-short">
+
+                    <div className="ex2-input-row">
                       <label>
+                        Răspuns scurt (Yes/No):
                         <input
-                          type="radio"
-                          name={`ex2-q${q.id}`}
-                          value="yes"
-                          checked={short === "yes"}
-                          onChange={() => handleEx2ShortChange(q.id, "yes")}
+                          type="text"
+                          className="ex2-input ex2-input--short"
+                          value={short}
+                          onChange={(e) =>
+                            handleEx2ShortChange(q.id, e.target.value)
+                          }
                         />
-                        {q.shortLabels.yes}
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name={`ex2-q${q.id}`}
-                          value="no"
-                          checked={short === "no"}
-                          onChange={() => handleEx2ShortChange(q.id, "no")}
-                        />
-                        {q.shortLabels.no}
                       </label>
                     </div>
-                    {hasSentenceBox && (
-                      <div className="ex2-sentence" data-sentence-box="">
+
+                    {showSentence && (
+                      <div className="ex2-input-row">
                         <label>
                           Scrie propoziția ta:
                           <input
@@ -1115,29 +1143,48 @@ export default function PsBadgePage() {
 
           {/* Exercițiul 3 */}
           <section className="card">
-            <h2 className="card-title">Exercițiul 3 – Rutina ta zilnică</h2>
+            <h2 className="card-title">
+              Exercițiul 3 – Povestea ta în Present Simple
+            </h2>
             <p className="card-description">
-              Scrie 5 propoziții despre rutina ta zilnică, folosind Present
-              Simple. Fiecare propoziție trebuie să aibă cel puțin 4 cuvinte și
-              să folosească un verb la Present Simple.
+              Scrie câte o propoziție despre rutina ta, folosind Present Simple.
+              Nu există răspunsuri unice corecte, dar propozițiile trebuie să
+              fie clare și suficient de detaliate.
             </p>
 
+            <div className="ex3-tts">
+              <LexTtsButton
+                text={badgeStoryTtsText}
+                ariaLabel="Ascultă varianta audio a poveștii-model pentru badge."
+              />
+            </div>
+
             <div className="ex3-list" id="exercise-3">
-              {badgeEx3Prompts.map((prompt, index) => {
-                const idx = index + 1;
+              {badgeEx3Prompts.map((prompt, idx) => {
                 const value = ex3Answers[idx] || "";
-                const msg = ex3Messages[idx] || "";
+                const status = ex3Status[idx] || "pending";
+
+                let msg = "";
+                if (status === "empty") {
+                  msg = "Scrie cel puțin o propoziție.";
+                } else if (status === "too-short") {
+                  msg = "Încearcă să scrii o propoziție mai detaliată.";
+                } else if (status === "ok") {
+                  msg = "Bine! Propoziția ta pare clară.";
+                }
+
                 return (
-                  <div key={idx} className="ex3-row" data-s={idx}>
+                  <div key={idx} className="ex3-item">
                     <label>
-                      {idx}. {prompt}
+                      <span className="ex3-prompt">{prompt}</span>
                       <textarea
-                        className="ex3-input"
-                        rows={2}
+                        className="ex3-textarea"
                         value={value}
-                        onChange={(e) => handleEx3Change(idx, e.target.value)}
-                      />{" "}
-                      {value.trim() && (
+                        onChange={(e) =>
+                          handleEx3Change(idx, e.target.value)
+                        }
+                      />
+                      {value && (
                         <LexTtsButton
                           text={value}
                           ariaLabel={`Ascultă propoziția ${idx}`}
@@ -1176,8 +1223,8 @@ export default function PsBadgePage() {
           <section className="card">
             <h2 className="card-title">Badge-ul tău Present Simple</h2>
             <p className="card-description">
-              Când ești gata, apasă pe butonul de mai jos ca să calculezi scorul
-              final pentru toate cele trei exerciții.
+              Când ești gata, apasă pe butonul de mai jos ca să verifici
+              progresul general pentru badge.
             </p>
 
             <div className="exercise-actions">
@@ -1195,8 +1242,8 @@ export default function PsBadgePage() {
               </div>
             )}
             {badgeMessage && (
-              <div className="exercise-score">
-                <p>{badgeMessage}</p>
+              <div className="exercise-feedback" id="badge-message">
+                {badgeMessage}
               </div>
             )}
 
@@ -1216,7 +1263,6 @@ export default function PsBadgePage() {
             )}
           </section>
         </>
-      )}
-    />
+    </TenseRoomPageShell>
   );
 }

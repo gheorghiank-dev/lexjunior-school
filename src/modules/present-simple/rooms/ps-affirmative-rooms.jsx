@@ -3,7 +3,7 @@
 //
 // Guardrails:
 // - NO UX / gating / keys changes
-// - keep templates intact (PsRoomTemplateV1 renders the same)
+
 
 import { PS_ROOMS_PER_SECTION, PS_SECTIONS } from "../ps-core/config.js";
 
