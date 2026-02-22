@@ -7,6 +7,8 @@ import { pcMapPath, pcTheoryPath, pcRoomPath } from "./pc-paths.js";
 import { getPcAffirmativeExercises, getPcAffirmativeGlossaryItems } from "./rooms/pc-affirmative-rooms.jsx";
 import { presentContinuousAffirmativeLexHints } from "../lex-hints/present-continuous/affirmative.js";
 import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
+import {GapSentenceExerciseList} from "../../shared/exercises/GapSentenceExerciseList.jsx";
+
 
 export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
@@ -58,21 +60,17 @@ export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
 
   const dictionaryItems = getPcAffirmativeGlossaryItems(roomNumber);
 
-  const renderExercises = ({ exercises, answers, feedback, handleChange, testIdPrefix }) => {
-    if (roomNumber === 3) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
+  const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) => {
+  // Room 2 – folosim GapSentenceExerciseList (propoziții cu spațiu/gap)
+  if (roomNumber === 2) {
     return (
-      <TextInputExerciseList
+      <GapSentenceExerciseList
         exercises={exercises}
         answers={answers}
         feedback={feedback}
@@ -80,7 +78,33 @@ export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
         testIdPrefix={testIdPrefix}
       />
     );
-  };
+  }
+
+  // Room 3 – deja era MCQ
+  if (roomNumber === 3) {
+    return (
+      <McqExerciseList
+        exercises={exercises}
+        answers={answers}
+        feedback={feedback}
+        onChange={handleChange}
+        testIdPrefix={testIdPrefix}
+      />
+    );
+  }
+
+  // Restul camerelor rămân pe TextInputExerciseList
+  return (
+    <TextInputExerciseList
+      exercises={exercises}
+      answers={answers}
+      feedback={feedback}
+      onChange={handleChange}
+      testIdPrefix={testIdPrefix}
+      withListenOnCorrect={true}
+    />
+  );
+};
 
   return (
     <TenseExerciseRoomShell

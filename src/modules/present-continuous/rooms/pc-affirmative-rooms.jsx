@@ -24,93 +24,105 @@ export const PC_AFFIRMATIVE_EXERCISES_BY_ROOM = {
 
   // Room 1 – Verb -> -ing forms (20 verbs)
   1: [
-    { id: "pc-r1-ex1", prompt: "run →", correct: "running" },
-    { id: "pc-r1-ex2", prompt: "swim →", correct: "swimming" },
-    { id: "pc-r1-ex3", prompt: "stop →", correct: "stopping" },
-    { id: "pc-r1-ex4", prompt: "plan →", correct: "planning" },
-    { id: "pc-r1-ex5", prompt: "shop →", correct: "shopping" },
-    { id: "pc-r1-ex6", prompt: "get →", correct: "getting" },
-    { id: "pc-r1-ex7", prompt: "sit →", correct: "sitting" },
-    { id: "pc-r1-ex8", prompt: "begin →", correct: "beginning" },
-    { id: "pc-r1-ex9", prompt: "travel →", correct: "travelling" },
-    { id: "pc-r1-ex10", prompt: "study →", correct: "studying" },
-    { id: "pc-r1-ex11", prompt: "make →", correct: "making" },
-    { id: "pc-r1-ex12", prompt: "take →", correct: "taking" },
-    { id: "pc-r1-ex13", prompt: "write →", correct: "writing" },
-    { id: "pc-r1-ex14", prompt: "drive →", correct: "driving" },
-    { id: "pc-r1-ex15", prompt: "come →", correct: "coming" },
-    { id: "pc-r1-ex16", prompt: "dance →", correct: "dancing" },
-    { id: "pc-r1-ex17", prompt: "read →", correct: "reading" },
-    { id: "pc-r1-ex18", prompt: "play →", correct: "playing" },
-    { id: "pc-r1-ex19", prompt: "talk →", correct: "talking" },
-    { id: "pc-r1-ex20", prompt: "open →", correct: "opening" },
+    { id: "pc-r1-ex1", prompt: "run →", correct: "running", tts: "run, running"},
+    { id: "pc-r1-ex2", prompt: "swim →", correct: "swimming", tts: "swim, swimming" },
+    { id: "pc-r1-ex3", prompt: "stop →", correct: "stopping", tts: "stop, stopping" },
+    { id: "pc-r1-ex4", prompt: "plan →", correct: "planning", tts: "plan, planning" },
+    { id: "pc-r1-ex5", prompt: "shop →", correct: "shopping", tts: "shop, shopping" },
+    { id: "pc-r1-ex6", prompt: "get →", correct: "getting", tts: "get, getting" },
+    { id: "pc-r1-ex7", prompt: "sit →", correct: "sitting", tts: "sit, sitting" },
+    { id: "pc-r1-ex8", prompt: "begin →", correct: "beginning", tts: "begin, beginning" },
+    { id: "pc-r1-ex9", prompt: "travel →", correct: "travelling", tts:"travel, travelling" },
+    { id: "pc-r1-ex10", prompt: "study →", correct: "studying", tts:"study, studying" },
+    { id: "pc-r1-ex11", prompt: "make →", correct: "making", tts:"make, making" },
+    { id: "pc-r1-ex12", prompt: "take →", correct: "taking", tts:"take, taking" },
+    { id: "pc-r1-ex13", prompt: "write →", correct: "writing", tts:"write,writing" },
+    { id: "pc-r1-ex14", prompt: "drive →", correct: "driving", tts:"drive, driving" },
+    { id: "pc-r1-ex15", prompt: "come →", correct: "coming", tts:"come, coming" },
+    { id: "pc-r1-ex16", prompt: "dance →", correct: "dancing", tts:"dance, dancing" },
+    { id: "pc-r1-ex17", prompt: "read →", correct: "reading", tts:"read, reading" },
+    { id: "pc-r1-ex18", prompt: "play →", correct: "playing", tts:"play, playing" },
+    { id: "pc-r1-ex19", prompt: "talk →", correct: "talking", tts:"talk, talking" },
+    { id: "pc-r1-ex20", prompt: "open →", correct: "opening", tts:"open, opening" },
   ],
 
   // Room 2 – Completează cu forma corectă a lui "to be"
-  2: [
-    {
-      id: "pc-r2-ex1",
-      prompt: "I ____ doing my homework now.",
-      correct: "am",
-    },
-    {
-      id: "pc-r2-ex2",
-      prompt: "She ____ talking on the phone at the moment.",
-      correct: "is",
-    },
-    {
-      id: "pc-r2-ex3",
-      prompt: "They ____ playing football in the park.",
-      correct: "are",
-    },
-    {
-      id: "pc-r2-ex4",
-      prompt: "We ____ watching a film right now.",
-      correct: "are",
-    },
-    {
-      id: "pc-r2-ex5",
-      prompt: "He ____ listening to music in his room.",
-      correct: "is",
-    },
-    {
-      id: "pc-r2-ex6",
-      prompt: "You ____ reading a very interesting book.",
-      correct: "are",
-    },
-    {
-      id: "pc-r2-ex7",
-      prompt: "My sister ____ cooking dinner in the kitchen.",
-      correct: "is",
-    },
-    {
-      id: "pc-r2-ex8",
-      prompt: "The children ____ drawing pictures in class.",
-      correct: "are",
-    },
-    {
-      id: "pc-r2-ex9",
-      prompt: "I ____ learning English this week.",
-      correct: "am",
-    },
-    {
-      id: "pc-r2-ex10",
-      prompt: "My parents ____ working late today.",
-      correct: "are",
-    },
-  ],
+ 2: [
+  {
+    id: "pc-r2-ex1",
+    template: "I [gap] doing my homework now.",
+    correct: "am",
+    tts: "I am doing my homework now.",
+  },
+  {
+    id: "pc-r2-ex2",
+    template: "She [gap] talking on the phone at the moment.",
+    correct: "is",
+    tts: "She is talking on the phone at the moment.",
+  },
+  {
+    id: "pc-r2-ex3",
+    template: "They [gap] playing football in the park.",
+    correct: "are",
+    tts: "They are playing football in the park.",
+  },
+  {
+    id: "pc-r2-ex4",
+    template: "We [gap] watching a film right now.",
+    correct: "are",
+    tts: "We are watching a film right now.",
+  },
+  {
+    id: "pc-r2-ex5",
+    template: "He [gap] listening to music in his room.",
+    correct: "is",
+    tts: "He is listening to music in his room.",
+  },
+  {
+    id: "pc-r2-ex6",
+    template: "You [gap] reading a very interesting book.",
+    correct: "are",
+    tts: "You are reading a very interesting book.",
+  },
+  {
+    id: "pc-r2-ex7",
+    template: "My sister [gap] cooking dinner in the kitchen.",
+    correct: "is",
+    tts: "My sister is cooking dinner in the kitchen.",
+  },
+  {
+    id: "pc-r2-ex8",
+    template: "The children [gap] drawing pictures in class.",
+    correct: "are",
+    tts: "The children are drawing pictures in class.",
+  },
+  {
+    id: "pc-r2-ex9",
+    template: "I [gap] learning English this week.",
+    correct: "am",
+    tts: "I am learning English this week.",
+  },
+  {
+    id: "pc-r2-ex10",
+    template: "My parents [gap] working late today.",
+    correct: "are",
+    tts: "My parents are working late today.",
+  },
+],
 
   // Room 3 – MCQ (choose the correct option)
   3: [
     {
       id: "pc-r3-ex1",
       prompt: "Look! The dog ___ in the garden.",
+      correct: "is-running",
+      tts: "Look! The dog is running in the garden.",
       options: [
         { value: "runs", label: "runs" },
         { value: "is-running", label: "is running" },
         { value: "run", label: "run" },
       ],
-      correct: "is-running",
+      
     },
     {
       id: "pc-r3-ex2",

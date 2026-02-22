@@ -132,7 +132,7 @@ const PS_HINTS_REGISTRY = {
   negative: presentSimpleNegativeLexHints,
   interrogative: presentSimpleInterrogativeLexHints,
   uses: presentSimpleUsesLexHints,
-  time_expressions: presentSimpleTimeExpressionsLexHints,
+  "time-expressions": presentSimpleTimeExpressionsLexHints,
   badge: presentSimpleBadgeLexHints,
 };
 

@@ -4,19 +4,23 @@ import SharedTextInputExerciseList from "../../../shared/exercises/TextInputExer
 /**
  * Generic text-input exercise list.
  *
- * This module-level wrapper keeps existing Present Continuous UX stable
- * (no listen-on-correct button, but preserves the fixed right-column spacing)
- * while delegating the actual implementation to the shared exercise component.
+ * Wrapper peste componenta shared, ca să păstrăm layout-ul
+ * (dreapta are coloană fixă), dar să putem controla dacă
+ * apare sau nu butonul de „Ascultă” pe răspunsurile corecte.
  */
 export default function TextInputExerciseList(props) {
-  // Enforce current behavior for tenses that use this wrapper.
-  const { withListenOnCorrect, rightPlaceholderWidth, ...rest } = props;
+  const {
+    // implicit păstrăm comportamentul vechi = fără listen
+    withListenOnCorrect = false,
+    rightPlaceholderWidth = 40,
+    ...rest
+  } = props;
 
   return (
     <SharedTextInputExerciseList
       {...rest}
-      withListenOnCorrect={false}
-      rightPlaceholderWidth={40}
+      withListenOnCorrect={withListenOnCorrect}
+      rightPlaceholderWidth={rightPlaceholderWidth}
     />
   );
 }
