@@ -15,10 +15,38 @@ import { FrequencyAdverbExerciseList } from "./components/FrequencyAdverbExercis
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
 import { AdverbPositionExerciseList } from "./components/AdverbPositionExerciseList.jsx";
 
+// Room type configuration – keeps things clear and scalable.
+const MATCHING_PAIRS_ROOMS = [1, 2];
+const MCQ_ROOMS = [3];
+const ADVERB_POSITION_ROOMS = [4];
+const SENTENCE_BUILDER_ROOMS = [5];
+const FREQUENCY_ADVERB_ROOMS = [6];
+const RUNE_TRANSLATION_ROOMS = [7];
+
+const cardTitleByRoom = {
+  1: "Potrivește propozițiile cu expresiile de timp corecte",
+  2: "Potrivește procentele cu adverbele de frecvență corecte",
+  3: "Alege propoziția în care adverbul de frecvență este în locul potrivit",
+  4: "Alege poziția corectă a adverbului de frecvență în propoziție",
+  5: "Construiește răspunsuri complete la întrebările cu How often...?",
+  6: "Completează propozițiile în funcție de rutina ta",
+  7: "Tradu propozițiile din română în engleză folosind expresii de timp",
+};
+
+const cardIntroByRoom = {
+  1: "Potrivește fiecare propoziție cu expresia de timp corectă din partea dreaptă. Uită-te la momentul și frecvența acțiunii.",
+  2: "Potrivește fiecare procent cu adverbul de frecvență care exprimă cel mai bine cât de des se întâmplă acțiunea.",
+  3: "Bifează propoziția în care adverbul de frecvență este în locul potrivit în raport cu verbul.",
+  4: "Alege locul corect pentru adverbul de frecvență în fiecare propoziție, ținând cont de regulile pentru Present Simple.",
+  5: "Construiește răspunsuri complete la întrebările cu How often...?, folosind cuvintele din bancă și expresiile de timp corecte.",
+  6: "Completează propozițiile în funcție de rutina ta zilnică sau săptămânală. Alege variantele care te descriu cel mai bine.",
+  7: "Tradu propozițiile din română în engleză, folosind Present Simple și expresii de timp potrivite. Folosește dicționarul camerei pentru ajutor.",
+};
+
 export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
     () => getPsTimeExpressionsExercises(roomNumber),
-    [roomNumber]
+    [roomNumber],
   );
 
   if (!exercises || exercises.length === 0) {
@@ -31,26 +59,6 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
   const roomLabel = `Camera ${roomNumber}`;
   const retryForKeyTestId = `ps-timeexp-room${roomNumber}-retry-key`;
   const testIdPrefix = `ps-te-room${roomNumber}`;
-
-  const cardTitleByRoom = {
-    1: "Potrivește propozițiile cu expresiile de timp corecte",
-    2: "Potrivește procentele cu adverbele de frecvență corecte",
-    3: "Alege propoziția în care adverbul de frecvență este în locul potrivit",
-    4: "Alege poziția corectă a adverbului de frecvență în propoziție",
-    5: "Construiește răspunsuri complete la întrebările cu How often...?",
-    6: "Completează propozițiile în funcție de rutina ta",
-    7: "Tradu propozițiile din română în engleză folosind expresii de timp",
-  };
-
-  const cardIntroByRoom = {
-    1: "Potrivește fiecare propoziție cu expresia de timp corectă din partea dreaptă. Uită-te la momentul și frecvența acțiunii.",
-    2: "Potrivește fiecare procent cu adverbul de frecvență care exprimă cel mai bine cât de des se întâmplă acțiunea.",
-    3: "Bifează propoziția în care adverbul de frecvență este în locul potrivit în raport cu verbul.",
-    4: "Alege locul corect pentru adverbul de frecvență în fiecare propoziție, ținând cont de regulile pentru Present Simple.",
-    5: "Construiește răspunsuri complete la întrebările cu How often...?, folosind cuvintele din bancă și expresiile de timp corecte.",
-    6: "Completează propozițiile în funcție de rutina ta zilnică sau săptămânală. Alege variantele care te descriu cel mai bine.",
-    7: "Tradu propozițiile din română în engleză, folosind Present Simple și expresii de timp potrivite. Folosește dicționarul camerei pentru ajutor.",
-  };
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ??
@@ -66,7 +74,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
     handleChange,
     testIdPrefix,
   }) => {
-    if (roomNumber === 1 || roomNumber === 2) {
+    // 1) Matching pairs (1, 2)
+    if (MATCHING_PAIRS_ROOMS.includes(roomNumber)) {
       return (
         <MatchingPairsExerciseList
           exercises={exercises}
@@ -79,7 +88,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 3) {
+    // 2) MCQ (3)
+    if (MCQ_ROOMS.includes(roomNumber)) {
       return (
         <McqExerciseList
           exercises={exercises}
@@ -92,7 +102,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 4) {
+    // 3) Adverb position (4)
+    if (ADVERB_POSITION_ROOMS.includes(roomNumber)) {
       return (
         <AdverbPositionExerciseList
           exercises={exercises}
@@ -105,7 +116,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 5) {
+    // 4) Sentence builder (5)
+    if (SENTENCE_BUILDER_ROOMS.includes(roomNumber)) {
       return (
         <SentenceBuilderExerciseList
           exercises={exercises}
@@ -118,7 +130,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 6) {
+    // 5) Frequency adverb (6)
+    if (FREQUENCY_ADVERB_ROOMS.includes(roomNumber)) {
       return (
         <FrequencyAdverbExerciseList
           exercises={exercises}
@@ -131,7 +144,8 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 7) {
+    // 6) Rune translation (7)
+    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
       return (
         <RuneTranslationExerciseList
           exercises={exercises}
@@ -143,24 +157,22 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    // Fallback safety
+    // 7) Fallback – should not be hit, but keeps the shell safe.
     return (
-        <MatchingPairsExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
+      <MatchingPairsExerciseList
+        exercises={exercises}
+        answers={answers}
+        feedback={feedback}
+        onChange={handleChange}
+        showIndex={true}
+        testIdPrefix={testIdPrefix}
+      />
     );
   };
 
-  const lexHintsForRoom =
-    timeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
+  const lexHintsForRoom = timeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
 
-  const nextTo =
-    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

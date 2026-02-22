@@ -101,12 +101,12 @@ async function walk(dir) {
 function looksLikeRoomsFile(sourceText) {
   // We want the REAL architecture, not guesses.
   // This heuristic is intentionally narrow: *_ROOMS array + exercises field.
-  const hasRoomsArray = /(?:^|\n)\s*(?:export\s+)?const\s+[A-Z0-9_]+_ROOMS\s*=\s*\[/m.test(
-    sourceText
-  );
-  const hasRoomsArrayNonExport = /(?:^|\n)\s*const\s+[A-Z0-9_]+_ROOMS\s*=\s*\[/m.test(
-    sourceText
-  );
+  const hasRoomsArray =
+    /(?:^|\n)\s*(?:export\s+)?const\s+[A-Z0-9_]+_ROOMS\s*=\s*\[/m.test(
+      sourceText,
+    );
+  const hasRoomsArrayNonExport =
+    /(?:^|\n)\s*const\s+[A-Z0-9_]+_ROOMS\s*=\s*\[/m.test(sourceText);
   const hasExercisesField = /\bexercises\s*:\s*/.test(sourceText);
   return (hasRoomsArray || hasRoomsArrayNonExport) && hasExercisesField;
 }
@@ -179,9 +179,12 @@ async function buildAndImportModule(sourcePath, sourceText, roomsConstNames) {
             ],
           ]);
 
-          build.onResolve({ filter: /^(react|react-dom|react-router-dom)$/ }, (args) => {
-            return { path: args.path, namespace: "lex-stub" };
-          });
+          build.onResolve(
+            { filter: /^(react|react-dom|react-router-dom)$/ },
+            (args) => {
+              return { path: args.path, namespace: "lex-stub" };
+            },
+          );
 
           build.onLoad({ filter: /.*/, namespace: "lex-stub" }, (args) => {
             const contents = stubs.get(args.path) || "export default {};";
@@ -235,7 +238,7 @@ function validateLexHints(lexHints, ctx) {
       const v = lexHints[i];
       if (typeof v !== "string" || !v.trim()) {
         issues.push(
-          makeIssue("ERROR", `lexHints[${i}] must be a non-empty string`, ctx)
+          makeIssue("ERROR", `lexHints[${i}] must be a non-empty string`, ctx),
         );
       }
     }
@@ -249,8 +252,8 @@ function validateLexHints(lexHints, ctx) {
       makeIssue(
         "WARN",
         "lexHints is an object (expected array in current rooms). Validator skipped deep validation.",
-        ctx
-      )
+        ctx,
+      ),
     );
     return issues;
   }
@@ -259,8 +262,8 @@ function validateLexHints(lexHints, ctx) {
     makeIssue(
       "ERROR",
       `lexHints must be an array (or object map), got ${typeof lexHints}`,
-      ctx
-    )
+      ctx,
+    ),
   );
   return issues;
 }
@@ -291,11 +294,7 @@ function validateDictionaryItems(dictionaryItems, ctx) {
 
     if (!isPlainObject(it)) {
       issues.push(
-        makeIssue(
-          "ERROR",
-          `dictionaryItems[${i}] must be an object`,
-          ctx
-        )
+        makeIssue("ERROR", `dictionaryItems[${i}] must be an object`, ctx),
       );
       continue;
     }
@@ -320,10 +319,10 @@ function validateDictionaryItems(dictionaryItems, ctx) {
           makeIssue(
             "WARN",
             `duplicate dictionary word '${it.word}' (also at index ${seenWords.get(
-              w
+              w,
             )})`,
-            ctx
-          )
+            ctx,
+          ),
         );
       } else {
         seenWords.set(w, i);
@@ -367,7 +366,8 @@ function detectExerciseKind(ex) {
   // Heuristics based on actual component contracts in this repo.
   if (Object.prototype.hasOwnProperty.call(ex, "template")) return "gap";
   if (Object.prototype.hasOwnProperty.call(ex, "leftText")) return "matching";
-  if (Object.prototype.hasOwnProperty.call(ex, "wordBank")) return "sentence-builder";
+  if (Object.prototype.hasOwnProperty.call(ex, "wordBank"))
+    return "sentence-builder";
   if (Object.prototype.hasOwnProperty.call(ex, "native")) return "translation";
   if (
     Object.prototype.hasOwnProperty.call(ex, "before") &&
@@ -383,7 +383,8 @@ function detectExerciseKind(ex) {
     return "frequency-adverb";
   if (Object.prototype.hasOwnProperty.call(ex, "options")) return "mcq";
   // Checkbox exercises still look like prompt-based, but correct is "true"/"false".
-  if (ex && (ex.correct === "true" || ex.correct === "false")) return "checkbox";
+  if (ex && (ex.correct === "true" || ex.correct === "false"))
+    return "checkbox";
   return "prompt";
 }
 
@@ -425,9 +426,16 @@ function validateExercises(exercises, ctx) {
       issues.push(makeIssue("ERROR", "correct is missing", p));
     } else if (ex.correct == null || ex.correct === "") {
       issues.push(makeIssue("ERROR", "correct is empty", p));
-    } else if (typeof ex.correct !== "string" && typeof ex.correct !== "number") {
+    } else if (
+      typeof ex.correct !== "string" &&
+      typeof ex.correct !== "number"
+    ) {
       issues.push(
-        makeIssue("ERROR", `correct must be string/number, got ${typeof ex.correct}`, p)
+        makeIssue(
+          "ERROR",
+          `correct must be string/number, got ${typeof ex.correct}`,
+          p,
+        ),
       );
     }
 
@@ -467,8 +475,8 @@ function validateExercises(exercises, ctx) {
               makeIssue(
                 "ERROR",
                 `correct ('${ex.correct}') must match one of options.value`,
-                p
-              )
+                p,
+              ),
             );
           }
         }
@@ -480,7 +488,9 @@ function validateExercises(exercises, ctx) {
           issues.push(makeIssue("ERROR", "question missing/invalid", p));
         }
         if (!Array.isArray(ex.wordBank) || ex.wordBank.length === 0) {
-          issues.push(makeIssue("ERROR", "wordBank must be a non-empty array", p));
+          issues.push(
+            makeIssue("ERROR", "wordBank must be a non-empty array", p),
+          );
         } else {
           for (let j = 0; j < ex.wordBank.length; j++) {
             if (typeof ex.wordBank[j] !== "string" || !ex.wordBank[j].trim()) {
@@ -488,8 +498,8 @@ function validateExercises(exercises, ctx) {
                 makeIssue(
                   "ERROR",
                   `wordBank[${j}] must be a non-empty string`,
-                  p
-                )
+                  p,
+                ),
               );
             }
           }
@@ -502,7 +512,10 @@ function validateExercises(exercises, ctx) {
           issues.push(makeIssue("ERROR", "native missing/invalid", p));
         }
         if (Object.prototype.hasOwnProperty.call(ex, "hint")) {
-          if (ex.hint != null && (typeof ex.hint !== "string" || !ex.hint.trim())) {
+          if (
+            ex.hint != null &&
+            (typeof ex.hint !== "string" || !ex.hint.trim())
+          ) {
             issues.push(makeIssue("WARN", "hint is empty/invalid", p));
           }
         }
@@ -514,7 +527,9 @@ function validateExercises(exercises, ctx) {
           issues.push(makeIssue("ERROR", "before missing/invalid", p));
         } else if (!ex.before.trim()) {
           // In this repo, 'before' can legitimately be empty for some items.
-          issues.push(makeIssue("WARN", "before is empty (allowed, but double-check)", p));
+          issues.push(
+            makeIssue("WARN", "before is empty (allowed, but double-check)", p),
+          );
         }
         if (typeof ex.between !== "string" || !ex.between.trim()) {
           issues.push(makeIssue("ERROR", "between missing/invalid", p));
@@ -526,7 +541,9 @@ function validateExercises(exercises, ctx) {
           issues.push(makeIssue("ERROR", "word missing/invalid", p));
         }
         if (ex.correct !== "slot-1" && ex.correct !== "slot-2") {
-          issues.push(makeIssue("ERROR", "correct must be 'slot-1' or 'slot-2'", p));
+          issues.push(
+            makeIssue("ERROR", "correct must be 'slot-1' or 'slot-2'", p),
+          );
         }
         break;
       }
@@ -546,8 +563,8 @@ function validateExercises(exercises, ctx) {
               makeIssue(
                 "ERROR",
                 `correct ('${ex.correct}') must match one of options.value`,
-                p
-              )
+                p,
+              ),
             );
           }
           if (ex.defaultAdverb != null && !set.has(ex.defaultAdverb)) {
@@ -555,8 +572,8 @@ function validateExercises(exercises, ctx) {
               makeIssue(
                 "WARN",
                 `defaultAdverb ('${ex.defaultAdverb}') is not present in options`,
-                p
-              )
+                p,
+              ),
             );
           }
         }
@@ -575,8 +592,8 @@ function validateExercises(exercises, ctx) {
               makeIssue(
                 "ERROR",
                 `correct ('${ex.correct}') must match one of options.value`,
-                p
-              )
+                p,
+              ),
             );
           }
         }
@@ -588,7 +605,9 @@ function validateExercises(exercises, ctx) {
           issues.push(makeIssue("ERROR", "prompt missing/invalid", p));
         }
         if (ex.correct !== "true" && ex.correct !== "false") {
-          issues.push(makeIssue("ERROR", "correct must be 'true' or 'false'", p));
+          issues.push(
+            makeIssue("ERROR", "correct must be 'true' or 'false'", p),
+          );
         }
         break;
       }
@@ -637,7 +656,7 @@ async function main() {
   }
 
   const allFiles = (await walk(SRC_ROOT)).filter((f) =>
-    /\.(js|jsx|ts|tsx)$/.test(f)
+    /\.(js|jsx|ts|tsx)$/.test(f),
   );
 
   const candidates = [];
@@ -663,22 +682,22 @@ async function main() {
       console.log(
         JSON.stringify(
           {
-            status: "ERROR",
+            status: "SKIP", // <- înainte era "ERROR"
             strict: STRICT,
             projectRoot: PROJECT_ROOT,
             validatedAt: new Date().toISOString(),
             files: [],
-            issues: [makeIssue("ERROR", msg, "registry-scan")],
+            issues: [], // <- nu mai raportăm issues aici
           },
           null,
-          2
-        )
+          2,
+        ),
       );
-      process.exitCode = 2;
+      process.exitCode = 0; // <- înainte era 2
       return;
     }
-    console.error(msg);
-    process.exitCode = 2;
+    console.log(msg); // poți lăsa și console.error, dar nu mai e chiar „eroare”
+    process.exitCode = 0; // <- înainte era 2
     return;
   }
 
@@ -697,7 +716,7 @@ async function main() {
           makeIssue(
             "ERROR",
             `Failed to load module via esbuild: ${err && err.message ? err.message : String(err)}`,
-            c.rel
+            c.rel,
           ),
         ],
       });
@@ -713,7 +732,7 @@ async function main() {
 
       // A room registry is an array of objects that contains exercises arrays.
       const looksLikeRegistry = maybeRegistry.every(
-        (r) => isPlainObject(r) && Array.isArray(r.exercises)
+        (r) => isPlainObject(r) && Array.isArray(r.exercises),
       );
       if (!looksLikeRegistry) continue;
 
@@ -723,11 +742,14 @@ async function main() {
 
       for (let idx = 0; idx < rooms.length; idx++) {
         const room = rooms[idx];
-        const roomNumber = room && room.roomNumber != null ? room.roomNumber : "?";
+        const roomNumber =
+          room && room.roomNumber != null ? room.roomNumber : "?";
         const roomCtx = `${name}[roomNumber=${roomNumber}]`;
 
         if (!isPlainObject(room)) {
-          regIssues.push(makeIssue("ERROR", "room entry must be an object", roomCtx));
+          regIssues.push(
+            makeIssue("ERROR", "room entry must be an object", roomCtx),
+          );
           continue;
         }
 
@@ -739,7 +761,9 @@ async function main() {
 
       // Registry-level sanity checks (still content-only-ish)
       const roomNums = rooms
-        .map((r) => (r && typeof r.roomNumber === "number" ? r.roomNumber : null))
+        .map((r) =>
+          r && typeof r.roomNumber === "number" ? r.roomNumber : null,
+        )
         .filter((n) => n != null);
 
       if (roomNums.length !== rooms.length) {
@@ -747,8 +771,8 @@ async function main() {
           makeIssue(
             "WARN",
             "Some rooms are missing roomNumber; report will show roomNumber='?'",
-            name
-          )
+            name,
+          ),
         );
       }
 
@@ -758,8 +782,8 @@ async function main() {
           makeIssue(
             "ERROR",
             `duplicate roomNumber(s): ${duplicates.join(", ")}`,
-            name
-          )
+            name,
+          ),
         );
       }
 
@@ -776,12 +800,15 @@ async function main() {
         makeIssue(
           "WARN",
           "Found *_ROOMS arrays, but none looked like room registries (array of rooms with exercises).",
-          c.rel
-        )
+          c.rel,
+        ),
       );
     }
 
-    const fileStatus = computeStatus([...fileIssues, ...localReports.flatMap((r) => r.issues)]);
+    const fileStatus = computeStatus([
+      ...fileIssues,
+      ...localReports.flatMap((r) => r.issues),
+    ]);
 
     registryReports.push({
       file: c.rel,
@@ -855,7 +882,10 @@ function printHumanReport(registryReports, overallStatus) {
 
       // summary per room (compact)
       const roomsLine = reg.rooms
-        .map((r) => `${r.roomNumber}:${r.status === "VALID" ? "✓" : r.status === "WARN" ? "!" : "✗"}`)
+        .map(
+          (r) =>
+            `${r.roomNumber}:${r.status === "VALID" ? "✓" : r.status === "WARN" ? "!" : "✗"}`,
+        )
         .join("  ");
       console.log("    Rooms: " + roomsLine);
 

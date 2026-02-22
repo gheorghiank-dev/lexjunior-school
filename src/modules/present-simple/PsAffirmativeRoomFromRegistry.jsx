@@ -12,10 +12,36 @@ import {
 
 import { presentSimpleAffirmativeLexHints } from "../lex-hints/present-simple/affirmative.js";
 
-import  TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
+import TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
 import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
 import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
+
+// Room type configuration – keeps things clean and scalable.
+const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
+const GAP_ROOMS = [2, 3, 5];
+const MCQ_ROOMS = [4];
+const TEXTAREA_ROOMS = [6, 7];
+
+const cardTitleByRoom = {
+  1: "Completează cu forma corectă la persoana a III-a singular",
+  2: "Completează cu forma corectă a verbului din paranteză",
+  3: "Completează cu forma corectă a verbului din propoziția dată",
+  4: "Bifează varianta corectă a verbului",
+  5: "Corectează propozițiile completând verbul corect",
+  6: "Pune cuvintele în ordinea corectă (Present Simple afirmativ)",
+  7: "Tradu propozițiile din română în engleză (Present Simple afirmativ)",
+};
+
+const cardIntroByRoom = {
+  1: "Completează spațiile libere cu forma corectă a verbului la persoana a III-a singular.",
+  2: "Completează spațiile libere cu forma corectă a verbului din paranteză.",
+  3: "Completează spațiile libere cu forma corectă a verbului din propoziția dată.",
+  4: "Alege forma corectă a verbului în fiecare propoziție.",
+  5: "Propoziția este greșită. Completează spațiul liber cu forma corectă a verbului.",
+  6: "Scrie cuvintele date în ordinea corectă pentru a obține propoziții la Present Simple afirmativ.",
+  7: "Tradu propozițiile din română în engleză, folosind Present Simple afirmativ. Folosește mini-dicționarul pentru cuvintele necunoscute.",
+};
 
 export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
@@ -34,29 +60,8 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   const retryForKeyTestId = `ps-aff-room${roomNumber}-retry-key`;
   const testIdPrefix = `ps-aff-room${roomNumber}`;
 
-  const cardTitleByRoom = {
-    1: "Completează cu forma corectă la persoana a III-a singular",
-    2: "Completează cu forma corectă a verbului din paranteză",
-    3: "Completează cu forma corectă a verbului din propoziția dată",
-    4: "Bifează varianta corectă a verbului",
-    5: "Corectează propozițiile completând verbul corect",
-    6: "Pune cuvintele în ordinea corectă (Present Simple afirmativ)",
-    7: "Tradu propozițiile din română în engleză (Present Simple afirmativ)",
-  };
-
-  const cardIntroByRoom = {
-    1: "Completează spațiile libere cu forma corectă a verbului la persoana a III-a singular.",
-    2: "Completează spațiile libere cu forma corectă a verbului din paranteză.",
-    3: "Completează spațiile libere cu forma corectă a verbului din propoziția dată.",
-    4: "Alege forma corectă a verbului în fiecare propoziție.",
-    5: "Propoziția este greșită. Completează spațiul liber cu forma corectă a verbului.",
-    6: "Scrie cuvintele date în ordinea corectă pentru a obține propoziții la Present Simple afirmativ.",
-    7: "Tradu propozițiile din română în engleză, folosind Present Simple afirmativ. Folosește mini-dicționarul pentru cuvintele necunoscute.",
-  };
-
   const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Simple – Affirmative";
+    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Affirmative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPsAffirmativeGlossaryItems(roomNumber);
@@ -68,7 +73,8 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
     handleChange,
     testIdPrefix,
   }) => {
-    if (roomNumber === 1) {
+    // 1) Text input + listen (doar room 1 în momentul ăsta)
+    if (TEXT_INPUT_WITH_LISTEN_ROOMS.includes(roomNumber)) {
       return (
         <TextInputExerciseList
           exercises={exercises}
@@ -81,20 +87,24 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 2 || roomNumber === 3 || roomNumber === 5) {
+    // 2) Gap sentence rooms (2, 3, 5)
+    if (GAP_ROOMS.includes(roomNumber)) {
+      const showIndex = roomNumber !== 2;
+
       return (
         <GapSentenceExerciseList
           exercises={exercises}
           answers={answers}
           feedback={feedback}
           onChange={handleChange}
-          showIndex={roomNumber === 2 ? false : true}
+          showIndex={showIndex}
           testIdPrefix={testIdPrefix}
         />
       );
     }
 
-    if (roomNumber === 4) {
+    // 3) MCQ rooms
+    if (MCQ_ROOMS.includes(roomNumber)) {
       return (
         <McqExerciseList
           exercises={exercises}
@@ -106,7 +116,8 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 6 || roomNumber === 7) {
+    // 4) Textarea rooms (word order, translation)
+    if (TEXTAREA_ROOMS.includes(roomNumber)) {
       return (
         <TextareaExerciseList
           exercises={exercises}
@@ -121,7 +132,7 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    // Fallback – should not be hit, but keeps the shell safe.
+    // 5) Fallback – should not be hit, but keeps the shell safe.
     return (
       <TextInputExerciseList
         exercises={exercises}
@@ -136,8 +147,7 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   const lexHintsForRoom =
     presentSimpleAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
 
-  const nextTo =
-    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

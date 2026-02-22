@@ -13,10 +13,36 @@ import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
 import { InterrogativeYesNoPairsExerciseList } from "./components/InterrogativeYesNoPairsExerciseList.jsx";
 
+// Room type configuration – keeps things clear and scalable.
+const GAP_ROOMS = [1, 2, 4];
+const TEXTAREA_ROOMS = [3, 7];
+const MCQ_ROOMS = [5];
+const YES_NO_PAIRS_ROOMS = [6];
+
+const cardTitleByRoom = {
+  1: "Completează spațiile libere cu Do sau Does",
+  2: "Copletează spațiile libere cu forma de interogativ a verbului din propoziția dată",
+  3: "Scrie cuvintele date în ordinea corectă pentru a forma propoziții la Present Simple interogativ",
+  4: "Corectează propozițiile completând spațiile libere cu forma corectă a verbului la Present Simple interogativ",
+  5: "Bifează propoziția corectă la Present Simple interogativ",
+  6: "Scrie răspunsuri scurte (Yes / No) pentru întrebările la Present Simple",
+  7: "Tradu propozițiile din română în engleză, folosind Present Simple interogativ",
+};
+
+const cardIntroByRoom = {
+  1: "Completează spațiile libere cu do sau does pentru a forma întrebări corecte la Present Simple.",
+  2: "Completează spațiile libere cu forma de interogativ a verbului din propoziția dată.",
+  3: "Scrie cuvintele în ordinea corectă pentru a transforma șirurile date în întrebări la Present Simple interogativ.",
+  4: "Corectează întrebările greșite completând spațiile libere cu forma corectă a verbului auxiliar la Present Simple interogativ.",
+  5: "Alege propoziția corectă la Present Simple interogativ în fiecare set.",
+  6: "Pentru fiecare întrebare, scrie răspunsul scurt afirmativ și răspunsul scurt negativ, folosind pronumele și auxiliarul potrivit.",
+  7: "Tradu întrebările din română în engleză, folosind structura cu do / does și mini-dicționarul camerei.",
+};
+
 export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
     () => getPsInterrogativeExercises(roomNumber),
-    [roomNumber]
+    [roomNumber],
   );
 
   if (!exercises || exercises.length === 0) {
@@ -30,29 +56,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
   const retryForKeyTestId = `ps-int-room${roomNumber}-retry-key`;
   const testIdPrefix = `ps-int-room${roomNumber}`;
 
-  const cardTitleByRoom = {
-    1: "Completează spațiile libere cu Do sau Does",
-    2: "Copletează spațiile libere cu forma de interogativ a verbului din propoziția dată",
-    3: "Scrie cuvintele date în ordinea corectă pentru a forma propoziții la Present Simple interogativ",
-    4: "Corectează propozițiile completând spațiile libere cu forma corectă a verbului la Present Simple interogativ",
-    5: "Bifează propoziția corectă la Present Simple interogativ",
-    6: "Scrie răspunsuri scurte (Yes / No) pentru întrebările la Present Simple",
-    7: "Tradu propozițiile din română în engleză, folosind Present Simple interogativ",
-  };
-
-  const cardIntroByRoom = {
-    1: "Completează spațiile libere cu do sau does pentru a forma întrebări corecte la Present Simple.",
-    2: "Completează spațiile libere cu forma de interogativ a verbului din propoziția dată.",
-    3: "Scrie cuvintele în ordinea corectă pentru a transforma șirurile date în întrebări la Present Simple interogativ.",
-    4: "Corectează întrebările greșite completând spațiile libere cu forma corectă a verbului auxiliar la Present Simple interogativ.",
-    5: "Alege propoziția corectă la Present Simple interogativ în fiecare set.",
-    6: "Pentru fiecare întrebare, scrie răspunsul scurt afirmativ și răspunsul scurt negativ, folosind pronumele și auxiliarul potrivit.",
-    7: "Tradu întrebările din română în engleză, folosind structura cu do / does și mini-dicționarul camerei.",
-  };
-
   const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Simple – Interrogative";
+    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Interrogative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPsInterrogativeGlossaryItems(roomNumber);
@@ -64,7 +69,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
     handleChange,
     testIdPrefix,
   }) => {
-    if (roomNumber === 1 || roomNumber === 2 || roomNumber === 4) {
+    // 1) Gap sentence rooms (1, 2, 4)
+    if (GAP_ROOMS.includes(roomNumber)) {
       return (
         <GapSentenceExerciseList
           exercises={exercises}
@@ -77,7 +83,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 3 || roomNumber === 7) {
+    // 2) Textarea rooms (3, 7)
+    if (TEXTAREA_ROOMS.includes(roomNumber)) {
       return (
         <TextareaExerciseList
           exercises={exercises}
@@ -92,7 +99,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 5) {
+    // 3) MCQ rooms (5)
+    if (MCQ_ROOMS.includes(roomNumber)) {
       return (
         <McqExerciseList
           exercises={exercises}
@@ -104,7 +112,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 6) {
+    // 4) Yes/No pairs rooms (6)
+    if (YES_NO_PAIRS_ROOMS.includes(roomNumber)) {
       return (
         <InterrogativeYesNoPairsExerciseList
           exercises={exercises}
@@ -115,7 +124,7 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    // Fallback safety
+    // 5) Fallback – should not be hit, but keeps the shell safe.
     return (
       <GapSentenceExerciseList
         exercises={exercises}
@@ -128,11 +137,9 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
     );
   };
 
-  const lexHintsForRoom =
-    interrogativeLexHints?.[`room${roomNumber}`] ?? [];
+  const lexHintsForRoom = interrogativeLexHints?.[`room${roomNumber}`] ?? [];
 
-  const nextTo =
-    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

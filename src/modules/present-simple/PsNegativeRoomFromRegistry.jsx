@@ -12,10 +12,35 @@ import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerc
 import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
 
+// Room type configuration – keeps things clear and scalable.
+const GAP_ROOMS = [1, 2, 3, 6];
+const MCQ_ROOMS = [4];
+const TEXTAREA_ROOMS = [5, 7];
+
+const cardTitleByRoom = {
+  1: "Completează propozițiile cu don't / doesn't (forma negativă)",
+  2: "Completează propozițiile cu don't / doesn't (persoana corectă)",
+  3: "Completează propozițiile cu forma corectă la negativ",
+  4: "Alege varianta corectă la negativ",
+  5: "Scrie propoziții la Present Simple negativ în ordinea corectă",
+  6: "Transformă propozițiile la Present Simple negativ",
+  7: "Scrie propoziții la Present Simple negativ (scrie tu propozițiile)",
+};
+
+const cardIntroByRoom = {
+  1: "Completează spațiile libere cu don't sau doesn't pentru a forma propoziții corecte la negativ.",
+  2: "Alege forma corectă de don't sau doesn't pentru fiecare persoană.",
+  3: "Completează spațiile libere cu forma corectă a verbului la negativ (de exemplu, doesn't like).",
+  4: "Bifează varianta corectă la negativ în fiecare propoziție.",
+  5: "Scrie cuvintele date în ordinea corectă pentru a forma propoziții la Present Simple negativ.",
+  6: "Transformă propozițiile la forma negativă a timpului Present Simple.",
+  7: "Scrie propoziții la Present Simple negativ, folosind ideile date în română ca ajutor.",
+};
+
 export default function PsNegativeRoomFromRegistry({ roomNumber }) {
   const exercises = useMemo(
     () => getPsNegativeExercises(roomNumber),
-    [roomNumber]
+    [roomNumber],
   );
 
   if (!exercises || exercises.length === 0) {
@@ -29,29 +54,8 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
   const retryForKeyTestId = `ps-neg-room${roomNumber}-retry-key`;
   const testIdPrefix = `ps-neg-room${roomNumber}`;
 
-  const cardTitleByRoom = {
-    1: "Completează propozițiile cu don't / doesn't (forma negativă)",
-    2: "Completează propozițiile cu don't / doesn't (persoana corectă)",
-    3: "Completează propozițiile cu forma corectă la negativ",
-    4: "Alege varianta corectă la negativ",
-    5: "Scrie propoziții la Present Simple negativ în ordinea corectă",
-    6: "Transformă propozițiile la Present Simple negativ",
-    7: "Scrie propoziții la Present Simple negativ (scrie tu propozițiile)",
-  };
-
-  const cardIntroByRoom = {
-    1: "Completează spațiile libere cu don't sau doesn't pentru a forma propoziții corecte la negativ.",
-    2: "Alege forma corectă de don't sau doesn't pentru fiecare persoană.",
-    3: "Completează spațiile libere cu forma corectă a verbului la negativ (de exemplu, doesn't like).",
-    4: "Bifează varianta corectă la negativ în fiecare propoziție.",
-    5: "Scrie cuvintele date în ordinea corectă pentru a forma propoziții la Present Simple negativ.",
-    6: "Transformă propozițiile la forma negativă a timpului Present Simple.",
-    7: "Scrie propoziții la Present Simple negativ, folosind ideile date în română ca ajutor.",
-  };
-
   const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Simple – Negative";
+    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Negative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPsNegativeGlossaryItems(roomNumber);
@@ -63,7 +67,8 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
     handleChange,
     testIdPrefix,
   }) => {
-    if (roomNumber === 1 || roomNumber === 2 || roomNumber === 3 || roomNumber === 6) {
+    // 1) Gap sentence rooms (1, 2, 3, 6)
+    if (GAP_ROOMS.includes(roomNumber)) {
       return (
         <GapSentenceExerciseList
           exercises={exercises}
@@ -76,7 +81,8 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 4) {
+    // 2) MCQ rooms (4)
+    if (MCQ_ROOMS.includes(roomNumber)) {
       return (
         <McqExerciseList
           exercises={exercises}
@@ -88,7 +94,8 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 5 || roomNumber === 7) {
+    // 3) Textarea rooms (5, 7)
+    if (TEXTAREA_ROOMS.includes(roomNumber)) {
       return (
         <TextareaExerciseList
           exercises={exercises}
@@ -103,7 +110,7 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    // Fallback safety
+    // 4) Fallback – should not be hit, but keeps the shell safe.
     return (
       <GapSentenceExerciseList
         exercises={exercises}
@@ -116,11 +123,9 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
     );
   };
 
-  const lexHintsForRoom =
-    negativeLexHints?.[`room${roomNumber}`] ?? [];
+  const lexHintsForRoom = negativeLexHints?.[`room${roomNumber}`] ?? [];
 
-  const nextTo =
-    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

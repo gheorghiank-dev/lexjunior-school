@@ -13,11 +13,34 @@ import { CheckboxExerciseList } from "../../shared/exercises/CheckboxExerciseLis
 import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
 
+// Room type configuration – keeps things clear and scalable.
+const MCQ_ROOMS = [1, 5, 6];
+const CHECKBOX_ROOMS = [2, 4];
+const GAP_ROOMS = [3];
+const RUNE_TRANSLATION_ROOMS = [7];
+
+const cardTitleByRoom = {
+  1: "Alege corect între rutină și non-rutină",
+  2: "Bifează propozițiile care descriu obiceiuri / rutine",
+  3: "Completează propozițiile cu forma corectă a verbului (Present Simple)",
+  4: "Bifează propozițiile care descriu situații permanente",
+  5: "Alege tipul propoziției: instrucțiune, direcție sau alt tip",
+  6: "Alege propoziția corectă la Present Simple în context",
+  7: "Tradu propozițiile din română în engleză (întrebuințări ale Present Simple)",
+};
+
+const cardIntroByRoom = {
+  1: "Pentru fiecare propoziție, alege dacă descrie o rutină (obicei) sau nu. Gândește-te dacă acțiunea se repetă în mod regulat.",
+  2: "Bifează propozițiile care descriu rutine sau obiceiuri în Present Simple. Uită-te după adverbe de frecvență și expresii de rutină.",
+  3: "Completează spațiile libere cu forma corectă a verbului la Present Simple, folosind informațiile din propoziție și mini-dicționarul.",
+  4: "Bifează propozițiile care descriu situații permanente sau adevăruri generale, nu acțiuni temporare.",
+  5: "Pentru fiecare propoziție, alege categoria corectă: instrucțiune, direcție sau alt tip. Gândește-te la rolul propoziției în comunicare.",
+  6: "Alege varianta corectă în context, ținând cont de ideea de rutină sau program fix la Present Simple.",
+  7: "Tradu propozițiile din română în engleză, folosind Present Simple pentru a exprima rutine, programe fixe sau adevăruri generale.",
+};
+
 export default function PsUsesRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPsUsesExercises(roomNumber),
-    [roomNumber]
-  );
+  const exercises = useMemo(() => getPsUsesExercises(roomNumber), [roomNumber]);
 
   if (!exercises || exercises.length === 0) {
     return null;
@@ -29,26 +52,6 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
   const roomLabel = `Camera ${roomNumber}`;
   const retryForKeyTestId = `ps-uses-room${roomNumber}-retry-key`;
   const testIdPrefix = `ps-uses-room${roomNumber}`;
-
-  const cardTitleByRoom = {
-    1: "Alege corect între rutină și non-rutină",
-    2: "Bifează propozițiile care descriu obiceiuri / rutine",
-    3: "Completează propozițiile cu forma corectă a verbului (Present Simple)",
-    4: "Bifează propozițiile care descriu situații permanente",
-    5: "Alege tipul propoziției: instrucțiune, direcție sau alt tip",
-    6: "Alege propoziția corectă la Present Simple în context",
-    7: "Tradu propozițiile din română în engleză (întrebuințări ale Present Simple)",
-  };
-
-  const cardIntroByRoom = {
-    1: "Pentru fiecare propoziție, alege dacă descrie o rutină (obicei) sau nu. Gândește-te dacă acțiunea se repetă în mod regulat.",
-    2: "Bifează propozițiile care descriu rutine sau obiceiuri în Present Simple. Uită-te după adverbe de frecvență și expresii de rutină.",
-    3: "Completează spațiile libere cu forma corectă a verbului la Present Simple, folosind informațiile din propoziție și mini-dicționarul.",
-    4: "Bifează propozițiile care descriu situații permanente sau adevăruri generale, nu acțiuni temporare.",
-    5: "Pentru fiecare propoziție, alege categoria corectă: instrucțiune, direcție sau alt tip. Gândește-te la rolul propoziției în comunicare.",
-    6: "Alege varianta corectă în context, ținând cont de ideea de rutină sau program fix la Present Simple.",
-    7: "Tradu propozițiile din română în engleză, folosind Present Simple pentru a exprima rutine, programe fixe sau adevăruri generale.",
-  };
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Uses";
@@ -63,7 +66,8 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
     handleChange,
     testIdPrefix,
   }) => {
-    if (roomNumber === 1 || roomNumber === 5 || roomNumber === 6) {
+    // 1) MCQ rooms (1, 5, 6)
+    if (MCQ_ROOMS.includes(roomNumber)) {
       return (
         <McqExerciseList
           exercises={exercises}
@@ -76,7 +80,8 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 2 || roomNumber === 4) {
+    // 2) Checkbox rooms (2, 4)
+    if (CHECKBOX_ROOMS.includes(roomNumber)) {
       return (
         <CheckboxExerciseList
           exercises={exercises}
@@ -89,7 +94,8 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 3) {
+    // 3) Gap sentence rooms (3)
+    if (GAP_ROOMS.includes(roomNumber)) {
       return (
         <GapSentenceExerciseList
           exercises={exercises}
@@ -102,7 +108,8 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    if (roomNumber === 7) {
+    // 4) Rune translation rooms (7)
+    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
       return (
         <RuneTranslationExerciseList
           exercises={exercises}
@@ -114,7 +121,7 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
       );
     }
 
-    // Fallback safety
+    // 5) Fallback – should not be hit, but keeps the shell safe.
     return (
       <McqExerciseList
         exercises={exercises}
@@ -129,8 +136,7 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
 
   const lexHintsForRoom = usesLexHints?.[`room${roomNumber}`] ?? [];
 
-  const nextTo =
-    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell
