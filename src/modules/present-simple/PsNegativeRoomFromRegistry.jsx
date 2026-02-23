@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+
 import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
@@ -8,9 +9,10 @@ import {
   getPsNegativeExercises,
   getPsNegativeGlossaryItems,
 } from "./rooms/ps-negative-rooms.jsx";
-import { presentSimpleNegativeLexHints as negativeLexHints } from "../lex-hints/present-simple/negative.js";
+import { presentSimpleNegativeLexHints } from "../lex-hints/present-simple/negative.js";
 
 // Room type configuration – keeps things clear and scalable.
+const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 2, 3, 6];
 const MCQ_ROOMS = [4];
 const TEXTAREA_ROOMS = [5, 7];
@@ -59,25 +61,29 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsNegativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
+  }) =>
+    renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
 
+  const lexHintsForRoom =
+    presentSimpleNegativeLexHints?.[`room${roomNumber}`] ?? [];
+
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

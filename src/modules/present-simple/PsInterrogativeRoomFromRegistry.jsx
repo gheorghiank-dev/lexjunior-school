@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+
 import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
@@ -8,10 +9,11 @@ import {
   getPsInterrogativeExercises,
   getPsInterrogativeGlossaryItems,
 } from "./rooms/ps-interrogative-rooms.jsx";
-import { presentSimpleInterrogativeLexHints as interrogativeLexHints } from "../lex-hints/present-simple/interrogative.js";
+import { presentSimpleInterrogativeLexHints } from "../lex-hints/present-simple/interrogative.js";
 import { InterrogativeYesNoPairsExerciseList } from "./components/InterrogativeYesNoPairsExerciseList.jsx";
 
 // Room type configuration – keeps things clear and scalable.
+const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 2, 4];
 const TEXTAREA_ROOMS = [3, 7];
 const MCQ_ROOMS = [5];
@@ -19,7 +21,7 @@ const YES_NO_PAIRS_ROOMS = [6];
 
 const cardTitleByRoom = {
   1: "Completează spațiile libere cu Do sau Does",
-  2: "Copletează spațiile libere cu forma de interogativ a verbului din propoziția dată",
+  2: "Completează spațiile libere cu forma de interogativ a verbului din propoziția dată",
   3: "Scrie cuvintele date în ordinea corectă pentru a forma propoziții la Present Simple interogativ",
   4: "Corectează propozițiile completând spațiile libere cu forma corectă a verbului la Present Simple interogativ",
   5: "Bifează propoziția corectă la Present Simple interogativ",
@@ -61,25 +63,43 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsInterrogativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
+  }) => {
+    // Cameră specială: Yes/No short answers (room 6)
+    if (YES_NO_PAIRS_ROOMS.includes(roomNumber)) {
+      return (
+        <InterrogativeYesNoPairsExerciseList
+          exercises={exercises}
+          answers={answers}
+          feedback={feedback}
+          onChange={handleChange}
+        />
+      );
+    }
 
+    // Restul camerelor folosesc helperul comun pe tipuri de exerciții.
+    return renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
+  };
+
+  const lexHintsForRoom =
+    presentSimpleInterrogativeLexHints?.[`room${roomNumber}`] ?? [];
+
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

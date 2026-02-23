@@ -1,3 +1,5 @@
+// Present Continuous module config
+
 export const PC_STORAGE_PREFIX = "pc_";
 export const PC_ROOMS_PER_SECTION = 7;
 
@@ -31,9 +33,20 @@ export const PC_SECTIONS = [
   },
 ];
 
+// Neutre – contract comun pentru toate timpurile
+export const STORAGE_PREFIX = PC_STORAGE_PREFIX;
+export const ROOMS_PER_SECTION = PC_ROOMS_PER_SECTION;
+export const SECTIONS = PC_SECTIONS;
 
-export const PC_HUD_TEXT = {
+export const HUD_TEXT = {
   keyObtainedLabel: "Cheia este obtinuta.",
   keyMissingLabel: "Cheia nu este obtinuta.",
   keyMissingAfterPassLabel: "Ai terminat camera, dar nu ai cheia inca.",
 };
+
+// Alias-uri PC pentru compatibilitate cu codul existent
+export const PC_HUD_TEXT = HUD_TEXT;
+
+// Dev-only helper flag (aliniat la Present Simple)
+export const DEV_MODE = true;
+export const PC_DEV_MODE = DEV_MODE;

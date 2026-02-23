@@ -32,6 +32,7 @@ export const PS_SECTIONS = [
   },
 ];
 
+// Neutre – contract comun pentru toate timpurile
 export const STORAGE_PREFIX = PS_STORAGE_PREFIX;
 export const ROOMS_PER_SECTION = PS_ROOMS_PER_SECTION;
 export const SECTIONS = PS_SECTIONS;
@@ -41,11 +42,16 @@ export const HUD_TEXT = {
   keyMissingLabel: "Cheia nu este obtinuta.",
   keyMissingAfterPassLabel: "Ai terminat camera, dar nu ai cheia inca.",
   hudNear: "Incearca din nou, esti foarte aproape!",
-  hudNeedKey: "Ai rezolvat camera, dar ai nevoie de o incercare perfecta pentru cheie.",
+  hudNeedKey:
+    "Ai rezolvat camera, dar ai nevoie de o incercare perfecta pentru cheie.",
   hudHasKey: "Perfect! Ai obtinut cheia pentru aceasta camera.",
   roomNear: "Sunt cateva greseli. Mai arunca o privire :)",
   roomPerfect: "Bravo! Ai terminat corect aceasta camera!",
 };
 
+// Alias-uri PS pentru simetrie cu celelalte timpuri
+export const PS_HUD_TEXT = HUD_TEXT;
+
 // Dev-only helper flag used by some pages.
 export const DEV_MODE = true;
+export const PS_DEV_MODE = DEV_MODE;

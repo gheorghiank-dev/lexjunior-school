@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+
 import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
@@ -8,14 +9,18 @@ import {
   getPsUsesExercises,
   getPsUsesGlossaryItems,
 } from "./rooms/ps-uses-rooms.jsx";
-import { presentSimpleUsesLexHints as usesLexHints } from "../lex-hints/present-simple/uses.js";
+import { presentSimpleUsesLexHints } from "../lex-hints/present-simple/uses.js";
+import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { CheckboxExerciseList } from "../../shared/exercises/CheckboxExerciseList.jsx";
+import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
 
-// Room type configuration – keeps things clear and scalable.
-const MCQ_ROOMS = [1, 5, 6];
-const CHECKBOX_ROOMS = [2, 4];
+// Config de tipuri pe camere
+const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [3];
+const MCQ_ROOMS = [1, 5, 6];
+const TEXTAREA_ROOMS = [];
+const CHECKBOX_ROOMS = [2, 4];
 const RUNE_TRANSLATION_ROOMS = [7];
 
 const cardTitleByRoom = {
@@ -59,25 +64,56 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsUsesGlossaryItems(roomNumber);
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
+  }) => {
+    // Camere speciale – tipuri care nu sunt încă în helperul global
+    if (CHECKBOX_ROOMS.includes(roomNumber)) {
+      return (
+        <CheckboxExerciseList
+          exercises={exercises}
+          answers={answers}
+          feedback={feedback}
+          onChange={handleChange}
+          testIdPrefix={testIdPrefix}
+        />
+      );
+    }
 
+    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
+      return (
+        <RuneTranslationExerciseList
+          exercises={exercises}
+          answers={answers}
+          feedback={feedback}
+          onChange={handleChange}
+          testIdPrefix={testIdPrefix}
+        />
+      );
+    }
+
+    // Restul – MCQ + GAP – merg prin helperul comun
+    return renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
+  };
+
+  const lexHintsForRoom =
+    presentSimpleUsesLexHints?.[`room${roomNumber}`] ?? [];
+
+  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell
