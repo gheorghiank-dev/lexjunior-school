@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
@@ -8,9 +9,6 @@ import {
   getPsNegativeGlossaryItems,
 } from "./rooms/ps-negative-rooms.jsx";
 import { presentSimpleNegativeLexHints as negativeLexHints } from "../lex-hints/present-simple/negative.js";
-import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
-import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
 
 // Room type configuration – keeps things clear and scalable.
 const GAP_ROOMS = [1, 2, 3, 6];
@@ -61,71 +59,25 @@ export default function PsNegativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsNegativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) =>
+  renderExercisesByRoomType({
+    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Gap sentence rooms (1, 2, 3, 6)
-    if (GAP_ROOMS.includes(roomNumber)) {
-      return (
-        <GapSentenceExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
+    TEXT_INPUT_WITH_LISTEN_ROOMS,
+    GAP_ROOMS,
+    MCQ_ROOMS,
+    TEXTAREA_ROOMS,
+  });
 
-    // 2) MCQ rooms (4)
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) Textarea rooms (5, 7)
-    if (TEXTAREA_ROOMS.includes(roomNumber)) {
-      return (
-        <TextareaExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          rows={1}
-          stacked={true}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Fallback – should not be hit, but keeps the shell safe.
-    return (
-      <GapSentenceExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        showIndex={true}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
-
-  const lexHintsForRoom = negativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
-import TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
@@ -10,9 +10,6 @@ import {
   getPcAffirmativeGlossaryItems,
 } from "./rooms/pc-affirmative-rooms.jsx";
 import { presentContinuousAffirmativeLexHints } from "../lex-hints/present-continuous/affirmative.js";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
-import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
-import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
 
 // Room type configuration – aligned with Present Simple.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
@@ -80,84 +77,25 @@ export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPcAffirmativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) =>
+  renderExercisesByRoomType({
+    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Text input + listen (room 1)
-    if (TEXT_INPUT_WITH_LISTEN_ROOMS.includes(roomNumber)) {
-      return (
-        <TextInputExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-          withListenOnCorrect={true}
-        />
-      );
-    }
+    TEXT_INPUT_WITH_LISTEN_ROOMS,
+    GAP_ROOMS,
+    MCQ_ROOMS,
+    TEXTAREA_ROOMS,
+  });
 
-    // 2) Gap sentence rooms (2, 4, 5)
-    if (GAP_ROOMS.includes(roomNumber)) {
-      // la noi nu avem cerință specială de index ca la PS room 2, deci îl lăsăm mereu true;
-      // dacă vrei să ascundem indexul pentru o cameră anume, îl poți condiționa aici.
-      const showIndex = true;
-
-      return (
-        <GapSentenceExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={showIndex}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) MCQ rooms (room 3)
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Textarea rooms (6, 7 – word order, translation)
-    if (TEXTAREA_ROOMS.includes(roomNumber)) {
-      return (
-        <TextareaExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          rows={1}
-          stacked={true}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 5) Fallback – should not be hit, but keeps the shell safe.
-    return (
-      <TextInputExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
 
   return (
     <TenseExerciseRoomShell

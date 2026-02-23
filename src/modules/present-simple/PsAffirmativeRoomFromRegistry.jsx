@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
@@ -12,10 +13,6 @@ import {
 
 import { presentSimpleAffirmativeLexHints } from "../lex-hints/present-simple/affirmative.js";
 
-import TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
-import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
-import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
 
 // Room type configuration – keeps things clean and scalable.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
@@ -67,87 +64,25 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsAffirmativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) =>
+  renderExercisesByRoomType({
+    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Text input + listen (doar room 1 în momentul ăsta)
-    if (TEXT_INPUT_WITH_LISTEN_ROOMS.includes(roomNumber)) {
-      return (
-        <TextInputExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-          withListenOnCorrect={true}
-        />
-      );
-    }
+    TEXT_INPUT_WITH_LISTEN_ROOMS,
+    GAP_ROOMS,
+    MCQ_ROOMS,
+    TEXTAREA_ROOMS,
+  });
 
-    // 2) Gap sentence rooms (2, 3, 5)
-    if (GAP_ROOMS.includes(roomNumber)) {
-      const showIndex = roomNumber !== 2;
-
-      return (
-        <GapSentenceExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={showIndex}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) MCQ rooms
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Textarea rooms (word order, translation)
-    if (TEXTAREA_ROOMS.includes(roomNumber)) {
-      return (
-        <TextareaExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          rows={1}
-          stacked={true}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 5) Fallback – should not be hit, but keeps the shell safe.
-    return (
-      <TextInputExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
-
-  const lexHintsForRoom =
-    presentSimpleAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

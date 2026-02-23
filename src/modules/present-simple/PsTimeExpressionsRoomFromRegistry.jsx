@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
@@ -9,7 +10,6 @@ import {
 } from "./rooms/ps-time-expressions-rooms.jsx";
 import { presentSimpleTimeExpressionsLexHints as timeExpressionsLexHints } from "../lex-hints/present-simple/time-expressions.js";
 import { MatchingPairsExerciseList } from "../../shared/exercises/MatchingPairsExerciseList.jsx";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { SentenceBuilderExerciseList } from "../../shared/exercises/SentenceBuilderExerciseList.jsx";
 import { FrequencyAdverbExerciseList } from "./components/FrequencyAdverbExerciseList.jsx";
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
@@ -68,111 +68,25 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsTimeExpressionsGlossaryItems(roomNumber);
 
   const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) =>
+  renderExercisesByRoomType({
+    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Matching pairs (1, 2)
-    if (MATCHING_PAIRS_ROOMS.includes(roomNumber)) {
-      return (
-        <MatchingPairsExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
+    TEXT_INPUT_WITH_LISTEN_ROOMS,
+    GAP_ROOMS,
+    MCQ_ROOMS,
+    TEXTAREA_ROOMS,
+  });
 
-    // 2) MCQ (3)
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) Adverb position (4)
-    if (ADVERB_POSITION_ROOMS.includes(roomNumber)) {
-      return (
-        <AdverbPositionExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Sentence builder (5)
-    if (SENTENCE_BUILDER_ROOMS.includes(roomNumber)) {
-      return (
-        <SentenceBuilderExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 5) Frequency adverb (6)
-    if (FREQUENCY_ADVERB_ROOMS.includes(roomNumber)) {
-      return (
-        <FrequencyAdverbExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 6) Rune translation (7)
-    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
-      return (
-        <RuneTranslationExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-        />
-      );
-    }
-
-    // 7) Fallback – should not be hit, but keeps the shell safe.
-    return (
-      <MatchingPairsExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        showIndex={true}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
-
-  const lexHintsForRoom = timeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

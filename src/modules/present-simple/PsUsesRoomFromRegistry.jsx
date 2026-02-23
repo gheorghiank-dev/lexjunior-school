@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
@@ -8,9 +9,7 @@ import {
   getPsUsesGlossaryItems,
 } from "./rooms/ps-uses-rooms.jsx";
 import { presentSimpleUsesLexHints as usesLexHints } from "../lex-hints/present-simple/uses.js";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
 import { CheckboxExerciseList } from "../../shared/exercises/CheckboxExerciseList.jsx";
-import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
 
 // Room type configuration – keeps things clear and scalable.
@@ -60,83 +59,25 @@ export default function PsUsesRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPsUsesGlossaryItems(roomNumber);
 
   const renderExercises = ({
+  exercises,
+  answers,
+  feedback,
+  handleChange,
+  testIdPrefix,
+}) =>
+  renderExercisesByRoomType({
+    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) MCQ rooms (1, 5, 6)
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
+    TEXT_INPUT_WITH_LISTEN_ROOMS,
+    GAP_ROOMS,
+    MCQ_ROOMS,
+    TEXTAREA_ROOMS,
+  });
 
-    // 2) Checkbox rooms (2, 4)
-    if (CHECKBOX_ROOMS.includes(roomNumber)) {
-      return (
-        <CheckboxExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) Gap sentence rooms (3)
-    if (GAP_ROOMS.includes(roomNumber)) {
-      return (
-        <GapSentenceExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Rune translation rooms (7)
-    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
-      return (
-        <RuneTranslationExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-        />
-      );
-    }
-
-    // 5) Fallback – should not be hit, but keeps the shell safe.
-    return (
-      <McqExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        showIndex={true}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
-
-  const lexHintsForRoom = usesLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell
