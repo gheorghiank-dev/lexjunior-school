@@ -13,9 +13,9 @@ import { presentContinuousInterrogativeLexHints } from "../lex-hints/present-con
 
 // Room type configuration – aliniat cu Present Simple / PcAffirmative / PcNegative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [];
-const MCQ_ROOMS = [];
-const TEXTAREA_ROOMS = [];
+const GAP_ROOMS = [1, 2, 4, 5];
+const MCQ_ROOMS = [3];
+const TEXTAREA_ROOMS = [6, 7];
 
 const cardTitleByRoom = {
   1: "Formează întrebări cu am / is / are",
@@ -70,25 +70,24 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
   const dictionaryItems = getPcInterrogativeGlossaryItems(roomNumber);
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
-
+  }) =>
+    renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
 
   return (
     <TenseExerciseRoomShell

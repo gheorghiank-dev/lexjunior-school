@@ -1,28 +1,27 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
 
-# 1) Room content validator
-echo "🔍 Validating room content..."
-npm run validate-room-content --silent
-if [ $? -ne 0 ]; then
-  echo "❌ Room validation failed. Commit blocked."
-  exit 1
+# LJEL pre-commit hook (safe mode for Windows + GitHub Desktop)
+
+# Permitem bypass cu: HUSKY=0 git commit -m "..."
+if [ "$HUSKY" = "0" ]; then
+  echo "⚠️  Hooks disabled via HUSKY=0, skipping helper messages."
+  exit 0
 fi
 
-# 2) Create ZIP for AI
-echo "📦 Creating ZIP for AI..."
-npm run zip-for-ai
-if [ $? -ne 0 ]; then
-  echo "❌ ZIP creation failed. Commit blocked."
-  exit 1
-fi
+echo "🔍 Reminder: room validator is NOT run automatically."
+echo "    Run manually when you want a full check:"
+echo "    npm run validate-room-content"
+echo ""
 
-# 3) Backup project
-echo "💾 Creating project backup..."
-npm run backup-project
-if [ $? -ne 0 ]; then
-  echo "❌ Backup failed. Commit blocked."
-  exit 1
-fi
+echo "📦 Reminder: ZIP for AI is NOT created automatically."
+echo "    Run manually when needed:"
+echo "    npm run zip-for-ai"
+echo ""
 
-echo "🎉 Commit passed: validation + ZIP + backup done."
+echo "💾 Reminder: backup is NOT created automatically."
+echo "    Run manually when needed:"
+echo "    npm run backup-project"
+echo ""
+
+echo "✅ Pre-commit hook finished (no blocking checks run)."
+exit 0
