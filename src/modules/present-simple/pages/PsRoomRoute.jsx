@@ -1,17 +1,14 @@
 import React from "react";
 
-import { TenseRoomRoute } from "../tenses/ui/TenseRoomRoute.jsx";
-import { PS_BASE_PATH } from "./ps-paths.js";
-import {
-  PS_ROOMS_PER_SECTION,
-  PS_SECTIONS,
-} from "./ps-core/config.js";
+import { TenseRoomRoute } from "../../tenses/ui/TenseRoomRoute.jsx";
+import { PS_BASE_PATH } from "../ps-paths.js";
+import { PS_ROOMS_PER_SECTION, PS_SECTIONS } from "../ps-core/config.js";
 
-import PsAffirmativeRoomFromRegistry from "./PsAffirmativeRoomFromRegistry.jsx";
-import PsNegativeRoomFromRegistry from "./PsNegativeRoomFromRegistry.jsx";
-import PsInterrogativeRoomFromRegistry from "./PsInterrogativeRoomFromRegistry.jsx";
-import PsUsesRoomFromRegistry from "./PsUsesRoomFromRegistry.jsx";
-import PsTimeExpressionsRoomFromRegistry from "./PsTimeExpressionsRoomFromRegistry.jsx";
+import PsAffirmativeRoomFromRegistry from "../PsAffirmativeRoomFromRegistry.jsx";
+import PsNegativeRoomFromRegistry from "../PsNegativeRoomFromRegistry.jsx";
+import PsInterrogativeRoomFromRegistry from "../PsInterrogativeRoomFromRegistry.jsx";
+import PsUsesRoomFromRegistry from "../PsUsesRoomFromRegistry.jsx";
+import PsTimeExpressionsRoomFromRegistry from "../PsTimeExpressionsRoomFromRegistry.jsx";
 
 // Mapping helper by sectionId, to keep all routing in one place.
 const SECTION_COMPONENTS = {

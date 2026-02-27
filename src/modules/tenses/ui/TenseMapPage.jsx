@@ -8,7 +8,10 @@ import {
   buildSectionOverview,
 } from "../../../core/progress/gating-rules.js";
 import { isSchoolMode } from "../../../modes/mode-registry.js";
-import { SchoolStudentNameCard, SchoolCertificateCard } from "../../../modes/school/index.js";
+import {
+  SchoolStudentNameCard,
+  SchoolCertificateCard,
+} from "../../../modes/school/index.js";
 
 /**
  * Generic final badge card for any tense map.
@@ -243,8 +246,8 @@ export default function TenseMapPage({
       <header className="map-header">
         <h1 className="page-title">{mapTitle}</h1>
         <p className="page-subtitle" style={{ marginTop: "0.4rem" }}>
-          Scaffold pentru toate camerele {tenseLabel}. Începi cu teoria,
-          apoi parcurgi camerele în ordine.
+          Scaffold pentru toate camerele {tenseLabel}. Începi cu teoria, apoi
+          parcurgi camerele în ordine.
         </p>
 
         <div className="map-overview-row">

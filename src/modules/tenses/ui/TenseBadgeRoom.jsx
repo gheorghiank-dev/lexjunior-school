@@ -5,7 +5,7 @@ import TenseLexBubble from "./TenseLexBubble.jsx";
 import { TenseMiniDictionaryCard } from "./TenseMiniDictionaryCard.jsx";
 import LexTtsButton from "../../../shared/exercises/LexTtsButton.jsx";
 import { normalizeAnswer } from "../../../core/room-engine/normalize-answer.js";
-
+import { isSchoolMode } from "../../../modes/mode-registry.js";
 import "../../../styles/badge.css";
 import "../../../styles/exercises/base.css";
 import "../../../styles/components/lex-voice-btn.css";
@@ -55,6 +55,7 @@ export default function TenseBadgeRoom({
   ex3Prompts,
   dictionaryItems,
   badgeStoryTtsText,
+  certificateDownloadUrl, // <- nou: linkul pentru diploma
 }) {
   const hudRootRef = useRef(null);
 
@@ -129,9 +130,7 @@ export default function TenseBadgeRoom({
     ? storySlotAnswers.length
     : 0;
 
-  const [ex1Slots, setEx1Slots] = useState(
-    Array(slotCount).fill(""),
-  );
+  const [ex1Slots, setEx1Slots] = useState(Array(slotCount).fill(""));
   const [ex1SlotStatus, setEx1SlotStatus] = useState(
     Array(slotCount).fill(null),
   );
@@ -186,7 +185,9 @@ export default function TenseBadgeRoom({
         setVerbPool((poolPrev) =>
           shuffleList(
             poolPrev.filter(
-              (v) => (v || "").trim().toLowerCase() !== (verb || "").trim().toLowerCase(),
+              (v) =>
+                (v || "").trim().toLowerCase() !==
+                (verb || "").trim().toLowerCase(),
             ),
           ),
         );
@@ -268,7 +269,7 @@ export default function TenseBadgeRoom({
   // Exercițiul 2 – Yes/No + propoziții
   // ============================================================================
 
-    const [ex2ShortAnswers, setEx2ShortAnswers] = useState({});
+  const [ex2ShortAnswers, setEx2ShortAnswers] = useState({});
   const [ex2Sentences, setEx2Sentences] = useState({});
   const [ex2PerQuestionFeedback, setEx2PerQuestionFeedback] = useState({});
   const [ex2Score, setEx2Score] = useState(0);
@@ -279,7 +280,6 @@ export default function TenseBadgeRoom({
   // flag: am apăsat cel puțin o dată pe "Verifică exercițiul 2"
   const [ex2HasChecked, setEx2HasChecked] = useState(false);
 
-
   const handleEx2ShortChange = (id, value) => {
     setEx2ShortAnswers((prev) => ({ ...prev, [id]: value }));
   };
@@ -288,7 +288,7 @@ export default function TenseBadgeRoom({
     setEx2Sentences((prev) => ({ ...prev, [id]: value }));
   };
 
-    const handleResetEx2 = () => {
+  const handleResetEx2 = () => {
     setEx2ShortAnswers({});
     setEx2Sentences({});
     setEx2PerQuestionFeedback({});
@@ -298,8 +298,7 @@ export default function TenseBadgeRoom({
     setEx2HasChecked(false);
   };
 
-
-    const handleCheckEx2 = () => {
+  const handleCheckEx2 = () => {
     let correct = 0;
     const total = ex2Questions.length || 1;
     const perFeedback = {};
@@ -375,17 +374,12 @@ export default function TenseBadgeRoom({
     }
   };
 
-
   // ============================================================================
   // Exercițiul 3 – scriere liberă
   // ============================================================================
 
-  const [ex3Answers, setEx3Answers] = useState(
-    ex3Prompts.map(() => ""),
-  );
-  const [ex3Status, setEx3Status] = useState(
-    ex3Prompts.map(() => "pending"),
-  );
+  const [ex3Answers, setEx3Answers] = useState(ex3Prompts.map(() => ""));
+  const [ex3Status, setEx3Status] = useState(ex3Prompts.map(() => "pending"));
   const [ex3Summary, setEx3Summary] = useState("");
 
   const handleEx3Change = (index, value) => {
@@ -446,9 +440,7 @@ export default function TenseBadgeRoom({
     const ex2Percent = ex2Score || 0;
 
     const okEx3 = ex3Status.filter((s) => s === "ok").length;
-    const ex3Percent = Math.round(
-      (okEx3 / (ex3Status.length || 1)) * 100,
-    );
+    const ex3Percent = Math.round((okEx3 / (ex3Status.length || 1)) * 100);
 
     const weighted =
       (ex1Percent / 100) * ex1Weight +
@@ -502,7 +494,10 @@ export default function TenseBadgeRoom({
       hasKey: prev.hasKey,
     }));
 
-    if (progressManager && typeof progressManager.markBadgeChecked === "function") {
+    if (
+      progressManager &&
+      typeof progressManager.markBadgeChecked === "function"
+    ) {
       progressManager.markBadgeChecked({
         sectionId,
         roomNumber,
@@ -565,7 +560,7 @@ export default function TenseBadgeRoom({
           ...prev,
           firstAttemptScore:
             prev.firstAttemptScore == null
-              ? data.score ?? prev.firstAttemptScore
+              ? (data.score ?? prev.firstAttemptScore)
               : prev.firstAttemptScore,
           passed: prev.passed || !!data.passed,
         }));
@@ -696,13 +691,11 @@ export default function TenseBadgeRoom({
       <>
         {/* Intro */}
         <section className="card">
-          <h2 className="card-title">
-            Provocarea finală – Badge {tenseName}
-          </h2>
+          <h2 className="card-title">Provocarea finală – Badge {tenseName}</h2>
           <p className="card-description">
             Aceasta este camera specială a badge-ului. Rezolvă corect toate
-            exercițiile. Dacă obții un scor suficient de bun, primești
-            badge-ul {tenseName}!
+            exercițiile. Dacă obții un scor suficient de bun, primești badge-ul{" "}
+            {tenseName}!
           </p>
         </section>
 
@@ -778,7 +771,7 @@ export default function TenseBadgeRoom({
           {ex1Feedback && <div className="exercise-score">{ex1Feedback}</div>}
         </section>
 
-                {/* Exercițiul 2 */}
+        {/* Exercițiul 2 */}
         <section className="card">
           <h2 className="card-title">
             Exercițiul 2 – Yes/No &amp; propoziții complete
@@ -814,8 +807,7 @@ export default function TenseBadgeRoom({
 
               // 🔴🟢 Status vizual întrebări
               const isChecked = ex2HasChecked;
-              const isCorrect =
-                isChecked && ex2CorrectQuestions[q.id] === true;
+              const isCorrect = isChecked && ex2CorrectQuestions[q.id] === true;
               const isIncorrect =
                 isChecked && ex2CorrectQuestions[q.id] === false;
 
@@ -828,16 +820,16 @@ export default function TenseBadgeRoom({
                 (isCorrect
                   ? " ex2-input--correct"
                   : isIncorrect
-                  ? " ex2-input--incorrect"
-                  : "");
+                    ? " ex2-input--incorrect"
+                    : "");
 
               const sentenceInputClassName =
                 "ex2-input" +
                 (isCorrect
                   ? " ex2-input--correct"
                   : isIncorrect
-                  ? " ex2-input--incorrect"
-                  : "");
+                    ? " ex2-input--incorrect"
+                    : "");
 
               return (
                 <article key={q.id} className={itemClassName}>
@@ -922,7 +914,6 @@ export default function TenseBadgeRoom({
           {ex2Summary && <div className="exercise-score">{ex2Summary}</div>}
         </section>
 
-
         {/* Exercițiul 3 */}
         <section className="card">
           <h2 className="card-title">
@@ -934,9 +925,7 @@ export default function TenseBadgeRoom({
             clare și suficient de detaliate.
           </p>
 
-          
-
-                    <div className="ex3-list" id="exercise-3">
+          <div className="ex3-list" id="exercise-3">
             {ex3Prompts.map((prompt, idx) => {
               const value = ex3Answers[idx] || "";
               const status = ex3Status[idx] || "pending";
@@ -1006,8 +995,8 @@ export default function TenseBadgeRoom({
         <section className="card">
           <h2 className="card-title">Badge-ul tău {tenseName}</h2>
           <p className="card-description">
-            Când ești gata, apasă pe butonul de mai jos ca să verifici
-            progresul general pentru badge.
+            Când ești gata, apasă pe butonul de mai jos ca să verifici progresul
+            general pentru badge.
           </p>
 
           <div className="exercise-actions">
@@ -1034,9 +1023,25 @@ export default function TenseBadgeRoom({
           {badgeUnlocked && (
             <div className="badge-reward" id="badge-reward">
               <p className="badge-reward__text">
-                Felicitări! Ai obținut badge-ul{" "}
-                <strong>{tenseName}</strong>! 🎉
+                Felicitări! Ai obținut badge-ul <strong>{tenseName}</strong>! 🎉
               </p>
+            </div>
+          )}
+
+          {badgeUnlocked && !isSchoolMode() && certificateDownloadUrl && (
+            <div className="badge-certificate">
+              <p className="badge-certificate__text">
+                Poți descărca diploma pentru acest modul. În varianta cu
+                conturi, numele tău va fi completat automat pe certificat.
+              </p>
+              <a
+                href={certificateDownloadUrl}
+                download
+                className="btn btn-primary"
+                data-testid={`${sectionId}-certificate-download`}
+              >
+                Descarcă diploma
+              </a>
             </div>
           )}
 

@@ -83,6 +83,7 @@ export default function PcBadgePage() {
       ex3Prompts={badgeEx3Prompts}
       dictionaryItems={badgeMiniDictionaryItems}
       badgeStoryTtsText={badgeStoryTtsText}
+      certificateDownloadUrl="/pdf/certificates/present-continuous-certificate-template.pdf"
       devMode={DEV_MODE}
     />
   );

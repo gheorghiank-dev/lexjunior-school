@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { storage } from "./ps-core/storage.js";
-import { openPrintDialog } from "../../core/platform/browser-dom.js";
-
+import { storage } from "../ps-core/storage.js";
+import { openPrintDialog } from "../../../core/platform/browser-dom.js";
 
 const STORAGE_KEY = "notes_v1";
 

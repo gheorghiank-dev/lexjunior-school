@@ -1,10 +1,11 @@
 import presentSimpleModule from "../present-simple/present-simple.module.jsx";
 import presentContinuousModule from "../present-continuous/present-continuous.module.jsx";
+import pastSimpleModule from "../past-simple/past-simple.module.jsx";
 import { assertTenseModule } from "./tense-contract.js";
 import { sortByOrderThenLabel } from "../registry-utils/sort.js";
 import { getCtaForStatus, getTagForStatus } from "../registry-utils/status-ui.js";
 
-const modules = [presentSimpleModule, presentContinuousModule];
+const modules = [presentSimpleModule, presentContinuousModule, pastSimpleModule];
 
 // Validate at import time (dev-friendly). If something is wrong, fail fast.
 for (const m of modules) assertTenseModule(m);

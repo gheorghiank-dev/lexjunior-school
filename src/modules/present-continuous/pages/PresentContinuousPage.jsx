@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { pcMapPath } from "./pc-paths.js";
+import { pcMapPath } from "../pc-paths.js";
 
 /**
  * Present Continuous landing

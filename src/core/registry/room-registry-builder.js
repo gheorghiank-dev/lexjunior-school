@@ -1,116 +1,43 @@
-/**
- * Room registry builder helpers.
- *
- * Goals:
- * - Reduce copy/paste when adding new tenses/sections.
- * - Keep registries "data-first" while preserving the current runtime contract.
- * - Dev-only validation (no runtime behavior changes in prod).
- *
- * Guardrails:
- * - Core stays agnostic: no imports from modules.
- */
-
-import { validateRoomRegistry } from "./validate-room-registry.js";
-
-function isPlainObject(x) {
-  return !!x && typeof x === "object" && !Array.isArray(x);
-}
-
-function freezeDev(x) {
-  if (!import.meta.env.DEV) return x;
-  try {
-    return Object.freeze(x);
-  } catch {
-    return x;
-  }
-}
-
-/**
- * Utility: [1..n]
- * @param {number} n
- */
-export function range1to(n) {
-  const size = Number(n);
-  if (!Number.isFinite(size) || size <= 0) return [];
-  return Array.from({ length: size }, (_, i) => i + 1);
-}
-
-/**
- * Build a single room definition. (Mostly a semantic helper.)
- * @template T
- * @param {T} room
- * @returns {T}
- */
-export function defineRoom(room) {
-  if (!isPlainObject(room)) {
-    throw new Error("defineRoom(room): expected a plain object");
-  }
-  return freezeDev(room);
-}
+// NOTE:
+// This file is RESERVED for a future room registry refactor.
+// It is NOT used in Lex Junior v2 runtime yet.
+//
+// Idea for the future:
+// - provide small helpers to define and validate room registries
+//   for each tense (Present Simple, Present Continuous, Past Simple, ...).
+// - keep the room data in the tense modules, but standardise the shape.
+//
+// Example future direction (pseudo-code):
+//
+//   import { buildRoomRegistry, defineRoom } from "./room-registry-builder";
+//
+//   export const PRESENT_SIMPLE_AFFIRMATIVE_ROOMS = buildRoomRegistry({
+//     sectionId: "affirmative",
+//     rooms: [
+//       defineRoom({
+//         id: "room-1",
+//         slug: "room-1",
+//         type: "text-input",
+//         lessonId: "ps_aff_1",
+//         // ...
+//       }),
+//       // ...
+//     ],
+//   });
+//
+// For now, the existing tenses still use plain arrays of room configs
+// defined in each `rooms/*.jsx` file.
+//
+// When we add many more tenses and patterns stabilise, we can:
+// - implement real helpers here (buildRoomRegistry, defineRoom, validateRegistry);
+// - add a small validation script for CI / pre-commit that checks
+//   the room registries against a common schema.
+//
+// Until then, this file acts purely as documentation of intent
+// and a placeholder for the future refactor.
 
 /**
- * Build a section room registry by applying section metadata to each room.
- *
- * Input rooms SHOULD omit sectionId/sectionLabel (they'll be applied), but can override if needed.
- *
- * @param {{
- *  registryName: string;
- *  sectionId: string;
- *  sectionLabel: string;
- *  rooms: any[];
- *  expectedRoomNumbers?: number[] | null;
- *  validate?: boolean;
- * }} cfg
+ * Dummy export so the module has a valid shape.
+ * This is NOT used at runtime.
  */
-export function createSectionRoomRegistry(cfg) {
-  const {
-    registryName,
-    sectionId,
-    sectionLabel,
-    rooms,
-    expectedRoomNumbers = null,
-    validate = true,
-  } = cfg || {};
-
-  if (typeof registryName !== "string" || !registryName.trim()) {
-    throw new Error("createSectionRoomRegistry: registryName must be a non-empty string");
-  }
-  if (typeof sectionId !== "string" || !sectionId.trim()) {
-    throw new Error("createSectionRoomRegistry: sectionId must be a non-empty string");
-  }
-  if (typeof sectionLabel !== "string" || !sectionLabel.trim()) {
-    throw new Error("createSectionRoomRegistry: sectionLabel must be a non-empty string");
-  }
-  if (!Array.isArray(rooms)) {
-    throw new Error("createSectionRoomRegistry: rooms must be an array");
-  }
-
-  const built = rooms.map((r, idx) => {
-    if (!isPlainObject(r)) {
-      throw new Error(`[${registryName}][${idx}] expected a plain object room definition`);
-    }
-    const room = {
-      sectionId,
-      sectionLabel,
-      ...r,
-    };
-
-    // Small ergonomics: allow common aliases without changing existing contract.
-    if (room.dictionaryItems == null && room.glossaryItems != null) {
-      room.dictionaryItems = room.glossaryItems;
-      delete room.glossaryItems;
-    }
-
-    return freezeDev(room);
-  });
-
-  if (import.meta.env.DEV && validate) {
-    validateRoomRegistry(built, {
-      registryName,
-      sectionId,
-      expectedRoomNumbers,
-    });
-  }
-
-  return freezeDev(built);
-}
+export const ROOM_REGISTRY_BUILDER_DOC = {};

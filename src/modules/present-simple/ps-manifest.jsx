@@ -29,12 +29,12 @@ import {
 } from "../lex-hints/present-simple/index.js";
 
 // Top-level pages
-import PresentSimplePage from "./PresentSimplePage.jsx";
-import PresentSimpleOverviewPage from "./PresentSimpleOverviewPage.jsx";
-import PsDownloadsPage from "./PsDownloadsPage.jsx";
-import PsNotesPage from "./PsNotesPage.jsx";
-import PsBadgePage from "./PsBadgePage.jsx";
-import PsMapPage from "./PsMapPage.jsx";
+import PresentSimplePage from "./pages/PresentSimplePage.jsx";
+import PresentSimpleOverviewPage from "./pages/PresentSimpleOverviewPage.jsx";
+import PsDownloadsPage from "./pages/PsDownloadsPage.jsx";
+import PsNotesPage from "./pages/PsNotesPage.jsx";
+import PsBadgePage from "./pages/PsBadgePage.jsx";
+import PsMapPage from "./pages/PsMapPage.jsx";
 
 import { PS_SECTION_PAGES } from "./ps-section-pages.jsx";
 
@@ -68,7 +68,7 @@ export function buildPresentSimpleRoutes() {
   ];
 
   // Generic room route renderer (one route per section, params select the room)
-  const PsRoomRoute = React.lazy(() => import("./PsRoomRoute.jsx"));
+  const PsRoomRoute = React.lazy(() => import("./pages/PsRoomRoute.jsx"));
 
   for (const section of PS_SECTIONS) {
     const pages = PS_SECTION_PAGES[section.id];
@@ -148,7 +148,7 @@ export const PRESENT_SIMPLE_MANIFEST = {
   status: "ready",
   order: 1,
   description:
-    "Teorie, 35 de camere de exerciții, cameră finală și badge. ...l Escape Room, cu Lex Junior, dicționare și butoane de listen.",
+    "Teorie, 35 de camere de exerciții, cameră finală și badge. Escape Room, cu Lex Junior, dicționare și butoane de listen.",
   basePath: PS_BASE_PATH,
   storagePrefix: STORAGE_PREFIX,
   roomsPerSection: PS_ROOMS_PER_SECTION,

@@ -1,19 +1,19 @@
 import React from "react";
-import { psTheoryPath, psMapPath } from "./ps-paths.js";
-import { DEV_MODE } from "./ps-core/config.js";
-import { progressManager } from "./ps-core/progress-manager.js";
-import { storage } from "./ps-core/storage.js";
-import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
+import { psTheoryPath, psMapPath } from "../ps-paths.js";
+import { DEV_MODE } from "../ps-core/config.js";
+import { progressManager } from "../ps-core/progress-manager.js";
+import { storage } from "../ps-core/storage.js";
+import { PS_LEX_HEAD_SVG } from "../ps-core/assets.js";
 
-import TenseBadgeRoom from "../tenses/ui/TenseBadgeRoom.jsx";
+import TenseBadgeRoom from "../../tenses/ui/TenseBadgeRoom.jsx";
 import {
   badgeStoryConfig,
   badgeEx2Questions,
   badgeEx3Prompts,
   badgeMiniDictionaryItems,
   badgeStoryTtsText,
-} from "./ps-badge-exercises.js";
-import { presentSimpleBadgeLexHints } from "../lex-hints/present-simple/index.js";
+} from "../ps-badge-exercises.js";
+import { presentSimpleBadgeLexHints } from "../../lex-hints/present-simple/index.js";
 
 /**
  * Present Simple badge page – thin wrapper over the global TenseBadgeRoom.
@@ -52,8 +52,8 @@ export default function PsBadgePage() {
       </p>
 
       <p>
-        I always {renderSlot(4)} the house around 7:45 because I{" "}
-        {renderSlot(5)} to walk slowly and enjoy the quiet morning.
+        I always {renderSlot(4)} the house around 7:45 because I {renderSlot(5)}{" "}
+        to walk slowly and enjoy the quiet morning.
       </p>
 
       <p>
@@ -62,8 +62,8 @@ export default function PsBadgePage() {
       </p>
 
       <p>
-        In the afternoon, I often {renderSlot(7)} my friends or{" "}
-        {renderSlot(8)} something relaxing.
+        In the afternoon, I often {renderSlot(7)} my friends or {renderSlot(8)}{" "}
+        something relaxing.
       </p>
 
       <p>
@@ -75,13 +75,11 @@ export default function PsBadgePage() {
         <strong>Paragraph 3 — He</strong>
       </p>
 
-      <p>
-        My brother, on the other hand, {renderSlot(10)} much later.
-      </p>
+      <p>My brother, on the other hand, {renderSlot(10)} much later.</p>
 
       <p>
-        He normally {renderSlot(11)} the news, {renderSlot(12)} a big
-        breakfast, and {renderSlot(13)} at his computer around 10.
+        He normally {renderSlot(11)} the news, {renderSlot(12)} a big breakfast,
+        and {renderSlot(13)} at his computer around 10.
       </p>
 
       <p>
@@ -127,6 +125,7 @@ export default function PsBadgePage() {
       ex3Prompts={badgeEx3Prompts}
       dictionaryItems={badgeMiniDictionaryItems}
       badgeStoryTtsText={badgeStoryTtsText}
+      certificateDownloadUrl="/pdf/certificates/present-simple-certificate-template.pdf"
       devMode={DEV_MODE}
     />
   );

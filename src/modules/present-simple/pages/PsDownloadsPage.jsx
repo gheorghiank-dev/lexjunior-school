@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { psNotesPath } from "./ps-paths.js";
+import { psNotesPath } from "../ps-paths.js";
 
 /**
  * Pagina de downloads pentru modulul Present Simple – varianta React.
@@ -57,10 +57,7 @@ export default function PsDownloadsPage() {
               browser.
             </p>
             <div className="btn-row">
-              <Link
-                to={psNotesPath()}
-                className="btn btn-outline"
-              >
+              <Link to={psNotesPath()} className="btn btn-outline">
                 Deschide My Notes
               </Link>
             </div>

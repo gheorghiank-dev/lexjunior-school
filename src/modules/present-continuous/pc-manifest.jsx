@@ -1,7 +1,6 @@
 // Present Continuous manifest (read-only registry)
 // Mirrors the Present Simple manifest, but for Present Continuous.
 
-
 import {
   presentContinuousAffirmativeLexHints,
   presentContinuousNegativeLexHints,
@@ -30,8 +29,8 @@ import {
 } from "../../tense-kit";
 
 // Top-level pages
-import PresentContinuousPage from "./PresentContinuousPage.jsx";
-import PresentContinuousOverviewPage from "./PresentContinuousOverviewPage.jsx";
+import PresentContinuousPage from "./pages/PresentContinuousPage.jsx";
+import PresentContinuousOverviewPage from "./pages/PresentContinuousOverviewPage.jsx";
 import PcMapPage from "./pages/PcMapPage.jsx";
 import PcBadgePage from "./pages/PcBadgePage.jsx";
 
@@ -45,7 +44,11 @@ import {
 
 import { PC_SECTION_PAGES } from "./pc-section-pages.jsx";
 
-import { PC_BASE_PATH, pcTheoryPath, pcUsesSensoryTheoryPath } from "./pc-paths.js";
+import {
+  PC_BASE_PATH,
+  pcTheoryPath,
+  pcUsesSensoryTheoryPath,
+} from "./pc-paths.js";
 
 // NOTE: PC_BASE_PATH + path helpers live in pc-paths.js to avoid circular imports.
 
@@ -65,7 +68,7 @@ export function buildPresentContinuousRoutes() {
   ];
 
   // Generic room route renderer (one route per section, params select the room)
-  const PcRoomRoute = React.lazy(() => import("./PcRoomRoute.jsx"));
+  const PcRoomRoute = React.lazy(() => import("./pages/PcRoomRoute.jsx"));
 
   for (const section of PC_SECTIONS) {
     const pages = PC_SECTION_PAGES[section.id];
@@ -169,7 +172,8 @@ export const PRESENT_CONTINUOUS_THEORY_CONFIG = defineTenseTheory({
   ],
 });
 
-export const PRESENT_CONTINUOUS_ROOMS_CONFIG = defineTenseRooms(PC_ROOM_REGISTRIES);
+export const PRESENT_CONTINUOUS_ROOMS_CONFIG =
+  defineTenseRooms(PC_ROOM_REGISTRIES);
 
 export const PRESENT_CONTINUOUS_THEME_CONFIG = defineTenseTheme({
   id: "present-continuous",
@@ -182,4 +186,3 @@ export const PRESENT_CONTINUOUS_TENSE_KIT = defineTenseKit({
   theory: PRESENT_CONTINUOUS_THEORY_CONFIG,
   theme: PRESENT_CONTINUOUS_THEME_CONFIG,
 });
-

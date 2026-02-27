@@ -42,10 +42,19 @@
   --lex-radius-pill: 999px;
   --lex-radius-chip: 14px;
 
+  /* Radius scale (nou – pentru design system) */
+  --lex-radius-sm: 0.375rem; /* ~6px */
+  --lex-radius-md: 0.75rem; /* 12px */
+  --lex-radius-lg: 1rem; /* 16px */
+
   /* Shadows */
   --lex-shadow-card: var(--shadow-soft);
   --lex-shadow-button: 0 10px 30px rgba(15, 23, 42, 0.12);
   --lex-shadow-elevated: 0 32px 80px rgba(15, 23, 42, 0.16);
+
+  /* Shadow scale (aliasuri pentru design system) */
+  --lex-shadow-soft: var(--lex-shadow-card);
+  --lex-shadow-soft-strong: var(--lex-shadow-elevated);
 
   /* Spacing */
   --lex-spacing-xs: 0.25rem;
@@ -54,6 +63,14 @@
   --lex-spacing-lg: 1rem;
   --lex-spacing-xl: 1.5rem;
   --lex-spacing-2xl: 2rem;
+
+  /* Spacing scale alias (naming scurt: --lex-space-*) */
+  --lex-space-1: var(--lex-spacing-xs); /* 4px */
+  --lex-space-2: var(--lex-spacing-sm); /* 8px */
+  --lex-space-3: var(--lex-spacing-md); /* 12px */
+  --lex-space-4: var(--lex-spacing-lg); /* 16px */
+  --lex-space-6: var(--lex-spacing-xl); /* 24px */
+  --lex-space-8: var(--lex-spacing-2xl); /* 32px */
 
   /* Typography scale – pentru mai târziu */
   --lex-font-size-page-title: 2.1rem;
@@ -75,6 +92,18 @@
     0.14
   ); /* glow discret (accent: Simple) */
   --ps-simple-accent: #f59e0b; /* portocaliu (nefolosit încă pentru UI) */
+
+  /* Past Simple – Color Coding System v1 (ambient only)
+     Roz (fond) + portocaliu (accent). Dacă schimbăm paleta pentru Past,
+     modificăm DOAR valorile de aici. */
+  --tense-past-bg: #ffd6ed;
+  --tense-past-glow: rgba(236, 72, 153, 0.16);
+  --tense-past-accent: #f59e0b;
+
+  /* Soft horizontal gradient for Past Simple background */
+  --tense-past-gradient-start: rgba(255, 232, 244, 0.95);
+  --tense-past-gradient-mid: rgba(255, 214, 230, 0.9);
+  --tense-past-gradient-end: rgba(255, 205, 223, 0.85);
 
   /* Lex Theme – semantic UI tokens (themeable) */
   --lex-header-bg: linear-gradient(
@@ -148,4 +177,3 @@
   );
   --lex-ps-structure-border: 1px solid rgba(129, 140, 248, 0.16);
 }
-

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { psMapPath } from "./ps-paths.js";
+import { psMapPath } from "../ps-paths.js";
 
 /**
  * Present Simple landing

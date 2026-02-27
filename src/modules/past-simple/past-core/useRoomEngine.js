@@ -1,16 +1,16 @@
-// src/modules/present-simple/ps-core/useRoomEngine.js
+// src/modules/past-simple/past-core/useRoomEngine.js
 
 import { createUseTenseRoomEngine } from "../../tenses/core/useTenseRoomEngine.js";
 import { normalizeAnswer } from "./normalize-answer.js";
 import { progressManager } from "./progress-manager.js";
 import { HUD as CoreHUD } from "../../../core/room-engine/hud.js";
-import { PS_HUD_TEXT } from "./config.js";
+import { PAST_SIMPLE_HUD_TEXT } from "./config.js";
 
-// Present Simple folosește engine-ul comun de cameră,
-// cu propria normalizare, propriul manager de progres și propriul HUD legat de textul PS.
+// Past Simple folosește engine-ul comun de cameră,
+// cu propria normalizare, propriul manager de progres și propriul HUD legat de textul Past Simple.
 const BoundHUD = class extends CoreHUD {
   constructor(root) {
-    super(root, PS_HUD_TEXT);
+    super(root, PAST_SIMPLE_HUD_TEXT);
   }
 };
 
