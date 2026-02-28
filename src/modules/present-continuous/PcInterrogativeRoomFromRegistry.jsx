@@ -13,8 +13,8 @@ import { presentContinuousInterrogativeLexHints } from "../lex-hints/present-con
 
 // Room type configuration – aliniat cu Present Simple / PcAffirmative / PcNegative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [1, 2, 4, 5];
-const MCQ_ROOMS = [3];
+const GAP_ROOMS = [1, 3, 4];
+const MCQ_ROOMS = [2];
 const TEXTAREA_ROOMS = [6, 7];
 
 const cardTitleByRoom = {

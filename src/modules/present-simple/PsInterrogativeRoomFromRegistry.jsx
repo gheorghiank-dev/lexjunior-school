@@ -10,7 +10,7 @@ import {
   getPsInterrogativeGlossaryItems,
 } from "./rooms/ps-interrogative-rooms.jsx";
 import { presentSimpleInterrogativeLexHints } from "../lex-hints/present-simple/interrogative.js";
-import { InterrogativeYesNoPairsExerciseList } from "./components/InterrogativeYesNoPairsExerciseList.jsx";
+import { InterrogativeYesNoPairsExerciseList } from "../../shared/exercises/InterrogativeYesNoPairsExerciseList.jsx";
 
 // Room type configuration – keeps things clear and scalable.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
