@@ -163,7 +163,7 @@ export function InterrogativeYesNoPairsExerciseList({
 
                 <LexListenOnCorrect
                   isCorrect={feedback[pair.yesExercise.id] === "correct"}
-                  ttsText={pair.yesExercise.tts}
+                  tts={pair.yesExercise.tts}
                 />
               </div>
 
@@ -210,7 +210,7 @@ export function InterrogativeYesNoPairsExerciseList({
 
                 <LexListenOnCorrect
                   isCorrect={feedback[pair.noExercise.id] === "correct"}
-                  ttsText={pair.noExercise.tts}
+                  tts={pair.noExercise.tts}
                 />
               </div>
             </li>

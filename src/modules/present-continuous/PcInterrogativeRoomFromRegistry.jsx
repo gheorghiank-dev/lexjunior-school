@@ -15,6 +15,7 @@ import { presentContinuousInterrogativeLexHints } from "../lex-hints/present-con
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 3, 4];
 const MCQ_ROOMS = [2];
+const YESNO_PAIRS_ROOMS = [5];
 const TEXTAREA_ROOMS = [6, 7];
 
 const cardTitleByRoom = {
@@ -87,6 +88,7 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
       GAP_ROOMS,
       MCQ_ROOMS,
       TEXTAREA_ROOMS,
+      YESNO_PAIRS_ROOMS,
     });
 
   return (

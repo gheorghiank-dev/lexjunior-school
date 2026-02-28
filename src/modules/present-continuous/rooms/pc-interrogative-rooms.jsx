@@ -309,72 +309,144 @@ export const PC_INTERROGATIVE_EXERCISES_BY_ROOM = {
     },
   ],
   5: [
+    // 1
     {
-      id: "pc-r5-ex1",
-      template:
-        "She is't doing her homework right now. → She [gap] her homework right now.",
-      correct: "isn't doing",
-      tts: "She isn't doing her homework right now.",
+      id: "pc-r5-q1-yes",
+      prompt: "Are you studying English now? – afirmativ",
+      correct: "yes, i am",
+      tts: "Yes, I am.",
     },
     {
-      id: "pc-r5-ex2",
-      template:
-        "They not playing football in the park today. → They [gap] football in the park today.",
-      correct: "aren't playing",
-      tts: "They aren't playing football in the park today.",
+      id: "pc-r5-q1-no",
+      prompt: "Are you studying English now? – negativ",
+      correct: "no, i'm not",
+      tts: "No, I'm not.",
+    },
+
+    // 2
+    {
+      id: "pc-r5-q2-yes",
+      prompt: "Is she watching TV at the moment? – afirmativ",
+      correct: "yes, she is",
+      tts: "Yes, she is.",
     },
     {
-      id: "pc-r5-ex3",
-      template:
-        "We aren't study for the test at the moment. → We [gap] for the test at the moment.",
-      correct: "aren't studying",
-      tts: "We aren't studying for the test at the moment.",
+      id: "pc-r5-q2-no",
+      prompt: "Is she watching TV at the moment? – negativ",
+      correct: "no, she isn't",
+      tts: "No, she isn't.",
+    },
+
+    // 3
+    {
+      id: "pc-r5-q3-yes",
+      prompt: "Are they playing football this afternoon? – afirmativ",
+      correct: "yes, they are",
+      tts: "Yes, they are.",
     },
     {
-      id: "pc-r5-ex4",
-      template: "He isn't listening music now. → He [gap] to music now.",
-      correct: "isn't listening",
-      tts: "He isn't listening to music now.",
+      id: "pc-r5-q3-no",
+      prompt: "Are they playing football this afternoon? – negativ",
+      correct: "no, they aren't",
+      tts: "No, they aren't.",
+    },
+
+    // 4
+    {
+      id: "pc-r5-q4-yes",
+      prompt: "Is he talking on the phone now? – afirmativ",
+      correct: "yes, he is",
+      tts: "Yes, he is.",
     },
     {
-      id: "pc-r5-ex5",
-      template: "I amn't watching TV this evening. → I [gap] TV this evening.",
-      correct: "am not watching",
-      tts: "I am not watching TV this evening.",
+      id: "pc-r5-q4-no",
+      prompt: "Is he talking on the phone now? – negativ",
+      correct: "no, he isn't",
+      tts: "No, he isn't.",
+    },
+
+    // 5
+    {
+      id: "pc-r5-q5-yes",
+      prompt: "Are we having dinner now? – afirmativ",
+      correct: "yes, we are",
+      tts: "Yes, we are.",
     },
     {
-      id: "pc-r5-ex6",
-      template:
-        "The students doesn't working on the project. → The students [gap] on the project.",
-      correct: "aren't working",
-      tts: "The students aren't working on the project.",
+      id: "pc-r5-q5-no",
+      prompt: "Are we having dinner now? – negativ",
+      correct: "no, we aren't",
+      tts: "No, we aren't.",
+    },
+
+    // 6
+    {
+      id: "pc-r5-q6-yes",
+      prompt: "Is it raining outside now? – afirmativ",
+      correct: "yes, it is",
+      tts: "Yes, it is.",
     },
     {
-      id: "pc-r5-ex7",
-      template:
-        "My parents aren't cook dinner at the moment. → My parents [gap] dinner at the moment.",
-      correct: "aren't cooking",
-      tts: "My parents aren't cooking dinner at the moment.",
+      id: "pc-r5-q6-no",
+      prompt: "Is it raining outside now? – negativ",
+      correct: "no, it isn't",
+      tts: "No, it isn't.",
+    },
+
+    // 7
+    {
+      id: "pc-r5-q7-yes",
+      prompt: "Are your parents cooking dinner this evening? – afirmativ",
+      correct: "yes, they are",
+      tts: "Yes, they are.",
     },
     {
-      id: "pc-r5-ex8",
-      template:
-        "You isn't wearing your school uniform today. → You [gap] your school uniform today.",
-      correct: "aren't wearing",
-      tts: "You aren't wearing your school uniform today.",
+      id: "pc-r5-q7-no",
+      prompt: "Are your parents cooking dinner this evening? – negativ",
+      correct: "no, they aren't",
+      tts: "No, they aren't.",
+    },
+
+    // 8
+    {
+      id: "pc-r5-q8-yes",
+      prompt: "Is your brother studying right now? – afirmativ",
+      correct: "yes, he is",
+      tts: "Yes, he is.",
     },
     {
-      id: "pc-r5-ex9",
-      template:
-        "The dog aren't sleeping in its bed now. → The dog [gap] in its bed now.",
-      correct: "isn't sleeping",
-      tts: "The dog isn't sleeping in its bed now.",
+      id: "pc-r5-q8-no",
+      prompt: "Is your brother studying right now? – negativ",
+      correct: "no, he isn't",
+      tts: "No, he isn't.",
+    },
+
+    // 9
+    {
+      id: "pc-r5-q9-yes",
+      prompt: "Are the children playing in the yard now? – afirmativ",
+      correct: "yes, they are",
+      tts: "Yes, they are.",
     },
     {
-      id: "pc-r5-ex10",
-      template: "It isn't rain today. → It [gap] today.",
-      correct: "isn't raining",
-      tts: "It isn't raining today.",
+      id: "pc-r5-q9-no",
+      prompt: "Are the children playing in the yard now? – negativ",
+      correct: "no, they aren't",
+      tts: "No, they aren't.",
+    },
+
+    // 10
+    {
+      id: "pc-r5-q10-yes",
+      prompt: "Is the teacher explaining the new rule now? – afirmativ",
+      correct: "yes, she is",
+      tts: "Yes, she is.",
+    },
+    {
+      id: "pc-r5-q10-no",
+      prompt: "Is the teacher explaining the new rule now? – negativ",
+      correct: "no, she isn't",
+      tts: "No, she isn't.",
     },
   ],
   6: [
