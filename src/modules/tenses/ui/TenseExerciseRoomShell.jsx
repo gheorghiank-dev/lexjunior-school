@@ -23,6 +23,8 @@ export function TenseExerciseRoomShell({
   sectionId,
   sectionLabel,
   roomNumber,
+  validationPolicy,
+  validationFamily,
   pageTitle,
   roomLabel,
   theoryRoute,
@@ -46,6 +48,8 @@ export function TenseExerciseRoomShell({
       useRoomEngineHook={useRoomEngineHook}
       sectionId={sectionId}
       roomNumber={roomNumber}
+      validationPolicy={validationPolicy}
+      validationFamily={validationFamily}
       pageTitle={pageTitle}
       roomLabel={roomLabel}
       sectionLabel={sectionLabel}
@@ -97,7 +101,7 @@ export function TenseExerciseRoomShell({
             />
           </section>
 
-          {(!nextTo && roomState.passed) && (
+          {!nextTo && roomState.passed && (
             <section className="card section-complete-card">
               <h2 className="card-title">
                 {tenseLabel

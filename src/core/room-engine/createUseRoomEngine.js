@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-
+// ✅ INSEREAZĂ AICI (sus, lângă celelalte importuri):
+import { getAcceptedAnswerVariants } from "../validation/getAcceptedAnswerVariants.js";
 /**
  * Factory for a tense-agnostic room engine hook.
  *
@@ -14,7 +15,13 @@ import { useEffect, useMemo, useRef, useState } from "react";
  * This lets us share the engine without coupling it to Present Simple.
  */
 export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
-  return function useRoomEngine({ sectionId, roomNumber, exercises }) {
+  return function useRoomEngine({
+    sectionId,
+    roomNumber,
+    exercises,
+    validationPolicy,
+    validationFamily,
+  }) {
     // răspunsurile elevului, indexate după id-ul exercițiului
     const [answers, setAnswers] = useState(() => {
       const initial = {};
@@ -123,22 +130,25 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
       // mesaje simple, aliniate cu starea curentă
       if (lastResult) {
         if (lastResult.percent === 100) {
-          hud.showMessage("Bravo! Ai terminat corect această cameră.", "success");
+          hud.showMessage(
+            "Bravo! Ai terminat corect această cameră.",
+            "success",
+          );
         } else {
           hud.showMessage(
             "Mai ai câteva răspunsuri de ajustat – verifică ce este marcat cu roșu.",
-            "info"
+            "info",
           );
         }
       } else if (roomState.hasKey) {
         hud.showMessage(
           "Cheia pentru această cameră este deja obținută.",
-          "success"
+          "success",
         );
       } else if (roomState.passed) {
         hud.showMessage(
           "Ai trecut deja de această cameră. Poți reîncerca pentru cheie când vrei.",
-          "info"
+          "info",
         );
       } else {
         hud.showMessage("", "info");
@@ -188,7 +198,9 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
       const filledAnswers = {};
       const filledFeedback = {};
       for (const ex of exercises) {
-        filledAnswers[ex.id] = ex.correct;
+        filledAnswers[ex.id] = Array.isArray(ex.correct)
+          ? ex.correct[0]
+          : ex.correct;
         filledFeedback[ex.id] = "correct";
       }
 
@@ -242,10 +254,18 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
 
       for (const ex of exercises) {
         const rawAnswer = sourceAnswers[ex.id] ?? "";
-        const expected = normalize(ex.correct);
         const got = normalize(rawAnswer);
+
+        // ✅ AICI SE SCHIMBĂ: calculăm lista de variante acceptate (deja normalizate)
+        const accepted = getAcceptedAnswerVariants({
+          correct: ex.correct,
+          normalizeFn: normalize, // folosim normalize-ul EXISTENT, nu îl modificăm
+          policy: validationPolicy,
+          family: validationFamily,
+        });
+
         const isCorrect =
-          expected.length > 0 && got.length > 0 && got === expected;
+          accepted.length > 0 && got.length > 0 && accepted.includes(got);
 
         if (isCorrect) {
           correct += 1;
@@ -292,7 +312,7 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
             nextState = progressManager.setFirstAttempt(
               sectionId,
               roomNumber,
-              percent
+              percent,
             );
           } catch (err) {
             console.warn("Set first attempt failed", err);
@@ -309,7 +329,11 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
         } else {
           // verificări ulterioare – doar marcăm camera ca "passed" când e cazul
           try {
-            nextState = progressManager.recordAttempt(sectionId, roomNumber, percent);
+            nextState = progressManager.recordAttempt(
+              sectionId,
+              roomNumber,
+              percent,
+            );
           } catch (err) {
             console.warn("Record attempt failed", err);
           }
@@ -380,7 +404,7 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
     // - cheia NU este obținută
     const keyButtonVisible = useMemo(
       () => roomState.passed && !roomState.hasKey,
-      [roomState]
+      [roomState],
     );
 
     // Butonul "Resetează pentru exersare" devine vizibil doar dacă:

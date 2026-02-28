@@ -22,6 +22,8 @@ export function TenseRoomTemplateV1({
   useRoomEngineHook,
   sectionId,
   roomNumber,
+  validationPolicy,
+  validationFamily,
   pageTitle,
   roomLabel,
   sectionLabel,
@@ -46,7 +48,13 @@ export function TenseRoomTemplateV1({
     handleDevAutofill,
     handleDevReset,
     handlePracticeReset,
-  } = useRoomEngineHook({ sectionId, roomNumber, exercises });
+  } = useRoomEngineHook({
+    sectionId,
+    roomNumber,
+    exercises,
+    validationPolicy,
+    validationFamily,
+  });
 
   const devTools =
     typeof renderDevTools === "function"

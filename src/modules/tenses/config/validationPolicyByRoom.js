@@ -1,0 +1,15 @@
+import { VALIDATION_POLICIES } from "../../../core/validation/validationPolicies.js";
+
+export const VALIDATION_POLICY_BY_MODULE = {
+  "present-continuous": {
+    negative: {
+      1: VALIDATION_POLICIES.STRICT_LONG,
+      2: VALIDATION_POLICIES.STRICT_SHORT,
+      3: VALIDATION_POLICIES.FLEX_BOTH,
+      4: VALIDATION_POLICIES.FLEX_BOTH,
+      5: VALIDATION_POLICIES.FLEX_BOTH,
+      6: VALIDATION_POLICIES.FLEX_BOTH,
+      7: VALIDATION_POLICIES.FLEX_BOTH,
+    },
+  },
+};

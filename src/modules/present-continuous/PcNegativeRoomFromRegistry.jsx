@@ -10,6 +10,8 @@ import {
   getPcNegativeGlossaryItems,
 } from "./rooms/pc-negative-rooms.jsx";
 import { presentContinuousNegativeLexHints } from "../lex-hints/present-continuous/negative.js";
+// ✅ INSEREAZĂ AICI (sus la imports):
+import { getRoomValidationPolicy } from "../../core/validation/getRoomValidationPolicy.js";
 
 // Room type configuration – aligned with Present Simple / PcAffirmative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
@@ -56,6 +58,13 @@ export default function PcNegativeRoomFromRegistry({ roomNumber }) {
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Present Continuous – Negative`;
 
+  // ✅ INSEREAZĂ AICI:
+  const validationPolicy = getRoomValidationPolicy({
+    moduleKey: "present-continuous",
+    sectionId,
+    roomNumber,
+  });
+
   const retryForKeyTestId = `pc-retry-for-key-negative-${roomNumber}`;
   const testIdPrefix = `pc-negative-room${roomNumber}`;
 
@@ -94,6 +103,8 @@ export default function PcNegativeRoomFromRegistry({ roomNumber }) {
       sectionId={sectionId}
       sectionLabel={sectionLabel}
       roomNumber={roomNumber}
+      validationPolicy={validationPolicy}
+      validationFamily="BE_NEGATIVE"
       pageTitle={pageTitle}
       roomLabel={roomLabel}
       theoryRoute={pcTheoryPath("negative")}
