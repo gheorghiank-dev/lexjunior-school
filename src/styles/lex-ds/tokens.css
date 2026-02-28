@@ -1,14 +1,19 @@
 /* Lex Design System tokens – extracted from global.css (Sprint 5) */
 
 :root {
-  /* variabilele vechi – rămân ca fallback */
-  --color-bg: #f8f4ff;
+  /* ✅ Premium base palette */
+  --color-bg: #faf6f8;
   --color-surface: #ffffff;
-  --color-primary: #6b8cff;
-  --color-primary-soft: #c7d6ff;
-  --color-secondary: #ff9ecb;
-  --color-text-main: #1f2933;
-  --color-text-muted: #6b7280;
+
+  /* brand */
+  --color-primary: #6366f1; /* indigo */
+  --color-primary-soft: #e0e7ff; /* indigo-50ish */
+
+  /* keep secondary but make it neutral (we won't use it for buttons) */
+  --color-secondary: #94a3b8;
+
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
   --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.06);
   --radius-xl: 1.5rem;
 
@@ -34,7 +39,7 @@
 
   --lex-color-text-main: var(--color-text-main);
   --lex-color-text-muted: var(--color-text-muted);
-  --lex-color-text-on-primary: #312e81;
+  --lex-color-text-on-primary: #ffffff;
   --lex-color-text-on-success: #14532d;
 
   /* Radii */
@@ -80,8 +85,8 @@
   --lex-font-size-meta: 0.8rem;
 
   /* Hub buttons – CTA pentru cardurile de navigație (Grammar hub / Tenses / Present Simple hub) */
-  --lex-color-hub-cta-start: #6b8cff; /* albastru-mov Lex */
-  --lex-color-hub-cta-end: #c4b5fd; /* mov-liliac pastel */
+  --lex-color-hub-cta-start: #4f46e5;
+  --lex-color-hub-cta-end: #a5b4fc;
 
   /* Present Simple – Color Coding System v1 (ambient only) */
   --ps-present-bg: #fff7d6; /* galben foarte soft (timpul: Present) */
@@ -115,33 +120,25 @@
   --lex-header-border: 1px solid rgba(148, 163, 184, 0.25);
 
   /* Buttons */
-  --lex-btn-primary-bg: linear-gradient(
-    135deg,
-    var(--lex-color-accent-hero),
-    var(--lex-color-accent-pink)
-  );
-  --lex-btn-primary-color: var(--lex-color-text-on-primary);
-  --lex-btn-primary-shadow: 0 10px 25px rgba(192, 132, 252, 0.28);
+  /* ✅ Premium primary (near-solid, no candy gradient) */
+  --lex-btn-primary-bg: #6366f1;
+  --lex-btn-primary-color: #ffffff;
+  --lex-btn-primary-shadow: 0 10px 25px rgba(15, 23, 42, 0.14);
 
-  --lex-btn-soft-bg: linear-gradient(
-    135deg,
-    var(--lex-color-primary-soft),
-    #f5d0fe
-  );
-  --lex-btn-soft-color: var(--lex-color-text-on-primary);
-  --lex-btn-soft-shadow: 0 10px 25px rgba(129, 140, 248, 0.25);
+  /* ✅ Premium soft button (neutral) */
+  --lex-btn-soft-bg: rgba(15, 23, 42, 0.04);
+  --lex-btn-soft-color: #0f172a;
+  --lex-btn-soft-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 
-  --lex-btn-outline-bg: linear-gradient(135deg, #bbf7d0, #fef9c3);
-  --lex-btn-outline-color: var(--lex-color-text-on-success);
-  --lex-btn-outline-shadow: 0 10px 25px rgba(34, 197, 94, 0.18);
+  /* ✅ Premium outline */
+  --lex-btn-outline-bg: rgba(255, 255, 255, 0.75);
+  --lex-btn-outline-color: #0f172a;
+  --lex-btn-outline-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 
-  --lex-btn-hub-bg: linear-gradient(
-    135deg,
-    var(--lex-color-hub-cta-start),
-    var(--lex-color-hub-cta-end)
-  );
-  --lex-btn-hub-color: var(--lex-color-text-on-primary);
-  --lex-btn-hub-shadow: 0 10px 25px rgba(129, 140, 248, 0.25);
+  /* ✅ Hub CTA (subtle brand gradient) */
+  --lex-btn-hub-bg: linear-gradient(135deg, #6366f1, #a5b4fc);
+  --lex-btn-hub-color: #ffffff;
+  --lex-btn-hub-shadow: 0 10px 25px rgba(15, 23, 42, 0.14);
 
   /* Chips / small buttons (Retry for key, etc.) */
   --lex-chip-border: 1px solid var(--color-primary-soft);
@@ -176,4 +173,22 @@
     rgba(244, 219, 255, 0.4)
   );
   --lex-ps-structure-border: 1px solid rgba(129, 140, 248, 0.16);
+
+  /* =========================================================
+     TENSE COLOR SYSTEM (GLOBAL)
+     TIME = principal (Present/Past/Future)
+     ASPECT = accent (Simple/Continuous/Perfect/Perf Continuous)
+     All values are intentionally pale.
+     ========================================================= */
+
+  /* TIME (principal) */
+  --lex-time-present: rgba(116, 225, 204, 0.55); /* mint/teal pale */
+  --lex-time-past: rgba(164, 151, 255, 0.5); /* lavender pale */
+  --lex-time-future: rgba(255, 194, 160, 0.55); /* peach pale */
+
+  /* ASPECT (accent) */
+  --lex-aspect-simple: rgba(96, 117, 140, 0.55); /* slate/blue-gray */
+  --lex-aspect-continuous: rgba(108, 209, 255, 0.55); /* aqua/cyan */
+  --lex-aspect-perfect: rgba(244, 211, 140, 0.6); /* sand/gold */
+  --lex-aspect-perfect-continuous: rgba(222, 150, 196, 0.55); /* mauve/rose */
 }

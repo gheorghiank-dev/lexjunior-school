@@ -19,12 +19,10 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: radial-gradient(
-    circle at top left,
-    #ffe6f4 0,
-    #f8f4ff 35%,
-    #e3f2ff 100%
-  );
+
+  /* ✅ Premium neutral background (single for the whole site) */
+  background: #faf6f8;
+
   color: var(--color-text-main);
 }
 
@@ -107,6 +105,23 @@ a {
   font-weight: 650;
   font-size: var(--lex-font-size-card-title);
   color: var(--lex-color-text-main);
+}
+
+/* ✅ Tense stripe (TIME→ASPECT) – only on theory section cards */
+.card.lex-theory-section-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card.lex-theory-section-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 4px;
+  width: 100%;
+  background: var(--tense-stripe-gradient, rgba(0, 0, 0, 0.06));
+  opacity: 0.55; /* very soft */
 }
 
 .card-tag {

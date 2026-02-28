@@ -10,6 +10,8 @@
   border-radius: var(--radius-xl);
   background: rgba(255, 255, 255, 0.85);
   box-shadow: var(--shadow-soft);
+  /* ✅ Tense accent (TIME): soft outline per tense */
+  border: 2px solid var(--tense-time, rgba(0, 0, 0, 0.06));
 }
 
 .hud canvas {
@@ -90,4 +92,3 @@
   border-color: #fecaca;
   color: #b91c1c;
 }
-
