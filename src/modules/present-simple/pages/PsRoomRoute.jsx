@@ -1,6 +1,4 @@
-import React from "react";
-
-import { TenseRoomRoute } from "../../tenses/ui/TenseRoomRoute.jsx";
+import { createSectionRoomRoute } from "../../tenses/createSectionRoomRoute.jsx";
 import { PS_BASE_PATH } from "../ps-paths.js";
 import { PS_ROOMS_PER_SECTION, PS_SECTIONS } from "../ps-core/config.js";
 
@@ -10,7 +8,6 @@ import PsInterrogativeRoomFromRegistry from "../PsInterrogativeRoomFromRegistry.
 import PsUsesRoomFromRegistry from "../PsUsesRoomFromRegistry.jsx";
 import PsTimeExpressionsRoomFromRegistry from "../PsTimeExpressionsRoomFromRegistry.jsx";
 
-// Mapping helper by sectionId, to keep all routing in one place.
 const SECTION_COMPONENTS = {
   affirmative: PsAffirmativeRoomFromRegistry,
   negative: PsNegativeRoomFromRegistry,
@@ -19,21 +16,11 @@ const SECTION_COMPONENTS = {
   "time-expressions": PsTimeExpressionsRoomFromRegistry,
 };
 
-const SECTION_IDS = PS_SECTIONS.map((section) => section.id);
+const PsRoomRoute = createSectionRoomRoute({
+  basePath: PS_BASE_PATH,
+  sections: PS_SECTIONS,
+  roomsPerSection: PS_ROOMS_PER_SECTION,
+  sectionComponents: SECTION_COMPONENTS,
+});
 
-/**
- * Present Simple room route
- *
- * Delegates to the generic TenseRoomRoute with Present Simple config.
- */
-export default function PsRoomRoute({ sectionId }) {
-  return (
-    <TenseRoomRoute
-      basePath={PS_BASE_PATH}
-      sections={SECTION_IDS}
-      roomsPerSection={PS_ROOMS_PER_SECTION}
-      sectionComponents={SECTION_COMPONENTS}
-      sectionId={sectionId}
-    />
-  );
-}
+export default PsRoomRoute;

@@ -1,6 +1,4 @@
-// src/modules/past-simple/pages/PastSimpleRoomRoute.jsx
-import React from "react";
-import { TenseRoomRoute } from "../../tenses/ui/TenseRoomRoute.jsx";
+import { createSectionRoomRoute } from "../../tenses/createSectionRoomRoute.jsx";
 import { PAST_SIMPLE_BASE_PATH } from "../past-paths.js";
 import {
   PAST_SIMPLE_ROOMS_PER_SECTION,
@@ -21,21 +19,11 @@ const SECTION_COMPONENTS = {
   "time-expressions": PastSimpleTimeExpressionsRoomFromRegistry,
 };
 
-const SECTION_IDS = PAST_SIMPLE_SECTIONS.map((section) => section.id);
+const PastSimpleRoomRoute = createSectionRoomRoute({
+  basePath: PAST_SIMPLE_BASE_PATH,
+  sections: PAST_SIMPLE_SECTIONS,
+  roomsPerSection: PAST_SIMPLE_ROOMS_PER_SECTION,
+  sectionComponents: SECTION_COMPONENTS,
+});
 
-/**
- * Past Simple room route
- *
- * Delegates to the generic TenseRoomRoute with Past Simple config.
- */
-export default function PastSimpleRoomRoute({ sectionId }) {
-  return (
-    <TenseRoomRoute
-      basePath={PAST_SIMPLE_BASE_PATH}
-      sections={SECTION_IDS}
-      roomsPerSection={PAST_SIMPLE_ROOMS_PER_SECTION}
-      sectionComponents={SECTION_COMPONENTS}
-      sectionId={sectionId}
-    />
-  );
-}
+export default PastSimpleRoomRoute;

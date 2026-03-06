@@ -47,6 +47,7 @@ import {
   defineTenseKit,
   defineTenseTheme,
 } from "../../tense-kit";
+import { createTenseRoutes } from "../tenses/createTenseRoutes.jsx";
 
 // NOTE: PS_BASE_PATH + path helpers live in ps-paths.js to avoid circular imports.
 
@@ -55,51 +56,42 @@ import {
  * Same set of routes as before, just generated from the manifest.
  */
 export function buildPresentSimpleRoutes() {
-  const routes = [
-    { path: PS_BASE_PATH, element: <PresentSimplePage /> },
-    {
-      path: `${PS_BASE_PATH}/overview`,
-      element: <PresentSimpleOverviewPage />,
-    },
-    { path: `${PS_BASE_PATH}/downloads`, element: <PsDownloadsPage /> },
-    { path: `${PS_BASE_PATH}/notes`, element: <PsNotesPage /> },
-    { path: `${PS_BASE_PATH}/badge`, element: <PsBadgePage /> },
-    { path: `${PS_BASE_PATH}/map`, element: <PsMapPage /> },
-  ];
-
-  // Generic room route renderer (one route per section, params select the room)
   const PsRoomRoute = React.lazy(() => import("./pages/PsRoomRoute.jsx"));
 
-  for (const section of PS_SECTIONS) {
-    const pages = PS_SECTION_PAGES[section.id];
-    if (!pages) continue;
+  return createTenseRoutes({
+    basePath: PS_BASE_PATH,
+    topLevelRoutes: [
+      { path: PS_BASE_PATH, element: <PresentSimplePage /> },
+      {
+        path: `${PS_BASE_PATH}/overview`,
+        element: <PresentSimpleOverviewPage />,
+      },
+      { path: `${PS_BASE_PATH}/downloads`, element: <PsDownloadsPage /> },
+      { path: `${PS_BASE_PATH}/notes`, element: <PsNotesPage /> },
+      { path: `${PS_BASE_PATH}/badge`, element: <PsBadgePage /> },
+      { path: `${PS_BASE_PATH}/map`, element: <PsMapPage /> },
+    ],
+    sections: PS_SECTIONS,
+    sectionPages: PS_SECTION_PAGES,
+    theoryPath: psTheoryPath,
+    createRoomRouteElement: (sectionId) => (
+      <React.Suspense fallback={null}>
+        <PsRoomRoute sectionId={sectionId} />
+      </React.Suspense>
+    ),
+    getExtraSectionRoutes: (section, pages) => {
+      if (section.id === "uses" && pages?.sensoryTheory) {
+        return [
+          {
+            path: `${PS_BASE_PATH}/uses/theory-sensory`,
+            element: React.createElement(pages.sensoryTheory),
+          },
+        ];
+      }
 
-    routes.push({
-      path: psTheoryPath(section.id),
-      element: React.createElement(pages.theory),
-    });
-
-    if (section.id === "uses" && pages.sensoryTheory) {
-      routes.push({
-        path: `${PS_BASE_PATH}/uses/theory-sensory`,
-        element: React.createElement(pages.sensoryTheory),
-      });
-    }
-
-    // Keep the same URL shape as psRoomPath(sectionId, n) (e.g. room-1), but
-    // React Router params cannot be embedded inside a segment ("room-:n").
-    // We match the full slug and parse it in PsRoomRoute.
-    routes.push({
-      path: `${PS_BASE_PATH}/${section.id}/:roomSlug`,
-      element: (
-        <React.Suspense fallback={null}>
-          <PsRoomRoute sectionId={section.id} />
-        </React.Suspense>
-      ),
-    });
-  }
-
-  return routes;
+      return [];
+    },
+  });
 }
 
 const PS_SECTIONS_META = PS_SECTIONS.reduce((acc, section) => {
