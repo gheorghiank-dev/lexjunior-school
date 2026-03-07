@@ -1,54 +1,31 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseTimeExpressionsTheoryTemplate from "../../tenses/ui/TenseTimeExpressionsTheoryTemplate.jsx";
+import {
+  ScaffoldTimeCardOne,
+  ScaffoldTimeCardTwo,
+  ScaffoldTimeCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../past-core/theory-progress.js";
-import { pastSimpleMapPath } from "../past-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { pastSimpleMapPath, pastSimpleOverviewPath, pastSimpleRoomPath } from "../past-paths.js";
 
 const SECTION_ID = "time-expressions";
 
-/**
- * Past Simple – Time Expressions (skeleton page)
- */
 export default function PastSimpleTimeExpressionsTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
-
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={pastSimpleMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Past Simple
-          </Link>
-        </p>
-
-        <h1 className="page-title">Past Simple – Time Expressions</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Past Simple – Time Expressions. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Past Simple – Time Expressions.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Past Simple.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseTimeExpressionsTheoryTemplate
+      backTo={pastSimpleMapPath()}
+      backLabel="← Înapoi la harta Past Simple"
+      title="Past Simple – Time Expressions"
+      lead="Expresiile de timp ale lui Past Simple te trimit spre un moment clar în trecut și spre ideea de acțiune încheiată."
+      card1Intro={<>Când contextul arată clar că evenimentul este terminat și legat de trecut, Past Simple este foarte probabil.</>}
+      card1Content={<ScaffoldTimeCardOne summary="Caută expresii ca yesterday, last week, ago sau in 2019. Ele fixează acțiunea într-un punct trecut și închis." />}
+      card2Intro={<>Grupează expresiile după tipul de reper temporal.</>}
+      card2Content={<ScaffoldTimeCardTwo groups={[{title:'Momente clare în trecut', items:['yesterday','last night','in 2020']},{title:'Distanță față de prezent', items:['two days ago','a week ago','long ago']}]} />}
+      card3Intro={<>Și aici există expresii care trebuie citite în context, nu doar memorate mecanic.</>}
+      card3Content={<ScaffoldTimeCardThree notes={["while și when nu cer automat Past Simple; contează dacă acțiunea e proces sau eveniment.","ago merge foarte natural cu Past Simple.","just / already / yet apar mai des cu Present Perfect, nu cu Past Simple, în engleza standard britanică."]} />}
+      nextStepsDescription="Mergi spre camerele de time expressions pentru a fixa semnalele de trecut."
+      nextStepActions={[{ to: pastSimpleRoomPath('time-expressions', 1), label: 'Camera 1 – Expresii de timp' },{ to: pastSimpleMapPath(), label: 'Harta modulului' },{ to: pastSimpleOverviewPath(), label: 'Recapitulare / overview' }]}
+    />
   );
 }

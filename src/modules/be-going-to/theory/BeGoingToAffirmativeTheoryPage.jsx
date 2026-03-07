@@ -1,111 +1,57 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  BE_GOING_TO_BASE_PATH,
-  beGoingToMapPath,
-  beGoingToRoomPath,
-  beGoingToOverviewPath,
-} from "../be-paths.js";
 import { markTheoryCompleted } from "../be-core/theory-progress.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
-import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
-import TenseTheoryCommonMistakesCard from "../../tenses/ui/TenseTheoryCommonMistakesCard.jsx";
-import LexTtsButton from "../../../shared/exercises/LexTtsButton.jsx";
-import { scrollMainToTop } from "../../../core/platform/browser-dom.js";
+import { BE_GOING_TO_BASE_PATH, beGoingToMapPath, beGoingToRoomPath, beGoingToOverviewPath } from "../be-paths.js";
+import TenseAffirmativeTheoryTemplate from "../../tenses/ui/TenseAffirmativeTheoryTemplate.jsx";
+import { ScaffoldAffirmativeSectionOne, ScaffoldAffirmativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 
 const SECTION_ID = "affirmative";
 
-/**
- * Be Going To – Affirmative (skeleton page)
- */
 export default function BeGoingToAffirmativeTheoryPage() {
   useEffect(() => {
-    try {
-      markTheoryCompleted(SECTION_ID);
-    } catch (err) {
-      console.error("Failed to mark affirmative theory as completed:", err);
-    }
+    markTheoryCompleted(SECTION_ID);
   }, []);
 
-  const handleScrollToTop = () => {
-    scrollMainToTop({ smooth: true });
-  };
-
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link
-            to={BE_GOING_TO_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
-            ← Înapoi la harta Be Going To
-          </Link>
-        </p>
-
-        <h1 className="page-title">Be Going To – Afirmativ</h1>
-        <p className="page-lead">
-          Reguli, exemple și explicații pentru formarea Be Going To la
-          afirmativ.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Be Going To – Affirmative. Aici
-            vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Be Going To.
-        </p>
-      </TenseTheorySectionCard>
-
-      {/* 4. Unde merg mai departe? */}
-      <TenseTheoryCard>
-        <h2 className="card-title">4. Unde merg mai departe?</h2>
-        <p className="card-description">
-          Când simți că regula este clară, poți începe aventura în camerele de
-          exerciții pentru Be Going To – Afirmativ, poți merge înapoi la teorie
-          sau la hartă.
-        </p>
-
-        <TenseTheoryNextSteps
-          actions={[
-            {
-              key: "scroll-top",
-              label: "Înapoi la prezentare",
-              variant: "secondary",
-              onClick: handleScrollToTop,
-            },
-            {
-              to: beGoingToRoomPath(SECTION_ID, 1),
-              label: "Începe Camera 1 – Afirmativ",
-              variant: "primary",
-            },
-            {
-              to: beGoingToMapPath(),
-              label: "Mergi la harta Be Going To",
-              variant: "outline",
-            },
-            {
-              to: beGoingToOverviewPath(),
-              label: "Vezi recapitularea Be Going To",
-              variant: "secondary",
-            },
+    <TenseAffirmativeTheoryTemplate
+      backTo={BE_GOING_TO_BASE_PATH}
+      backLabel="← Înapoi la modulul Be Going To"
+      title="Be Going To – Afirmativ"
+      lead="Reguli, exemple și explicații pentru formarea Be Going To la afirmativ."
+      section1Intro={<>În această lecție păstrăm aceeași structură vizuală ca la <strong>Present Simple</strong>, dar o adaptăm pentru <strong>Be Going To</strong>.</>}
+      section1Content={
+        <ScaffoldAffirmativeSectionOne
+          formula="Subiect + am / is / are + going to + verb"
+          examples={[
+            "Example 1 – placeholder model.",
+            "Example 2 – placeholder model.",
+            "Example 3 – placeholder model.",
           ]}
         />
-      </TenseTheoryCard>
-    </TenseTheoryPageShell>
+      }
+      section2Title="Detalii importante"
+      section2Intro={<>Acest al doilea card rămâne obligatoriu în toate timpurile, ca la Present Simple.</>}
+      section2Content={
+        <ScaffoldAffirmativeSectionTwo
+          bullets={[
+            "structura completă pentru toate persoanele",
+            "forme speciale sau excepții",
+            "spelling / participiu / auxiliare, după caz",
+            "mini-patterns utile pentru exerciții",
+          ]}
+        />
+      }
+      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și pentru Be Going To.</>}
+      mistakes={[
+        { wrong: "Wrong example 1.", correct: "Correct example 1." },
+        { wrong: "Wrong example 2.", correct: "Correct example 2." },
+        { wrong: "Wrong example 3.", correct: "Correct example 3." },
+      ]}
+      nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
+      nextStepActions={[
+        { to: beGoingToRoomPath(SECTION_ID, 1), label: "Camera 1 – Afirmativ" },
+        { to: beGoingToMapPath(), label: "Harta modulului" },
+        { to: beGoingToOverviewPath(), label: "Recapitulare" },
+      ]}
+    />
   );
 }

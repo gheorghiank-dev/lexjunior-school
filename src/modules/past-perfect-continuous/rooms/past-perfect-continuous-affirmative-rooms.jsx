@@ -1,21 +1,32 @@
-// Past Perfect Continuous > Affirmative content registry (skeleton)
+// Past Perfect Continuous > Affirmative content registry (playable preview scaffold)
 import { PAST_PERFECT_CONTINUOUS_ROOMS_PER_SECTION, PAST_PERFECT_CONTINUOUS_SECTIONS } from "../past-perfect-continuous-core/config.js";
+import {
+  createPreviewExercisesByRoom,
+  createPreviewGlossaryByRoom,
+} from "../../tenses/scaffold-preview.js";
 
-export const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_EXERCISES_BY_ROOM = {};
+const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_ID = "affirmative";
+const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_LABEL =
+  PAST_PERFECT_CONTINUOUS_SECTIONS.find((s) => s.id === PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_ID)?.title ?? "Affirmative";
+
+export const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_EXERCISES_BY_ROOM = createPreviewExercisesByRoom({
+  prefix: "past-perfect-continuous-affirmative",
+  tenseLabel: "Past Perfect Continuous",
+  sectionLabel: PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_LABEL,
+});
 
 export function getPastPerfectContinuousAffirmativeExercises(roomNumber) {
   return PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [];
 }
 
-const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_GLOSSARY_BY_ROOM = {};
+const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_GLOSSARY_BY_ROOM = createPreviewGlossaryByRoom({
+  tenseLabel: "Past Perfect Continuous",
+  sectionLabel: PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_LABEL,
+});
 
 export function getPastPerfectContinuousAffirmativeGlossaryItems(roomNumber) {
   return PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_GLOSSARY_BY_ROOM[roomNumber] ?? [];
 }
-
-const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_ID = "affirmative";
-const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_LABEL =
-  PAST_PERFECT_CONTINUOUS_SECTIONS.find((s) => s.id === PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_ID)?.title ?? "Affirmative";
 
 export const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_ROOMS = Array.from(
   { length: PAST_PERFECT_CONTINUOUS_ROOMS_PER_SECTION },
@@ -25,8 +36,7 @@ export const PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_ROOMS = Array.from(
       sectionId: PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_ID,
       sectionLabel: PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_SECTION_LABEL,
       roomNumber,
-      exercises:
-        PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [],
+      exercises: PAST_PERFECT_CONTINUOUS_AFFIRMATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [],
     };
   },
 );

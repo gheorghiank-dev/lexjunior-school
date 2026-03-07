@@ -2,51 +2,38 @@ import React from "react";
 
 /**
  * Past Continuous – canonical structure blocks
- *
- * These blocks are shared between the Past Continuous overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
  */
 
 export function PastContinuousAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
-      <h3 className="lj-structure-title">Affirmative – basic structure</h3>
+      <h3 className="lj-structure-title">Afirmativ – structura de bază</h3>
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subiect + <strong>was / were</strong> + verb +
+          <span className="rule-highlight-emphasis"> -ing</span>
         </span>
       </p>
 
-      <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
-      </p>
+      <div className="ps-structure-grid">
+        <div>
+          <p className="ps-text ps-structure-note-heading">Forme ale lui to be</p>
+          <ul className="ps-list">
+            <li><strong>I / He / She / It was</strong></li>
+            <li><strong>We / You / They were</strong></li>
+          </ul>
+        </div>
 
-      <ul className="ps-mini-list">
-        <li>
-          I <strong>visited</strong> my grandparents yesterday.
-        </li>
-        <li>
-          She <strong>watched</strong> a film last night.
-        </li>
-      </ul>
-
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
-      </ul>
+        <div>
+          <p className="ps-text ps-structure-note-heading">Exemple</p>
+          <ul className="ps-list">
+            <li>I <strong>was listening</strong> to music.</li>
+            <li>She <strong>was dancing</strong>.</li>
+            <li>They <strong>were playing</strong> outside.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
@@ -54,31 +41,23 @@ export function PastContinuousAffirmativeStructureBlock() {
 export function PastContinuousNegativeStructureBlock() {
   return (
     <div className="lj-structure-box">
-      <h3 className="lj-structure-title">Negative – basic structure</h3>
+      <h3 className="lj-structure-title">Negativ – structura de bază</h3>
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subiect + <strong>was / were</strong> + <strong>not</strong> + verb +
+          <span className="rule-highlight-emphasis"> -ing</span>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>was not talking</strong>.</li>
+        <li>He <strong>wasn&apos;t reading</strong>.</li>
+        <li>They <strong>weren&apos;t studying</strong>.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        Forme scurte: <strong>wasn&apos;t</strong>, <strong>weren&apos;t</strong>.
       </p>
     </div>
   );
@@ -87,36 +66,24 @@ export function PastContinuousNegativeStructureBlock() {
 export function PastContinuousInterrogativeStructureBlock() {
   return (
     <div className="lj-structure-box">
-      <h3 className="lj-structure-title">Interrogative – basic structure</h3>
+      <h3 className="lj-structure-title">Interogativ – structura de bază</h3>
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Was / Were</strong> + subiect + verb +
+          <span className="rule-highlight-emphasis"> -ing</span> + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Was</strong> I talking?</li>
+        <li><strong>Was</strong> she sleeping?</li>
+        <li><strong>Were</strong> they running?</li>
       </ul>
 
       <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
+        Răspunsuri scurte: <strong>Yes, I was.</strong> / <strong>No, they weren&apos;t.</strong>
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
-      </ul>
     </div>
   );
 }
@@ -124,41 +91,13 @@ export function PastContinuousInterrogativeStructureBlock() {
 export function PastContinuousUsesStructureBlock() {
   return (
     <div className="lj-structure-box">
-      <h3 className="lj-structure-title">Typical uses of Past Continuous</h3>
+      <h3 className="lj-structure-title">Întrebuințări</h3>
 
       <ul className="ps-mini-list">
-        <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
-        </li>
+        <li>acțiuni în desfășurare într-un moment specific din trecut;</li>
+        <li>două sau mai multe acțiuni simultane în trecut;</li>
+        <li>o acțiune de fundal întreruptă de o altă acțiune;</li>
+        <li>descrierea atmosferei de fundal la începutul unei povestiri.</li>
       </ul>
     </div>
   );
@@ -167,28 +106,19 @@ export function PastContinuousUsesStructureBlock() {
 export function PastContinuousTimeExpressionsStructureBlock() {
   return (
     <div className="lj-structure-box">
-      <h3 className="lj-structure-title">Common time expressions</h3>
-
-      <p className="ps-text">
-        These expressions are very common with <strong>Past Continuous</strong>{" "}
-        because they show a finished time in the past:
-      </p>
+      <h3 className="lj-structure-title">Expresii de timp</h3>
 
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>at this time yesterday</em></li>
+        <li><em>when</em></li>
+        <li><em>while</em></li>
+        <li><em>as</em></li>
       </ul>
+
+      <p className="ps-text">
+        Tipar frecvent: <strong>when / while / as + Past Continuous</strong> și
+        <strong> when + Past Simple</strong>.
+      </p>
     </div>
   );
 }

@@ -1,84 +1,50 @@
 import React, { useEffect } from "react";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
-import { Link } from "react-router-dom";
-import { scrollMainToTop } from "../../../core/platform/browser-dom.js";
+import TenseTimeExpressionsTheoryTemplate from "../../tenses/ui/TenseTimeExpressionsTheoryTemplate.jsx";
 import { markTheoryCompleted } from "../pc-core/theory-progress.js";
-import { PC_BASE_PATH, pcMapPath, pcRoomPath, pcOverviewPath } from "../pc-paths.js";
-import { PcTimeExpressionsStructureBlock } from "../components/PcPresentContinuousStructureBlocks.jsx";
+import { pcMapPath, pcOverviewPath, pcRoomPath } from "../pc-paths.js";
 
+const SECTION_ID = "time-expressions";
 
 export default function PcTimeExpressionsTheoryPage() {
-  useEffect(() => {
-    // Gating: marcăm teoria pentru expresiile de timp ca fiind citită.
-    markTheoryCompleted("time-expressions");
-  }, []);
-
-  const SECTION_ID = "time-expressions";
-
-  const handleScrollToTop = () => {
-    scrollMainToTop({ smooth: true });
-  };
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
 
   return (
-    <TenseTheoryPageShell className="page page-pastel">
-      <header className="page-header">
-        <div className="page-header-main">
-          <h1 className="page-title">Present Continuous – Time Expressions (Teorie)</h1>
+    <TenseTimeExpressionsTheoryTemplate
+      backTo={pcMapPath()}
+      backLabel="← Înapoi la harta Present Continuous"
+      title="Present Continuous – Expresii de timp"
+      lead="Expresiile de timp din jurul lui Present Continuous te ajută să vezi dacă acțiunea se petrece chiar acum, în perioada asta sau ca aranjament apropiat."
+      card1Intro={<>Aceste expresii semnalează, de obicei, ideea de <strong>acum</strong>, <strong>temporar</strong> sau <strong>plan apropiat</strong>.</>}
+      card1Content={<div className="lj-structure-box ps-structure-box"><p className="ps-text">Cuvinte-cheie frecvente: <strong>now, right now, at the moment, these days, this week, tonight, tomorrow</strong>.</p></div>}
+      card2Intro={<>Grupează expresiile în funcție de mesajul lor principal.</>}
+      card2Content={
+        <div className="columns-2">
+          <div className="example-box">
+            <h3>Acum / în desfășurare</h3>
+            <ul className="ps-mini-list">
+              <li>now, right now</li>
+              <li>at the moment</li>
+              <li>Listen! Look!</li>
+            </ul>
+          </div>
+          <div className="example-box">
+            <h3>Temporar / viitor apropiat</h3>
+            <ul className="ps-mini-list">
+              <li>these days, this week</li>
+              <li>tonight, tomorrow</li>
+              <li>this month, for now</li>
+            </ul>
+          </div>
         </div>
-        <p className="page-lead">
-          Aici vom aduna expresiile de timp specifice pentru Present Continuous.
-          Momentan este doar o pagină de schelet.
-        </p>
-      </header>
-
-      {/* Lex Junior – Study Tip */}
-      <TenseLexStudyTipCard />
-
-      {/* 1. Expresii de timp – schelet pentru Present Continuous */}
-      <TenseTheorySectionCard
-        number="1."
-        title="Schelet de expresii de timp"
-        intro={
-          <>
-            Aici vom aduna expresiile de timp specifice pentru{" "}
-            <strong>Present Continuous</strong>. Deocamdată este doar un schelet
-            de bază pe care îl vom completa mai târziu.
-          </>
-        }
-        style={{ marginBottom: "1.25rem" }}
-      >
-                <PcTimeExpressionsStructureBlock />
-      
-</TenseTheorySectionCard>
-
-      <TenseTheoryNextSteps
-        actions={[
-          {
-            key: "scroll-top",
-            label: "Înapoi la prezentare",
-            variant: "secondary",
-            onClick: handleScrollToTop,
-          },
-          {
-            to: pcRoomPath(SECTION_ID, 1),
-            label: "Începe Camera 1 – Time Expressions",
-            variant: "primary",
-          },
-          {
-            to: pcMapPath(),
-            label: "Mergi la harta Present Continuous",
-            variant: "outline",
-          },
-          {
-            to: pcOverviewPath(),
-            label: "Vezi recapitularea Present Continuous",
-            variant: "secondary",
-          },
-        ]}
-      />
-    </TenseTheoryPageShell>
+      }
+      card3Intro={<>Unele expresii pot apărea și cu alte timpuri, dar contextul decide sensul.</>}
+      card3Content={<div className="rule-box"><h3>Pattern notes</h3><ul className="ps-mini-list"><li><strong>Now / right now</strong> merg foarte bine cu acțiuni în desfășurare.</li><li><strong>Tomorrow / tonight</strong> pot apărea în Present Continuous când vorbești despre un plan deja aranjat.</li><li>Adverbele de frecvență precum <strong>usually</strong> te trimit mai degrabă spre Present Simple.</li></ul></div>}
+      nextStepsDescription="Dacă ai prins expresiile de timp, treci la camerele de time expressions."
+      nextStepActions={[
+        { to: pcRoomPath('time-expressions', 1), label: 'Camera 1 – Expresii de timp' },
+        { to: pcMapPath(), label: 'Harta modulului' },
+        { to: pcOverviewPath(), label: 'Recapitulare / overview' },
+      ]}
+    />
   );
 }

@@ -1,54 +1,55 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { markTheoryCompleted } from "../be-core/theory-progress.js";
-import { beGoingToMapPath } from "../be-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { BE_GOING_TO_BASE_PATH, beGoingToMapPath, beGoingToRoomPath, beGoingToOverviewPath } from "../be-paths.js";
+import TenseInterrogativeTheoryTemplate from "../../tenses/ui/TenseInterrogativeTheoryTemplate.jsx";
+import { ScaffoldInterrogativeSectionOne, ScaffoldInterrogativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 
 const SECTION_ID = "interrogative";
 
-/**
- * Be Going To – Interrogative (skeleton page)
- */
 export default function BeGoingToInterrogativeTheoryPage() {
   useEffect(() => {
     markTheoryCompleted(SECTION_ID);
   }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={beGoingToMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Be Going To
-          </Link>
-        </p>
-
-        <h1 className="page-title">Be Going To – Interrogative</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Be Going To – Interrogative. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Be Going To – Interrogative.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Be Going To.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseInterrogativeTheoryTemplate
+      backTo={BE_GOING_TO_BASE_PATH}
+      backLabel="← Înapoi la modulul Be Going To"
+      title="Be Going To – Interogativ"
+      lead="Reguli, exemple și explicații pentru formarea Be Going To la interogativ."
+      section1Intro={<>La interogativ, toate timpurile trebuie să păstreze aceeași arhitectură vizuală de bază.</>}
+      section1Content={
+        <ScaffoldInterrogativeSectionOne
+          formula="Am / Is / Are + subiect + going to + verb + ?"
+          examples={[
+            "Question 1 – placeholder model?",
+            "Question 2 – placeholder model?",
+            "Question 3 – placeholder model?",
+          ]}
+        />
+      }
+      section2Intro={<>Al doilea card este rezervat pentru răspunsuri scurte, wh-questions sau alte modele utile.</>}
+      section2Content={
+        <ScaffoldInterrogativeSectionTwo
+          questionAnswers={[
+            { question: "Question 1?", answer: "Yes / No answer 1." },
+            { question: "Question 2?", answer: "Yes / No answer 2." },
+            { question: "Question 3?", answer: "Yes / No answer 3." },
+          ]}
+        />
+      }
+      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și aici.</>}
+      mistakes={[
+        { wrong: "Wrong interrogative example 1.", correct: "Correct interrogative example 1." },
+        { wrong: "Wrong interrogative example 2.", correct: "Correct interrogative example 2." },
+        { wrong: "Wrong interrogative example 3.", correct: "Correct interrogative example 3." },
+      ]}
+      nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
+      nextStepActions={[
+        { to: beGoingToRoomPath(SECTION_ID, 1), label: "Camera 1 – Interogativ" },
+        { to: beGoingToMapPath(), label: "Harta modulului" },
+        { to: beGoingToOverviewPath(), label: "Recapitulare" },
+      ]}
+    />
   );
 }

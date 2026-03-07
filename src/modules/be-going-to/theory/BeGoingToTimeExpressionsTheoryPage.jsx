@@ -1,54 +1,36 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseTimeExpressionsTheoryTemplate from "../../tenses/ui/TenseTimeExpressionsTheoryTemplate.jsx";
+import {
+  ScaffoldTimeCardOne,
+  ScaffoldTimeCardTwo,
+  ScaffoldTimeCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../be-core/theory-progress.js";
-import { beGoingToMapPath } from "../be-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { beGoingToMapPath, beGoingToOverviewPath, beGoingToRoomPath } from "../be-paths.js";
 
 const SECTION_ID = "time-expressions";
 
-/**
- * Be Going To – Time Expressions (skeleton page)
- */
 export default function BeGoingToTimeExpressionsTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={beGoingToMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Be Going To
-          </Link>
-        </p>
-
-        <h1 className="page-title">Be Going To – Time Expressions</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Be Going To – Time Expressions. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Be Going To – Time Expressions.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Be Going To.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseTimeExpressionsTheoryTemplate
+      backTo={beGoingToMapPath()}
+      backLabel="← Înapoi la harta Be Going To"
+      title="Be Going To – Time Expressions"
+      lead="Pagini de time expressions standardizate: 4 carduri, aceeași ierarhie vizuală și aceleași puncte-cheie pentru fiecare timp."
+      card1Intro={<>Uită-te mai întâi la indiciile de timp care te pot împinge spre acest tense.</>}
+      card1Content={<ScaffoldTimeCardOne summary="Be going to often appears with near-future expressions and contexts showing intention or evidence." />}
+      card2Intro={<>Grupează expresiile pe familii. Așa devin mai ușor de recunoscut în exerciții.</>}
+      card2Content={<ScaffoldTimeCardTwo groups={[{ title: "Near future", items: ["tomorrow", "tonight", "next week"] }, { title: "Plan markers", items: ["soon", "in a minute", "this weekend"] }]} />}
+      card3Intro={<>Cardul 3 îți arată capcanele și diferențele care contează cel mai mult.</>}
+      card3Content={<ScaffoldTimeCardThree notes={["Time expressions help, but intention/evidence matters more than the adverb itself.", "Tomorrow can also appear with Present Continuous for arrangements or with will in other contexts.", "Look! and Watch out! often introduce evidence-based predictions."]} />}
+      nextStepsDescription="Acum poți merge spre camerele de time expressions sau poți reveni la hartă și overview."
+      nextStepActions={[
+        { to: beGoingToRoomPath("time-expressions", 1), label: "Camera 1 – Expresii de timp" },
+        { to: beGoingToMapPath(), label: "Harta modulului" },
+        { to: beGoingToOverviewPath(), label: "Recapitulare / overview" },
+      ]}
+    />
   );
 }

@@ -1,54 +1,36 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseTimeExpressionsTheoryTemplate from "../../tenses/ui/TenseTimeExpressionsTheoryTemplate.jsx";
+import {
+  ScaffoldTimeCardOne,
+  ScaffoldTimeCardTwo,
+  ScaffoldTimeCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import { futurePerfectMapPath } from "../future-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { futurePerfectMapPath, futurePerfectOverviewPath, futurePerfectRoomPath } from "../future-paths.js";
 
 const SECTION_ID = "time-expressions";
 
-/**
- * Future Perfect – Time Expressions (skeleton page)
- */
 export default function FuturePerfectTimeExpressionsTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={futurePerfectMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Future Perfect
-          </Link>
-        </p>
-
-        <h1 className="page-title">Future Perfect – Time Expressions</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Future Perfect – Time Expressions. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Future Perfect – Time Expressions.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Future Perfect.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseTimeExpressionsTheoryTemplate
+      backTo={futurePerfectMapPath()}
+      backLabel="← Înapoi la harta Future Perfect"
+      title="Future Perfect – Time Expressions"
+      lead="Pagini de time expressions standardizate: 4 carduri, aceeași ierarhie vizuală și aceleași puncte-cheie pentru fiecare timp."
+      card1Intro={<>Uită-te mai întâi la indiciile de timp care te pot împinge spre acest tense.</>}
+      card1Content={<ScaffoldTimeCardOne summary="Future Perfect usually appears with deadlines or future points before which something will be completed." />}
+      card2Intro={<>Grupează expresiile pe familii. Așa devin mai ușor de recunoscut în exerciții.</>}
+      card2Content={<ScaffoldTimeCardTwo groups={[{ title: "Deadlines", items: ["by tomorrow", "by next Friday", "by 2030"] }, { title: "Future reference points", items: ["before you arrive", "by the end of the month"] }]} />}
+      card3Intro={<>Cardul 3 îți arată capcanele și diferențele care contează cel mai mult.</>}
+      card3Content={<ScaffoldTimeCardThree notes={["by signals the latest possible point for completion.", "Do not confuse Future Perfect with Future Continuous; one shows completion, the other process.", "before-clauses also help establish the deadline relationship."]} />}
+      nextStepsDescription="Acum poți merge spre camerele de time expressions sau poți reveni la hartă și overview."
+      nextStepActions={[
+        { to: futurePerfectRoomPath("time-expressions", 1), label: "Camera 1 – Expresii de timp" },
+        { to: futurePerfectMapPath(), label: "Harta modulului" },
+        { to: futurePerfectOverviewPath(), label: "Recapitulare / overview" },
+      ]}
+    />
   );
 }

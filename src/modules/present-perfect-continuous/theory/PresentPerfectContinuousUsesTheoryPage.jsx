@@ -1,54 +1,36 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseUsesTheoryTemplate from "../../tenses/ui/TenseUsesTheoryTemplate.jsx";
+import {
+  ScaffoldUsesCardOne,
+  ScaffoldUsesCardTwo,
+  ScaffoldUsesCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../present-core/theory-progress.js";
-import { presentPerfectContinuousMapPath } from "../present-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { presentPerfectContinuousMapPath, presentPerfectContinuousOverviewPath, presentPerfectContinuousRoomPath } from "../present-paths.js";
 
 const SECTION_ID = "uses";
 
-/**
- * Present Perfect Continuous – Uses (skeleton page)
- */
 export default function PresentPerfectContinuousUsesTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={presentPerfectContinuousMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Present Perfect Continuous
-          </Link>
-        </p>
-
-        <h1 className="page-title">Present Perfect Continuous – Uses</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Present Perfect Continuous – Uses. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Present Perfect Continuous – Uses.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Present Perfect Continuous.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseUsesTheoryTemplate
+      backTo={presentPerfectContinuousMapPath()}
+      backLabel="← Înapoi la harta Present Perfect Continuous"
+      title="Present Perfect Continuous – Uses"
+      lead="Pagini de uses standardizate: 4 carduri, aceeași arhitectură vizuală și aceeași ordine logică ca în restul modulelor."
+      card1Intro={<>Începe cu ideea generală: ce tip de situații exprimă acest timp și care este rolul lui principal.</>}
+      card1Content={<ScaffoldUsesCardOne summary="Use Present Perfect Continuous for actions that started in the past and are still continuing or have visible present effects." />}
+      card2Intro={<>Aici vezi principalele familii de uses pe care le vei întâlni în theory și în camere.</>}
+      card2Content={<ScaffoldUsesCardTwo uses={["duration up to now", "recent activity with visible result", "temporary ongoing situations", "emphasis on process rather than result"]} />}
+      card3Intro={<>Cardul 3 te obligă să compari atent tense-ul cu alte structuri apropiate.</>}
+      card3Content={<ScaffoldUsesCardThree notes={["for and since are especially common here.", "Choose Present Perfect Continuous when you want to stress activity/process, not completion.", "Some stative verbs usually prefer Present Perfect instead."]} />}
+      nextStepsDescription="Acum poți merge spre camerele de uses sau poți reveni la hartă și overview."
+      nextStepActions={[
+        { to: presentPerfectContinuousRoomPath("uses", 1), label: "Camera 1 – Întrebuințări" },
+        { to: presentPerfectContinuousMapPath(), label: "Harta modulului" },
+        { to: presentPerfectContinuousOverviewPath(), label: "Recapitulare / overview" },
+      ]}
+    />
   );
 }

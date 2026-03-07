@@ -9,7 +9,6 @@ import TenseTheoryCommonMistakesCard from "../../tenses/ui/TenseTheoryCommonMist
 import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
 import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
 import LexTtsButton from "../../../shared/exercises/LexTtsButton.jsx";
-import { scrollMainToTop } from "../../../core/platform/browser-dom.js";
 import { PsNegativeStructureBlock } from "../components/PsPresentSimpleStructureBlocks.jsx";
 
 const SECTION_ID = "negative";
@@ -31,10 +30,6 @@ export default function PsNegativeTheoryPage() {
       console.error("Failed to mark negative theory as completed:", err);
     }
   }, []);
-
-  const handleScrollToTop = () => {
-    scrollMainToTop({ smooth: true });
-  };
 
   return (
     <TenseTheoryPageShell>
@@ -233,27 +228,9 @@ export default function PsNegativeTheoryPage() {
 
         <TenseTheoryNextSteps
           actions={[
-            {
-              key: "scroll-top",
-              label: "Înapoi la prezentare",
-              variant: "secondary",
-              onClick: handleScrollToTop,
-            },
-            {
-              to: psRoomPath(SECTION_ID, 1),
-              label: "Începe Camera 1 – Negativ",
-              variant: "primary",
-            },
-            {
-              to: psMapPath(),
-              label: "Mergi la harta Present Simple",
-              variant: "outline",
-            },
-            {
-              to: psOverviewPath(),
-              label: "Vezi recapitularea Present Simple",
-              variant: "secondary",
-            },
+            { to: psRoomPath(SECTION_ID, 1), label: "Camera 1 – Negativ", variant: "primary" },
+            { to: psMapPath(), label: "Harta modulului", variant: "outline" },
+            { to: psOverviewPath(), label: "Recapitulare", variant: "secondary" },
           ]}
         />
       </TenseTheoryCard>

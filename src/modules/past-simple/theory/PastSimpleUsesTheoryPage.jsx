@@ -1,54 +1,31 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseUsesTheoryTemplate from "../../tenses/ui/TenseUsesTheoryTemplate.jsx";
+import {
+  ScaffoldUsesCardOne,
+  ScaffoldUsesCardTwo,
+  ScaffoldUsesCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../past-core/theory-progress.js";
-import { pastSimpleMapPath } from "../past-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { pastSimpleMapPath, pastSimpleOverviewPath, pastSimpleRoomPath } from "../past-paths.js";
 
 const SECTION_ID = "uses";
 
-/**
- * Past Simple – Uses (skeleton page)
- */
 export default function PastSimpleUsesTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
-
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={pastSimpleMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Past Simple
-          </Link>
-        </p>
-
-        <h1 className="page-title">Past Simple – Uses</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Past Simple – Uses. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Past Simple – Uses.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Past Simple.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseUsesTheoryTemplate
+      backTo={pastSimpleMapPath()}
+      backLabel="← Înapoi la harta Past Simple"
+      title="Past Simple – Uses"
+      lead="Aici vezi structura standard pentru uses: când folosim Past Simple, care sunt situațiile tipice și cum îl comparăm cu alte timpuri."
+      card1Intro={<>Past Simple exprimă, în mod normal, acțiuni și stări <strong>încheiate în trecut</strong>.</>}
+      card1Content={<ScaffoldUsesCardOne summary="Folosești Past Simple pentru evenimente terminate, succesiuni de acțiuni trecute și fapte care au fost adevărate într-o perioadă trecută." />}
+      card2Intro={<>Acestea sunt cele mai importante familii de uses pentru acest modul.</>}
+      card2Content={<ScaffoldUsesCardTwo uses={["acțiuni terminate într-un moment clar din trecut","succesiuni de evenimente trecute","obiceiuri din trecut","stări / situații valabile doar în trecut"]} />}
+      card3Intro={<>Cardul 3 rămâne locul pentru contraste și capcane frecvente.</>}
+      card3Content={<ScaffoldUsesCardThree notes={["Nu confunda Past Simple cu Past Continuous: unul spune evenimentul, celălalt procesul în desfășurare.","Dacă momentul este clar în trecut, Past Simple este de obicei alegerea de bază.","Verbele regulate și neregulate vor crea multe capcane în exerciții."]} />}
+      nextStepsDescription="Acum poți merge spre camerele de uses ale modulului Past Simple."
+      nextStepActions={[{ to: pastSimpleRoomPath('uses', 1), label: 'Camera 1 – Întrebuințări' },{ to: pastSimpleMapPath(), label: 'Harta modulului' },{ to: pastSimpleOverviewPath(), label: 'Recapitulare / overview' }]}
+    />
   );
 }

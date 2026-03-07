@@ -1,54 +1,36 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import TenseUsesTheoryTemplate from "../../tenses/ui/TenseUsesTheoryTemplate.jsx";
+import {
+  ScaffoldUsesCardOne,
+  ScaffoldUsesCardTwo,
+  ScaffoldUsesCardThree,
+} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import { futurePerfectMapPath } from "../future-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { futurePerfectMapPath, futurePerfectOverviewPath, futurePerfectRoomPath } from "../future-paths.js";
 
 const SECTION_ID = "uses";
 
-/**
- * Future Perfect – Uses (skeleton page)
- */
 export default function FuturePerfectUsesTheoryPage() {
-  useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
-  }, []);
+  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={futurePerfectMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Future Perfect
-          </Link>
-        </p>
-
-        <h1 className="page-title">Future Perfect – Uses</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Future Perfect – Uses. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Future Perfect – Uses.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Future Perfect.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseUsesTheoryTemplate
+      backTo={futurePerfectMapPath()}
+      backLabel="← Înapoi la harta Future Perfect"
+      title="Future Perfect – Uses"
+      lead="Pagini de uses standardizate: 4 carduri, aceeași arhitectură vizuală și aceeași ordine logică ca în restul modulelor."
+      card1Intro={<>Începe cu ideea generală: ce tip de situații exprimă acest timp și care este rolul lui principal.</>}
+      card1Content={<ScaffoldUsesCardOne summary="Use Future Perfect for actions that will be completed before a future deadline or future point." />}
+      card2Intro={<>Aici vezi principalele familii de uses pe care le vei întâlni în theory și în camere.</>}
+      card2Content={<ScaffoldUsesCardTwo uses={["completion before a deadline", "result achieved by a future moment", "predictions about finished actions", "formal timeline planning"]} />}
+      card3Intro={<>Cardul 3 te obligă să compari atent tense-ul cu alte structuri apropiate.</>}
+      card3Content={<ScaffoldUsesCardThree notes={["The key question is: What will have been finished by then?", "by + future point is one of the strongest clues.", "This tense focuses on completion, not process."]} />}
+      nextStepsDescription="Acum poți merge spre camerele de uses sau poți reveni la hartă și overview."
+      nextStepActions={[
+        { to: futurePerfectRoomPath("uses", 1), label: "Camera 1 – Întrebuințări" },
+        { to: futurePerfectMapPath(), label: "Harta modulului" },
+        { to: futurePerfectOverviewPath(), label: "Recapitulare / overview" },
+      ]}
+    />
   );
 }

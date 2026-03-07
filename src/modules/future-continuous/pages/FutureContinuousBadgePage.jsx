@@ -7,6 +7,7 @@ import { futureContinuousStorage as storage } from "../future-core/storage.js";
 import { FUTURE_CONTINUOUS_LEX_HEAD_SVG } from "../future-core/assets.js";
 
 import TenseBadgeRoom from "../../tenses/ui/TenseBadgeRoom.jsx";
+import { renderScaffoldBadgeStory } from "../../tenses/scaffold-preview-badge.jsx";
 import {
   badgeStoryConfig,
   badgeEx2Questions,
@@ -25,24 +26,10 @@ export default function FutureContinuousBadgePage() {
   const draftStorageKey = storage.draftKey("badge");
 
   const storyVerbPool = badgeStoryConfig.verbs ?? [];
-  const storySlotAnswers = [];
+  const storySlotAnswers = badgeStoryConfig.slotAnswers ?? [];
 
-  const renderStory = ({ renderSlot }) => (
-    <div className="badge-story">
-      <p>
-        Aceasta este o poveste-schelet pentru badge-ul Future Continuous. Vei completa
-        textul și slot-urile atunci când definești exercițiile finale.
-      </p>
-      <p>
-        Între timp, structura tehnică este pregătită: poți reutiliza modelul din
-        badge-urile de Present Simple / Present Continuous.
-      </p>
-      <p>
-        De îndată ce adaugi verbele, întrebările și dicționarul, badge-ul Past
-        Simple va fi gata de lucru pentru elevi.
-      </p>
-    </div>
-  );
+  const renderStory = ({ renderSlot }) =>
+    renderScaffoldBadgeStory({ tenseName, renderSlot });
 
   return (
     <TenseBadgeRoom

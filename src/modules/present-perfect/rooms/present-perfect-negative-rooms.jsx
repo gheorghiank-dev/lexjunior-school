@@ -1,21 +1,32 @@
-// Present Perfect > Negative content registry (skeleton)
+// Present Perfect > Negative content registry (playable preview scaffold)
 import { PRESENT_PERFECT_ROOMS_PER_SECTION, PRESENT_PERFECT_SECTIONS } from "../present-core/config.js";
+import {
+  createPreviewExercisesByRoom,
+  createPreviewGlossaryByRoom,
+} from "../../tenses/scaffold-preview.js";
 
-export const PRESENT_PERFECT_NEGATIVE_EXERCISES_BY_ROOM = {};
+const PRESENT_PERFECT_NEGATIVE_SECTION_ID = "negative";
+const PRESENT_PERFECT_NEGATIVE_SECTION_LABEL =
+  PRESENT_PERFECT_SECTIONS.find((s) => s.id === PRESENT_PERFECT_NEGATIVE_SECTION_ID)?.title ?? "Negative";
+
+export const PRESENT_PERFECT_NEGATIVE_EXERCISES_BY_ROOM = createPreviewExercisesByRoom({
+  prefix: "present-perfect-negative",
+  tenseLabel: "Present Perfect",
+  sectionLabel: PRESENT_PERFECT_NEGATIVE_SECTION_LABEL,
+});
 
 export function getPresentPerfectNegativeExercises(roomNumber) {
   return PRESENT_PERFECT_NEGATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [];
 }
 
-const PRESENT_PERFECT_NEGATIVE_GLOSSARY_BY_ROOM = {};
+const PRESENT_PERFECT_NEGATIVE_GLOSSARY_BY_ROOM = createPreviewGlossaryByRoom({
+  tenseLabel: "Present Perfect",
+  sectionLabel: PRESENT_PERFECT_NEGATIVE_SECTION_LABEL,
+});
 
 export function getPresentPerfectNegativeGlossaryItems(roomNumber) {
   return PRESENT_PERFECT_NEGATIVE_GLOSSARY_BY_ROOM[roomNumber] ?? [];
 }
-
-const PRESENT_PERFECT_NEGATIVE_SECTION_ID = "negative";
-const PRESENT_PERFECT_NEGATIVE_SECTION_LABEL =
-  PRESENT_PERFECT_SECTIONS.find((s) => s.id === PRESENT_PERFECT_NEGATIVE_SECTION_ID)?.title ?? "Negative";
 
 export const PRESENT_PERFECT_NEGATIVE_ROOMS = Array.from(
   { length: PRESENT_PERFECT_ROOMS_PER_SECTION },
@@ -25,8 +36,7 @@ export const PRESENT_PERFECT_NEGATIVE_ROOMS = Array.from(
       sectionId: PRESENT_PERFECT_NEGATIVE_SECTION_ID,
       sectionLabel: PRESENT_PERFECT_NEGATIVE_SECTION_LABEL,
       roomNumber,
-      exercises:
-        PRESENT_PERFECT_NEGATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [],
+      exercises: PRESENT_PERFECT_NEGATIVE_EXERCISES_BY_ROOM[roomNumber] ?? [],
     };
   },
 );

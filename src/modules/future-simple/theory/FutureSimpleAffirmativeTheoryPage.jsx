@@ -1,111 +1,57 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  FUTURE_SIMPLE_BASE_PATH,
-  futureSimpleMapPath,
-  futureSimpleRoomPath,
-  futureSimpleOverviewPath,
-} from "../future-paths.js";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseTheoryCard from "../../tenses/ui/TenseTheoryCard.jsx";
-import TenseTheoryNextSteps from "../../tenses/ui/TenseTheoryNextSteps.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
-import TenseTheoryCommonMistakesCard from "../../tenses/ui/TenseTheoryCommonMistakesCard.jsx";
-import LexTtsButton from "../../../shared/exercises/LexTtsButton.jsx";
-import { scrollMainToTop } from "../../../core/platform/browser-dom.js";
+import { FUTURE_SIMPLE_BASE_PATH, futureSimpleMapPath, futureSimpleRoomPath, futureSimpleOverviewPath } from "../future-paths.js";
+import TenseAffirmativeTheoryTemplate from "../../tenses/ui/TenseAffirmativeTheoryTemplate.jsx";
+import { ScaffoldAffirmativeSectionOne, ScaffoldAffirmativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 
 const SECTION_ID = "affirmative";
 
-/**
- * Future Simple – Affirmative (skeleton page)
- */
 export default function FutureSimpleAffirmativeTheoryPage() {
   useEffect(() => {
-    try {
-      markTheoryCompleted(SECTION_ID);
-    } catch (err) {
-      console.error("Failed to mark affirmative theory as completed:", err);
-    }
+    markTheoryCompleted(SECTION_ID);
   }, []);
 
-  const handleScrollToTop = () => {
-    scrollMainToTop({ smooth: true });
-  };
-
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link
-            to={FUTURE_SIMPLE_BASE_PATH}
-            className="btn btn-soft ps-back-link"
-          >
-            ← Înapoi la harta Future Simple
-          </Link>
-        </p>
-
-        <h1 className="page-title">Future Simple – Afirmativ</h1>
-        <p className="page-lead">
-          Reguli, exemple și explicații pentru formarea Future Simple la
-          afirmativ.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Future Simple – Affirmative. Aici
-            vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Future Simple.
-        </p>
-      </TenseTheorySectionCard>
-
-      {/* 4. Unde merg mai departe? */}
-      <TenseTheoryCard>
-        <h2 className="card-title">4. Unde merg mai departe?</h2>
-        <p className="card-description">
-          Când simți că regula este clară, poți începe aventura în camerele de
-          exerciții pentru Future Simple – Afirmativ, poți merge înapoi la teorie
-          sau la hartă.
-        </p>
-
-        <TenseTheoryNextSteps
-          actions={[
-            {
-              key: "scroll-top",
-              label: "Înapoi la prezentare",
-              variant: "secondary",
-              onClick: handleScrollToTop,
-            },
-            {
-              to: futureSimpleRoomPath(SECTION_ID, 1),
-              label: "Începe Camera 1 – Afirmativ",
-              variant: "primary",
-            },
-            {
-              to: futureSimpleMapPath(),
-              label: "Mergi la harta Future Simple",
-              variant: "outline",
-            },
-            {
-              to: futureSimpleOverviewPath(),
-              label: "Vezi recapitularea Future Simple",
-              variant: "secondary",
-            },
+    <TenseAffirmativeTheoryTemplate
+      backTo={FUTURE_SIMPLE_BASE_PATH}
+      backLabel="← Înapoi la modulul Future Simple"
+      title="Future Simple – Afirmativ"
+      lead="Reguli, exemple și explicații pentru formarea Future Simple la afirmativ."
+      section1Intro={<>În această lecție păstrăm aceeași structură vizuală ca la <strong>Present Simple</strong>, dar o adaptăm pentru <strong>Future Simple</strong>.</>}
+      section1Content={
+        <ScaffoldAffirmativeSectionOne
+          formula="Subiect + will + verb (forma de bază)"
+          examples={[
+            "Example 1 – placeholder model.",
+            "Example 2 – placeholder model.",
+            "Example 3 – placeholder model.",
           ]}
         />
-      </TenseTheoryCard>
-    </TenseTheoryPageShell>
+      }
+      section2Title="Detalii importante"
+      section2Intro={<>Acest al doilea card rămâne obligatoriu în toate timpurile, ca la Present Simple.</>}
+      section2Content={
+        <ScaffoldAffirmativeSectionTwo
+          bullets={[
+            "structura completă pentru toate persoanele",
+            "forme speciale sau excepții",
+            "spelling / participiu / auxiliare, după caz",
+            "mini-patterns utile pentru exerciții",
+          ]}
+        />
+      }
+      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și pentru Future Simple.</>}
+      mistakes={[
+        { wrong: "Wrong example 1.", correct: "Correct example 1." },
+        { wrong: "Wrong example 2.", correct: "Correct example 2." },
+        { wrong: "Wrong example 3.", correct: "Correct example 3." },
+      ]}
+      nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
+      nextStepActions={[
+        { to: futureSimpleRoomPath(SECTION_ID, 1), label: "Camera 1 – Afirmativ" },
+        { to: futureSimpleMapPath(), label: "Harta modulului" },
+        { to: futureSimpleOverviewPath(), label: "Recapitulare" },
+      ]}
+    />
   );
 }

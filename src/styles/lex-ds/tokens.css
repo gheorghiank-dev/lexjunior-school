@@ -166,6 +166,14 @@
   --lex-matching-slot-bg: rgba(239, 246, 255, 0.85);
   --lex-matching-slot-bg-hover: var(--lex-matching-slot-bg);
 
+  /* Standard theory structure box (fallback for all tenses) */
+  --lex-structure-bg: linear-gradient(
+    135deg,
+    rgba(199, 214, 255, 0.35),
+    rgba(244, 219, 255, 0.4)
+  );
+  --lex-structure-border: 1px solid rgba(129, 140, 248, 0.16);
+
   /* Present Simple – structure box (Affirmative theory) */
   --lex-ps-structure-bg: linear-gradient(
     135deg,

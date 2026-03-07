@@ -1,54 +1,55 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import { futureContinuousMapPath } from "../future-paths.js";
-import TenseTheoryPageShell from "../../tenses/ui/TenseTheoryPageShell.jsx";
-import TenseLexStudyTipCard from "../../tenses/ui/TenseLexStudyTipCard.jsx";
-import TenseTheorySectionCard from "../../tenses/ui/TenseTheorySectionCard.jsx";
+import { FUTURE_CONTINUOUS_BASE_PATH, futureContinuousMapPath, futureContinuousRoomPath, futureContinuousOverviewPath } from "../future-paths.js";
+import TenseInterrogativeTheoryTemplate from "../../tenses/ui/TenseInterrogativeTheoryTemplate.jsx";
+import { ScaffoldInterrogativeSectionOne, ScaffoldInterrogativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 
 const SECTION_ID = "interrogative";
 
-/**
- * Future Continuous – Interrogative (skeleton page)
- */
 export default function FutureContinuousInterrogativeTheoryPage() {
   useEffect(() => {
     markTheoryCompleted(SECTION_ID);
   }, []);
 
   return (
-    <TenseTheoryPageShell>
-      <header className="page-header">
-        <p className="page-header-kicker">
-          <Link to={futureContinuousMapPath()} className="page-header-backlink">
-            ← Înapoi la harta Future Continuous
-          </Link>
-        </p>
-
-        <h1 className="page-title">Future Continuous – Interrogative</h1>
-        <p className="page-lead">
-          Pagină de teorie pentru Future Continuous – Interrogative. Conținutul
-          detaliat urmează să fie adăugat.
-        </p>
-      </header>
-
-      <TenseLexStudyTipCard />
-
-      <TenseTheorySectionCard
-        number="1."
-        title="Regula de bază – skeleton"
-        intro={
-          <>
-            Aceasta este o pagină-schelet pentru Future Continuous – Interrogative.
-            Aici vei adăuga explicațiile, exemplele și regulile complete.
-          </>
-        }
-      >
-        <p>
-          Poți copia structura din paginile de Present Simple / Present
-          Continuous și să adaptezi regulile pentru Future Continuous.
-        </p>
-      </TenseTheorySectionCard>
-    </TenseTheoryPageShell>
+    <TenseInterrogativeTheoryTemplate
+      backTo={FUTURE_CONTINUOUS_BASE_PATH}
+      backLabel="← Înapoi la modulul Future Continuous"
+      title="Future Continuous – Interogativ"
+      lead="Reguli, exemple și explicații pentru formarea Future Continuous la interogativ."
+      section1Intro={<>La interogativ, toate timpurile trebuie să păstreze aceeași arhitectură vizuală de bază.</>}
+      section1Content={
+        <ScaffoldInterrogativeSectionOne
+          formula="Will + subiect + be + verb-ing + ?"
+          examples={[
+            "Question 1 – placeholder model?",
+            "Question 2 – placeholder model?",
+            "Question 3 – placeholder model?",
+          ]}
+        />
+      }
+      section2Intro={<>Al doilea card este rezervat pentru răspunsuri scurte, wh-questions sau alte modele utile.</>}
+      section2Content={
+        <ScaffoldInterrogativeSectionTwo
+          questionAnswers={[
+            { question: "Question 1?", answer: "Yes / No answer 1." },
+            { question: "Question 2?", answer: "Yes / No answer 2." },
+            { question: "Question 3?", answer: "Yes / No answer 3." },
+          ]}
+        />
+      }
+      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și aici.</>}
+      mistakes={[
+        { wrong: "Wrong interrogative example 1.", correct: "Correct interrogative example 1." },
+        { wrong: "Wrong interrogative example 2.", correct: "Correct interrogative example 2." },
+        { wrong: "Wrong interrogative example 3.", correct: "Correct interrogative example 3." },
+      ]}
+      nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
+      nextStepActions={[
+        { to: futureContinuousRoomPath(SECTION_ID, 1), label: "Camera 1 – Interogativ" },
+        { to: futureContinuousMapPath(), label: "Harta modulului" },
+        { to: futureContinuousOverviewPath(), label: "Recapitulare" },
+      ]}
+    />
   );
 }
