@@ -1,0 +1,14 @@
+/* src/modules/present-perfect/past-theme.css
+   Present Perfect theme (ACCENTS ONLY)
+*/
+
+.present-perfect-theme {
+  --tense-time: var(--lex-time-past);
+  --tense-aspect: var(--lex-aspect-simple);
+
+  --tense-stripe-gradient: linear-gradient(
+    90deg,
+    var(--tense-time),
+    var(--tense-aspect)
+  );
+}

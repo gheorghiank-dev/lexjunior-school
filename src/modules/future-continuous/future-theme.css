@@ -1,0 +1,14 @@
+/* src/modules/future-continuous/past-theme.css
+   Future Continuous theme (ACCENTS ONLY)
+*/
+
+.future-continuous-theme {
+  --tense-time: var(--lex-time-past);
+  --tense-aspect: var(--lex-aspect-simple);
+
+  --tense-stripe-gradient: linear-gradient(
+    90deg,
+    var(--tense-time),
+    var(--tense-aspect)
+  );
+}

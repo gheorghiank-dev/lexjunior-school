@@ -1,11 +1,35 @@
 import presentSimpleModule from "../present-simple/present-simple.module.jsx";
 import presentContinuousModule from "../present-continuous/present-continuous.module.jsx";
 import pastSimpleModule from "../past-simple/past-simple.module.jsx";
+import pastContinuousModule from "../past-continuous/past-continuous.module.jsx";
+import futureSimpleModule from "../future-simple/future-simple.module.jsx";
+import beGoingToModule from "../be-going-to/be-going-to.module.jsx";
+import presentPerfectModule from "../present-perfect/present-perfect.module.jsx";
+import presentPerfectContinuousModule from "../present-perfect-continuous/present-perfect-continuous.module.jsx";
+import pastPerfectModule from "../past-perfect/past-perfect.module.jsx";
+import pastPerfectContinuousModule from "../past-perfect-continuous/past-perfect-continuous.module.jsx";
+import futureContinuousModule from "../future-continuous/future-continuous.module.jsx";
+import futurePerfectModule from "../future-perfect/future-perfect.module.jsx";
+import futurePerfectContinuousModule from "../future-perfect-continuous/future-perfect-continuous.module.jsx";
 import { assertTenseModule } from "./tense-contract.js";
 import { sortByOrderThenLabel } from "../registry-utils/sort.js";
 import { getCtaForStatus, getTagForStatus } from "../registry-utils/status-ui.js";
 
-const modules = [presentSimpleModule, presentContinuousModule, pastSimpleModule];
+const modules = [
+  presentSimpleModule,
+  presentContinuousModule,
+  pastSimpleModule,
+  pastContinuousModule,
+  futureSimpleModule,
+  beGoingToModule,
+  presentPerfectModule,
+  presentPerfectContinuousModule,
+  pastPerfectModule,
+  pastPerfectContinuousModule,
+  futureContinuousModule,
+  futurePerfectModule,
+  futurePerfectContinuousModule,
+];
 
 // Validate at import time (dev-friendly). If something is wrong, fail fast.
 for (const m of modules) assertTenseModule(m);

@@ -146,11 +146,22 @@ async function validateModuleDir(moduleDir, report) {
   const pagesDir = path.join(baseDir, 'pages');
   const roomsDir = path.join(baseDir, 'rooms');
   const theoryDir = path.join(baseDir, 'theory');
-  const coreDir = await exists(path.join(baseDir, `${prefix}-core`))
-    ? path.join(baseDir, `${prefix}-core`)
-    : await exists(path.join(baseDir, 'past-core'))
-      ? path.join(baseDir, 'past-core')
-      : null;
+  const rootEntries = await fs.readdir(baseDir, { withFileTypes: true });
+  const coreCandidates = rootEntries
+    .filter((entry) => entry.isDirectory() && entry.name.endsWith('-core'))
+    .map((entry) => entry.name);
+
+  const coreDir = coreCandidates.length === 1
+    ? path.join(baseDir, coreCandidates[0])
+    : await exists(path.join(baseDir, `${prefix}-core`))
+      ? path.join(baseDir, `${prefix}-core`)
+      : await exists(path.join(baseDir, 'past-core'))
+        ? path.join(baseDir, 'past-core')
+        : null;
+
+  if (coreCandidates.length > 1) {
+    addIssue(report, 'WARN', `Module has multiple *-core folders: ${coreCandidates.join(', ')}.`, where);
+  }
 
   const requiredPagePatterns = [/MapPage\.jsx$/, /OverviewPage\.jsx$/, /BadgePage\.jsx$/, /RoomRoute\.jsx$/, /Page\.jsx$/];
   const pageFiles = await listFiles(pagesDir);

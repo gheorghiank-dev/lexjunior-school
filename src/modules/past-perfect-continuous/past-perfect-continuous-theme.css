@@ -1,0 +1,14 @@
+/* src/modules/past-perfect-continuous/past-theme.css
+   Past Perfect Continuous theme (ACCENTS ONLY)
+*/
+
+.past-perfect-continuous-theme {
+  --tense-time: var(--lex-time-past);
+  --tense-aspect: var(--lex-aspect-simple);
+
+  --tense-stripe-gradient: linear-gradient(
+    90deg,
+    var(--tense-time),
+    var(--tense-aspect)
+  );
+}

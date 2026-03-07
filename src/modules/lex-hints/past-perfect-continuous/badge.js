@@ -1,0 +1,1 @@
+export const pastPerfectContinuousBadgeLexHints = { final: [] };
