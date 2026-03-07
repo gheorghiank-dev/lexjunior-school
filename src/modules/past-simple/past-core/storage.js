@@ -1,4 +1,17 @@
-import { PAST_SIMPLE_STORAGE_PREFIX } from "./config.js";
-import { createTenseStorage } from "../../tenses/core/tense-progress-kit.js";
+import { createTenseModuleCore } from "../../tenses/createTenseModuleCore.js";
+import {
+  HUD_TEXT,
+  PAST_SIMPLE_ROOMS_PER_SECTION,
+  PAST_SIMPLE_SECTIONS,
+  STORAGE_PREFIX,
+} from "./config.js";
 
-export const pastSimpleStorage = createTenseStorage(PAST_SIMPLE_STORAGE_PREFIX);
+const pastSimpleCore = createTenseModuleCore({
+  storagePrefix: STORAGE_PREFIX,
+  sections: PAST_SIMPLE_SECTIONS,
+  roomsPerSection: PAST_SIMPLE_ROOMS_PER_SECTION,
+  hudText: HUD_TEXT,
+});
+
+export const pastSimpleStorage = pastSimpleCore.storage;
+export { pastSimpleCore };

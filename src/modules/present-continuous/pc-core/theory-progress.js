@@ -1,9 +1,7 @@
-import { pcStorage } from "./storage.js";
-import { createTenseTheoryProgress } from "../../tenses/core/tense-progress-kit.js";
+import { pcCore } from "./storage.js";
 
-export const pcTheoryProgress = createTenseTheoryProgress(pcStorage);
+export const pcTheoryProgress = pcCore.theoryProgress;
 
-// Backwards-friendly named exports for future parity with PS.
 export const markTheoryCompleted = (sectionId) =>
   pcTheoryProgress.markTheoryCompleted(sectionId);
 

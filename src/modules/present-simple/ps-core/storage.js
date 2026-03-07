@@ -1,5 +1,17 @@
-import { PS_STORAGE_PREFIX } from "./config.js";
-import { createTenseStorage } from "../../tenses/core/tense-progress-kit.js";
+import { createTenseModuleCore } from "../../tenses/createTenseModuleCore.js";
+import {
+  HUD_TEXT,
+  PS_ROOMS_PER_SECTION,
+  PS_SECTIONS,
+  STORAGE_PREFIX,
+} from "./config.js";
 
-// Present Simple: namespaced storage for all PS-specific progress/theory.
-export const storage = createTenseStorage(PS_STORAGE_PREFIX);
+const psCore = createTenseModuleCore({
+  storagePrefix: STORAGE_PREFIX,
+  sections: PS_SECTIONS,
+  roomsPerSection: PS_ROOMS_PER_SECTION,
+  hudText: HUD_TEXT,
+});
+
+export const storage = psCore.storage;
+export { psCore };

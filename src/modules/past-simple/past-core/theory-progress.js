@@ -1,12 +1,9 @@
-import { pastSimpleStorage } from "./storage.js";
-import { createTenseTheoryProgress } from "../../tenses/core/tense-progress-kit.js";
+import { pastSimpleCore } from "./storage.js";
 
-export const pastSimpleTheoryProgress = createTenseTheoryProgress(pastSimpleStorage);
+export const theoryProgress = pastSimpleCore.theoryProgress;
 
-export function markTheoryCompleted(sectionId) {
-  return pastSimpleTheoryProgress.markTheoryCompleted(sectionId);
-}
+export const markTheoryCompleted = (sectionId) =>
+  theoryProgress.markTheoryCompleted(sectionId);
 
-export function isTheoryCompleted(sectionId) {
-  return pastSimpleTheoryProgress.isTheoryCompleted(sectionId);
-}
+export const isTheoryCompleted = (sectionId) =>
+  theoryProgress.isTheoryCompleted(sectionId);
