@@ -1,7 +1,4 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
@@ -10,12 +7,6 @@ import {
   getPsNegativeGlossaryItems,
 } from "./rooms/ps-negative-rooms.jsx";
 import { presentSimpleNegativeLexHints } from "../lex-hints/present-simple/negative.js";
-
-// Room type configuration – keeps things clear and scalable.
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [1, 2, 3, 6];
-const MCQ_ROOMS = [4];
-const TEXTAREA_ROOMS = [5, 7];
 
 const cardTitleByRoom = {
   1: "Completează propozițiile cu don't / doesn't (forma negativă)",
@@ -37,75 +28,31 @@ const cardIntroByRoom = {
   7: "Scrie propoziții la Present Simple negativ, folosind ideile date în română ca ajutor.",
 };
 
-export default function PsNegativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPsNegativeExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "negative";
-  const sectionLabel = "Negative";
-  const pageTitle = "Present Simple – Negative";
-  const roomLabel = `Camera ${roomNumber}`;
-  const retryForKeyTestId = `ps-neg-room${roomNumber}-retry-key`;
-  const testIdPrefix = `ps-neg-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Negative";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPsNegativeGlossaryItems(roomNumber);
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-    });
-
-  const lexHintsForRoom =
-    presentSimpleNegativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={psTheoryPath(sectionId)}
-      mapRoute={psMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PS_LEX_HEAD_SVG}
-      lexTestIdPrefix={`ps-negative-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PsNegativeRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "negative",
+  sectionLabel: "Negative",
+  getExercises: getPsNegativeExercises,
+  getDictionaryItems: getPsNegativeGlossaryItems,
+  getLexHintsForRoom: (roomNumber) =>
+    presentSimpleNegativeLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PS_LEX_HEAD_SVG,
+  getTheoryRoute: psTheoryPath,
+  getMapRoute: psMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: "Present Simple – Negative",
+  getRetryForKeyTestId: (roomNumber) => `ps-neg-room${roomNumber}-retry-key`,
+  getTestIdPrefix: (roomNumber) => `ps-neg-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) => `ps-negative-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Simple – Negative",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+    GAP_ROOMS: [1, 2, 3, 6],
+    MCQ_ROOMS: [4],
+    TEXTAREA_ROOMS: [5, 7],
+  },
+});

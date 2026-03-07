@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { renderExercisesFromRoomComponentMap } from "../tenses/exercises/renderExercisesFromRoomComponentMap.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
+import { createRoomTypeRenderer } from "../tenses/rooms/createRoomTypeRenderer.js";
+import { CheckboxExerciseList } from "../../shared/exercises/CheckboxExerciseList.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
@@ -11,13 +10,7 @@ import {
   getPsUsesGlossaryItems,
 } from "./rooms/ps-uses-rooms.jsx";
 import { presentSimpleUsesLexHints } from "../lex-hints/present-simple/uses.js";
-import { CheckboxExerciseList } from "../../shared/exercises/CheckboxExerciseList.jsx";
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
-
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [3];
-const MCQ_ROOMS = [1, 5, 6];
-const TEXTAREA_ROOMS = [];
 
 const ROOM_COMPONENT_MAP = {
   2: CheckboxExerciseList,
@@ -45,87 +38,45 @@ const cardIntroByRoom = {
   7: "Tradu propozițiile din română în engleză, folosind Present Simple pentru a exprima rutine, programe fixe sau adevăruri generale.",
 };
 
-export default function PsUsesRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(() => getPsUsesExercises(roomNumber), [roomNumber]);
+const fallbackRendererConfig = {
+  TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+  GAP_ROOMS: [3],
+  MCQ_ROOMS: [1, 5, 6],
+  TEXTAREA_ROOMS: [],
+};
 
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "uses";
-  const sectionLabel = "Uses";
-  const pageTitle = "Present Simple – Uses";
-  const roomLabel = `Camera ${roomNumber}`;
-  const retryForKeyTestId = `ps-uses-room${roomNumber}-retry-key`;
-  const testIdPrefix = `ps-uses-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Uses";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPsUsesGlossaryItems(roomNumber);
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) => {
-    const specialRenderer = renderExercisesFromRoomComponentMap({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      roomComponentMap: ROOM_COMPONENT_MAP,
-    });
-
-    if (specialRenderer) {
-      return specialRenderer;
-    }
-
-    return renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-    });
-  };
-
-  const lexHintsForRoom =
-    presentSimpleUsesLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={psTheoryPath(sectionId)}
-      mapRoute={psMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PS_LEX_HEAD_SVG}
-      lexTestIdPrefix={`ps-uses-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PsUsesRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "uses",
+  sectionLabel: "Uses",
+  getExercises: getPsUsesExercises,
+  getDictionaryItems: getPsUsesGlossaryItems,
+  getLexHintsForRoom: (roomNumber) => presentSimpleUsesLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PS_LEX_HEAD_SVG,
+  getTheoryRoute: psTheoryPath,
+  getMapRoute: psMapPath,
+  getNextTo: (roomNumber, sectionId) => roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: "Present Simple – Uses",
+  getRetryForKeyTestId: (roomNumber) => `ps-uses-room${roomNumber}-retry-key`,
+  getTestIdPrefix: (roomNumber) => `ps-uses-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) => `ps-uses-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Simple – Uses",
+  renderExercises: (roomNumber) => {
+    const fallbackRenderer = createRoomTypeRenderer(roomNumber, fallbackRendererConfig);
+    return (props) => {
+      const specialRenderer = renderExercisesFromRoomComponentMap({
+        roomNumber,
+        exercises: props.exercises,
+        answers: props.answers,
+        feedback: props.feedback,
+        handleChange: props.handleChange,
+        testIdPrefix: props.testIdPrefix,
+        roomComponentMap: ROOM_COMPONENT_MAP,
+      });
+      return specialRenderer ?? fallbackRenderer(props);
+    };
+  },
+});

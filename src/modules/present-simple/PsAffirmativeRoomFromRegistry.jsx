@@ -1,27 +1,12 @@
-import React, { useMemo } from "react";
-
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
-
 import {
   getPsAffirmativeExercises,
   getPsAffirmativeGlossaryItems,
 } from "./rooms/ps-affirmative-rooms.jsx";
-
 import { presentSimpleAffirmativeLexHints } from "../lex-hints/present-simple/affirmative.js";
-
-// Config de tipuri pe camere
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
-const GAP_ROOMS = [2, 3, 5];
-const MCQ_ROOMS = [4];
-const TEXTAREA_ROOMS = [6, 7];
-
-const GAP_SHOW_INDEX_BY_ROOM = {
-  2: false,
-};
 
 const cardTitleByRoom = {
   1: "Completează cu forma corectă la persoana a III-a singular",
@@ -43,79 +28,36 @@ const cardIntroByRoom = {
   7: "Tradu propozițiile din română în engleză, folosind Present Simple afirmativ. Folosește mini-dicționarul pentru cuvintele necunoscute.",
 };
 
-export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPsAffirmativeExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "affirmative";
-  const sectionLabel = "Afirmativ";
-  const pageTitle = "Present Simple – Affirmative";
-  const roomLabel = `Camera ${roomNumber}`;
-  const retryForKeyTestId = `ps-aff-room${roomNumber}-retry-key`;
-  const testIdPrefix = `ps-aff-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Affirmative";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPsAffirmativeGlossaryItems(roomNumber);
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-      GAP_SHOW_INDEX_BY_ROOM,
-      TEXTAREA_ROWS: 1,
-      TEXTAREA_STACKED: true,
-      TEXTAREA_SHOW_INDEX: true,
-    });
-
-  const lexHintsForRoom =
-    presentSimpleAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={psTheoryPath(sectionId)}
-      mapRoute={psMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PS_LEX_HEAD_SVG}
-      lexTestIdPrefix={`ps-affirmative-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PsAffirmativeRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "affirmative",
+  sectionLabel: "Afirmativ",
+  getExercises: getPsAffirmativeExercises,
+  getDictionaryItems: getPsAffirmativeGlossaryItems,
+  getLexHintsForRoom: (roomNumber) =>
+    presentSimpleAffirmativeLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PS_LEX_HEAD_SVG,
+  getTheoryRoute: psTheoryPath,
+  getMapRoute: psMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: "Present Simple – Affirmative",
+  getRetryForKeyTestId: (roomNumber) => `ps-aff-room${roomNumber}-retry-key`,
+  getTestIdPrefix: (roomNumber) => `ps-aff-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) =>
+    `ps-affirmative-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Simple – Affirmative",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [1],
+    GAP_ROOMS: [2, 3, 5],
+    MCQ_ROOMS: [4],
+    TEXTAREA_ROOMS: [6, 7],
+    GAP_SHOW_INDEX_BY_ROOM: { 2: false },
+    TEXTAREA_ROWS: 1,
+    TEXTAREA_STACKED: true,
+    TEXTAREA_SHOW_INDEX: true,
+  },
+});

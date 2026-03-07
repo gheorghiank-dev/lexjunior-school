@@ -1,12 +1,9 @@
-// TenseKit v1 – theory pages contract
-// -----------------------------------------------
-// Theory pages are still implemented as normal React routes/components,
-// but this helper documents how they map back to tense sections.
+import { ensureArray, ensureNonEmptyString, ensureObject } from "./utils.js";
 
 /**
  * @typedef {Object} TenseTheoryPageMeta
- * @property {string} sectionId       E.g. "affirmative", "negative"
- * @property {string} path            Route path to the theory page
+ * @property {string} sectionId
+ * @property {string} path
  */
 
 /**
@@ -15,18 +12,28 @@
  * @property {TenseTheoryPageMeta[]} pages
  */
 
-/**
- * Simple pass‑through helper to make tense theory config explicit.
- *
- * @param {TenseTheoryConfig} theoryConfig
- * @returns {TenseTheoryConfig}
- */
 export function defineTenseTheory(theoryConfig) {
-  if (!theoryConfig || typeof theoryConfig !== "object") {
-    throw new Error("[TenseKit] defineTenseTheory: theoryConfig must be an object.");
+  ensureObject(theoryConfig, "defineTenseTheory: theoryConfig");
+  ensureNonEmptyString(theoryConfig.basePath, "defineTenseTheory: 'basePath'");
+  ensureArray(theoryConfig.pages, "defineTenseTheory: 'pages'");
+
+  if (theoryConfig.pages.length === 0) {
+    throw new Error("[TenseKit] defineTenseTheory: 'pages' must not be empty.");
   }
-  if (!theoryConfig.basePath) {
-    throw new Error("[TenseKit] defineTenseTheory: 'basePath' is required.");
-  }
+
+  theoryConfig.pages.forEach((page, index) => {
+    if (!page || typeof page !== "object") {
+      throw new Error(`[TenseKit] defineTenseTheory: pages[${index}] must be an object.`);
+    }
+    ensureNonEmptyString(page.sectionId, `defineTenseTheory: pages[${index}].sectionId`);
+    ensureNonEmptyString(page.path, `defineTenseTheory: pages[${index}].path`);
+
+    if (!page.path.startsWith(theoryConfig.basePath)) {
+      throw new Error(
+        `[TenseKit] defineTenseTheory: pages[${index}].path must start with basePath '${theoryConfig.basePath}'.`,
+      );
+    }
+  });
+
   return theoryConfig;
 }

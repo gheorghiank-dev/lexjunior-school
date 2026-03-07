@@ -15,12 +15,9 @@ export function pastSimpleBadgePath() {
 }
 
 export function pastSimpleTheoryPath(sectionId) {
-  return `${PAST_SIMPLE_BASE_PATH}/${sectionId}`;
+  return `${PAST_SIMPLE_BASE_PATH}/${sectionId}/theory`;
 }
 
-export function pastSimpleSensoryTheoryPath() {
-  return `${PAST_SIMPLE_BASE_PATH}/uses/theory-sensory`;
-}
 
 export function pastSimpleRoomPath(sectionId, roomNumber) {
   return `${PAST_SIMPLE_BASE_PATH}/${sectionId}/room-${roomNumber}`;

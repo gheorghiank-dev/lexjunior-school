@@ -1,41 +1,27 @@
-// TenseKit v1 – top-level contract for tense modules.
-// -----------------------------------------------
-// This folder is intentionally *engine-agnostic*.
-// It describes, in one place, the public shape that any tense
-// (Present Simple, Present Continuous, future tenses, etc.) must follow.
-//
-// Guardrail for future work:
-//  - Do NOT import React components here.
-//  - Do NOT import module-specific content (PS/PC).
-//  - Keep this dependency‑light so it can be safely imported
-//    from both browser code and Node scripts (validators, CLIs).
+import { assertRoomSequence, ensureObject, getSectionIds } from "./utils.js";
 
 /**
  * @typedef {Object} TenseManifest
- * @property {string} id                Stable id, e.g. "present-simple"
- * @property {string} label             Human‑readable name
- * @property {string} basePath          Route base, e.g. "/grammar/tenses/present-simple"
- * @property {string} storagePrefix     Prefix for localStorage keys, e.g. "ps_"
- * @property {number} roomsPerSection   Expected number of rooms per branch (usually 7)
+ * @property {string} id
+ * @property {string} label
+ * @property {string} basePath
+ * @property {string} storagePrefix
+ * @property {number} roomsPerSection
  * @property {Array<{ id: string, label: string }>} sections
- *   Machine‑readable section ids + short labels (affirmative / negative / etc.).
  * @property {Record<string, { title: string, description?: string }>} sectionsMeta
- *   Long‑form titles + descriptions keyed by section id.
- *
- * // Optional but recommended:
- * @property {string} [status]          "ready" | "wip" | "coming-soon"
- * @property {number} [order]           Sort order in Grammar Hub
- * @property {string} [description]     Short teaser used in cards
- * @property {string} [themeClass]      CSS class attached to <body> / app shell
- * @property {string} [assetsBase]      Base path for tense‑specific assets
- * @property {string} [brandAvatarSrc]  Lex Junior avatar used on maps / overview
- * @property {object} [hudText]         HUD strings consumed by the engine
- * @property {object} [hintsRegistry]   Lex hints registry, tense‑specific
+ * @property {string} [status]
+ * @property {number} [order]
+ * @property {string} [description]
+ * @property {string} [themeClass]
+ * @property {string} [assetsBase]
+ * @property {string} [brandAvatarSrc]
+ * @property {object} [hudText]
+ * @property {object} [hintsRegistry]
  */
 
 /**
  * @typedef {Object} TenseRoomsConfig
- * @property {string} registryName      Human‑readable label for debugging
+ * @property {string} registryName
  * @property {Array<{ id: string, label: string }>} sections
  * @property {Record<string, import('./tense-rooms-schema.js').TenseSectionRooms>} roomRegistries
  */
@@ -44,7 +30,6 @@
  * @typedef {Object} TenseTheoryConfig
  * @property {string} basePath
  * @property {Record<string, { path: string }>} pagesBySection
- *   Maps section id -> route path for the theory page.
  */
 
 /**
@@ -55,19 +40,47 @@
  * @property {string} [accentColor]
  */
 
-/**
- * Bundle all pieces of a tense definition in a single object.
- * This is mostly documentation sugar – it does not perform deep validation
- * and it does not change behaviour at runtime.
- *
- * @param {{ manifest: TenseManifest, rooms?: TenseRoomsConfig, theory?: TenseTheoryConfig, theme?: TenseThemeConfig }} config
- */
 export function defineTenseKit(config) {
-  if (!config || typeof config !== "object") {
-    throw new Error("[TenseKit] defineTenseKit: config must be an object.");
+  ensureObject(config, "defineTenseKit: config");
+  ensureObject(config.manifest, "defineTenseKit: 'manifest'");
+
+  const manifest = config.manifest;
+  const sectionIds = getSectionIds(manifest.sections, "defineTenseKit: manifest.sections");
+
+  if (config.rooms) {
+    ensureObject(config.rooms, "defineTenseKit: 'rooms'");
+
+    for (const sectionId of sectionIds) {
+      const rooms = config.rooms[sectionId];
+      if (!rooms) {
+        throw new Error(`[TenseKit] defineTenseKit: rooms config is missing '${sectionId}'.`);
+      }
+      assertRoomSequence(sectionId, rooms);
+
+      if (
+        Number.isInteger(manifest.roomsPerSection) &&
+        rooms.length !== manifest.roomsPerSection
+      ) {
+        throw new Error(
+          `[TenseKit] defineTenseKit: section '${sectionId}' has ${rooms.length} rooms, expected ${manifest.roomsPerSection}.`,
+        );
+      }
+    }
   }
-  if (!config.manifest || typeof config.manifest !== "object") {
-    throw new Error("[TenseKit] defineTenseKit: 'manifest' is required.");
+
+  if (config.theory) {
+    ensureObject(config.theory, "defineTenseKit: 'theory'");
+    const pages = Array.isArray(config.theory.pages) ? config.theory.pages : [];
+
+    for (const sectionId of sectionIds) {
+      const hasTheoryPage = pages.some((page) => page.sectionId === sectionId);
+      if (!hasTheoryPage) {
+        throw new Error(
+          `[TenseKit] defineTenseKit: theory config is missing a page for section '${sectionId}'.`,
+        );
+      }
+    }
   }
+
   return config;
 }

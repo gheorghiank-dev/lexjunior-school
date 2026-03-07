@@ -1,5 +1,5 @@
 import { VALIDATION_POLICIES } from "./validationPolicies.js";
-import { VALIDATION_POLICY_BY_MODULE } from "../../modules/tenses/config/validationPolicyByRoom.js";
+import { VALIDATION_POLICY_BY_MODULE } from "./validationPolicyByRoom.js";
 
 /**
  * Returns the validation policy for a given module/section/room.

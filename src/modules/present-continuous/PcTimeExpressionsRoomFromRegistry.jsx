@@ -1,7 +1,4 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
 import { pcMapPath, pcTheoryPath, pcRoomPath } from "./pc-paths.js";
@@ -10,11 +7,6 @@ import {
   getPcTimeExpressionsGlossaryItems,
 } from "./rooms/pc-time-expressions-rooms.jsx";
 import { presentContinuousTimeExpressionsLexHints } from "../lex-hints/present-continuous/time-expressions.js";
-
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [];
-const MCQ_ROOMS = [];
-const TEXTAREA_ROOMS = [];
 
 const cardTitleByRoom = {
   1: "Completează cu expresii de timp potrivite",
@@ -36,75 +28,34 @@ const cardIntroByRoom = {
   7: "Tradu propozițiile în engleză, folosind Present Continuous + expresii de timp.",
 };
 
-export default function PcTimeExpressionsRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPcTimeExpressionsExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "time-expressions";
-  const sectionLabel = "Time expressions";
-  const roomLabel = `Camera ${roomNumber}`;
-  const pageTitle = `Camera ${roomNumber} – Present Continuous – Time expressions`;
-  const retryForKeyTestId = `pc-retry-for-key-time-expressions-${roomNumber}`;
-  const testIdPrefix = `pc-time-expressions-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Continuous – Time expressions";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPcTimeExpressionsGlossaryItems(roomNumber);
-  const lexHintsForRoom =
-    presentContinuousTimeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-    });
-
-  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={pcTheoryPath(sectionId)}
-      mapRoute={pcMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PC_LEX_HEAD_SVG}
-      lexTestIdPrefix={`pc-time-expressions-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PcTimeExpressionsRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "time-expressions",
+  sectionLabel: "Time expressions",
+  getExercises: getPcTimeExpressionsExercises,
+  getDictionaryItems: getPcTimeExpressionsGlossaryItems,
+  getLexHintsForRoom: (roomNumber) =>
+    presentContinuousTimeExpressionsLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PC_LEX_HEAD_SVG,
+  getTheoryRoute: pcTheoryPath,
+  getMapRoute: pcMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: (roomNumber) =>
+    `Camera ${roomNumber} – Present Continuous – Time expressions`,
+  getRetryForKeyTestId: (roomNumber) =>
+    `pc-retry-for-key-time-expressions-${roomNumber}`,
+  getTestIdPrefix: (roomNumber) => `pc-time-expressions-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) =>
+    `pc-time-expressions-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Continuous – Time expressions",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+    GAP_ROOMS: [],
+    MCQ_ROOMS: [],
+    TEXTAREA_ROOMS: [],
+  },
+});

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getTenseCards } from "../../core/manifest/tense-registry.js";
+import { getTenseCards } from "../../modules/tenses/registry.js";
 
 export default function TensesPage() {
   const cards = getTenseCards();
@@ -24,15 +24,6 @@ export default function TensesPage() {
             ) : null}
           </div>
         ))}
-
-        <div className="card">
-          <div className="card-tag card-tag-soon">Coming soon</div>
-          <div className="card-title">Past Simple</div>
-          <p className="card-description">
-            Escape Room cu camere dedicate pentru Past Simple, similar cu
-            Present Simple, după ce finalizăm migrarea.
-          </p>
-        </div>
       </div>
     </div>
   );

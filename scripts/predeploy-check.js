@@ -76,8 +76,39 @@ async function main() {
     process.exit(1);
   }
 
-  // 2) Build
-  console.log("2) Build check (vite build)\n");
+  // 2) Tense module contract validator
+  console.log("2) Tense module contract validation\n");
+
+  const tenseValidator = runCapture(
+    "node",
+    ["scripts/validate-tense-modules.mjs", "--json"],
+    { cwd: process.cwd() },
+  );
+
+  let tenseReport;
+  try {
+    tenseReport = JSON.parse(tenseValidator.stdout.trim());
+  } catch (e) {
+    console.error("❌ Tense validator output was not valid JSON.");
+    if (tenseValidator.stdout) console.error(tenseValidator.stdout);
+    if (tenseValidator.stderr) console.error(tenseValidator.stderr);
+    process.exit(1);
+  }
+
+  const tenseStatus = tenseReport.status || "UNKNOWN";
+  const tenseErrors = (tenseReport.issues || []).filter((i) => i.level === "ERROR").length;
+  const tenseWarnings = (tenseReport.issues || []).filter((i) => i.level === "WARN").length;
+
+  console.log(`Tense validator status: ${tenseStatus}`);
+  console.log(`Issues: ${tenseErrors} error(s), ${tenseWarnings} warning(s)\n`);
+
+  if (tenseStatus === "ERROR" || tenseErrors > 0) {
+    console.log("❌ NOT OK: Tense module validation has errors. Deployment blocked.");
+    process.exit(1);
+  }
+
+  // 3) Build
+  console.log("3) Build check (vite build)\n");
 
   const npmCmd = getNpmCmd();
   const buildExit = run(npmCmd, ["run", "build"], { cwd: process.cwd() });

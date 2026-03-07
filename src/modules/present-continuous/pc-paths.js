@@ -17,7 +17,7 @@ export function pcBadgePath() {
 
 // For Present Continuous, theory pages live directly at /{sectionId}.
 export function pcTheoryPath(sectionId) {
-  return `${PC_BASE_PATH}/${sectionId}`;
+  return `${PC_BASE_PATH}/${sectionId}/theory`;
 }
 
 export function pcRoomPath(sectionId, roomNumber) {
@@ -25,5 +25,5 @@ export function pcRoomPath(sectionId, roomNumber) {
 }
 
 export function pcUsesSensoryTheoryPath() {
-  return `${PC_BASE_PATH}/uses/sensory`;
+  return `${PC_BASE_PATH}/uses/theory-sensory`;
 }

@@ -1,19 +1,15 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./past-core/useRoomEngine.js";
 import { PAST_SIMPLE_LEX_HEAD_SVG } from "./past-core/assets.js";
-import { pastSimpleMapPath, pastSimpleTheoryPath, pastSimpleRoomPath } from "./past-paths.js";
+import {
+  pastSimpleMapPath,
+  pastSimpleTheoryPath,
+  pastSimpleRoomPath,
+} from "./past-paths.js";
 import {
   getPastSimpleUsesExercises,
   getPastSimpleUsesGlossaryItems,
 } from "./rooms/past-uses-rooms.jsx";
-
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [];
-const MCQ_ROOMS = [];
-const TEXTAREA_ROOMS = [];
 
 const cardTitleByRoom = {
   1: "Past Simple – Uses – Camera 1",
@@ -29,59 +25,30 @@ const cardIntroByRoom = {
   1: "Schelet de cameră pentru Past Simple – Uses. Aici vei defini exercițiile finale.",
 };
 
-export default function PastSimpleUsesRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(() => getPastSimpleUsesExercises(roomNumber), [roomNumber]);
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "uses";
-  const sectionLabel = "Uses";
-  const roomLabel = `Camera ${roomNumber}`;
-  const pageTitle = `Camera ${roomNumber} – Past Simple – Uses`;
-  const retryForKeyTestId = `past-retry-for-key-uses-${roomNumber}`;
-  const testIdPrefix = `past-uses-room${roomNumber}`;
-
-  const cardTitle = cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Uses";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPastSimpleUsesGlossaryItems(roomNumber);
-
-  const renderExercises = (props) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-      ...props,
-    });
-
-  const nextTo =
-    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={pastSimpleTheoryPath(sectionId)}
-      mapRoute={pastSimpleMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={[]}
-      lexAvatarSrc={PAST_SIMPLE_LEX_HEAD_SVG}
-      lexTestIdPrefix={`past-uses-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PastSimpleUsesRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "uses",
+  sectionLabel: "Uses",
+  getExercises: getPastSimpleUsesExercises,
+  getDictionaryItems: getPastSimpleUsesGlossaryItems,
+  getLexHintsForRoom: () => [],
+  lexAvatarSrc: PAST_SIMPLE_LEX_HEAD_SVG,
+  getTheoryRoute: pastSimpleTheoryPath,
+  getMapRoute: pastSimpleMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: (roomNumber) => `Camera ${roomNumber} – Past Simple – Uses`,
+  getRetryForKeyTestId: (roomNumber) => `past-retry-for-key-uses-${roomNumber}`,
+  getTestIdPrefix: (roomNumber) => `past-uses-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) => `past-uses-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Past Simple – Uses",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+    GAP_ROOMS: [],
+    MCQ_ROOMS: [],
+    TEXTAREA_ROOMS: [],
+  },
+});

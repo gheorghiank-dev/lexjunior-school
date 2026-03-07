@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { renderExercisesFromRoomComponentMap } from "../tenses/exercises/renderExercisesFromRoomComponentMap.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
@@ -55,74 +54,35 @@ const cardIntroByRoom = {
   7: "Tradu propozițiile din română în engleză, folosind Present Simple și expresiile de timp potrivite. Folosește dicționarul camerei pentru ajutor.",
 };
 
-export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPsTimeExpressionsExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "time-expressions";
-  const sectionLabel = "Time Expressions";
-  const pageTitle = "Present Simple – Time Expressions";
-  const roomLabel = `Camera ${roomNumber}`;
-  const retryForKeyTestId = `ps-timeexp-room${roomNumber}-retry-key`;
-  const testIdPrefix = `ps-te-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Simple – Time Expressions";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPsTimeExpressionsGlossaryItems(roomNumber);
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
+export default createRegistryRoomComponent({
+  displayName: "PsTimeExpressionsRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "time-expressions",
+  sectionLabel: "Time Expressions",
+  getExercises: getPsTimeExpressionsExercises,
+  getDictionaryItems: getPsTimeExpressionsGlossaryItems,
+  getLexHintsForRoom: (roomNumber) => timeExpressionsLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PS_LEX_HEAD_SVG,
+  getTheoryRoute: psTheoryPath,
+  getMapRoute: psMapPath,
+  getNextTo: (roomNumber, sectionId) => roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: "Present Simple – Time Expressions",
+  getRetryForKeyTestId: (roomNumber) => `ps-timeexp-room${roomNumber}-retry-key`,
+  getTestIdPrefix: (roomNumber) => `ps-te-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) => `ps-timeexp-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Simple – Time Expressions",
+  renderExercises: (roomNumber) => (props) =>
     renderExercisesFromRoomComponentMap({
       roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
+      exercises: props.exercises,
+      answers: props.answers,
+      feedback: props.feedback,
+      handleChange: props.handleChange,
+      testIdPrefix: props.testIdPrefix,
       roomComponentMap: ROOM_COMPONENT_MAP,
       fallback: MatchingPairsExerciseList,
       perRoomProps: ROOM_COMPONENT_PROPS,
-    });
-
-  const lexHintsForRoom = timeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={psTheoryPath(sectionId)}
-      mapRoute={psMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PS_LEX_HEAD_SVG}
-      lexTestIdPrefix={`ps-timeexp-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+    }),
+});

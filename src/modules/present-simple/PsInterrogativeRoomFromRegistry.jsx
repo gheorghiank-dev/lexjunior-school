@@ -1,7 +1,4 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
@@ -10,13 +7,6 @@ import {
   getPsInterrogativeGlossaryItems,
 } from "./rooms/ps-interrogative-rooms.jsx";
 import { presentSimpleInterrogativeLexHints } from "../lex-hints/present-simple/interrogative.js";
-
-// Room type configuration – keeps things clear and scalable.
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [1, 2, 4];
-const TEXTAREA_ROOMS = [3, 7];
-const MCQ_ROOMS = [5];
-const YESNO_PAIRS_ROOMS = [6];
 
 const cardTitleByRoom = {
   1: "Completează spațiile libere cu Do sau Does",
@@ -38,79 +28,36 @@ const cardIntroByRoom = {
   7: "Tradu întrebările din română în engleză, folosind structura cu do / does și mini-dicționarul camerei.",
 };
 
-export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPsInterrogativeExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "interrogative";
-  const sectionLabel = "Interrogative";
-  const pageTitle = "Present Simple – Interrogative";
-  const roomLabel = `Camera ${roomNumber}`;
-  const retryForKeyTestId = `ps-int-room${roomNumber}-retry-key`;
-  const testIdPrefix = `ps-int-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Present Simple – Interrogative";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPsInterrogativeGlossaryItems(roomNumber);
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-      YESNO_PAIRS_ROOMS,
-      TEXTAREA_ROWS: 1,
-      TEXTAREA_STACKED: true,
-      TEXTAREA_SHOW_INDEX: true,
-    });
-
-  const lexHintsForRoom =
-    presentSimpleInterrogativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const nextTo = roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={psTheoryPath(sectionId)}
-      mapRoute={psMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PS_LEX_HEAD_SVG}
-      lexTestIdPrefix={`ps-interrogative-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PsInterrogativeRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "interrogative",
+  sectionLabel: "Interrogative",
+  getExercises: getPsInterrogativeExercises,
+  getDictionaryItems: getPsInterrogativeGlossaryItems,
+  getLexHintsForRoom: (roomNumber) =>
+    presentSimpleInterrogativeLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PS_LEX_HEAD_SVG,
+  getTheoryRoute: psTheoryPath,
+  getMapRoute: psMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? psRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: "Present Simple – Interrogative",
+  getRetryForKeyTestId: (roomNumber) => `ps-int-room${roomNumber}-retry-key`,
+  getTestIdPrefix: (roomNumber) => `ps-int-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) =>
+    `ps-interrogative-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Simple – Interrogative",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+    GAP_ROOMS: [1, 2, 4],
+    MCQ_ROOMS: [5],
+    TEXTAREA_ROOMS: [3, 7],
+    YESNO_PAIRS_ROOMS: [6],
+    TEXTAREA_ROWS: 1,
+    TEXTAREA_STACKED: true,
+    TEXTAREA_SHOW_INDEX: true,
+  },
+});

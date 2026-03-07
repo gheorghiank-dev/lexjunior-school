@@ -3,8 +3,8 @@ import { Routes, Route, Navigate, useLocation, Link } from "react-router-dom";
 import {
   getTenseThemeClassForPath,
   getDefaultBrandAvatarSrc,
-} from "./core/manifest/tense-registry.js";
-import { createAppRoutes } from "./core/routing/createAppRoutes.jsx";
+} from "./modules/tenses/registry.js";
+import { createAppRoutes } from "./app/createAppRoutes.jsx";
 import { getAppNavItems } from "./modules/app-nav/registry.js";
 import GlobalPasswordGate from "./access/passwords/GlobalPasswordGate.jsx";
 import TensePasswordGate from "./access/passwords/TensePasswordGate.jsx";

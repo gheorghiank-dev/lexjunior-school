@@ -17,6 +17,7 @@
     "lex": "node lex-cli.js",
     "validate-content": "node scripts/validate-content.js",
     "validate-room-content": "node scripts/validate-room-content.mjs --only present-simple/ps-content",
+    "validate-tense-modules": "node scripts/validate-tense-modules.mjs",
     "lex-debug": "node scripts/lex-debugger.js",
     "lex-predeploy": "node scripts/predeploy-check.js",
     "prepare": "husky"

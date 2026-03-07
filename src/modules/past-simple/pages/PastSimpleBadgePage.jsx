@@ -3,7 +3,7 @@ import React from "react";
 import { pastSimpleTheoryPath, pastSimpleMapPath } from "../past-paths.js";
 import { DEV_MODE } from "../past-core/config.js";
 import { progressManager } from "../past-core/progress-manager.js";
-import { pastSimpleStorage } from "../past-core/storage.js";
+import { pastSimpleStorage as storage } from "../past-core/storage.js";
 import { PAST_SIMPLE_LEX_HEAD_SVG } from "../past-core/assets.js";
 
 import TenseBadgeRoom from "../../tenses/ui/TenseBadgeRoom.jsx";
@@ -17,8 +17,12 @@ import {
 import { pastSimpleBadgeLexHints } from "../../lex-hints/past-simple/index.js";
 
 export default function PastSimpleBadgePage() {
-  const masterStorageKey = pastSimpleStorage.masterKey("badge");
-  const draftStorageKey = pastSimpleStorage.draftKey("badge");
+  const tenseName = "Past Simple";
+  const sectionId = "badge";
+  const roomNumber = 1;
+
+  const masterStorageKey = storage.masterKey("badge");
+  const draftStorageKey = storage.draftKey("badge");
 
   const storyVerbPool = badgeStoryConfig.verbs ?? [];
   const storySlotAnswers = [];
@@ -42,11 +46,13 @@ export default function PastSimpleBadgePage() {
 
   return (
     <TenseBadgeRoom
-      tenseId="past-simple"
-      tenseLabel="Past Simple"
-      mapPath={pastSimpleMapPath()}
-      theoryPath={pastSimpleTheoryPath("affirmative")}
+      tenseName={tenseName}
+      sectionId={sectionId}
+      roomNumber={roomNumber}
+      mapRoute={pastSimpleMapPath()}
+      theoryRoute={pastSimpleTheoryPath("affirmative")}
       progressManager={progressManager}
+      storage={storage}
       masterStorageKey={masterStorageKey}
       draftStorageKey={draftStorageKey}
       lexHints={pastSimpleBadgeLexHints.final || []}

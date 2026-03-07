@@ -1,19 +1,15 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./past-core/useRoomEngine.js";
 import { PAST_SIMPLE_LEX_HEAD_SVG } from "./past-core/assets.js";
-import { pastSimpleMapPath, pastSimpleTheoryPath, pastSimpleRoomPath } from "./past-paths.js";
+import {
+  pastSimpleMapPath,
+  pastSimpleTheoryPath,
+  pastSimpleRoomPath,
+} from "./past-paths.js";
 import {
   getPastSimpleAffirmativeExercises,
   getPastSimpleAffirmativeGlossaryItems,
 } from "./rooms/past-affirmative-rooms.jsx";
-
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
-const GAP_ROOMS = [];
-const MCQ_ROOMS = [];
-const TEXTAREA_ROOMS = [];
 
 const cardTitleByRoom = {
   1: "Past Simple – Affirmative – Camera 1",
@@ -29,59 +25,30 @@ const cardIntroByRoom = {
   1: "Schelet de cameră pentru Past Simple – Affirmative. Aici vei defini exercițiile finale.",
 };
 
-export default function PastSimpleAffirmativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(() => getPastSimpleAffirmativeExercises(roomNumber), [roomNumber]);
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "affirmative";
-  const sectionLabel = "Affirmative";
-  const roomLabel = `Camera ${roomNumber}`;
-  const pageTitle = `Camera ${roomNumber} – Past Simple – Affirmative`;
-  const retryForKeyTestId = `past-retry-for-key-affirmative-${roomNumber}`;
-  const testIdPrefix = `past-affirmative-room${roomNumber}`;
-
-  const cardTitle = cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Affirmative";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPastSimpleAffirmativeGlossaryItems(roomNumber);
-
-  const renderExercises = (props) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-      ...props,
-    });
-
-  const nextTo =
-    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={pastSimpleTheoryPath(sectionId)}
-      mapRoute={pastSimpleMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={[]}
-      lexAvatarSrc={PAST_SIMPLE_LEX_HEAD_SVG}
-      lexTestIdPrefix={`past-affirmative-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+export default createRegistryRoomComponent({
+  displayName: "PastSimpleAffirmativeRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "affirmative",
+  sectionLabel: "Affirmative",
+  getExercises: getPastSimpleAffirmativeExercises,
+  getDictionaryItems: getPastSimpleAffirmativeGlossaryItems,
+  getLexHintsForRoom: () => [],
+  lexAvatarSrc: PAST_SIMPLE_LEX_HEAD_SVG,
+  getTheoryRoute: pastSimpleTheoryPath,
+  getMapRoute: pastSimpleMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: (roomNumber) => `Camera ${roomNumber} – Past Simple – Affirmative`,
+  getRetryForKeyTestId: (roomNumber) => `past-retry-for-key-affirmative-${roomNumber}`,
+  getTestIdPrefix: (roomNumber) => `past-affirmative-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) => `past-affirmative-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Past Simple – Affirmative",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [],
+    GAP_ROOMS: [],
+    MCQ_ROOMS: [],
+    TEXTAREA_ROOMS: [],
+  },
+});

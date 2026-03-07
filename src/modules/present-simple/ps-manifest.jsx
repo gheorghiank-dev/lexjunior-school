@@ -112,7 +112,7 @@ const PS_ROOM_REGISTRIES = {
   negative: PS_NEGATIVE_ROOMS,
   interrogative: PS_INTERROGATIVE_ROOMS,
   uses: PS_USES_ROOMS,
-  timeexpressions: PS_TIMEEXPRESSIONS_ROOMS,
+  "time-expressions": PS_TIMEEXPRESSIONS_ROOMS,
 };
 
 /**

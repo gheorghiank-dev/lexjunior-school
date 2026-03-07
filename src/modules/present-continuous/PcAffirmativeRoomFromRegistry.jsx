@@ -1,7 +1,4 @@
-import React, { useMemo } from "react";
-
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
-import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { createRegistryRoomComponent } from "../tenses/rooms/createRegistryRoomComponent.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
 import { pcMapPath, pcTheoryPath, pcRoomPath } from "./pc-paths.js";
@@ -10,11 +7,6 @@ import {
   getPcAffirmativeGlossaryItems,
 } from "./rooms/pc-affirmative-rooms.jsx";
 import { presentContinuousAffirmativeLexHints } from "../lex-hints/present-continuous/affirmative.js";
-
-const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
-const GAP_ROOMS = [2, 4, 5];
-const MCQ_ROOMS = [3];
-const TEXTAREA_ROOMS = [6, 7];
 
 const cardTitleByRoom = {
   1: "Verbele la -ing (spelling)",
@@ -36,81 +28,38 @@ const cardIntroByRoom = {
   7: "Tradu propoziția în engleză, folosind Present Continuous.",
 };
 
-export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPcAffirmativeExercises(roomNumber),
-    [roomNumber],
-  );
-
-  if (!exercises || exercises.length === 0) {
-    return null;
-  }
-
-  const sectionId = "affirmative";
-  const sectionLabel = "Affirmative";
-  const roomLabel = `Camera ${roomNumber}`;
-  const pageTitle =
+export default createRegistryRoomComponent({
+  displayName: "PcAffirmativeRoomFromRegistry",
+  useRoomEngineHook: useRoomEngine,
+  sectionId: "affirmative",
+  sectionLabel: "Affirmative",
+  getExercises: getPcAffirmativeExercises,
+  getDictionaryItems: getPcAffirmativeGlossaryItems,
+  getLexHintsForRoom: (roomNumber) =>
+    presentContinuousAffirmativeLexHints?.[`room${roomNumber}`] ?? [],
+  lexAvatarSrc: PC_LEX_HEAD_SVG,
+  getTheoryRoute: pcTheoryPath,
+  getMapRoute: pcMapPath,
+  getNextTo: (roomNumber, sectionId) =>
+    roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null,
+  getPageTitle: (roomNumber) =>
     roomNumber === 1
       ? "Camera 1 – Present Continuous – Affirmative"
-      : `Present Continuous – Camera ${roomNumber}`;
-  const retryForKeyTestId =
+      : `Present Continuous – Camera ${roomNumber}`,
+  getRetryForKeyTestId: (roomNumber) =>
     roomNumber === 1
       ? "pc-retry-for-key"
-      : `pc-affirmative-room${roomNumber}-retry-for-key`;
-  const testIdPrefix = `pc-affirmative-room${roomNumber}`;
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ??
-    "Exerciții – Present Continuous – Affirmative";
-  const cardIntro = cardIntroByRoom[roomNumber] ?? "";
-
-  const dictionaryItems = getPcAffirmativeGlossaryItems(roomNumber);
-  const lexHintsForRoom =
-    presentContinuousAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
-
-  const renderExercises = ({
-    exercises,
-    answers,
-    feedback,
-    handleChange,
-    testIdPrefix,
-  }) =>
-    renderExercisesByRoomType({
-      roomNumber,
-      exercises,
-      answers,
-      feedback,
-      handleChange,
-      testIdPrefix,
-      TEXT_INPUT_WITH_LISTEN_ROOMS,
-      GAP_ROOMS,
-      MCQ_ROOMS,
-      TEXTAREA_ROOMS,
-    });
-
-  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
-
-  return (
-    <TenseExerciseRoomShell
-      useRoomEngineHook={useRoomEngine}
-      sectionId={sectionId}
-      sectionLabel={sectionLabel}
-      roomNumber={roomNumber}
-      pageTitle={pageTitle}
-      roomLabel={roomLabel}
-      theoryRoute={pcTheoryPath(sectionId)}
-      mapRoute={pcMapPath()}
-      retryForKeyTestId={retryForKeyTestId}
-      exercises={exercises}
-      testIdPrefix={testIdPrefix}
-      cardTitle={cardTitle}
-      cardIntro={cardIntro}
-      renderExercises={renderExercises}
-      dictionaryItems={dictionaryItems}
-      lexHints={lexHintsForRoom}
-      lexAvatarSrc={PC_LEX_HEAD_SVG}
-      lexTestIdPrefix={`pc-affirmative-room${roomNumber}-lexbubble`}
-      nextTo={nextTo}
-    />
-  );
-}
+      : `pc-affirmative-room${roomNumber}-retry-for-key`,
+  getTestIdPrefix: (roomNumber) => `pc-affirmative-room${roomNumber}`,
+  getLexTestIdPrefix: (roomNumber) =>
+    `pc-affirmative-room${roomNumber}-lexbubble`,
+  cardTitleByRoom,
+  cardIntroByRoom,
+  defaultCardTitle: "Exerciții – Present Continuous – Affirmative",
+  renderConfig: {
+    TEXT_INPUT_WITH_LISTEN_ROOMS: [1],
+    GAP_ROOMS: [2, 4, 5],
+    MCQ_ROOMS: [3],
+    TEXTAREA_ROOMS: [6, 7],
+  },
+});
