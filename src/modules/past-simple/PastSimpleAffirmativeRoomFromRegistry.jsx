@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+
 import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./past-core/useRoomEngine.js";
@@ -14,11 +15,22 @@ const GAP_ROOMS = [];
 const MCQ_ROOMS = [];
 const TEXTAREA_ROOMS = [];
 
+const cardTitleByRoom = {
+  1: "Past Simple – Affirmative – Camera 1",
+  2: "Past Simple – Affirmative – Camera 2",
+  3: "Past Simple – Affirmative – Camera 3",
+  4: "Past Simple – Affirmative – Camera 4",
+  5: "Past Simple – Affirmative – Camera 5",
+  6: "Past Simple – Affirmative – Camera 6",
+  7: "Past Simple – Affirmative – Camera 7",
+};
+
+const cardIntroByRoom = {
+  1: "Schelet de cameră pentru Past Simple – Affirmative. Aici vei defini exercițiile finale.",
+};
+
 export default function PastSimpleAffirmativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPastSimpleAffirmativeExercises(roomNumber),
-    [roomNumber],
-  );
+  const exercises = useMemo(() => getPastSimpleAffirmativeExercises(roomNumber), [roomNumber]);
 
   if (!exercises || exercises.length === 0) {
     return null;
@@ -26,34 +38,12 @@ export default function PastSimpleAffirmativeRoomFromRegistry({ roomNumber }) {
 
   const sectionId = "affirmative";
   const sectionLabel = "Affirmative";
-
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Past Simple – Affirmative`;
-
   const retryForKeyTestId = `past-retry-for-key-affirmative-${roomNumber}`;
   const testIdPrefix = `past-affirmative-room${roomNumber}`;
 
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom
-    ? pastSimpleRoomPath(sectionId, roomNumber + 1)
-    : null;
-
-  const cardTitleByRoom = {
-    1: "Past Simple – Affirmative – Camera 1",
-    2: "Past Simple – Affirmative – Camera 2",
-    3: "Past Simple – Affirmative – Camera 3",
-    4: "Past Simple – Affirmative – Camera 4",
-    5: "Past Simple – Affirmative – Camera 5",
-    6: "Past Simple – Affirmative – Camera 6",
-    7: "Past Simple – Affirmative – Camera 7",
-  };
-
-  const cardIntroByRoom = {
-    1: "Schelet de cameră pentru Past Simple – Affirmative. Aici vei defini exercițiile finale.",
-  };
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Affirmative";
+  const cardTitle = cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Affirmative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPastSimpleAffirmativeGlossaryItems(roomNumber);
@@ -67,6 +57,9 @@ export default function PastSimpleAffirmativeRoomFromRegistry({ roomNumber }) {
       TEXTAREA_ROOMS,
       ...props,
     });
+
+  const nextTo =
+    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

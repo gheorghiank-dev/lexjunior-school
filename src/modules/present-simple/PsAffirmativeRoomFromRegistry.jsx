@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
@@ -12,16 +13,15 @@ import {
 
 import { presentSimpleAffirmativeLexHints } from "../lex-hints/present-simple/affirmative.js";
 
-import TextInputExerciseList from "../tenses/exercises/TextInputExerciseList.jsx";
-import { GapSentenceExerciseList } from "../../shared/exercises/GapSentenceExerciseList.jsx";
-import { McqExerciseList } from "../../shared/exercises/McqExerciseList.jsx";
-import { TextareaExerciseList } from "../../shared/exercises/TextareaExerciseList.jsx";
-
 // Config de tipuri pe camere
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
 const GAP_ROOMS = [2, 3, 5];
 const MCQ_ROOMS = [4];
 const TEXTAREA_ROOMS = [6, 7];
+
+const GAP_SHOW_INDEX_BY_ROOM = {
+  2: false,
+};
 
 const cardTitleByRoom = {
   1: "Completează cu forma corectă la persoana a III-a singular",
@@ -72,77 +72,23 @@ export default function PsAffirmativeRoomFromRegistry({ roomNumber }) {
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Text input + listen (doar room 1 în momentul ăsta)
-    if (TEXT_INPUT_WITH_LISTEN_ROOMS.includes(roomNumber)) {
-      return (
-        <TextInputExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-          withListenOnCorrect={true}
-        />
-      );
-    }
-
-    // 2) Gap sentence rooms (2, 3, 5) – room 2 fără index, celelalte cu index
-    if (GAP_ROOMS.includes(roomNumber)) {
-      const showIndex = roomNumber !== 2;
-
-      return (
-        <GapSentenceExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={showIndex}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) MCQ rooms
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Textarea rooms (word order, translation)
-    if (TEXTAREA_ROOMS.includes(roomNumber)) {
-      return (
-        <TextareaExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          rows={1}
-          stacked={true}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 5) Fallback – ar trebui să nu intre niciodată, dar păstrează shell-ul safe
-    return (
-      <TextInputExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
+  }) =>
+    renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+      GAP_SHOW_INDEX_BY_ROOM,
+      TEXTAREA_ROWS: 1,
+      TEXTAREA_STACKED: true,
+      TEXTAREA_SHOW_INDEX: true,
+    });
 
   const lexHintsForRoom =
     presentSimpleAffirmativeLexHints?.[`room${roomNumber}`] ?? [];

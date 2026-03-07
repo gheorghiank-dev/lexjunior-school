@@ -10,14 +10,13 @@ import {
   getPsInterrogativeGlossaryItems,
 } from "./rooms/ps-interrogative-rooms.jsx";
 import { presentSimpleInterrogativeLexHints } from "../lex-hints/present-simple/interrogative.js";
-import { InterrogativeYesNoPairsExerciseList } from "../../shared/exercises/InterrogativeYesNoPairsExerciseList.jsx";
 
 // Room type configuration – keeps things clear and scalable.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 2, 4];
 const TEXTAREA_ROOMS = [3, 7];
 const MCQ_ROOMS = [5];
-const YES_NO_PAIRS_ROOMS = [6];
+const YESNO_PAIRS_ROOMS = [6];
 
 const cardTitleByRoom = {
   1: "Completează spațiile libere cu Do sau Does",
@@ -68,21 +67,8 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // Cameră specială: Yes/No short answers (room 6)
-    if (YES_NO_PAIRS_ROOMS.includes(roomNumber)) {
-      return (
-        <InterrogativeYesNoPairsExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-        />
-      );
-    }
-
-    // Restul camerelor folosesc helperul comun pe tipuri de exerciții.
-    return renderExercisesByRoomType({
+  }) =>
+    renderExercisesByRoomType({
       roomNumber,
       exercises,
       answers,
@@ -93,8 +79,11 @@ export default function PsInterrogativeRoomFromRegistry({ roomNumber }) {
       GAP_ROOMS,
       MCQ_ROOMS,
       TEXTAREA_ROOMS,
+      YESNO_PAIRS_ROOMS,
+      TEXTAREA_ROWS: 1,
+      TEXTAREA_STACKED: true,
+      TEXTAREA_SHOW_INDEX: true,
     });
-  };
 
   const lexHintsForRoom =
     presentSimpleInterrogativeLexHints?.[`room${roomNumber}`] ?? [];

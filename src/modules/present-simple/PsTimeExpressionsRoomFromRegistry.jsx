@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
+import { renderExercisesFromRoomComponentMap } from "../tenses/exercises/renderExercisesFromRoomComponentMap.jsx";
 import { useRoomEngine } from "./ps-core/useRoomEngine.js";
 import { PS_LEX_HEAD_SVG } from "./ps-core/assets.js";
 import { psMapPath, psTheoryPath, psRoomPath } from "./ps-paths.js";
@@ -15,13 +16,24 @@ import { FrequencyAdverbExerciseList } from "./components/FrequencyAdverbExercis
 import { RuneTranslationExerciseList } from "./components/RuneTranslationExerciseList.jsx";
 import { AdverbPositionExerciseList } from "./components/AdverbPositionExerciseList.jsx";
 
-// Room type configuration – keeps things clear and scalable.
-const MATCHING_PAIRS_ROOMS = [1, 2];
-const MCQ_ROOMS = [3];
-const ADVERB_POSITION_ROOMS = [4];
-const SENTENCE_BUILDER_ROOMS = [5];
-const FREQUENCY_ADVERB_ROOMS = [6];
-const RUNE_TRANSLATION_ROOMS = [7];
+const ROOM_COMPONENT_MAP = {
+  1: MatchingPairsExerciseList,
+  2: MatchingPairsExerciseList,
+  3: McqExerciseList,
+  4: AdverbPositionExerciseList,
+  5: SentenceBuilderExerciseList,
+  6: FrequencyAdverbExerciseList,
+  7: RuneTranslationExerciseList,
+};
+
+const ROOM_COMPONENT_PROPS = {
+  1: { showIndex: true },
+  2: { showIndex: true },
+  4: { showIndex: true },
+  5: { showIndex: true },
+  6: { showIndex: true },
+  7: { showIndex: true },
+};
 
 const cardTitleByRoom = {
   1: "Potrivește propozițiile cu expresiile de timp corecte",
@@ -73,101 +85,18 @@ export default function PsTimeExpressionsRoomFromRegistry({ roomNumber }) {
     feedback,
     handleChange,
     testIdPrefix,
-  }) => {
-    // 1) Matching pairs (1, 2)
-    if (MATCHING_PAIRS_ROOMS.includes(roomNumber)) {
-      return (
-        <MatchingPairsExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 2) MCQ (3)
-    if (MCQ_ROOMS.includes(roomNumber)) {
-      return (
-        <McqExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 3) Adverb position (4)
-    if (ADVERB_POSITION_ROOMS.includes(roomNumber)) {
-      return (
-        <AdverbPositionExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 4) Sentence builder (5)
-    if (SENTENCE_BUILDER_ROOMS.includes(roomNumber)) {
-      return (
-        <SentenceBuilderExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 5) Frequency adverb (6)
-    if (FREQUENCY_ADVERB_ROOMS.includes(roomNumber)) {
-      return (
-        <FrequencyAdverbExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-          testIdPrefix={testIdPrefix}
-        />
-      );
-    }
-
-    // 6) Rune translation (7)
-    if (RUNE_TRANSLATION_ROOMS.includes(roomNumber)) {
-      return (
-        <RuneTranslationExerciseList
-          exercises={exercises}
-          answers={answers}
-          feedback={feedback}
-          onChange={handleChange}
-          showIndex={true}
-        />
-      );
-    }
-
-    // 7) Fallback – should not be hit, dar păstrează shell-ul safe
-    return (
-      <MatchingPairsExerciseList
-        exercises={exercises}
-        answers={answers}
-        feedback={feedback}
-        onChange={handleChange}
-        showIndex={true}
-        testIdPrefix={testIdPrefix}
-      />
-    );
-  };
+  }) =>
+    renderExercisesFromRoomComponentMap({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      roomComponentMap: ROOM_COMPONENT_MAP,
+      fallback: MatchingPairsExerciseList,
+      perRoomProps: ROOM_COMPONENT_PROPS,
+    });
 
   const lexHintsForRoom = timeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
 

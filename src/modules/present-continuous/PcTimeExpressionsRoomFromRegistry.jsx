@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
@@ -11,7 +11,6 @@ import {
 } from "./rooms/pc-time-expressions-rooms.jsx";
 import { presentContinuousTimeExpressionsLexHints } from "../lex-hints/present-continuous/time-expressions.js";
 
-// Room type configuration – aliniat cu Present Simple / PcAffirmative / PcNegative / PcInterrogative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [];
 const MCQ_ROOMS = [];
@@ -49,18 +48,10 @@ export default function PcTimeExpressionsRoomFromRegistry({ roomNumber }) {
 
   const sectionId = "time-expressions";
   const sectionLabel = "Time expressions";
-
-  const lexHintsForRoom =
-    presentContinuousTimeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
-
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Present Continuous – Time expressions`;
-
   const retryForKeyTestId = `pc-retry-for-key-time-expressions-${roomNumber}`;
   const testIdPrefix = `pc-time-expressions-room${roomNumber}`;
-
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ??
@@ -68,27 +59,30 @@ export default function PcTimeExpressionsRoomFromRegistry({ roomNumber }) {
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPcTimeExpressionsGlossaryItems(roomNumber);
+  const lexHintsForRoom =
+    presentContinuousTimeExpressionsLexHints?.[`room${roomNumber}`] ?? [];
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
+  }) =>
+    renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
 
+  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell
@@ -98,7 +92,7 @@ export default function PcTimeExpressionsRoomFromRegistry({ roomNumber }) {
       roomNumber={roomNumber}
       pageTitle={pageTitle}
       roomLabel={roomLabel}
-      theoryRoute={pcTheoryPath("time-expressions")}
+      theoryRoute={pcTheoryPath(sectionId)}
       mapRoute={pcMapPath()}
       retryForKeyTestId={retryForKeyTestId}
       exercises={exercises}

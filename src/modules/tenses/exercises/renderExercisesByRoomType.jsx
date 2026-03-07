@@ -5,9 +5,14 @@ import { McqExerciseList } from "../../../shared/exercises/McqExerciseList.jsx";
 import { GapSentenceExerciseList } from "../../../shared/exercises/GapSentenceExerciseList.jsx";
 import { TextareaExerciseList } from "../../../shared/exercises/TextareaExerciseList.jsx";
 import { InterrogativeYesNoPairsExerciseList } from "../../../shared/exercises/InterrogativeYesNoPairsExerciseList.jsx";
+
 /**
  * Helper comun pentru toate camerele:
  * alege componenta de exerciții în funcție de tipul camerei.
+ *
+ * Sprint 2:
+ * - păstrăm comportamentul existent
+ * - adăugăm override-uri simple per room acolo unde avem nevoie
  */
 export function renderExercisesByRoomType({
   roomNumber,
@@ -17,10 +22,15 @@ export function renderExercisesByRoomType({
   handleChange,
   testIdPrefix,
   TEXT_INPUT_WITH_LISTEN_ROOMS = [],
+  TEXT_INPUT_ROOMS = [],
   GAP_ROOMS = [],
   MCQ_ROOMS = [],
   TEXTAREA_ROOMS = [],
   YESNO_PAIRS_ROOMS = [],
+  GAP_SHOW_INDEX_BY_ROOM = {},
+  TEXTAREA_ROWS = 1,
+  TEXTAREA_STACKED = true,
+  TEXTAREA_SHOW_INDEX = true,
 }) {
   // 1) Text input + TTS la răspunsuri corecte
   if (TEXT_INPUT_WITH_LISTEN_ROOMS.includes(roomNumber)) {
@@ -36,15 +46,30 @@ export function renderExercisesByRoomType({
     );
   }
 
+  // 1b) Text input simplu
+  if (TEXT_INPUT_ROOMS.includes(roomNumber)) {
+    return (
+      <TextInputExerciseList
+        exercises={exercises}
+        answers={answers}
+        feedback={feedback}
+        onChange={handleChange}
+        testIdPrefix={testIdPrefix}
+      />
+    );
+  }
+
   // 2) Gap sentence rooms
   if (GAP_ROOMS.includes(roomNumber)) {
+    const showIndex = GAP_SHOW_INDEX_BY_ROOM[roomNumber] ?? true;
+
     return (
       <GapSentenceExerciseList
         exercises={exercises}
         answers={answers}
         feedback={feedback}
         onChange={handleChange}
-        showIndex={true}
+        showIndex={showIndex}
         testIdPrefix={testIdPrefix}
       />
     );
@@ -83,9 +108,9 @@ export function renderExercisesByRoomType({
         answers={answers}
         feedback={feedback}
         onChange={handleChange}
-        rows={1}
-        stacked={true}
-        showIndex={true}
+        rows={TEXTAREA_ROWS}
+        stacked={TEXTAREA_STACKED}
+        showIndex={TEXTAREA_SHOW_INDEX}
         testIdPrefix={testIdPrefix}
       />
     );

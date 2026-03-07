@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
@@ -11,7 +11,6 @@ import {
 } from "./rooms/pc-interrogative-rooms.jsx";
 import { presentContinuousInterrogativeLexHints } from "../lex-hints/present-continuous/interrogative.js";
 
-// Room type configuration – aliniat cu Present Simple / PcAffirmative / PcNegative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 3, 4];
 const MCQ_ROOMS = [2];
@@ -50,18 +49,10 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
 
   const sectionId = "interrogative";
   const sectionLabel = "Interrogative";
-
-  const lexHintsForRoom =
-    presentContinuousInterrogativeLexHints?.[`room${roomNumber}`] ?? [];
-
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Present Continuous – Interrogative`;
-
   const retryForKeyTestId = `pc-retry-for-key-interrogative-${roomNumber}`;
   const testIdPrefix = `pc-interrogative-room${roomNumber}`;
-
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ??
@@ -69,6 +60,8 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPcInterrogativeGlossaryItems(roomNumber);
+  const lexHintsForRoom =
+    presentContinuousInterrogativeLexHints?.[`room${roomNumber}`] ?? [];
 
   const renderExercises = ({
     exercises,
@@ -91,6 +84,8 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
       YESNO_PAIRS_ROOMS,
     });
 
+  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
+
   return (
     <TenseExerciseRoomShell
       useRoomEngineHook={useRoomEngine}
@@ -99,7 +94,7 @@ export default function PcInterrogativeRoomFromRegistry({ roomNumber }) {
       roomNumber={roomNumber}
       pageTitle={pageTitle}
       roomLabel={roomLabel}
-      theoryRoute={pcTheoryPath("interrogative")}
+      theoryRoute={pcTheoryPath(sectionId)}
       mapRoute={pcMapPath()}
       retryForKeyTestId={retryForKeyTestId}
       exercises={exercises}

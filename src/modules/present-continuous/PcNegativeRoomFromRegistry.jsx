@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
+import { getRoomValidationPolicy } from "../../core/validation/getRoomValidationPolicy.js";
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
@@ -10,10 +11,7 @@ import {
   getPcNegativeGlossaryItems,
 } from "./rooms/pc-negative-rooms.jsx";
 import { presentContinuousNegativeLexHints } from "../lex-hints/present-continuous/negative.js";
-// ✅ INSEREAZĂ AICI (sus la imports):
-import { getRoomValidationPolicy } from "../../core/validation/getRoomValidationPolicy.js";
 
-// Room type configuration – aligned with Present Simple / PcAffirmative.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [];
 const GAP_ROOMS = [1, 2, 4, 5];
 const MCQ_ROOMS = [3];
@@ -51,31 +49,23 @@ export default function PcNegativeRoomFromRegistry({ roomNumber }) {
 
   const sectionId = "negative";
   const sectionLabel = "Negative";
-
-  const lexHintsForRoom =
-    presentContinuousNegativeLexHints?.[`room${roomNumber}`] ?? [];
-
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Present Continuous – Negative`;
-
-  // ✅ INSEREAZĂ AICI:
   const validationPolicy = getRoomValidationPolicy({
     moduleKey: "present-continuous",
     sectionId,
     roomNumber,
   });
-
   const retryForKeyTestId = `pc-retry-for-key-negative-${roomNumber}`;
   const testIdPrefix = `pc-negative-room${roomNumber}`;
-
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ?? "Exerciții – Present Continuous – Negative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPcNegativeGlossaryItems(roomNumber);
+  const lexHintsForRoom =
+    presentContinuousNegativeLexHints?.[`room${roomNumber}`] ?? [];
 
   const renderExercises = ({
     exercises,
@@ -97,6 +87,8 @@ export default function PcNegativeRoomFromRegistry({ roomNumber }) {
       TEXTAREA_ROOMS,
     });
 
+  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
+
   return (
     <TenseExerciseRoomShell
       useRoomEngineHook={useRoomEngine}
@@ -107,7 +99,7 @@ export default function PcNegativeRoomFromRegistry({ roomNumber }) {
       validationFamily="BE_NEGATIVE"
       pageTitle={pageTitle}
       roomLabel={roomLabel}
-      theoryRoute={pcTheoryPath("negative")}
+      theoryRoute={pcTheoryPath(sectionId)}
       mapRoute={pcMapPath()}
       retryForKeyTestId={retryForKeyTestId}
       exercises={exercises}

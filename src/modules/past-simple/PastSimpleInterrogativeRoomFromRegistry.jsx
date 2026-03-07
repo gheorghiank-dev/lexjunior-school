@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+
 import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./past-core/useRoomEngine.js";
@@ -14,11 +15,22 @@ const GAP_ROOMS = [];
 const MCQ_ROOMS = [];
 const TEXTAREA_ROOMS = [];
 
+const cardTitleByRoom = {
+  1: "Past Simple – Interrogative – Camera 1",
+  2: "Past Simple – Interrogative – Camera 2",
+  3: "Past Simple – Interrogative – Camera 3",
+  4: "Past Simple – Interrogative – Camera 4",
+  5: "Past Simple – Interrogative – Camera 5",
+  6: "Past Simple – Interrogative – Camera 6",
+  7: "Past Simple – Interrogative – Camera 7",
+};
+
+const cardIntroByRoom = {
+  1: "Schelet de cameră pentru Past Simple – Interrogative. Aici vei defini exercițiile finale.",
+};
+
 export default function PastSimpleInterrogativeRoomFromRegistry({ roomNumber }) {
-  const exercises = useMemo(
-    () => getPastSimpleInterrogativeExercises(roomNumber),
-    [roomNumber],
-  );
+  const exercises = useMemo(() => getPastSimpleInterrogativeExercises(roomNumber), [roomNumber]);
 
   if (!exercises || exercises.length === 0) {
     return null;
@@ -26,34 +38,12 @@ export default function PastSimpleInterrogativeRoomFromRegistry({ roomNumber }) 
 
   const sectionId = "interrogative";
   const sectionLabel = "Interrogative";
-
   const roomLabel = `Camera ${roomNumber}`;
   const pageTitle = `Camera ${roomNumber} – Past Simple – Interrogative`;
-
   const retryForKeyTestId = `past-retry-for-key-interrogative-${roomNumber}`;
   const testIdPrefix = `past-interrogative-room${roomNumber}`;
 
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom
-    ? pastSimpleRoomPath(sectionId, roomNumber + 1)
-    : null;
-
-  const cardTitleByRoom = {
-    1: "Past Simple – Interrogative – Camera 1",
-    2: "Past Simple – Interrogative – Camera 2",
-    3: "Past Simple – Interrogative – Camera 3",
-    4: "Past Simple – Interrogative – Camera 4",
-    5: "Past Simple – Interrogative – Camera 5",
-    6: "Past Simple – Interrogative – Camera 6",
-    7: "Past Simple – Interrogative – Camera 7",
-  };
-
-  const cardIntroByRoom = {
-    1: "Schelet de cameră pentru Past Simple – Interrogative. Aici vei defini exercițiile finale.",
-  };
-
-  const cardTitle =
-    cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Interrogative";
+  const cardTitle = cardTitleByRoom[roomNumber] ?? "Exerciții – Past Simple – Interrogative";
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPastSimpleInterrogativeGlossaryItems(roomNumber);
@@ -67,6 +57,9 @@ export default function PastSimpleInterrogativeRoomFromRegistry({ roomNumber }) 
       TEXTAREA_ROOMS,
       ...props,
     });
+
+  const nextTo =
+    roomNumber < 7 ? pastSimpleRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell

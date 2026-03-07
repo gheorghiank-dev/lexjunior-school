@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 
+import { renderExercisesByRoomType } from "../tenses/exercises/renderExercisesByRoomType.jsx";
 import { TenseExerciseRoomShell } from "../tenses/ui/TenseExerciseRoomShell.jsx";
 import { useRoomEngine } from "./pc-core/useRoomEngine.js";
 import { PC_LEX_HEAD_SVG } from "./pc-core/assets.js";
@@ -11,7 +11,6 @@ import {
 } from "./rooms/pc-affirmative-rooms.jsx";
 import { presentContinuousAffirmativeLexHints } from "../lex-hints/present-continuous/affirmative.js";
 
-// Room type configuration – aligned with Present Simple.
 const TEXT_INPUT_WITH_LISTEN_ROOMS = [1];
 const GAP_ROOMS = [2, 4, 5];
 const MCQ_ROOMS = [3];
@@ -49,25 +48,16 @@ export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
 
   const sectionId = "affirmative";
   const sectionLabel = "Affirmative";
-
-  const lexHintsForRoom =
-    presentContinuousAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
   const roomLabel = `Camera ${roomNumber}`;
-
   const pageTitle =
     roomNumber === 1
       ? "Camera 1 – Present Continuous – Affirmative"
       : `Present Continuous – Camera ${roomNumber}`;
-
   const retryForKeyTestId =
     roomNumber === 1
       ? "pc-retry-for-key"
       : `pc-affirmative-room${roomNumber}-retry-for-key`;
-
   const testIdPrefix = `pc-affirmative-room${roomNumber}`;
-
-  const hasNextRoom = roomNumber < 7;
-  const nextTo = hasNextRoom ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   const cardTitle =
     cardTitleByRoom[roomNumber] ??
@@ -75,27 +65,30 @@ export default function PcAffirmativeRoomFromRegistry({ roomNumber }) {
   const cardIntro = cardIntroByRoom[roomNumber] ?? "";
 
   const dictionaryItems = getPcAffirmativeGlossaryItems(roomNumber);
+  const lexHintsForRoom =
+    presentContinuousAffirmativeLexHints?.[`room${roomNumber}`] ?? [];
 
   const renderExercises = ({
-  exercises,
-  answers,
-  feedback,
-  handleChange,
-  testIdPrefix,
-}) =>
-  renderExercisesByRoomType({
-    roomNumber,
     exercises,
     answers,
     feedback,
     handleChange,
     testIdPrefix,
-    TEXT_INPUT_WITH_LISTEN_ROOMS,
-    GAP_ROOMS,
-    MCQ_ROOMS,
-    TEXTAREA_ROOMS,
-  });
+  }) =>
+    renderExercisesByRoomType({
+      roomNumber,
+      exercises,
+      answers,
+      feedback,
+      handleChange,
+      testIdPrefix,
+      TEXT_INPUT_WITH_LISTEN_ROOMS,
+      GAP_ROOMS,
+      MCQ_ROOMS,
+      TEXTAREA_ROOMS,
+    });
 
+  const nextTo = roomNumber < 7 ? pcRoomPath(sectionId, roomNumber + 1) : null;
 
   return (
     <TenseExerciseRoomShell
