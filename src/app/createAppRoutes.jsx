@@ -9,6 +9,7 @@
 import HomePage from "../pages/home/HomePage";
 import GrammarPage from "../pages/grammar/GrammarPage";
 import TensesPage from "../pages/tenses/TensesPage";
+import PlatformProbePage from "../pages/dev/PlatformProbePage.jsx";
 import { getTenseRouteEntries } from "../modules/tenses/registry.js";
 
 export function createAppRoutes() {
@@ -21,6 +22,7 @@ export function createAppRoutes() {
     { path: "/", element: <HomePage /> },
     { path: "/grammar", element: <GrammarPage /> },
     { path: "/grammar/tenses", element: <TensesPage /> },
+    { path: "/dev/platform-probe", element: <PlatformProbePage /> },
     ...tenseRoutes,
   ];
 }
