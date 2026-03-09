@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Future Perfect Continuous – canonical structure blocks
- *
- * These blocks are shared between the Future Perfect Continuous overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function FuturePerfectContinuousAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,38 +7,14 @@ export function FuturePerfectContinuousAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>will</strong> + <strong>have</strong> + <strong>been</strong> + V1-ing
         </span>
       </p>
 
-      <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          I <strong>visited</strong> my grandparents yesterday.
-        </li>
-        <li>
-          She <strong>watched</strong> a film last night.
-        </li>
-      </ul>
-
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
+        <li>I <strong>will have been talking</strong>.</li>
+        <li>She <strong>will have been working</strong> here for five years by June.</li>
+        <li>They <strong>will have been studying</strong> for three hours by 8 p.m.</li>
       </ul>
     </div>
   );
@@ -58,27 +27,18 @@ export function FuturePerfectContinuousNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>will not</strong> (<strong>won&apos;t</strong>) + <strong>have</strong> + <strong>been</strong> + V1-ing
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>will not have been talking</strong>.</li>
+        <li>He <strong>won&apos;t have been waiting</strong> for long.</li>
+        <li>We <strong>won&apos;t have been living</strong> there for ten years by then.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        The short negative form is <strong>won&apos;t</strong>.
       </p>
     </div>
   );
@@ -91,31 +51,19 @@ export function FuturePerfectContinuousInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Will</strong> + subject + <strong>have</strong> + <strong>been</strong> + V1-ing + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Will</strong> I <strong>have been talking</strong>?</li>
+        <li><strong>Will</strong> you <strong>have been working</strong> here for long?</li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
-      </p>
-
+      <p className="ps-text">Short answers:</p>
       <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
+        <li><strong>Yes</strong>, I / he / she / it / we / you / they <strong>will</strong>.</li>
+        <li><strong>No</strong>, I / he / she / it / we / you / they <strong>won&apos;t</strong>.</li>
       </ul>
     </div>
   );
@@ -128,36 +76,8 @@ export function FuturePerfectContinuousUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">Emphasis on duration before a specific future moment</span>:
+          <br />They <strong>will have been working</strong> for the same company for 10 years <strong>by the time</strong> they retire.
         </li>
       </ul>
     </div>
@@ -169,26 +89,16 @@ export function FuturePerfectContinuousTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Future Perfect Continuous</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>by</em> + <em>for</em></li>
+        <li><em>by the time</em></li>
+        <li><em>before</em></li>
+        <li><em>until</em></li>
       </ul>
+
+      <p className="ps-text">
+        These expressions usually combine a <strong>future endpoint</strong> with the <strong>duration</strong> of the activity.
+      </p>
     </div>
   );
 }

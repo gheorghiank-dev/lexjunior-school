@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Present Perfect Continuous – canonical structure blocks
- *
- * These blocks are shared between the Present Perfect Continuous overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function PresentPerfectContinuousAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,38 +7,18 @@ export function PresentPerfectContinuousAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>have / has</strong> + <strong>been</strong> + <strong>V1-ing</strong>
         </span>
       </p>
 
       <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
+        <strong>Have</strong> is used with <strong>I / you / we / they</strong>, and <strong>has</strong> is used with <strong>he / she / it</strong>.
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>visited</strong> my grandparents yesterday.
-        </li>
-        <li>
-          She <strong>watched</strong> a film last night.
-        </li>
-      </ul>
-
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
+        <li>I <strong>have been reading</strong> for two hours.</li>
+        <li>She <strong>has been working</strong> all morning.</li>
+        <li>They <strong>have been studying</strong> since 8 o&apos;clock.</li>
       </ul>
     </div>
   );
@@ -58,28 +31,17 @@ export function PresentPerfectContinuousNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>have / has</strong> + <strong>not</strong> + <strong>been</strong> + <strong>V1-ing</strong>
         </span>
       </p>
 
-      <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
-      </ul>
+      <p className="ps-text">Short forms: <strong>haven&apos;t</strong> / <strong>hasn&apos;t</strong></p>
 
-      <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
-      </p>
+      <ul className="ps-mini-list">
+        <li>I <strong>haven&apos;t been sleeping</strong> well lately.</li>
+        <li>He <strong>hasn&apos;t been talking</strong> to me.</li>
+        <li>We <strong>haven&apos;t been waiting</strong> for long.</li>
+      </ul>
     </div>
   );
 }
@@ -91,31 +53,22 @@ export function PresentPerfectContinuousInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Have / Has</strong> + subject + <strong>been</strong> + <strong>V1-ing</strong> + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Have</strong> you <strong>been waiting</strong> long?</li>
+        <li><strong>Has</strong> she <strong>been studying</strong> since morning?</li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
-      </p>
+      <p className="ps-text">Short answers:</p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
+        <li><strong>Yes, I / we / you / they have.</strong></li>
+        <li><strong>Yes, he / she / it has.</strong></li>
+        <li><strong>No, I / we / you / they haven&apos;t.</strong></li>
+        <li><strong>No, he / she / it hasn&apos;t.</strong></li>
       </ul>
     </div>
   );
@@ -128,36 +81,16 @@ export function PresentPerfectContinuousUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
+          <span className="rule-highlight-emphasis">Action started in the past and continuing now</span>:<br />
+          She <strong>has been reading</strong> since she came back from school.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
+          <span className="rule-highlight-emphasis">Recent action with a visible result in the present</span>:<br />
+          She <strong>has been working</strong> in the garden all morning. She is tired now.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">Speaker annoyance about a recent action</span>:<br />
+          Who <strong>has been reading</strong> my diary?
         </li>
       </ul>
     </div>
@@ -169,26 +102,17 @@ export function PresentPerfectContinuousTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Present Perfect Continuous</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>how long</em></li>
+        <li><em>for</em></li>
+        <li><em>since</em></li>
+        <li><em>recently</em></li>
+        <li><em>lately</em></li>
       </ul>
+
+      <p className="ps-text">
+        <strong>Present Perfect</strong> often stresses <span className="rule-highlight-emphasis">number / frequency</span>, while <strong>Present Perfect Continuous</strong> stresses <span className="rule-highlight-emphasis">duration</span>.
+      </p>
     </div>
   );
 }

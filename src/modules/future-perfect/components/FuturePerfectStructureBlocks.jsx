@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Future Perfect – canonical structure blocks
- *
- * These blocks are shared between the Future Perfect overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function FuturePerfectAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,38 +7,19 @@ export function FuturePerfectAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>will</strong> + <strong>have</strong> + V3
         </span>
       </p>
 
       <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
+        <strong>V3</strong> = past participle. For <strong>regular verbs</strong>, this is usually
+        <strong> V1 + -ed</strong>. For <strong>irregular verbs</strong>, we use the third form from the verb list.
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>visited</strong> my grandparents yesterday.
-        </li>
-        <li>
-          She <strong>watched</strong> a film last night.
-        </li>
-      </ul>
-
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
+        <li>I <strong>will have walked</strong>.</li>
+        <li>She <strong>will have finished</strong> her homework by 6 o&apos;clock.</li>
+        <li>They <strong>will have arrived</strong> before dinner.</li>
       </ul>
     </div>
   );
@@ -58,27 +32,18 @@ export function FuturePerfectNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>will not</strong> (<strong>won&apos;t</strong>) + <strong>have</strong> + V3
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>will not have walked</strong>.</li>
+        <li>He <strong>won&apos;t have finished</strong> the project by Monday.</li>
+        <li>We <strong>won&apos;t have arrived</strong> by 8 p.m.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        The short negative form is <strong>won&apos;t</strong>. The main verb stays in the <strong>third form (V3)</strong>.
       </p>
     </div>
   );
@@ -91,31 +56,19 @@ export function FuturePerfectInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Will</strong> + subject + <strong>have</strong> + V3 + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Will</strong> you <strong>have finished</strong> by tonight?</li>
+        <li><strong>Will</strong> they <strong>have arrived</strong> before the meeting?</li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
-      </p>
-
+      <p className="ps-text">Short answers:</p>
       <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
+        <li><strong>Yes</strong>, I / he / she / it / we / you / they <strong>will</strong>.</li>
+        <li><strong>No</strong>, I / he / she / it / we / you / they <strong>won&apos;t</strong>.</li>
       </ul>
     </div>
   );
@@ -128,36 +81,8 @@ export function FuturePerfectUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">An action that will be completed before a specific moment in the future</span>:
+          <br />They <strong>will have finished</strong> their project <strong>by next Friday</strong>.
         </li>
       </ul>
     </div>
@@ -169,26 +94,16 @@ export function FuturePerfectTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Future Perfect</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>by</em></li>
+        <li><em>by the time</em></li>
+        <li><em>before</em></li>
+        <li><em>until</em></li>
       </ul>
+
+      <p className="ps-text">
+        These expressions usually show the <strong>deadline</strong> or the <strong>future point</strong> before which the action will be completed.
+      </p>
     </div>
   );
 }

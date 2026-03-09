@@ -17,8 +17,8 @@ export default function PsTimeExpressionsTheoryPage() {
 
   return (
     <TenseTimeExpressionsTheoryTemplate
-      backTo={PS_BASE_PATH}
-      backLabel="← Înapoi la modulul Present Simple"
+      backTo={psMapPath()}
+      backLabel="← Înapoi la harta Present Simple"
       title="Present Simple – Expresii de timp"
       lead="Expresiile de timp te ajută să recunoști când vorbești despre rutină, frecvență sau adevăr general — exact terenul Present Simple."
       card1Intro={<>Present Simple apare foarte des lângă adverbe de frecvență și expresii care arată că ceva se repetă regulat.</>}

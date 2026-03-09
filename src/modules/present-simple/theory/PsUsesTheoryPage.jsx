@@ -21,9 +21,9 @@ export default function PsUsesTheoryPage() {
 
   return (
     <TenseUsesTheoryTemplate
-      backTo={PS_BASE_PATH}
-      backLabel="← Înapoi la modulul Present Simple"
-      title="Present Simple – Întrebuințări (Teorie clasică)"
+      backTo={psMapPath()}
+      backLabel="← Înapoi la harta Present Simple"
+      title="Present Simple – Întrebuințări"
       lead="Aici vezi clar când folosim Present Simple și cum recunoști situațiile în care el exprimă rutină, adevăr general, program fix sau stare stabilă."
       card1Intro={<>Present Simple exprimă lucruri care sunt <strong>adevărate în general</strong> sau se repetă în mod obișnuit.</>}
       card1Content={<PsUsesStructureBlock />}

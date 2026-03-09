@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Past Simple – canonical structure blocks
- *
- * These blocks are shared between the Past Simple overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function PastSimpleAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,38 +7,27 @@ export function PastSimpleAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>V2</strong>
         </span>
       </p>
 
       <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
+        În Past Simple, folosim:
       </p>
 
       <ul className="ps-mini-list">
         <li>
-          I <strong>visited</strong> my grandparents yesterday.
+          <strong>verbe regulate</strong>: V1 + <span className="rule-highlight-emphasis">-ed</span>
         </li>
         <li>
-          She <strong>watched</strong> a film last night.
+          <strong>verbe neregulate</strong>: forma a doua, adică <span className="rule-highlight-emphasis">V2</span>
         </li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
+        <li>I <strong>worked</strong> yesterday.</li>
+        <li>She <strong>danced</strong> at the party.</li>
+        <li>They <strong>went</strong> to the swimming pool last week.</li>
       </ul>
     </div>
   );
@@ -58,27 +40,18 @@ export function PastSimpleNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) + verb (base form)
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>did not walk</strong>.</li>
+        <li>He <strong>didn&apos;t play</strong>.</li>
+        <li>They <strong>didn&apos;t go</strong>.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        După <strong>did / didn&apos;t</strong>, verbul principal rămâne mereu în <span className="rule-highlight-emphasis">V1</span>.
       </p>
     </div>
   );
@@ -96,27 +69,14 @@ export function PastSimpleInterrogativeStructureBlock() {
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Did</strong> I <strong>walk</strong>?</li>
+        <li><strong>Did</strong> she <strong>dance</strong>?</li>
+        <li><strong>Did</strong> they <strong>go</strong>?</li>
       </ul>
 
       <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
+        Și în întrebări, verbul principal rămâne în <span className="rule-highlight-emphasis">V1</span>.
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
-      </ul>
     </div>
   );
 }
@@ -128,36 +88,20 @@ export function PastSimpleUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
+          <span className="rule-highlight-emphasis">Acțiuni terminate într-un moment specificat din trecut</span>
+          <br />They <strong>went</strong> to the swimming pool last week.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
+          <span className="rule-highlight-emphasis">Două sau mai multe acțiuni consecutive în trecut</span>
+          <br />She <strong>opened</strong> the door and <strong>walked</strong> into the room.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
+          <span className="rule-highlight-emphasis">Obiceiuri și stări din trecut care nu mai sunt valabile acum</span>
+          <br />I <strong>took</strong> ballet classes when I was 7 years old.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">Viețile oamenilor care nu mai sunt în viață</span>
+          <br />My grandfather <strong>was</strong> a gifted priest.
         </li>
       </ul>
     </div>
@@ -169,26 +113,17 @@ export function PastSimpleTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Past Simple</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>yesterday</em></li>
+        <li><em>last week / month / year / Monday</em></li>
+        <li><em>2 days / 3 months / 5 years ago</em></li>
+        <li><em>in 1786</em></li>
+        <li><em>when</em>, <em>then</em></li>
       </ul>
+
+      <p className="ps-text">
+        Aceste expresii trimit de obicei la un <strong>moment clar și încheiat în trecut</strong>.
+      </p>
     </div>
   );
 }

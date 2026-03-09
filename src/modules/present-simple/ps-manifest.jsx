@@ -79,18 +79,7 @@ export function buildPresentSimpleRoutes() {
         <PsRoomRoute sectionId={sectionId} />
       </React.Suspense>
     ),
-    getExtraSectionRoutes: (section, pages) => {
-      if (section.id === "uses" && pages?.sensoryTheory) {
-        return [
-          {
-            path: `${PS_BASE_PATH}/uses/theory-sensory`,
-            element: React.createElement(pages.sensoryTheory),
-          },
-        ];
-      }
-
-      return [];
-    },
+    getExtraSectionRoutes: () => [],
   });
 }
 
@@ -140,7 +129,7 @@ export const PRESENT_SIMPLE_MANIFEST = {
   status: "ready",
   order: 1,
   description:
-    "Teorie, 35 de camere de exerciții, cameră finală și badge. Escape Room, cu Lex Junior, dicționare și butoane de listen.",
+    "Teorie, camere de exerciții, cameră finală și badge pentru Present Simple.",
   basePath: PS_BASE_PATH,
   storagePrefix: STORAGE_PREFIX,
   roomsPerSection: PS_ROOMS_PER_SECTION,
@@ -161,8 +150,6 @@ export const PRESENT_SIMPLE_THEORY_CONFIG = defineTenseTheory({
     { sectionId: "negative", path: psTheoryPath("negative") },
     { sectionId: "interrogative", path: psTheoryPath("interrogative") },
     { sectionId: "uses", path: psTheoryPath("uses") },
-    // Extra sensory theory route for Uses (same section id).
-    { sectionId: "uses", path: `${PS_BASE_PATH}/uses/theory-sensory` },
     { sectionId: "time-expressions", path: psTheoryPath("time-expressions") },
   ],
 });

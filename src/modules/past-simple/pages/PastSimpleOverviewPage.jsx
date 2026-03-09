@@ -1,4 +1,3 @@
-// src/modules/past-simple/pages/PastSimpleOverviewPage.jsx
 import React from "react";
 import StandardTenseOverviewPage from "../../tenses/ui/StandardTenseOverviewPage.jsx";
 import { PAST_SIMPLE_BASE_PATH } from "../past-paths.js";
@@ -10,11 +9,6 @@ import {
   PastSimpleTimeExpressionsStructureBlock,
 } from "../components/PastSimpleStructureBlocks.jsx";
 
-/**
- * Past Simple – Overview
- *
- * Short recap + visual summary of the main structures.
- */
 const cards = [
   {
     key: "affirmative",
@@ -44,55 +38,113 @@ const cards = [
 ];
 
 const tableNode = (
-  <table className="overview-table">
+  <div className="lj-structure-box ps-structure-box">
+    <table className="overview-table">
     <thead>
       <tr>
-        <th className="ov-center">Pers</th>
-        <th>Affirmative</th>
-        <th>Negative</th>
-        <th>Interrogative</th>
+        <th className="ov-center">Nr/Pers</th>
+        <th>Afirmativ</th>
+        <th className="ov-center" colSpan={2}>
+          Negativ
+        </th>
+        <th>Interogativ</th>
+      </tr>
+      <tr>
+        <th />
+        <th />
+        <th>Forma lungă</th>
+        <th>Forma scurtă</th>
+        <th />
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td className="ov-center">I/He/She/It</td>
-        <td>
-          I <span className="ov-em">walked</span>
-        </td>
-        <td>
-          I <span className="ov-em ov-red">did not walk</span>
-        </td>
-        <td>
-          <span className="ov-em ov-red">Did</span> I walk?
+        <td className="ov-center">Sg. I</td>
+        <td>I walked</td>
+        <td>I <span className="ov-em ov-red">did not</span> walk</td>
+        <td>I <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> I walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">II</td>
+        <td>You walked</td>
+        <td>You <span className="ov-em ov-red">did not</span> walk</td>
+        <td>You <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> you walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">III</td>
+        <td>He walked</td>
+        <td>He <span className="ov-em ov-red">did not</span> walk</td>
+        <td>He <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> he walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" />
+        <td>She walked</td>
+        <td>She <span className="ov-em ov-red">did not</span> walk</td>
+        <td>She <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> she walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" />
+        <td>It walked</td>
+        <td>It <span className="ov-em ov-red">did not</span> walk</td>
+        <td>It <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> it walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">Pl. I</td>
+        <td>We walked</td>
+        <td>We <span className="ov-em ov-red">did not</span> walk</td>
+        <td>We <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> we walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">II</td>
+        <td>You walked</td>
+        <td>You <span className="ov-em ov-red">did not</span> walk</td>
+        <td>You <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> you walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">III</td>
+        <td>They walked</td>
+        <td>They <span className="ov-em ov-red">did not</span> walk</td>
+        <td>They <span className="ov-em ov-red">didn&apos;t</span> walk</td>
+        <td><span className="ov-em ov-red">Did</span> they walk?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" colSpan={5}>
+          <strong>Negativ – Interogativ</strong>
         </td>
       </tr>
       <tr>
-        <td className="ov-center">We/You/They</td>
-        <td>
-          They <span className="ov-em">played</span>
+        <td className="ov-center" colSpan={5}>
+          <span className="ov-em ov-red">Didn&apos;t</span> you walk?
         </td>
-        <td>
-          They <span className="ov-em ov-red">did not play</span>
-        </td>
-        <td>
-          <span className="ov-em ov-red">Did</span> they play?
+      </tr>
+      <tr>
+        <td className="ov-center" colSpan={5}>
+          <span className="ov-em ov-red">Didn&apos;t</span> he walk?
         </td>
       </tr>
     </tbody>
-  </table>
+    </table>
+  </div>
 );
 
 export default function PastSimpleOverviewPage() {
   return (
     <StandardTenseOverviewPage
       title="Past Simple – Prezentare generală"
-      lead="Scurtă recapitulare + structura de bază pentru Past Simple."
+      lead="Scurtă recapitulare + tabel complet al formelor pentru Past Simple."
       backLinkTo={PAST_SIMPLE_BASE_PATH}
       backLinkLabel="← Înapoi la modulul Past Simple"
       backLinkClassName="btn btn-soft past-back-link"
       cards={cards}
-      tableTitle="Tabel – formele de bază (scaffold)"
-      tableNote="Notă: acesta este un scaffold pentru Past Simple. Tabelul complet pentru toate persoanele va fi adăugat într-un sprint viitor."
+      tableTitle="Tabel – formele complete"
+      tableNote="Notă: cuvintele evidențiate în roșu sunt auxiliarele did, formele lungi și scurte de negativ și structura din negativ-interogativ."
       tableNode={tableNode}
     />
   );

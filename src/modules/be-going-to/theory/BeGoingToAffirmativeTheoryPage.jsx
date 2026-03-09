@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../be-core/theory-progress.js";
-import { BE_GOING_TO_BASE_PATH, beGoingToMapPath, beGoingToRoomPath, beGoingToOverviewPath } from "../be-paths.js";
+import {
+  BE_GOING_TO_BASE_PATH,
+  beGoingToMapPath,
+  beGoingToRoomPath,
+  beGoingToOverviewPath,
+} from "../be-paths.js";
 import TenseAffirmativeTheoryTemplate from "../../tenses/ui/TenseAffirmativeTheoryTemplate.jsx";
-import { ScaffoldAffirmativeSectionOne, ScaffoldAffirmativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "affirmative";
 
@@ -16,35 +21,64 @@ export default function BeGoingToAffirmativeTheoryPage() {
       backTo={BE_GOING_TO_BASE_PATH}
       backLabel="← Înapoi la modulul Be Going To"
       title="Be Going To – Afirmativ"
-      lead="Reguli, exemple și explicații pentru formarea Be Going To la afirmativ."
-      section1Intro={<>În această lecție păstrăm aceeași structură vizuală ca la <strong>Present Simple</strong>, dar o adaptăm pentru <strong>Be Going To</strong>.</>}
+      lead="Reguli, exemple și explicații pentru formarea structurii be going to la afirmativ."
+      section1Intro={
+        <>
+          La afirmativ, folosim <strong>to be</strong> la prezent
+          (<strong>am / is / are</strong>) + <strong>going to</strong> + verbul la
+          <strong> forma de bază (V1)</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldAffirmativeSectionOne
-          formula="Subiect + am / is / are + going to + verb"
-          examples={[
-            "Example 1 – placeholder model.",
-            "Example 2 – placeholder model.",
-            "Example 3 – placeholder model.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + am / is / are + going to + V1</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I am going to eat.</li>
+              <li>She is going to study tonight.</li>
+              <li>They are going to play tomorrow.</li>
+            </ul>
+          </div>
+        </>
       }
       section2Title="Detalii importante"
-      section2Intro={<>Acest al doilea card rămâne obligatoriu în toate timpurile, ca la Present Simple.</>}
-      section2Content={
-        <ScaffoldAffirmativeSectionTwo
-          bullets={[
-            "structura completă pentru toate persoanele",
-            "forme speciale sau excepții",
-            "spelling / participiu / auxiliare, după caz",
-            "mini-patterns utile pentru exerciții",
-          ]}
-        />
+      section2Intro={
+        <>
+          Auxiliarul <strong>to be</strong> se schimbă după persoană, dar verbul
+          principal rămâne mereu la <strong>V1</strong>.
+        </>
       }
-      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și pentru Be Going To.</>}
+      section2Content={
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Forme corecte</h3>
+            <ul className="ps-mini-list">
+              <li><strong>I am</strong> going to work</li>
+              <li><strong>He / She / It is</strong> going to work</li>
+              <li><strong>We / You / They are</strong> going to work</li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Observații utile</h3>
+            <ul className="ps-mini-list">
+              <li>după <strong>going to</strong> folosim mereu <strong>V1</strong></li>
+              <li>nu folosim <strong>will</strong> în această structură</li>
+              <li>structura exprimă un plan sau o intenție legată de viitor</li>
+            </ul>
+          </div>
+        </div>
+      }
+      mistakesIntro={<>Aici apar des greșeli legate de verbul to be sau de forma verbului principal.</>}
       mistakes={[
-        { wrong: "Wrong example 1.", correct: "Correct example 1." },
-        { wrong: "Wrong example 2.", correct: "Correct example 2." },
-        { wrong: "Wrong example 3.", correct: "Correct example 3." },
+        { wrong: "She going to study tonight.", correct: "She is going to study tonight." },
+        { wrong: "I am going to studies tonight.", correct: "I am going to study tonight." },
+        { wrong: "They is going to play tomorrow.", correct: "They are going to play tomorrow." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

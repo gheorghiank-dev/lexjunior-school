@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../present-core/theory-progress.js";
-import { PRESENT_PERFECT_CONTINUOUS_BASE_PATH, presentPerfectContinuousMapPath, presentPerfectContinuousRoomPath, presentPerfectContinuousOverviewPath } from "../present-paths.js";
+import {
+  PRESENT_PERFECT_CONTINUOUS_BASE_PATH,
+  presentPerfectContinuousMapPath,
+  presentPerfectContinuousRoomPath,
+  presentPerfectContinuousOverviewPath,
+} from "../present-paths.js";
 import TenseInterrogativeTheoryTemplate from "../../tenses/ui/TenseInterrogativeTheoryTemplate.jsx";
-import { ScaffoldInterrogativeSectionOne, ScaffoldInterrogativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "interrogative";
 
@@ -17,32 +22,58 @@ export default function PresentPerfectContinuousInterrogativeTheoryPage() {
       backLabel="← Înapoi la modulul Present Perfect Continuous"
       title="Present Perfect Continuous – Interogativ"
       lead="Reguli, exemple și explicații pentru formarea Present Perfect Continuous la interogativ."
-      section1Intro={<>La interogativ, toate timpurile trebuie să păstreze aceeași arhitectură vizuală de bază.</>}
+      section1Intro={
+        <>
+          La interogativ, auxiliarul <strong>have / has</strong> trece în fața subiectului.
+        </>
+      }
       section1Content={
-        <ScaffoldInterrogativeSectionOne
-          formula="Have / Has + subiect + been + verb-ing + ?"
-          examples={[
-            "Question 1 – placeholder model?",
-            "Question 2 – placeholder model?",
-            "Question 3 – placeholder model?",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">Have / Has + S + been + V1-ing?</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>Have you been waiting for a long time?</li>
+              <li>Has she been studying since morning?</li>
+              <li>Have they been playing outside?</li>
+            </ul>
+          </div>
+        </>
       }
-      section2Intro={<>Al doilea card este rezervat pentru răspunsuri scurte, wh-questions sau alte modele utile.</>}
+      section2Intro={
+        <>
+          La acest timp sunt foarte importante răspunsurile scurte.
+        </>
+      }
       section2Content={
-        <ScaffoldInterrogativeSectionTwo
-          questionAnswers={[
-            { question: "Question 1?", answer: "Yes / No answer 1." },
-            { question: "Question 2?", answer: "Yes / No answer 2." },
-            { question: "Question 3?", answer: "Yes / No answer 3." },
-          ]}
-        />
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Răspunsuri scurte afirmative</h3>
+            <ul className="ps-mini-list">
+              <li>Yes, I / we / you / they <strong>have</strong>.</li>
+              <li>Yes, he / she / it <strong>has</strong>.</li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Răspunsuri scurte negative</h3>
+            <ul className="ps-mini-list">
+              <li>No, I / we / you / they <strong>haven&apos;t</strong>.</li>
+              <li>No, he / she / it <strong>hasn&apos;t</strong>.</li>
+              <li>Negative-interrogative: <strong>Haven&apos;t you been talking?</strong> / <strong>Hasn&apos;t he been talking?</strong></li>
+            </ul>
+          </div>
+        </div>
       }
-      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și aici.</>}
+      mistakesIntro={<>Aici sunt cele mai frecvente greșeli la interogativ.</>}
       mistakes={[
-        { wrong: "Wrong interrogative example 1.", correct: "Correct interrogative example 1." },
-        { wrong: "Wrong interrogative example 2.", correct: "Correct interrogative example 2." },
-        { wrong: "Wrong interrogative example 3.", correct: "Correct interrogative example 3." },
+        { wrong: "Has she been study since morning?", correct: "Has she been studying since morning?" },
+        { wrong: "Have been you waiting long?", correct: "Have you been waiting long?" },
+        { wrong: "Do they have been working?", correct: "Have they been working?" },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

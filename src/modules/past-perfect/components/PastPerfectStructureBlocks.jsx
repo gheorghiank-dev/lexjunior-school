@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Past Perfect – canonical structure blocks
- *
- * These blocks are shared between the Past Perfect overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function PastPerfectAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,38 +7,28 @@ export function PastPerfectAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>had</strong> + <strong>V3</strong>
         </span>
       </p>
 
       <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
+        În Past Perfect, toate persoanele folosesc același auxiliar:
+        <strong> had</strong>.
       </p>
 
       <ul className="ps-mini-list">
         <li>
-          I <strong>visited</strong> my grandparents yesterday.
+          <strong>verbe regulate</strong>: V1 + <span className="rule-highlight-emphasis">-ed</span>
         </li>
         <li>
-          She <strong>watched</strong> a film last night.
+          <strong>verbe neregulate</strong>: forma a treia, adică <span className="rule-highlight-emphasis">V3</span>
         </li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
+        <li>I <strong>had finished</strong> the housework before I went to the cinema.</li>
+        <li>She <strong>had walked</strong> home before it started raining.</li>
+        <li>They <strong>had eaten</strong> before the guests arrived.</li>
       </ul>
     </div>
   );
@@ -58,27 +41,18 @@ export function PastPerfectNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>had not</strong> (<strong>hadn&apos;t</strong>) + <strong>V3</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>had not finished</strong>.</li>
+        <li>She <strong>hadn&apos;t walked</strong>.</li>
+        <li>They <strong>hadn&apos;t eaten</strong>.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        După <strong>had / hadn&apos;t</strong>, verbul principal rămâne în <span className="rule-highlight-emphasis">V3</span>.
       </p>
     </div>
   );
@@ -91,32 +65,19 @@ export function PastPerfectInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Had</strong> + subject + <strong>V3</strong> + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Had</strong> I <strong>walked</strong>?</li>
+        <li><strong>Had</strong> she <strong>finished</strong>?</li>
+        <li><strong>Had</strong> they <strong>eaten</strong>?</li>
       </ul>
 
       <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
+        Și în întrebări, verbul principal rămâne în <span className="rule-highlight-emphasis">V3</span>.
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
-      </ul>
     </div>
   );
 }
@@ -128,36 +89,16 @@ export function PastPerfectUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
+          <span className="rule-highlight-emphasis">O acțiune care a avut loc înaintea altei acțiuni din trecut</span>
+          <br />I <strong>had finished</strong> the housework before I went to the cinema.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
+          <span className="rule-highlight-emphasis">O acțiune care a avut loc înaintea unui moment specificat din trecut</span>
+          <br />By 8 o&apos;clock, she <strong>had already left</strong>.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">O acțiune terminată în trecut, al cărei rezultat era vizibil tot în trecut</span>
+          <br />Mum <strong>had just finished</strong> baking a cake. It smelled lovely.
         </li>
       </ul>
     </div>
@@ -169,26 +110,17 @@ export function PastPerfectTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Past Perfect</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>before</em></li>
+        <li><em>after</em></li>
+        <li><em>already</em>, <em>just</em>, <em>never</em></li>
+        <li><em>for</em>, <em>since</em>, <em>till / until</em></li>
+        <li><em>when</em>, <em>by</em>, <em>by the time</em></li>
       </ul>
+
+      <p className="ps-text">
+        Aceste expresii te ajută să observi că o acțiune s-a petrecut <strong>mai devreme decât un alt moment din trecut</strong>.
+      </p>
     </div>
   );
 }

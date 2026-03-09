@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../be-core/theory-progress.js";
-import { BE_GOING_TO_BASE_PATH, beGoingToMapPath, beGoingToRoomPath, beGoingToOverviewPath } from "../be-paths.js";
+import {
+  BE_GOING_TO_BASE_PATH,
+  beGoingToMapPath,
+  beGoingToRoomPath,
+  beGoingToOverviewPath,
+} from "../be-paths.js";
 import TenseNegativeTheoryTemplate from "../../tenses/ui/TenseNegativeTheoryTemplate.jsx";
-import { ScaffoldNegativeSectionOne, ScaffoldNegativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "negative";
 
@@ -16,31 +21,57 @@ export default function BeGoingToNegativeTheoryPage() {
       backTo={BE_GOING_TO_BASE_PATH}
       backLabel="← Înapoi la modulul Be Going To"
       title="Be Going To – Negativ"
-      lead="Reguli, exemple și explicații pentru formarea Be Going To la negativ."
-      section1Intro={<>La negativ, păstrăm aceeași schemă de 4 carduri ca la Present Simple.</>}
+      lead="Reguli, exemple și explicații pentru formarea structurii be going to la negativ."
+      section1Intro={
+        <>
+          La negativ, punem <strong>not</strong> după verbul <strong>to be</strong>:
+          <strong> am / is / are + not + going to + V1</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldNegativeSectionOne
-          formula="Subiect + am / is / are + not + going to + verb"
-          examples={[
-            "Example 1 – negative placeholder.",
-            "Example 2 – negative placeholder.",
-            "Example 3 – negative placeholder.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + am / is / are + not + going to + V1</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I am not going to eat.</li>
+              <li>He is not going to come.</li>
+              <li>They are not going to stay.</li>
+            </ul>
+          </div>
+        </>
       }
-      section2Intro={<>Al doilea card explică formele lungi, formele scurte și observațiile utile pentru exerciții.</>}
+      section2Intro={<>În vorbire și în exerciții apar foarte des formele lungi și formele scurte.</>}
       section2Content={
-        <ScaffoldNegativeSectionTwo
-          longForm={["long form 1", "long form 2"]}
-          shortForm={["short form 1", "short form 2"]}
-          notes={["verbul principal păstrează forma corectă", "auxiliarul se schimbă după regulile timpului"]}
-        />
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Forme lungi</h3>
+            <ul className="ps-mini-list">
+              <li>I <strong>am not</strong> going to eat</li>
+              <li>He <strong>is not</strong> going to eat</li>
+              <li>They <strong>are not</strong> going to eat</li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Forme scurte</h3>
+            <ul className="ps-mini-list">
+              <li>I <strong>&apos;m not</strong> going to eat</li>
+              <li>He <strong>isn&apos;t</strong> going to eat</li>
+              <li>They <strong>aren&apos;t</strong> going to eat</li>
+            </ul>
+          </div>
+        </div>
       }
-      mistakesIntro={<>Aici păstrăm aceeași zonă vizuală pentru greșeli frecvente.</>}
+      mistakesIntro={<>Aici apar frecvent greșeli de ordine a cuvintelor sau de alegere a auxiliarului.</>}
       mistakes={[
-        { wrong: "Wrong negative example 1.", correct: "Correct negative example 1." },
-        { wrong: "Wrong negative example 2.", correct: "Correct negative example 2." },
-        { wrong: "Wrong negative example 3.", correct: "Correct negative example 3." },
+        { wrong: "She not is going to study.", correct: "She is not going to study." },
+        { wrong: "They aren&apos;t going study.", correct: "They aren&apos;t going to study." },
+        { wrong: "I don&apos;t am going to go.", correct: "I am not going to go." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

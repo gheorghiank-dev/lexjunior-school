@@ -22,10 +22,10 @@ export default function PcAffirmativeTheoryPage() {
       backTo={PC_BASE_PATH}
       backLabel="← Înapoi la modulul Present Continuous"
       title="Present Continuous – Afirmativ"
-      lead="Reguli, exemple și explicații pentru formarea Present Continuous la afirmativ."
+      lead="Reguli, exemple și explicații clare pentru formarea lui Present Continuous la afirmativ."
       section1Intro={
         <>
-          În Present Continuous, la afirmativ, folosim <strong>subiect + am / is / are + verb-ing</strong>.
+          La afirmativ, Present Continuous se formează cu <strong>subiect + am / are / is + verb + -ing</strong>.
         </>
       }
       section1Content={
@@ -33,60 +33,75 @@ export default function PcAffirmativeTheoryPage() {
           <PcAffirmativeStructureBlock />
           <div className="example-box">
             <h3>Exemple</h3>
-            <p className="ps-text" style={{ marginBottom: "0.75rem" }}>
-              Ascultă propozițiile și repetă cu voce tare.
-            </p>
             <ul className="ps-list">
-              <li><LexTtsButton text="I am doing my homework now." /> I am doing my homework now.</li>
-              <li><LexTtsButton text="She is watching TV at the moment." /> She is watching TV at the moment.</li>
-              <li><LexTtsButton text="They are playing football in the park." /> They are playing football in the park.</li>
-              <li><LexTtsButton text="We are studying English this evening." /> We are studying English this evening.</li>
-              <li><LexTtsButton text="You are listening to music right now." /> You are listening to music right now.</li>
+              <li><LexTtsButton text="He is working." /> He is working.</li>
+              <li><LexTtsButton text="I am dancing." /> I am dancing.</li>
+              <li><LexTtsButton text="She is lying." /> She is lying.</li>
+              <li><LexTtsButton text="He is stopping." /> He is stopping.</li>
+              <li><LexTtsButton text="You are travelling." /> You are travelling.</li>
             </ul>
           </div>
         </>
       }
-      section2Title="Cum formăm verbul cu -ing"
+      section2Title="Cum adăugăm terminația -ing"
       section2Intro={
         <>
-          De obicei adăugăm <strong>-ing</strong>, dar există câteva reguli de scriere importante.
+          La toate persoanele folosim verbul cu <strong>-ing</strong>, dar forma scrisă urmează câteva reguli importante.
         </>
       }
       section2Content={
         <div className="ps-rules-grid">
           <div>
-            <h3 className="ps-rules-title">Regula 1 – Doar + ing</h3>
-            <p className="ps-text">Pentru majoritatea verbelor, doar adăugăm <strong>-ing</strong>.</p>
-            <ul className="ps-list"><li>play → <strong>playing</strong></li><li>work → <strong>working</strong></li><li>read → <strong>reading</strong></li></ul>
+            <h3 className="ps-rules-title">1. Doar adăugăm -ing</h3>
+            <ul className="ps-list">
+              <li>work → <strong>working</strong></li>
+            </ul>
           </div>
           <div>
-            <h3 className="ps-rules-title">Regula 2 – Verbe care se termină în -e</h3>
-            <p className="ps-text">La verbele care se termină în <strong>-e</strong>, de obicei renunțăm la <strong>-e</strong> și adăugăm <strong>-ing</strong>.</p>
-            <ul className="ps-list"><li>make → <strong>making</strong></li><li>write → <strong>writing</strong></li><li>drive → <strong>driving</strong></li></ul>
+            <h3 className="ps-rules-title">2. Dacă verbul se termină în -e</h3>
+            <ul className="ps-list">
+              <li>dance → <strong>dancing</strong></li>
+              <li>Excepție: see → <strong>seeing</strong></li>
+            </ul>
           </div>
           <div>
-            <h3 className="ps-rules-title">Regula 3 – Consoană dublă</h3>
-            <p className="ps-text">Dacă verbul are modelul <strong>consoană–vocală–consoană</strong>, de multe ori dublăm ultima consoană.</p>
-            <ul className="ps-list"><li>stop → <strong>stopping</strong></li><li>run → <strong>running</strong></li><li>swim → <strong>swimming</strong></li></ul>
+            <h3 className="ps-rules-title">3. -ie devine -y + ing</h3>
+            <ul className="ps-list">
+              <li>lie → <strong>lying</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="ps-rules-title">4. Model CVC: dublăm consoana finală</h3>
+            <ul className="ps-list">
+              <li>stop → <strong>stopping</strong></li>
+              <li>Excepții: open → <strong>opening</strong>, throw → <strong>throwing</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="ps-rules-title">5. Uneori se dublează -l</h3>
+            <ul className="ps-list">
+              <li>travel → <strong>travelling</strong></li>
+              <li>Excepție: feel → <strong>feeling</strong></li>
+            </ul>
           </div>
         </div>
       }
       mistakesIntro={
         <>
-          Cele mai frecvente greșeli apar când uităm de <strong>to be</strong> sau scriem greșit forma cu <strong>-ing</strong>.
+          Cele mai frecvente greșeli apar când lipsește auxiliarul <strong>to be</strong> sau când verbul nu este pus corect la forma cu <strong>-ing</strong>.
         </>
       }
       mistakes={[
         { wrong: "She watching TV.", correct: "She is watching TV." },
-        { wrong: "They are play football.", correct: "They are playing football." },
-        { wrong: "He is runing fast.", correct: "He is running fast." },
-        { wrong: "I am study English now.", correct: "I am studying English now." },
+        { wrong: "I am dance now.", correct: "I am dancing now." },
+        { wrong: "He is lieing.", correct: "He is lying." },
+        { wrong: "They are stoping.", correct: "They are stopping." },
       ]}
-      nextStepsDescription="Dacă regula este clară, poți merge la prima cameră, la hartă sau la recapitulare."
+      nextStepsDescription="Dacă regula este clară, poți merge la prima cameră, la hartă sau la overview."
       nextStepActions={[
         { to: pcRoomPath(SECTION_ID, 1), label: "Camera 1 – Afirmativ" },
         { to: pcMapPath(), label: "Harta modulului" },
-        { to: pcOverviewPath(), label: "Recapitulare" },
+        { to: pcOverviewPath(), label: "Recapitulare / overview" },
       ]}
     />
   );

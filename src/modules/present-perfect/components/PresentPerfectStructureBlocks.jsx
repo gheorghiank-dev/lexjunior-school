@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Present Perfect – canonical structure blocks
- *
- * These blocks are shared between the Present Perfect overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function PresentPerfectAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,39 +7,23 @@ export function PresentPerfectAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>have / has</strong> + <strong>V3</strong>
         </span>
       </p>
 
       <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
+        <strong>Have</strong> is used with <strong>I / you / we / they</strong>, and <strong>has</strong> is used with <strong>he / she / it</strong>.
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          I <strong>visited</strong> my grandparents yesterday.
-        </li>
-        <li>
-          She <strong>watched</strong> a film last night.
-        </li>
+        <li>I <strong>have finished</strong> my homework.</li>
+        <li>She <strong>has just baked</strong> a cake.</li>
+        <li>They <strong>have lived</strong> here for ten years.</li>
       </ul>
 
       <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
+        The main verb is in the <span className="rule-highlight-emphasis">past participle</span> form: regular verbs usually end in <strong>-ed</strong>, while irregular verbs use the <strong>3rd form (V3)</strong>.
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
-      </ul>
     </div>
   );
 }
@@ -58,27 +35,20 @@ export function PresentPerfectNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>have / has</strong> + <strong>not</strong> + <strong>V3</strong>
         </span>
       </p>
 
+      <p className="ps-text">Short forms: <strong>haven&apos;t</strong> / <strong>hasn&apos;t</strong></p>
+
       <ul className="ps-mini-list">
-        <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
-        </li>
-        <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
-        </li>
-        <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
-        </li>
+        <li>I <strong>haven&apos;t seen</strong> this film.</li>
+        <li>He <strong>hasn&apos;t finished</strong> yet.</li>
+        <li>We <strong>haven&apos;t visited</strong> Rome.</li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        After <strong>have / has / haven&apos;t / hasn&apos;t</strong>, the main verb stays in <span className="rule-highlight-emphasis">V3</span>.
       </p>
     </div>
   );
@@ -91,31 +61,22 @@ export function PresentPerfectInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Have / Has</strong> + subject + <strong>V3</strong> + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
-        </li>
-        <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
-        </li>
+        <li><strong>Have</strong> you <strong>finished</strong>?</li>
+        <li><strong>Has</strong> she <strong>called</strong> you?</li>
       </ul>
 
-      <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
-      </p>
+      <p className="ps-text">Short answers:</p>
 
       <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
+        <li><strong>Yes, I / we / you / they have.</strong></li>
+        <li><strong>Yes, he / she / it has.</strong></li>
+        <li><strong>No, I / we / you / they haven&apos;t.</strong></li>
+        <li><strong>No, he / she / it hasn&apos;t.</strong></li>
       </ul>
     </div>
   );
@@ -128,36 +89,16 @@ export function PresentPerfectUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
+          <span className="rule-highlight-emphasis">Actions that started in the past and continue now</span>:<br />I <strong>have lived</strong> here since 2010.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
+          <span className="rule-highlight-emphasis">Recent actions with a visible result in the present</span>:<br />Mum <strong>has just baked</strong> a cake.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
+          <span className="rule-highlight-emphasis">Actions at an unspecified moment in the past</span>:<br />I <strong>have broken</strong> my leg.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">Actions in an unfinished time period</span>:<br />I <strong>have called</strong> my friend twice today.
         </li>
       </ul>
     </div>
@@ -170,24 +111,15 @@ export function PresentPerfectTimeExpressionsStructureBlock() {
       <h3 className="lj-structure-title">Common time expressions</h3>
 
       <p className="ps-text">
-        These expressions are very common with <strong>Present Perfect</strong>{" "}
-        because they show a finished time in the past:
+        These expressions often connect the past with <strong>now</strong> or show that the time period is <strong>not finished</strong>.
       </p>
 
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>for</em>, <em>since</em>, <em>how long</em></li>
+        <li><em>lately</em>, <em>recently</em></li>
+        <li><em>already</em>, <em>yet</em>, <em>just</em></li>
+        <li><em>ever</em>, <em>never</em>, <em>so far</em>, <em>still</em></li>
+        <li><em>today</em>, <em>this morning</em>, <em>this week</em>, <em>this month</em>, <em>this year</em></li>
       </ul>
     </div>
   );

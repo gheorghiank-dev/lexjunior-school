@@ -1,4 +1,3 @@
-// src/modules/be-going-to/pages/BeGoingToOverviewPage.jsx
 import React from "react";
 import StandardTenseOverviewPage from "../../tenses/ui/StandardTenseOverviewPage.jsx";
 import { BE_GOING_TO_BASE_PATH } from "../be-paths.js";
@@ -10,11 +9,6 @@ import {
   BeGoingToTimeExpressionsStructureBlock,
 } from "../components/BeGoingToStructureBlocks.jsx";
 
-/**
- * Be Going To – Overview
- *
- * Short recap + visual summary of the main structures.
- */
 const cards = [
   {
     key: "affirmative",
@@ -44,55 +38,105 @@ const cards = [
 ];
 
 const tableNode = (
-  <table className="overview-table">
+  <div className="lj-structure-box ps-structure-box">
+    <table className="overview-table">
     <thead>
       <tr>
-        <th className="ov-center">Pers</th>
-        <th>Affirmative</th>
-        <th>Negative</th>
-        <th>Interrogative</th>
+        <th className="ov-center">Nr/Pers</th>
+        <th>Afirmativ</th>
+        <th className="ov-center" colSpan={2}>Negativ</th>
+        <th>Interogativ</th>
+      </tr>
+      <tr>
+        <th />
+        <th />
+        <th>Forma lungă</th>
+        <th>Forma scurtă</th>
+        <th />
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td className="ov-center">I/He/She/It</td>
-        <td>
-          I <span className="ov-em">walked</span>
-        </td>
-        <td>
-          I <span className="ov-em ov-red">did not walk</span>
-        </td>
-        <td>
-          <span className="ov-em ov-red">Did</span> I walk?
-        </td>
+        <td className="ov-center">Sg. I</td>
+        <td>I <span className="ov-em ov-red">am going to</span> eat</td>
+        <td>I <span className="ov-em ov-red">am not going to</span> eat</td>
+        <td>I <span className="ov-em ov-red">&apos;m not going to</span> eat</td>
+        <td><span className="ov-em ov-red">Am</span> I going to eat?</td>
       </tr>
       <tr>
-        <td className="ov-center">We/You/They</td>
-        <td>
-          They <span className="ov-em">played</span>
-        </td>
-        <td>
-          They <span className="ov-em ov-red">did not play</span>
-        </td>
-        <td>
-          <span className="ov-em ov-red">Did</span> they play?
-        </td>
+        <td className="ov-center">II</td>
+        <td>You <span className="ov-em ov-red">are going to</span> eat</td>
+        <td>You <span className="ov-em ov-red">are not going to</span> eat</td>
+        <td>You <span className="ov-em ov-red">aren&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Are</span> you going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">III</td>
+        <td>He <span className="ov-em ov-red">is going to</span> eat</td>
+        <td>He <span className="ov-em ov-red">is not going to</span> eat</td>
+        <td>He <span className="ov-em ov-red">isn&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Is</span> he going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" />
+        <td>She <span className="ov-em ov-red">is going to</span> eat</td>
+        <td>She <span className="ov-em ov-red">is not going to</span> eat</td>
+        <td>She <span className="ov-em ov-red">isn&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Is</span> she going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" />
+        <td>It <span className="ov-em ov-red">is going to</span> eat</td>
+        <td>It <span className="ov-em ov-red">is not going to</span> eat</td>
+        <td>It <span className="ov-em ov-red">isn&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Is</span> it going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">Pl. I</td>
+        <td>We <span className="ov-em ov-red">are going to</span> eat</td>
+        <td>We <span className="ov-em ov-red">are not going to</span> eat</td>
+        <td>We <span className="ov-em ov-red">aren&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Are</span> we going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">II</td>
+        <td>You <span className="ov-em ov-red">are going to</span> eat</td>
+        <td>You <span className="ov-em ov-red">are not going to</span> eat</td>
+        <td>You <span className="ov-em ov-red">aren&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Are</span> you going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center">III</td>
+        <td>They <span className="ov-em ov-red">are going to</span> eat</td>
+        <td>They <span className="ov-em ov-red">are not going to</span> eat</td>
+        <td>They <span className="ov-em ov-red">aren&apos;t going to</span> eat</td>
+        <td><span className="ov-em ov-red">Are</span> they going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" colSpan={5}><strong>Negative – Interrogative</strong></td>
+      </tr>
+      <tr>
+        <td className="ov-center" colSpan={5}><span className="ov-em ov-red">Aren&apos;t</span> you going to eat?</td>
+      </tr>
+      <tr>
+        <td className="ov-center" colSpan={5}><span className="ov-em ov-red">Isn&apos;t</span> he going to eat?</td>
       </tr>
     </tbody>
-  </table>
+    </table>
+  </div>
 );
 
 export default function BeGoingToOverviewPage() {
   return (
     <StandardTenseOverviewPage
       title="Be Going To – Prezentare generală"
-      lead="Scurtă recapitulare + structura de bază pentru Be Going To."
+      lead="Scurtă recapitulare + tabel complet al formelor."
       backLinkTo={BE_GOING_TO_BASE_PATH}
       backLinkLabel="← Înapoi la modulul Be Going To"
       backLinkClassName="btn btn-soft past-back-link"
       cards={cards}
-      tableTitle="Tabel – formele de bază (scaffold)"
-      tableNote="Notă: acesta este un scaffold pentru Be Going To. Tabelul complet pentru toate persoanele va fi adăugat într-un sprint viitor."
+      tableTitle="Tabel – formele complete"
+      tableNote="Notă: în roșu sunt evidențiate structurile de bază și formele negative lungi și scurte."
       tableNode={tableNode}
     />
   );

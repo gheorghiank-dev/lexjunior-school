@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import { FUTURE_CONTINUOUS_BASE_PATH, futureContinuousMapPath, futureContinuousRoomPath, futureContinuousOverviewPath } from "../future-paths.js";
+import {
+  FUTURE_CONTINUOUS_BASE_PATH,
+  futureContinuousMapPath,
+  futureContinuousOverviewPath,
+  futureContinuousRoomPath,
+} from "../future-paths.js";
 import TenseAffirmativeTheoryTemplate from "../../tenses/ui/TenseAffirmativeTheoryTemplate.jsx";
-import { ScaffoldAffirmativeSectionOne, ScaffoldAffirmativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "affirmative";
 
@@ -17,34 +22,60 @@ export default function FutureContinuousAffirmativeTheoryPage() {
       backLabel="← Înapoi la modulul Future Continuous"
       title="Future Continuous – Afirmativ"
       lead="Reguli, exemple și explicații pentru formarea Future Continuous la afirmativ."
-      section1Intro={<>În această lecție păstrăm aceeași structură vizuală ca la <strong>Present Simple</strong>, dar o adaptăm pentru <strong>Future Continuous</strong>.</>}
+      section1Intro={
+        <>
+          La afirmativ, Future Continuous se formează cu <strong>will / &apos;ll</strong> + <strong>be</strong> + verbul cu terminația <strong>-ing</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldAffirmativeSectionOne
-          formula="Subiect + will be + verb-ing"
-          examples={[
-            "Example 1 – placeholder model.",
-            "Example 2 – placeholder model.",
-            "Example 3 – placeholder model.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + will / &apos;ll + be + V1-ing</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I will be walking.</li>
+              <li>She&apos;ll be studying at 8 o&apos;clock tomorrow.</li>
+              <li>They will be travelling this time next week.</li>
+            </ul>
+          </div>
+        </>
       }
       section2Title="Detalii importante"
-      section2Intro={<>Acest al doilea card rămâne obligatoriu în toate timpurile, ca la Present Simple.</>}
-      section2Content={
-        <ScaffoldAffirmativeSectionTwo
-          bullets={[
-            "structura completă pentru toate persoanele",
-            "forme speciale sau excepții",
-            "spelling / participiu / auxiliare, după caz",
-            "mini-patterns utile pentru exerciții",
-          ]}
-        />
+      section2Intro={
+        <>
+          Același model se folosește cu toate persoanele. Verbul principal rămâne la forma de <strong>ing</strong>.
+        </>
       }
-      mistakesIntro={<>Cardul de greșeli frecvente rămâne standard și pentru Future Continuous.</>}
+      section2Content={
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Observații de bază</h3>
+            <ul className="ps-mini-list">
+              <li>folosim mereu <strong>will + be</strong></li>
+              <li>după <strong>be</strong> urmează verbul cu <strong>-ing</strong></li>
+              <li>putem folosi forma scurtă <strong>&apos;ll</strong></li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Ce exprimă</h3>
+            <ul className="ps-mini-list">
+              <li>o acțiune care va fi în desfășurare în viitor</li>
+              <li>accentul cade pe durată / desfășurare</li>
+              <li>apare adesea cu un moment viitor clar precizat</li>
+            </ul>
+          </div>
+        </div>
+      }
+      mistakesIntro={<>Aici apar frecvent greșeli legate de lipsa lui <strong>be</strong> sau de folosirea greșită a verbului principal.</>}
       mistakes={[
-        { wrong: "Wrong example 1.", correct: "Correct example 1." },
-        { wrong: "Wrong example 2.", correct: "Correct example 2." },
-        { wrong: "Wrong example 3.", correct: "Correct example 3." },
+        { wrong: "She will studying at 6.", correct: "She will be studying at 6." },
+        { wrong: "I&apos;ll be walk tomorrow.", correct: "I&apos;ll be walking tomorrow." },
+        { wrong: "They will be travel tonight.", correct: "They will be travelling tonight." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

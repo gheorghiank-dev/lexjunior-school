@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../past-perfect-core/theory-progress.js";
-import { PAST_PERFECT_BASE_PATH, pastPerfectMapPath, pastPerfectRoomPath, pastPerfectOverviewPath } from "../past-perfect-paths.js";
+import {
+  PAST_PERFECT_BASE_PATH,
+  pastPerfectMapPath,
+  pastPerfectRoomPath,
+  pastPerfectOverviewPath,
+} from "../past-perfect-paths.js";
 import TenseNegativeTheoryTemplate from "../../tenses/ui/TenseNegativeTheoryTemplate.jsx";
-import { ScaffoldNegativeSectionOne, ScaffoldNegativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "negative";
 
@@ -17,30 +22,55 @@ export default function PastPerfectNegativeTheoryPage() {
       backLabel="← Înapoi la modulul Past Perfect"
       title="Past Perfect – Negativ"
       lead="Reguli, exemple și explicații pentru formarea Past Perfect la negativ."
-      section1Intro={<>La negativ, păstrăm aceeași schemă de 4 carduri ca la Present Simple.</>}
+      section1Intro={
+        <>
+          La negativ, adăugăm <strong>not</strong> după auxiliarul <strong>had</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldNegativeSectionOne
-          formula="Subiect + had not (hadn't) + participiul trecut"
-          examples={[
-            "Example 1 – negative placeholder.",
-            "Example 2 – negative placeholder.",
-            "Example 3 – negative placeholder.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + had + not + V3</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I had not walked before the rain started.</li>
+              <li>She hadn&apos;t finished the test when the bell rang.</li>
+              <li>They hadn&apos;t eaten before the guests arrived.</li>
+            </ul>
+          </div>
+        </>
       }
-      section2Intro={<>Al doilea card explică formele lungi, formele scurte și observațiile utile pentru exerciții.</>}
+      section2Intro={<>Trebuie să știi atât formele lungi, cât și forma scurtă.</>}
       section2Content={
-        <ScaffoldNegativeSectionTwo
-          longForm={["long form 1", "long form 2"]}
-          shortForm={["short form 1", "short form 2"]}
-          notes={["verbul principal păstrează forma corectă", "auxiliarul se schimbă după regulile timpului"]}
-        />
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Forme lungi</h3>
+            <ul className="ps-mini-list">
+              <li>I / you / he / she / it / we / they <strong>had not</strong> walked</li>
+              <li>I / you / he / she / it / we / they <strong>had not</strong> eaten</li>
+              <li>verbul principal rămâne în <strong>V3</strong></li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Formă scurtă și note</h3>
+            <ul className="ps-mini-list">
+              <li><strong>had not → hadn&apos;t</strong></li>
+              <li>toate persoanele folosesc aceeași contracție</li>
+              <li>după <strong>hadn&apos;t</strong>, verbul rămâne în <strong>V3</strong></li>
+            </ul>
+          </div>
+        </div>
       }
-      mistakesIntro={<>Aici păstrăm aceeași zonă vizuală pentru greșeli frecvente.</>}
+      mistakesIntro={<>Aici apar frecvent confuzii între V2 și V3 sau între had și didn&apos;t.</>}
       mistakes={[
-        { wrong: "Wrong negative example 1.", correct: "Correct negative example 1." },
-        { wrong: "Wrong negative example 2.", correct: "Correct negative example 2." },
-        { wrong: "Wrong negative example 3.", correct: "Correct negative example 3." },
+        { wrong: "She didn&apos;t finished before I arrived.", correct: "She hadn&apos;t finished before I arrived." },
+        { wrong: "He hadn&apos;t ate anything.", correct: "He hadn&apos;t eaten anything." },
+        { wrong: "They had not went home.", correct: "They had not gone home." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

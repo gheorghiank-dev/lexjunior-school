@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
 import { FUTURE_PERFECT_CONTINUOUS_BASE_PATH, futurePerfectContinuousMapPath, futurePerfectContinuousRoomPath, futurePerfectContinuousOverviewPath } from "../future-paths.js";
 import TenseNegativeTheoryTemplate from "../../tenses/ui/TenseNegativeTheoryTemplate.jsx";
-import { ScaffoldNegativeSectionOne, ScaffoldNegativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "negative";
 
@@ -17,30 +17,55 @@ export default function FuturePerfectContinuousNegativeTheoryPage() {
       backLabel="← Înapoi la modulul Future Perfect Continuous"
       title="Future Perfect Continuous – Negativ"
       lead="Reguli, exemple și explicații pentru formarea Future Perfect Continuous la negativ."
-      section1Intro={<>La negativ, păstrăm aceeași schemă de 4 carduri ca la Present Simple.</>}
+      section1Intro={
+        <>
+          La negativ folosim <strong>will not + have + been + V1-ing</strong>. Forma scurtă este <strong>won&apos;t</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldNegativeSectionOne
-          formula="Subiect + will not have been + verb-ing"
-          examples={[
-            "Example 1 – negative placeholder.",
-            "Example 2 – negative placeholder.",
-            "Example 3 – negative placeholder.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + will + not + have + been + V1-ing</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I will not have been talking.</li>
+              <li>He won&apos;t have been waiting for long.</li>
+              <li>We won&apos;t have been living there for ten years by then.</li>
+            </ul>
+          </div>
+        </>
       }
-      section2Intro={<>Al doilea card explică formele lungi, formele scurte și observațiile utile pentru exerciții.</>}
+      section2Intro={<>Trebuie să știi atât forma lungă, cât și forma scurtă.</>}
       section2Content={
-        <ScaffoldNegativeSectionTwo
-          longForm={["long form 1", "long form 2"]}
-          shortForm={["short form 1", "short form 2"]}
-          notes={["verbul principal păstrează forma corectă", "auxiliarul se schimbă după regulile timpului"]}
-        />
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Forme lungi</h3>
+            <ul className="ps-mini-list">
+              <li><strong>will not have been</strong></li>
+              <li>ex.: I <strong>will not have been talking</strong>.</li>
+              <li>după <strong>been</strong> folosim <strong>V-ing</strong></li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Forme scurte și note</h3>
+            <ul className="ps-mini-list">
+              <li><strong>will not → won&apos;t</strong></li>
+              <li>ex.: She <strong>won&apos;t have been working</strong>.</li>
+              <li>nu scoatem <strong>have been</strong> din structură</li>
+            </ul>
+          </div>
+        </div>
       }
-      mistakesIntro={<>Aici păstrăm aceeași zonă vizuală pentru greșeli frecvente.</>}
+      mistakesIntro={<>Aici apar frecvent greșeli de contracție sau de formă verbală după <strong>been</strong>.</>}
       mistakes={[
-        { wrong: "Wrong negative example 1.", correct: "Correct negative example 1." },
-        { wrong: "Wrong negative example 2.", correct: "Correct negative example 2." },
-        { wrong: "Wrong negative example 3.", correct: "Correct negative example 3." },
+        { wrong: "He won&apos;t been waiting long.", correct: "He won&apos;t have been waiting long." },
+        { wrong: "They will not have been worked here for years.", correct: "They will not have been working here for years." },
+        { wrong: "We won&apos;t have waiting by then.", correct: "We won&apos;t have been waiting by then." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

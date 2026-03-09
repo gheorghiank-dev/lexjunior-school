@@ -27,9 +27,6 @@ export function psTheoryPath(sectionId) {
   return `${PS_BASE_PATH}/${sectionId}/theory`;
 }
 
-export function psSensoryTheoryPath() {
-  return `${PS_BASE_PATH}/uses/theory-sensory`;
-}
 
 export function psRoomPath(sectionId, roomNumber) {
   return `${PS_BASE_PATH}/${sectionId}/room-${roomNumber}`;

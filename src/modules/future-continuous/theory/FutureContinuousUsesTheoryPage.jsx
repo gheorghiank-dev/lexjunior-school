@@ -1,30 +1,72 @@
 import React, { useEffect } from "react";
 import TenseUsesTheoryTemplate from "../../tenses/ui/TenseUsesTheoryTemplate.jsx";
-import {
-  ScaffoldUsesCardOne,
-  ScaffoldUsesCardTwo,
-  ScaffoldUsesCardThree,
-} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
-import { futureContinuousMapPath, futureContinuousOverviewPath, futureContinuousRoomPath } from "../future-paths.js";
+import {
+  futureContinuousMapPath,
+  futureContinuousOverviewPath,
+  futureContinuousRoomPath,
+} from "../future-paths.js";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "uses";
 
 export default function FutureContinuousUsesTheoryPage() {
-  useEffect(() => { markTheoryCompleted(SECTION_ID); }, []);
+  useEffect(() => {
+    markTheoryCompleted(SECTION_ID);
+  }, []);
 
   return (
     <TenseUsesTheoryTemplate
       backTo={futureContinuousMapPath()}
       backLabel="← Înapoi la harta Future Continuous"
-      title="Future Continuous – Uses"
-      lead="Pagini de uses standardizate: 4 carduri, aceeași arhitectură vizuală și aceeași ordine logică ca în restul modulelor."
-      card1Intro={<>Începe cu ideea generală: ce tip de situații exprimă acest timp și care este rolul lui principal.</>}
-      card1Content={<ScaffoldUsesCardOne summary="Use Future Continuous for actions that will be in progress at a specific future moment or as polite, neutral future arrangements." />}
-      card2Intro={<>Aici vezi principalele familii de uses pe care le vei întâlni în theory și în camere.</>}
-      card2Content={<ScaffoldUsesCardTwo uses={["action in progress at a future moment", "future background scene", "polite questions about plans", "expected ongoing future routine"]} />}
-      card3Intro={<>Cardul 3 te obligă să compari atent tense-ul cu alte structuri apropiate.</>}
-      card3Content={<ScaffoldUsesCardThree notes={["Future Continuous often answers the question: What will be happening at that time?", "It can sound softer and more neutral than will in some questions.", "Do not confuse it with Future Simple, which focuses more on decision/prediction than duration."]} />}
+      title="Future Continuous – Întrebuințări"
+      lead="Aici vezi când folosim Future Continuous și ce situații exprimă cel mai frecvent."
+      card1Title="Ideea generală"
+      card1Intro={<>Future Continuous arată că o acțiune va fi în desfășurare la un anumit moment din viitor.</>}
+      card1Content={
+        <TenseStructureBox title="Ce transmite">
+          <p className="ps-text">
+            Folosim Future Continuous pentru a vorbi despre <strong>acțiuni în curs de desfășurare în viitor</strong>, despre <strong>rutine sau aranjamente viitoare</strong> și despre <strong>întrebări politicoase legate de planurile altcuiva</strong>.
+          </p>
+        </TenseStructureBox>
+      }
+      card2Title="Întrebuințări principale"
+      card2Intro={<>Acestea sunt cele trei utilizări esențiale din materialul tău.</>}
+      card2Content={
+        <div className="columns-2">
+          <div className="example-box">
+            <h3>Use-uri frecvente</h3>
+            <ul className="ps-mini-list">
+              <li>o acțiune care va fi în desfășurare într-un moment specificat din viitor</li>
+              <li>o acțiune care va avea loc cu siguranță în viitor ca parte a unei rutine sau a unui aranjament</li>
+            </ul>
+          </div>
+          <div className="example-box">
+            <h3>Întrebări politicoase</h3>
+            <ul className="ps-mini-list">
+              <li>întrebăm despre planurile de viitor ale unei persoane</li>
+              <li>vrem să vedem dacă planurile ei se potrivesc cu dorințele noastre</li>
+            </ul>
+          </div>
+        </div>
+      }
+      card3Title="Exemple-cheie"
+      card3Intro={<>Exemplele acestea arată exact contextul în care apare timpul.</>}
+      card3Content={
+        <div className="rule-box">
+          <ul className="ps-mini-list">
+            <li>
+              <strong>I will be lying</strong> in the sun <strong>this time next Saturday</strong>.
+            </li>
+            <li>
+              I will ask Mary about her plans today because I <strong>will be seeing</strong> her at basketball practice.
+            </li>
+            <li>
+              <strong>Will you be going</strong> to the market today? Can you buy some more apples?
+            </li>
+          </ul>
+        </div>
+      }
       nextStepsDescription="Acum poți merge spre camerele de uses sau poți reveni la hartă și overview."
       nextStepActions={[
         { to: futureContinuousRoomPath("uses", 1), label: "Camera 1 – Întrebuințări" },

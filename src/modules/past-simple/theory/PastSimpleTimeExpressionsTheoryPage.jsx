@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
 import TenseTimeExpressionsTheoryTemplate from "../../tenses/ui/TenseTimeExpressionsTheoryTemplate.jsx";
-import {
-  ScaffoldTimeCardOne,
-  ScaffoldTimeCardTwo,
-  ScaffoldTimeCardThree,
-} from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
 import { markTheoryCompleted } from "../past-core/theory-progress.js";
 import { pastSimpleMapPath, pastSimpleOverviewPath, pastSimpleRoomPath } from "../past-paths.js";
 
@@ -16,16 +11,51 @@ export default function PastSimpleTimeExpressionsTheoryPage() {
     <TenseTimeExpressionsTheoryTemplate
       backTo={pastSimpleMapPath()}
       backLabel="← Înapoi la harta Past Simple"
-      title="Past Simple – Time Expressions"
-      lead="Expresiile de timp ale lui Past Simple te trimit spre un moment clar în trecut și spre ideea de acțiune încheiată."
-      card1Intro={<>Când contextul arată clar că evenimentul este terminat și legat de trecut, Past Simple este foarte probabil.</>}
-      card1Content={<ScaffoldTimeCardOne summary="Caută expresii ca yesterday, last week, ago sau in 2019. Ele fixează acțiunea într-un punct trecut și închis." />}
-      card2Intro={<>Grupează expresiile după tipul de reper temporal.</>}
-      card2Content={<ScaffoldTimeCardTwo groups={[{title:'Momente clare în trecut', items:['yesterday','last night','in 2020']},{title:'Distanță față de prezent', items:['two days ago','a week ago','long ago']}]} />}
-      card3Intro={<>Și aici există expresii care trebuie citite în context, nu doar memorate mecanic.</>}
-      card3Content={<ScaffoldTimeCardThree notes={["while și when nu cer automat Past Simple; contează dacă acțiunea e proces sau eveniment.","ago merge foarte natural cu Past Simple.","just / already / yet apar mai des cu Present Perfect, nu cu Past Simple, în engleza standard britanică."]} />}
+      title="Past Simple – Expresii de timp"
+      lead="Expresiile de timp ale lui Past Simple trimit spre un moment clar și încheiat în trecut."
+      card1Title="Indici de timp"
+      card1Intro={<>Când vezi expresii care fixează acțiunea într-un moment trecut, Past Simple devine alegerea naturală.</>}
+      card1Content={<div className="lj-structure-box ps-structure-box"><p className="ps-text">Caută expresii precum <strong>yesterday</strong>, <strong>last week</strong>, <strong>ago</strong> sau <strong>in 1786</strong>.</p></div>}
+      card2Title="Expresii de timp frecvente"
+      card2Intro={<>Grupează-le după tipul de reper temporal. Asta te ajută să le recunoști mai ușor în exerciții.</>}
+      card2Content={
+        <div className="columns-2">
+          <div className="example-box">
+            <h3>Momente clare în trecut</h3>
+            <ul className="ps-mini-list">
+              <li>yesterday</li>
+              <li>last week / month / year / Monday</li>
+              <li>in 1786</li>
+            </ul>
+          </div>
+          <div className="example-box">
+            <h3>Distanță față de prezent</h3>
+            <ul className="ps-mini-list">
+              <li>2 days ago</li>
+              <li>3 months ago</li>
+              <li>5 years ago</li>
+              <li>when, then</li>
+            </ul>
+          </div>
+        </div>
+      }
+      card3Title="Pattern notes"
+      card3Intro={<>Nu memora doar expresia. Uită-te și la rolul ei în propoziție.</>}
+      card3Content={
+        <div className="rule-box">
+          <ul className="ps-mini-list">
+            <li>Aceste expresii arată că acțiunea este <strong>încheiată</strong> și legată de trecut.</li>
+            <li><strong>When</strong> apare des în întrebări despre momentul acțiunii.</li>
+            <li><strong>Then</strong> ajută frecvent la redarea unei succesiuni de evenimente în trecut.</li>
+          </ul>
+        </div>
+      }
       nextStepsDescription="Mergi spre camerele de time expressions pentru a fixa semnalele de trecut."
-      nextStepActions={[{ to: pastSimpleRoomPath('time-expressions', 1), label: 'Camera 1 – Expresii de timp' },{ to: pastSimpleMapPath(), label: 'Harta modulului' },{ to: pastSimpleOverviewPath(), label: 'Recapitulare / overview' }]}
+      nextStepActions={[
+        { to: pastSimpleRoomPath('time-expressions', 1), label: 'Camera 1 – Expresii de timp' },
+        { to: pastSimpleMapPath(), label: 'Harta modulului' },
+        { to: pastSimpleOverviewPath(), label: 'Recapitulare / overview' },
+      ]}
     />
   );
 }

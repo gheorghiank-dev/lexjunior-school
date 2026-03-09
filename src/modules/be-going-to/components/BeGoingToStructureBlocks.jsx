@@ -1,12 +1,5 @@
 import React from "react";
 
-/**
- * Be Going To – canonical structure blocks
- *
- * These blocks are shared between the Be Going To overview and (optionally)
- * the theory pages, so that wording and layout stay perfectly in sync.
- */
-
 export function BeGoingToAffirmativeStructureBlock() {
   return (
     <div className="lj-structure-box">
@@ -14,39 +7,26 @@ export function BeGoingToAffirmativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>past form</strong> of the verb
+          Subject + <strong>am / is / are</strong> + <strong>going to</strong> + verb (V1)
         </span>
       </p>
 
-      <p className="ps-text">
-        For <strong>regular verbs</strong>, we usually add{" "}
-        <span className="rule-highlight-emphasis">-ed</span>:
-      </p>
-
       <ul className="ps-mini-list">
         <li>
-          I <strong>visited</strong> my grandparents yesterday.
+          I <strong>am going to eat</strong>.
         </li>
         <li>
-          She <strong>watched</strong> a film last night.
+          She <strong>is going to study</strong> tonight.
+        </li>
+        <li>
+          They <strong>are going to play</strong> tomorrow.
         </li>
       </ul>
 
       <p className="ps-text">
-        For <strong>irregular verbs</strong>, we use the{" "}
-        <span className="rule-highlight-emphasis">2nd form (V2)</span>:
+        The auxiliary <strong>to be</strong> changes according to the subject,
+        but the main verb stays in the <span className="rule-highlight-emphasis">base form (V1)</span>.
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          They <strong>went</strong> to the park on Sunday.{" "}
-          <span className="ps-structure-note">(go → went)</span>
-        </li>
-        <li>
-          He <strong>saw</strong> his friends at the concert.{" "}
-          <span className="ps-structure-note">(see → saw)</span>
-        </li>
-      </ul>
     </div>
   );
 }
@@ -58,27 +38,24 @@ export function BeGoingToNegativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          Subject + <strong>did not</strong> (<strong>didn&apos;t</strong>) +
-          verb (base form)
+          Subject + <strong>am / is / are</strong> + <strong>not</strong> + <strong>going to</strong> + verb (V1)
         </span>
       </p>
 
       <ul className="ps-mini-list">
         <li>
-          I <strong>didn&apos;t play</strong> tennis yesterday.
+          I <strong>am not going to leave</strong>.
         </li>
         <li>
-          She <strong>didn&apos;t eat</strong> breakfast this morning.
+          He <strong>isn&apos;t going to come</strong>.
         </li>
         <li>
-          They <strong>didn&apos;t go</strong> to school on Friday.
+          We <strong>aren&apos;t going to wait</strong>.
         </li>
       </ul>
 
       <p className="ps-text">
-        Notice that the main verb stays in the{" "}
-        <span className="rule-highlight-emphasis">base form</span> after{" "}
-        <strong>didn&apos;t</strong>.
+        Short forms are very common: <strong>I&apos;m not</strong>, <strong>isn&apos;t</strong>, <strong>aren&apos;t</strong>.
       </p>
     </div>
   );
@@ -91,32 +68,25 @@ export function BeGoingToInterrogativeStructureBlock() {
 
       <p className="ps-text">
         <span className="rule-highlight">
-          <strong>Did</strong> + subject + verb (base form) + <strong>?</strong>
+          <strong>Am / Is / Are</strong> + subject + <strong>going to</strong> + verb (V1) + <strong>?</strong>
         </span>
       </p>
 
       <ul className="ps-mini-list">
         <li>
-          <strong>Did</strong> you <strong>finish</strong> your homework?
+          <strong>Am</strong> I <strong>going to eat</strong>?
         </li>
         <li>
-          <strong>Did</strong> they <strong>travel</strong> to London last year?
+          <strong>Is</strong> she <strong>going to study</strong>?
+        </li>
+        <li>
+          <strong>Are</strong> they <strong>going to play</strong>?
         </li>
       </ul>
 
       <p className="ps-text">
-        For <strong>WH-questions</strong>, add the question word at the
-        beginning:
+        Short answers: <strong>Yes, I am.</strong> / <strong>No, I&apos;m not.</strong>
       </p>
-
-      <ul className="ps-mini-list">
-        <li>
-          <strong>When did</strong> you <strong>arrive</strong>?
-        </li>
-        <li>
-          <strong>Where did</strong> she <strong>grow up</strong>?
-        </li>
-      </ul>
     </div>
   );
 }
@@ -128,36 +98,16 @@ export function BeGoingToUsesStructureBlock() {
 
       <ul className="ps-mini-list">
         <li>
-          <span className="rule-highlight-emphasis">
-            Completed actions in the past
-          </span>{" "}
-          with a finished time:
-          <br />I <strong>visited</strong> London in 2019.
+          <span className="rule-highlight-emphasis">plans, intentions or ambitions</span>
+          <br />I <strong>am going to hire</strong> more staff for this project.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Actions in a story, in chronological order
-          </span>
-          :
-          <br />
-          He <strong>woke up</strong>, <strong>got dressed</strong> and{" "}
-          <strong>left</strong> the house.
+          <span className="rule-highlight-emphasis">decisions taken before the moment of speaking</span>
+          <br />I <strong>am going to make</strong> some vegetable soup.
         </li>
         <li>
-          <span className="rule-highlight-emphasis">
-            Past habits and routines
-          </span>{" "}
-          (often with adverbs of frequency):
-          <br />
-          We <strong>often played</strong> football after school.
-        </li>
-        <li>
-          <span className="rule-highlight-emphasis">
-            Past states or facts that are no longer true
-          </span>
-          :
-          <br />
-          She <strong>lived</strong> in Spain when she was a child.
+          <span className="rule-highlight-emphasis">predictions based on present evidence</span>
+          <br />Look at that boy! He <strong>is going to fall</strong>.
         </li>
       </ul>
     </div>
@@ -169,26 +119,20 @@ export function BeGoingToTimeExpressionsStructureBlock() {
     <div className="lj-structure-box">
       <h3 className="lj-structure-title">Common time expressions</h3>
 
-      <p className="ps-text">
-        These expressions are very common with <strong>Be Going To</strong>{" "}
-        because they show a finished time in the past:
-      </p>
-
       <ul className="ps-mini-list">
-        <li>
-          <em>yesterday</em>, <em>the day before yesterday</em>
-        </li>
-        <li>
-          <em>last night</em>, <em>last week</em>, <em>last month</em>,{" "}
-          <em>last year</em>
-        </li>
-        <li>
-          <em>two days ago</em>, <em>a week ago</em>, <em>a long time ago</em>
-        </li>
-        <li>
-          <em>in 2010</em>, <em>in the 1990s</em>, <em>when I was a child</em>
-        </li>
+        <li><em>tomorrow</em></li>
+        <li><em>the day after tomorrow</em></li>
+        <li><em>tonight</em></li>
+        <li><em>soon</em></li>
+        <li><em>next week / month / year</em></li>
+        <li><em>in a week / month / year</em></li>
       </ul>
+
+      <p className="ps-text">
+        These expressions often point to the future, but for <strong>be going to</strong>
+        the idea of <span className="rule-highlight-emphasis">intention or present evidence</span>
+        is still the most important clue.
+      </p>
     </div>
   );
 }

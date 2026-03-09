@@ -45,7 +45,8 @@ export default function PresentSimpleOverviewPage() {
   ];
 
   const tableNode = (
-    <table className="overview-table">
+    <div className="lj-structure-box ps-structure-box">
+      <table className="overview-table">
       <thead>
         <tr>
           <th className="ov-center">Nr/Pers</th>
@@ -190,7 +191,8 @@ export default function PresentSimpleOverviewPage() {
           </td>
         </tr>
       </tbody>
-    </table>
+      </table>
+    </div>
   );
 
   return (

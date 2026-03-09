@@ -63,18 +63,7 @@ export function buildPresentContinuousRoutes() {
         <PcRoomRoute sectionId={sectionId} />
       </React.Suspense>
     ),
-    getExtraSectionRoutes: (section, pages) => {
-      if (section.id === "uses" && pages?.sensoryTheory) {
-        return [
-          {
-            path: `${PC_BASE_PATH}/uses/theory-sensory`,
-            element: React.createElement(pages.sensoryTheory),
-          },
-        ];
-      }
-
-      return [];
-    },
+    getExtraSectionRoutes: () => [],
   });
 }
 
@@ -132,7 +121,6 @@ export const PRESENT_CONTINUOUS_THEORY_CONFIG = defineTenseTheory({
     { sectionId: "negative", path: pcTheoryPath("negative") },
     { sectionId: "interrogative", path: pcTheoryPath("interrogative") },
     { sectionId: "uses", path: pcTheoryPath("uses") },
-    { sectionId: "uses", path: `${PC_BASE_PATH}/uses/theory-sensory` },
     { sectionId: "time-expressions", path: pcTheoryPath("time-expressions") },
   ],
 });

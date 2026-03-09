@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../future-core/theory-progress.js";
 import { FUTURE_PERFECT_BASE_PATH, futurePerfectMapPath, futurePerfectRoomPath, futurePerfectOverviewPath } from "../future-paths.js";
 import TenseNegativeTheoryTemplate from "../../tenses/ui/TenseNegativeTheoryTemplate.jsx";
-import { ScaffoldNegativeSectionOne, ScaffoldNegativeSectionTwo } from "../../tenses/ui/TenseScaffoldTheoryContent.jsx";
+import TenseStructureBox from "../../tenses/ui/TenseStructureBox.jsx";
 
 const SECTION_ID = "negative";
 
@@ -17,30 +17,55 @@ export default function FuturePerfectNegativeTheoryPage() {
       backLabel="← Înapoi la modulul Future Perfect"
       title="Future Perfect – Negativ"
       lead="Reguli, exemple și explicații pentru formarea Future Perfect la negativ."
-      section1Intro={<>La negativ, păstrăm aceeași schemă de 4 carduri ca la Present Simple.</>}
+      section1Intro={
+        <>
+          La negativ folosim <strong>will not + have + V3</strong>. Forma scurtă este <strong>won&apos;t</strong>.
+        </>
+      }
       section1Content={
-        <ScaffoldNegativeSectionOne
-          formula="Subiect + will not have + participiul trecut"
-          examples={[
-            "Example 1 – negative placeholder.",
-            "Example 2 – negative placeholder.",
-            "Example 3 – negative placeholder.",
-          ]}
-        />
+        <>
+          <TenseStructureBox title="Structură generală">
+            <p className="ps-text">
+              <span className="rule-highlight">S + will + not + have + V3</span>
+            </p>
+          </TenseStructureBox>
+
+          <div className="example-box">
+            <h3>Exemple-model</h3>
+            <ul className="ps-list">
+              <li>I will not have walked.</li>
+              <li>He won&apos;t have finished the project by Monday.</li>
+              <li>We won&apos;t have arrived by 8 p.m.</li>
+            </ul>
+          </div>
+        </>
       }
-      section2Intro={<>Al doilea card explică formele lungi, formele scurte și observațiile utile pentru exerciții.</>}
+      section2Intro={<>Trebuie să știi atât forma lungă, cât și forma scurtă.</>}
       section2Content={
-        <ScaffoldNegativeSectionTwo
-          longForm={["long form 1", "long form 2"]}
-          shortForm={["short form 1", "short form 2"]}
-          notes={["verbul principal păstrează forma corectă", "auxiliarul se schimbă după regulile timpului"]}
-        />
+        <div className="columns-2">
+          <div className="rule-box">
+            <h3>Forme lungi</h3>
+            <ul className="ps-mini-list">
+              <li><strong>will not have</strong></li>
+              <li>ex.: I <strong>will not have finished</strong>.</li>
+              <li>verbul rămâne la <strong>V3</strong></li>
+            </ul>
+          </div>
+          <div className="rule-box">
+            <h3>Forme scurte și note</h3>
+            <ul className="ps-mini-list">
+              <li><strong>will not → won&apos;t</strong></li>
+              <li>ex.: She <strong>won&apos;t have arrived</strong>.</li>
+              <li>după <strong>have</strong> folosim tot <strong>V3</strong></li>
+            </ul>
+          </div>
+        </div>
       }
-      mistakesIntro={<>Aici păstrăm aceeași zonă vizuală pentru greșeli frecvente.</>}
+      mistakesIntro={<>Aici apar frecvent greșeli de contracție sau de folosire a formei greșite a verbului principal.</>}
       mistakes={[
-        { wrong: "Wrong negative example 1.", correct: "Correct negative example 1." },
-        { wrong: "Wrong negative example 2.", correct: "Correct negative example 2." },
-        { wrong: "Wrong negative example 3.", correct: "Correct negative example 3." },
+        { wrong: "He won&apos;t finished by noon.", correct: "He won&apos;t have finished by noon." },
+        { wrong: "They will not have went home.", correct: "They will not have gone home." },
+        { wrong: "We won&apos;t have wrote the test.", correct: "We won&apos;t have written the test." },
       ]}
       nextStepsDescription="După ce regula devine clară, poți merge la prima cameră, la hartă sau la recapitulare."
       nextStepActions={[

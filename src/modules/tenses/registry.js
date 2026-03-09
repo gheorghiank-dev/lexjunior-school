@@ -45,13 +45,13 @@ export function getTenseCards() {
     const status = m.status || "soon";
 
     const { tagLabel, tagClass } = getTagForStatus(status, {
-      readyLabel: "Modulo activ",
-      soonLabel: "Coming soon",
+      readyLabel: "",
+      soonLabel: "",
     });
 
     const cta = getCtaForStatus(status, {
       to: m.basePath,
-      readyLabel: `Intră în ${m.label}`,
+      readyLabel: `Mergi la harta ${m.label}`,
       previewLabel: "Vezi preview",
     });
 

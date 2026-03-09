@@ -24,6 +24,3 @@ export function pcRoomPath(sectionId, roomNumber) {
   return `${PC_BASE_PATH}/${sectionId}/room-${roomNumber}`;
 }
 
-export function pcUsesSensoryTheoryPath() {
-  return `${PC_BASE_PATH}/uses/theory-sensory`;
-}

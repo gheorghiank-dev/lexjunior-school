@@ -9,8 +9,6 @@ import PsNegativeTheoryPage from "./theory/PsNegativeTheoryPage.jsx";
 import PsInterrogativeTheoryPage from "./theory/PsInterrogativeTheoryPage.jsx";
 
 import PsUsesTheoryPage from "./theory/PsUsesTheoryPage.jsx";
-import PsUsesSensoryTheoryPage from "./theory/PsUsesSensoryTheoryPage.jsx";
-
 import PsTimeExpressionsTheoryPage from "./theory/PsTimeExpressionsTheoryPage.jsx";
 
 /** Read-only mapping of section -> page components. */
@@ -29,8 +27,6 @@ export const PS_SECTION_PAGES = {
   },
   uses: {
     theory: PsUsesTheoryPage,
-    // note: Uses has an extra sensory theory route (kept as-is)
-    sensoryTheory: PsUsesSensoryTheoryPage,
     rooms: [],
   },
   "time-expressions": {
