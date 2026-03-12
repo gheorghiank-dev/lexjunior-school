@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TenseMapPage from "../../tenses/ui/TenseMapPage.jsx";
-import { isTheoryCompleted } from "../pc-core/theory-progress.js";
-import { pcProgressManager } from "../pc-core/progress-manager.js";
+import { isTheoryCompleted as fallbackIsTheoryCompleted } from "../pc-core/theory-progress.js";
+import { pcProgressManager as fallbackProgressManager } from "../pc-core/progress-manager.js";
 import { PC_ROOMS_PER_SECTION } from "../pc-core/config.js";
-import { pcOverviewPath, pcRoomPath, pcTheoryPath, pcBadgePath } from "../pc-paths.js";
+import {
+  pcOverviewPath,
+  pcRoomPath,
+  pcTheoryPath,
+  pcBadgePath,
+} from "../pc-paths.js";
+import {
+  getPresentContinuousRoomProgressRows,
+  getPresentContinuousTheoryProgressRows,
+} from "../../../core/platform/present-continuous-progress.js";
+import {
+  createPresentSimpleHybridProgressManager,
+  createPresentSimpleHybridTheoryProgress,
+} from "../../../core/platform/present-simple-progress.js";
 
 /**
  * Map sections metadata for Present Continuous.
@@ -61,13 +74,72 @@ const PC_MAP_SECTIONS = [
  * PcMapPage – Present Continuous map, implemented via the generic TenseMapPage.
  */
 export default function PcMapPage() {
+  const [roomRows, setRoomRows] = useState([]);
+  const [theoryRows, setTheoryRows] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProgress() {
+      try {
+        const [loadedRoomRows, loadedTheoryRows] = await Promise.all([
+          getPresentContinuousRoomProgressRows(),
+          getPresentContinuousTheoryProgressRows(),
+        ]);
+
+        if (!isMounted) return;
+
+        setRoomRows(loadedRoomRows);
+        setTheoryRows(loadedTheoryRows);
+      } catch (error) {
+        console.warn(
+          "Failed to load Present Continuous progress from platform:",
+          error,
+        );
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadProgress();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const progressManager = useMemo(() => {
+    return createPresentSimpleHybridProgressManager({
+      roomRows,
+      fallbackProgressManager,
+      sections: PC_MAP_SECTIONS,
+      roomsPerSection: PC_ROOMS_PER_SECTION,
+    });
+  }, [roomRows]);
+
+  const hybridTheoryProgress = useMemo(() => {
+    return createPresentSimpleHybridTheoryProgress({
+      theoryRows,
+      fallbackTheoryProgress: {
+        isTheoryCompleted: fallbackIsTheoryCompleted,
+      },
+    });
+  }, [theoryRows]);
+
+  if (isLoading) {
+    return <div style={{ padding: 24 }}>Se încarcă progresul...</div>;
+  }
+
   return (
     <TenseMapPage
       tenseId="present-continuous"
       tenseLabel="Present Continuous"
       overviewPath={pcOverviewPath()}
-      progressManager={pcProgressManager}
-      isTheoryCompleted={isTheoryCompleted}
+      progressManager={progressManager}
+      isTheoryCompleted={hybridTheoryProgress.isTheoryCompleted}
       roomsPerSection={PC_ROOMS_PER_SECTION}
       mapSections={PC_MAP_SECTIONS}
       buildTheoryPath={pcTheoryPath}

@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../pc-core/theory-progress.js";
-import { PC_BASE_PATH, pcMapPath, pcRoomPath, pcOverviewPath } from "../pc-paths.js";
+import {
+  PC_BASE_PATH,
+  pcMapPath,
+  pcRoomPath,
+  pcOverviewPath,
+} from "../pc-paths.js";
 import TenseNegativeTheoryTemplate from "../../tenses/ui/TenseNegativeTheoryTemplate.jsx";
 import { PcNegativeStructureBlock } from "../components/PcPresentContinuousStructureBlocks.jsx";
 
@@ -8,7 +13,12 @@ const SECTION_ID = "negative";
 
 export default function PcNegativeTheoryPage() {
   useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
+    markTheoryCompleted(SECTION_ID).catch((err) => {
+      console.error(
+        "Failed to mark Present Continuous negative theory as completed:",
+        err,
+      );
+    });
   }, []);
 
   return (
@@ -19,7 +29,8 @@ export default function PcNegativeTheoryPage() {
       lead="Reguli și exemple pentru formarea lui Present Continuous la negativ."
       section1Intro={
         <>
-          La negativ folosim <strong>subiect + am / are / is + not + verb + -ing</strong>.
+          La negativ folosim{" "}
+          <strong>subiect + am / are / is + not + verb + -ing</strong>.
         </>
       }
       section1Content={
@@ -36,9 +47,7 @@ export default function PcNegativeTheoryPage() {
         </>
       }
       section2Intro={
-        <>
-          Reține atât formele lungi, cât și formele scurte ale negativului.
-        </>
+        <>Reține atât formele lungi, cât și formele scurte ale negativului.</>
       }
       section2Content={
         <div className="columns-2">
@@ -62,12 +71,16 @@ export default function PcNegativeTheoryPage() {
       }
       mistakesIntro={
         <>
-          Nu uita de auxiliarul <strong>to be</strong>, de <strong>not</strong> și de forma verbului cu <strong>-ing</strong>.
+          Nu uita de auxiliarul <strong>to be</strong>, de <strong>not</strong>{" "}
+          și de forma verbului cu <strong>-ing</strong>.
         </>
       }
       mistakes={[
         { wrong: "She not reading.", correct: "She is not reading." },
-        { wrong: "They aren&apos;t play football.", correct: "They aren&apos;t playing football." },
+        {
+          wrong: "They aren&apos;t play football.",
+          correct: "They aren&apos;t playing football.",
+        },
         { wrong: "I am not writeing.", correct: "I am not writing." },
       ]}
       nextStepsDescription="Dacă regula este clară, poți merge la prima cameră, la hartă sau la overview."

@@ -8,7 +8,12 @@ const SECTION_ID = "time-expressions";
 
 export default function PcTimeExpressionsTheoryPage() {
   useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
+    markTheoryCompleted(SECTION_ID).catch((err) => {
+      console.error(
+        "Failed to mark Present Continuous time expressions theory as completed:",
+        err,
+      );
+    });
   }, []);
 
   return (
@@ -19,13 +24,16 @@ export default function PcTimeExpressionsTheoryPage() {
       lead="Expresiile de timp te ajută să recunoști rapid dacă acțiunea are loc acum, în perioada aceasta sau într-un plan apropiat."
       card1Intro={
         <>
-          Expresiile de timp tipice pentru Present Continuous arată, de obicei, ideea de <strong>acum</strong> sau <strong>în perioada aceasta</strong>.
+          Expresiile de timp tipice pentru Present Continuous arată, de obicei,
+          ideea de <strong>acum</strong> sau{" "}
+          <strong>în perioada aceasta</strong>.
         </>
       }
       card1Content={<PcTimeExpressionsStructureBlock />}
       card2Intro={
         <>
-          Unele expresii apar foarte des în propoziții despre prezent sau despre planuri apropiate.
+          Unele expresii apar foarte des în propoziții despre prezent sau despre
+          planuri apropiate.
         </>
       }
       card2Content={
@@ -60,7 +68,8 @@ export default function PcTimeExpressionsTheoryPage() {
         <div className="lj-structure-box ps-structure-box">
           <h3 className="lj-structure-title">Observație importantă</h3>
           <p className="ps-text">
-            <strong>Still</strong> stă între verbul auxiliar și verbul principal.
+            <strong>Still</strong> stă între verbul auxiliar și verbul
+            principal.
           </p>
           <p className="ps-text">
             Exemplu: <strong>She is still working.</strong>
@@ -69,7 +78,10 @@ export default function PcTimeExpressionsTheoryPage() {
       }
       nextStepsDescription="Dacă ai prins expresiile de timp, poți trece la camerele dedicate sau la overview."
       nextStepActions={[
-        { to: pcRoomPath("time-expressions", 1), label: "Camera 1 – Expresii de timp" },
+        {
+          to: pcRoomPath("time-expressions", 1),
+          label: "Camera 1 – Expresii de timp",
+        },
         { to: pcMapPath(), label: "Harta modulului" },
         { to: pcOverviewPath(), label: "Recapitulare / overview" },
       ]}

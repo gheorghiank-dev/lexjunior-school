@@ -14,7 +14,12 @@ const SECTION_ID = "affirmative";
 
 export default function PcAffirmativeTheoryPage() {
   useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
+    markTheoryCompleted(SECTION_ID).catch((err) => {
+      console.error(
+        "Failed to mark Present Continuous affirmative theory as completed:",
+        err,
+      );
+    });
   }, []);
 
   return (
@@ -25,7 +30,8 @@ export default function PcAffirmativeTheoryPage() {
       lead="Reguli, exemple și explicații clare pentru formarea lui Present Continuous la afirmativ."
       section1Intro={
         <>
-          La afirmativ, Present Continuous se formează cu <strong>subiect + am / are / is + verb + -ing</strong>.
+          La afirmativ, Present Continuous se formează cu{" "}
+          <strong>subiect + am / are / is + verb + -ing</strong>.
         </>
       }
       section1Content={
@@ -34,11 +40,21 @@ export default function PcAffirmativeTheoryPage() {
           <div className="example-box">
             <h3>Exemple</h3>
             <ul className="ps-list">
-              <li><LexTtsButton text="He is working." /> He is working.</li>
-              <li><LexTtsButton text="I am dancing." /> I am dancing.</li>
-              <li><LexTtsButton text="She is lying." /> She is lying.</li>
-              <li><LexTtsButton text="He is stopping." /> He is stopping.</li>
-              <li><LexTtsButton text="You are travelling." /> You are travelling.</li>
+              <li>
+                <LexTtsButton text="He is working." /> He is working.
+              </li>
+              <li>
+                <LexTtsButton text="I am dancing." /> I am dancing.
+              </li>
+              <li>
+                <LexTtsButton text="She is lying." /> She is lying.
+              </li>
+              <li>
+                <LexTtsButton text="He is stopping." /> He is stopping.
+              </li>
+              <li>
+                <LexTtsButton text="You are travelling." /> You are travelling.
+              </li>
             </ul>
           </div>
         </>
@@ -46,7 +62,8 @@ export default function PcAffirmativeTheoryPage() {
       section2Title="Cum adăugăm terminația -ing"
       section2Intro={
         <>
-          La toate persoanele folosim verbul cu <strong>-ing</strong>, dar forma scrisă urmează câteva reguli importante.
+          La toate persoanele folosim verbul cu <strong>-ing</strong>, dar forma
+          scrisă urmează câteva reguli importante.
         </>
       }
       section2Content={
@@ -54,41 +71,62 @@ export default function PcAffirmativeTheoryPage() {
           <div>
             <h3 className="ps-rules-title">1. Doar adăugăm -ing</h3>
             <ul className="ps-list">
-              <li>work → <strong>working</strong></li>
+              <li>
+                work → <strong>working</strong>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="ps-rules-title">2. Dacă verbul se termină în -e</h3>
             <ul className="ps-list">
-              <li>dance → <strong>dancing</strong></li>
-              <li>Excepție: see → <strong>seeing</strong></li>
+              <li>
+                dance → <strong>dancing</strong>
+              </li>
+              <li>
+                Excepție: see → <strong>seeing</strong>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="ps-rules-title">3. -ie devine -y + ing</h3>
             <ul className="ps-list">
-              <li>lie → <strong>lying</strong></li>
+              <li>
+                lie → <strong>lying</strong>
+              </li>
             </ul>
           </div>
           <div>
-            <h3 className="ps-rules-title">4. Model CVC: dublăm consoana finală</h3>
+            <h3 className="ps-rules-title">
+              4. Model CVC: dublăm consoana finală
+            </h3>
             <ul className="ps-list">
-              <li>stop → <strong>stopping</strong></li>
-              <li>Excepții: open → <strong>opening</strong>, throw → <strong>throwing</strong></li>
+              <li>
+                stop → <strong>stopping</strong>
+              </li>
+              <li>
+                Excepții: open → <strong>opening</strong>, throw →{" "}
+                <strong>throwing</strong>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="ps-rules-title">5. Uneori se dublează -l</h3>
             <ul className="ps-list">
-              <li>travel → <strong>travelling</strong></li>
-              <li>Excepție: feel → <strong>feeling</strong></li>
+              <li>
+                travel → <strong>travelling</strong>
+              </li>
+              <li>
+                Excepție: feel → <strong>feeling</strong>
+              </li>
             </ul>
           </div>
         </div>
       }
       mistakesIntro={
         <>
-          Cele mai frecvente greșeli apar când lipsește auxiliarul <strong>to be</strong> sau când verbul nu este pus corect la forma cu <strong>-ing</strong>.
+          Cele mai frecvente greșeli apar când lipsește auxiliarul{" "}
+          <strong>to be</strong> sau când verbul nu este pus corect la forma cu{" "}
+          <strong>-ing</strong>.
         </>
       }
       mistakes={[

@@ -1,4 +1,5 @@
 import { createTenseModuleCore } from "../../tenses/createTenseModuleCore.js";
+import { savePresentContinuousRoomProgress } from "../../../core/platform/present-continuous-progress.js";
 import {
   PC_HUD_TEXT,
   PC_ROOMS_PER_SECTION,
@@ -11,6 +12,7 @@ const pcCore = createTenseModuleCore({
   sections: PC_SECTIONS,
   roomsPerSection: PC_ROOMS_PER_SECTION,
   hudText: PC_HUD_TEXT,
+  onRoomStatePersist: savePresentContinuousRoomProgress,
 });
 
 export const pcStorage = pcCore.storage;

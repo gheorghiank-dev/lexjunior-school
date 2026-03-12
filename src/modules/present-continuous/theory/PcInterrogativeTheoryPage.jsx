@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { markTheoryCompleted } from "../pc-core/theory-progress.js";
-import { PC_BASE_PATH, pcMapPath, pcRoomPath, pcOverviewPath } from "../pc-paths.js";
+import {
+  PC_BASE_PATH,
+  pcMapPath,
+  pcRoomPath,
+  pcOverviewPath,
+} from "../pc-paths.js";
 import TenseInterrogativeTheoryTemplate from "../../tenses/ui/TenseInterrogativeTheoryTemplate.jsx";
 import { PcInterrogativeStructureBlock } from "../components/PcPresentContinuousStructureBlocks.jsx";
 
@@ -8,7 +13,12 @@ const SECTION_ID = "interrogative";
 
 export default function PcInterrogativeTheoryPage() {
   useEffect(() => {
-    markTheoryCompleted(SECTION_ID);
+    markTheoryCompleted(SECTION_ID).catch((err) => {
+      console.error(
+        "Failed to mark Present Continuous interrogative theory as completed:",
+        err,
+      );
+    });
   }, []);
 
   return (
@@ -19,7 +29,8 @@ export default function PcInterrogativeTheoryPage() {
       lead="Reguli, exemple și răspunsuri scurte pentru întrebările în Present Continuous."
       section1Intro={
         <>
-          La interogativ mutăm auxiliarul <strong>am / are / is</strong> la începutul propoziției.
+          La interogativ mutăm auxiliarul <strong>am / are / is</strong> la
+          începutul propoziției.
         </>
       }
       section1Content={
@@ -62,13 +73,17 @@ export default function PcInterrogativeTheoryPage() {
       }
       mistakesIntro={
         <>
-          Ai grijă la ordinea cuvintelor: auxiliarul vine primul, apoi subiectul, apoi verbul cu <strong>-ing</strong>.
+          Ai grijă la ordinea cuvintelor: auxiliarul vine primul, apoi
+          subiectul, apoi verbul cu <strong>-ing</strong>.
         </>
       }
       mistakes={[
         { wrong: "You are talking?", correct: "Are you talking?" },
         { wrong: "Is she talk now?", correct: "Is she talking now?" },
-        { wrong: "Are they listening? Yes, they is.", correct: "Are they listening? Yes, they are." },
+        {
+          wrong: "Are they listening? Yes, they is.",
+          correct: "Are they listening? Yes, they are.",
+        },
       ]}
       nextStepsDescription="Dacă regula este clară, poți merge la prima cameră, la hartă sau la overview."
       nextStepActions={[
