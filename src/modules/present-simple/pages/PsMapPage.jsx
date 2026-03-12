@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TenseMapPage from "../../tenses/ui/TenseMapPage.jsx";
 import { progressManager } from "../ps-core/progress-manager.js";
 import { ROOMS_PER_SECTION } from "../ps-core/config.js";
@@ -9,6 +9,12 @@ import {
   psRoomPath,
   psTheoryPath,
 } from "../ps-paths.js";
+import {
+  createPresentSimpleHybridProgressManager,
+  createPresentSimpleHybridTheoryProgress,
+  getMyPresentSimpleRoomRows,
+  getMyPresentSimpleTheoryRows,
+} from "../../../core/platform/present-simple-progress.js";
 
 /**
  * Map sections metadata for Present Simple.
@@ -66,13 +72,58 @@ const PS_MAP_SECTIONS = [
  * PsMapPage – Present Simple map, implementată prin TenseMapPage global.
  */
 export default function PsMapPage() {
+  const [dbRoomRows, setDbRoomRows] = useState([]);
+  const [dbTheoryRows, setDbTheoryRows] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadDbRoomRows() {
+      try {
+        const [roomRows, theoryRows] = await Promise.all([
+          getMyPresentSimpleRoomRows(),
+          getMyPresentSimpleTheoryRows(),
+        ]);
+
+        if (isMounted) {
+          setDbRoomRows(roomRows);
+          setDbTheoryRows(theoryRows);
+        }
+      } catch (error) {
+        console.warn("Failed to load Present Simple progress from DB", error);
+      }
+    }
+
+    loadDbRoomRows();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const hybridProgressManager = useMemo(() => {
+    return createPresentSimpleHybridProgressManager({
+      roomRows: dbRoomRows,
+      fallbackProgressManager: progressManager,
+      sections: PS_MAP_SECTIONS,
+      roomsPerSection: ROOMS_PER_SECTION,
+    });
+  }, [dbRoomRows]);
+
+  const hybridTheoryProgress = useMemo(() => {
+    return createPresentSimpleHybridTheoryProgress({
+      theoryRows: dbTheoryRows,
+      fallbackTheoryProgress: { isTheoryCompleted },
+    });
+  }, [dbTheoryRows]);
+
   return (
     <TenseMapPage
       tenseId="present-simple"
       tenseLabel="Present Simple"
       overviewPath={psOverviewPath()}
-      progressManager={progressManager}
-      isTheoryCompleted={isTheoryCompleted}
+      progressManager={hybridProgressManager}
+      isTheoryCompleted={hybridTheoryProgress.isTheoryCompleted}
       roomsPerSection={ROOMS_PER_SECTION}
       mapSections={PS_MAP_SECTIONS}
       buildTheoryPath={psTheoryPath}

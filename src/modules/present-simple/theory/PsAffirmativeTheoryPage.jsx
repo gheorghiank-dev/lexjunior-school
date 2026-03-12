@@ -14,11 +14,9 @@ const SECTION_ID = "affirmative";
 
 export default function PsAffirmativeTheoryPage() {
   useEffect(() => {
-    try {
-      markTheoryCompleted(SECTION_ID);
-    } catch (err) {
+    markTheoryCompleted(SECTION_ID).catch((err) => {
       console.error("Failed to mark affirmative theory as completed:", err);
-    }
+    });
   }, []);
 
   return (
@@ -30,8 +28,9 @@ export default function PsAffirmativeTheoryPage() {
       section1Intro={
         <>
           În Present Simple, la afirmativ, ordinea cuvintelor este întotdeauna{" "}
-          <strong>Subiect + Verb</strong>. Pentru <strong>he / she / it</strong>,
-          verbul primește de obicei <strong>-s</strong> sau <strong>-es</strong>.
+          <strong>Subiect + Verb</strong>. Pentru <strong>he / she / it</strong>
+          , verbul primește de obicei <strong>-s</strong> sau{" "}
+          <strong>-es</strong>.
         </>
       }
       section1Content={
@@ -48,28 +47,27 @@ export default function PsAffirmativeTheoryPage() {
                 <LexTtsButton text="I work from home." /> I work from home.
               </li>
               <li>
-                <LexTtsButton text="You play football on Saturdays." /> You
-                play football on Saturdays.
+                <LexTtsButton text="You play football on Saturdays." /> You play
+                football on Saturdays.
               </li>
               <li>
                 <LexTtsButton text="We live in a small town." /> We live in a
                 small town.
               </li>
               <li>
-                <LexTtsButton text="They study English every day." /> They
-                study English every day.
+                <LexTtsButton text="They study English every day." /> They study
+                English every day.
               </li>
               <li>
-                <LexTtsButton text="He plays the piano." /> He plays the
-                piano.
+                <LexTtsButton text="He plays the piano." /> He plays the piano.
               </li>
               <li>
                 <LexTtsButton text="She reads books in the evening." /> She
                 reads books in the evening.
               </li>
               <li>
-                <LexTtsButton text="It snows a lot in winter." /> It snows a
-                lot in winter.
+                <LexTtsButton text="It snows a lot in winter." /> It snows a lot
+                in winter.
               </li>
             </ul>
           </div>
@@ -185,12 +183,11 @@ export default function PsAffirmativeTheoryPage() {
                 <LexTtsButton text="I work in a bank." /> I work in a bank.
               </li>
               <li>
-                <LexTtsButton text="He works in a bank." /> He works in a
-                bank.
+                <LexTtsButton text="He works in a bank." /> He works in a bank.
               </li>
               <li>
-                <LexTtsButton text="I watch films on Fridays." /> I watch
-                films on Fridays.
+                <LexTtsButton text="I watch films on Fridays." /> I watch films
+                on Fridays.
               </li>
               <li>
                 <LexTtsButton text="She watches films on Fridays." /> She
@@ -222,18 +219,29 @@ export default function PsAffirmativeTheoryPage() {
       }
       mistakesIntro={
         <>
-          Cele mai multe greșeli apar atunci când uităm să adăugăm <strong>-s</strong>
+          Cele mai multe greșeli apar atunci când uităm să adăugăm{" "}
+          <strong>-s</strong>
           sau <strong>-es</strong> la <strong>he / she / it</strong>.
         </>
       }
       mistakes={[
         { wrong: "He play football.", correct: "He plays football." },
-        { wrong: "She go to school by bus.", correct: "She goes to school by bus." },
-        { wrong: "It snow a lot in winter.", correct: "It snows a lot in winter." },
+        {
+          wrong: "She go to school by bus.",
+          correct: "She goes to school by bus.",
+        },
+        {
+          wrong: "It snow a lot in winter.",
+          correct: "It snows a lot in winter.",
+        },
       ]}
       nextStepsDescription="Când regula este clară, poți începe camerele de exerciții pentru Present Simple – Afirmativ, poți merge la hartă sau la recapitulare."
       nextStepActions={[
-        { to: psRoomPath(SECTION_ID, 1), label: "Camera 1 – Afirmativ", variant: "primary" },
+        {
+          to: psRoomPath(SECTION_ID, 1),
+          label: "Camera 1 – Afirmativ",
+          variant: "primary",
+        },
         { to: psMapPath(), label: "Harta modulului", variant: "outline" },
         { to: psOverviewPath(), label: "Recapitulare", variant: "secondary" },
       ]}

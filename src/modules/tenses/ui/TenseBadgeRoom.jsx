@@ -55,7 +55,8 @@ export default function TenseBadgeRoom({
   ex3Prompts,
   dictionaryItems,
   badgeStoryTtsText,
-  certificateDownloadUrl, // <- nou: linkul pentru diploma
+  certificateDownloadUrl,
+  onBadgePersist,
 }) {
   const hudRootRef = useRef(null);
 
@@ -503,6 +504,17 @@ export default function TenseBadgeRoom({
         roomNumber,
         scorePercent: score,
         passed,
+      });
+    }
+
+    if (typeof onBadgePersist === "function") {
+      Promise.resolve(
+        onBadgePersist({
+          scorePercent: score,
+          passed,
+        }),
+      ).catch((error) => {
+        console.warn("Badge persist failed", error);
       });
     }
   };

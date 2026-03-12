@@ -13,6 +13,15 @@ import {
   upsertMyPresentSimpleProgress,
 } from "../../core/platform/progress";
 
+import {
+  getMyPresentSimpleModuleRow,
+  getMyPresentSimpleRoomRows,
+  savePresentSimpleRoomProgress,
+  syncPresentSimpleModuleProgressFromRoomRows,
+  getMyPresentSimpleTheoryRows,
+  savePresentSimpleTheoryProgress,
+} from "../../core/platform/present-simple-progress.js";
+
 export default function PlatformProbePage() {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -22,6 +31,10 @@ export default function PlatformProbePage() {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [message, setMessage] = useState("");
+  const [presentSimpleModuleRow, setPresentSimpleModuleRow] = useState(null);
+  const [presentSimpleRoomRows, setPresentSimpleRoomRows] = useState([]);
+  const [presentSimpleTheoryRows, setPresentSimpleTheoryRows] = useState([]);
+  const [theorySectionId, setTheorySectionId] = useState("affirmative");
 
   async function refreshData() {
     try {
@@ -34,14 +47,60 @@ export default function PlatformProbePage() {
       if (currentSession) {
         const myProfile = await getMyProfile();
         const myProgress = await getMyModuleProgress();
+        const myPresentSimpleModuleRow = await getMyPresentSimpleModuleRow();
+        const myPresentSimpleRoomRows = await getMyPresentSimpleRoomRows();
+        const myPresentSimpleTheoryRows = await getMyPresentSimpleTheoryRows();
+
         setProfile(myProfile);
         setProgress(myProgress);
+        setPresentSimpleModuleRow(myPresentSimpleModuleRow);
+        setPresentSimpleRoomRows(myPresentSimpleRoomRows);
+        setPresentSimpleTheoryRows(myPresentSimpleTheoryRows);
       } else {
         setProfile(null);
         setProgress([]);
+        setPresentSimpleModuleRow(null);
+        setPresentSimpleRoomRows([]);
+        setPresentSimpleTheoryRows([]);
       }
     } catch (error) {
       setMessage(error.message || "Something went wrong.");
+    }
+  }
+
+  async function handleWritePresentSimpleTestRoom() {
+    try {
+      setMessage("Writing Present Simple test room...");
+
+      await savePresentSimpleRoomProgress({
+        sectionId: "affirmative",
+        roomNumber: 1,
+        roomState: {
+          firstAttemptScore: 100,
+          passed: true,
+          hasKey: true,
+        },
+      });
+
+      await refreshData();
+      setMessage("Present Simple test room saved.");
+    } catch (error) {
+      setMessage(error.message || "Failed to save Present Simple test room.");
+    }
+  }
+
+  async function handleWritePresentSimpleTheory() {
+    try {
+      setMessage("Writing Present Simple theory progress...");
+
+      await savePresentSimpleTheoryProgress(theorySectionId);
+      await refreshData();
+
+      setMessage("Present Simple theory progress saved.");
+    } catch (error) {
+      setMessage(
+        error.message || "Failed to save Present Simple theory progress.",
+      );
     }
   }
 
@@ -169,6 +228,21 @@ export default function PlatformProbePage() {
             >
               Sign Out
             </button>
+
+            <button type="button" onClick={handleWritePresentSimpleTestRoom}>
+              Write Present Simple Test Room
+            </button>
+
+            <input
+              type="text"
+              value={theorySectionId}
+              onChange={(event) => setTheorySectionId(event.target.value)}
+              placeholder="theory section id"
+            />
+
+            <button type="button" onClick={handleWritePresentSimpleTheory}>
+              Write Present Simple Theory
+            </button>
           </div>
         </form>
 
@@ -208,6 +282,21 @@ export default function PlatformProbePage() {
       <section className="card">
         <h2 className="card-title">Module progress</h2>
         <pre>{JSON.stringify(progress, null, 2)}</pre>
+      </section>
+
+      <section>
+        <h2>Present Simple Module Row</h2>
+        <pre>{JSON.stringify(presentSimpleModuleRow, null, 2)}</pre>
+      </section>
+
+      <section>
+        <h2>Present Simple Room Rows</h2>
+        <pre>{JSON.stringify(presentSimpleRoomRows, null, 2)}</pre>
+      </section>
+
+      <section>
+        <h2>Present Simple Theory Rows</h2>
+        <pre>{JSON.stringify(presentSimpleTheoryRows, null, 2)}</pre>
       </section>
     </main>
   );

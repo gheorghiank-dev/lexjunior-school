@@ -14,7 +14,12 @@ import { getAcceptedAnswerVariants } from "../validation/getAcceptedAnswerVarian
  *
  * This lets us share the engine without coupling it to Present Simple.
  */
-export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
+export function createUseRoomEngine({
+  normalizeAnswer,
+  progressManager,
+  HUD,
+  onRoomStatePersist,
+}) {
   return function useRoomEngine({
     sectionId,
     roomNumber,
@@ -293,6 +298,18 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
             // doar dacă first attempt din runda de cheie este 100% acordăm cheia
             try {
               nextState = progressManager.grantKey(sectionId, roomNumber);
+
+              if (onRoomStatePersist) {
+                Promise.resolve(
+                  onRoomStatePersist({
+                    sectionId,
+                    roomNumber,
+                    roomState: nextState,
+                  }),
+                ).catch((err) => {
+                  console.warn("Room state persist (key-run) failed", err);
+                });
+              }
             } catch (err) {
               console.warn("Grant key (key-run) failed", err);
             }
@@ -314,6 +331,18 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
               roomNumber,
               percent,
             );
+
+            if (onRoomStatePersist) {
+              Promise.resolve(
+                onRoomStatePersist({
+                  sectionId,
+                  roomNumber,
+                  roomState: nextState,
+                }),
+              ).catch((err) => {
+                console.warn("Room state persist (first attempt) failed", err);
+              });
+            }
           } catch (err) {
             console.warn("Set first attempt failed", err);
           }
@@ -322,6 +351,21 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
           if (percent === 100 && !nextState.hasKey) {
             try {
               nextState = progressManager.grantKey(sectionId, roomNumber);
+
+              if (onRoomStatePersist) {
+                Promise.resolve(
+                  onRoomStatePersist({
+                    sectionId,
+                    roomNumber,
+                    roomState: nextState,
+                  }),
+                ).catch((err) => {
+                  console.warn(
+                    "Room state persist (grant key on first attempt) failed",
+                    err,
+                  );
+                });
+              }
             } catch (err) {
               console.warn("Grant key on first attempt failed", err);
             }
@@ -334,6 +378,18 @@ export function createUseRoomEngine({ normalizeAnswer, progressManager, HUD }) {
               roomNumber,
               percent,
             );
+
+            if (onRoomStatePersist) {
+              Promise.resolve(
+                onRoomStatePersist({
+                  sectionId,
+                  roomNumber,
+                  roomState: nextState,
+                }),
+              ).catch((err) => {
+                console.warn("Room state persist (record attempt) failed", err);
+              });
+            }
           } catch (err) {
             console.warn("Record attempt failed", err);
           }

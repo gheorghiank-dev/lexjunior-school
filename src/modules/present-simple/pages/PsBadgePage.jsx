@@ -14,6 +14,7 @@ import {
   badgeStoryTtsText,
 } from "../ps-badge-exercises.js";
 import { presentSimpleBadgeLexHints } from "../../lex-hints/present-simple/index.js";
+import { savePresentSimpleBadgeProgress } from "../../../core/platform/present-simple-progress.js";
 
 /**
  * Present Simple badge page – thin wrapper over the global TenseBadgeRoom.
@@ -22,6 +23,17 @@ export default function PsBadgePage() {
   const tenseName = "Present Simple";
   const sectionId = "badge";
   const roomNumber = 1;
+
+  async function handleBadgePersist({ scorePercent, passed }) {
+    try {
+      await savePresentSimpleBadgeProgress({
+        scorePercent,
+        passed,
+      });
+    } catch (error) {
+      console.warn("Failed to persist Present Simple badge progress", error);
+    }
+  }
 
   const masterStorageKey = "ps_badge_room1_master_v1";
   const draftStorageKey = "ps_badge_room1_draft_v1";
@@ -113,6 +125,7 @@ export default function PsBadgePage() {
       theoryRoute={psTheoryPath("affirmative")}
       mapRoute={psMapPath()}
       progressManager={progressManager}
+      onBadgePersist={handleBadgePersist}
       storage={storage}
       masterStorageKey={masterStorageKey}
       draftStorageKey={draftStorageKey}

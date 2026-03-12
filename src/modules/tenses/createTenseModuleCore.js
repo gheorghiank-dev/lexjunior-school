@@ -20,6 +20,7 @@ export function createTenseModuleCore({
   roomsPerSection,
   hudText,
   normalizeAnswer = defaultNormalizeAnswer,
+  onRoomStatePersist,
 }) {
   const storage = createTenseStorage(storagePrefix);
 
@@ -41,6 +42,7 @@ export function createTenseModuleCore({
     normalizeAnswer,
     progressManager,
     HUD: BoundHUD,
+    onRoomStatePersist,
   });
 
   return {
